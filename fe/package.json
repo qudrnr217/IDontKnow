@@ -26,7 +26,10 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.4.1",
-    "vue-template-compiler": "^2.6.14"
+    "sass": "^1.54.9",
+    "sass-loader": "^13.0.2",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^5.74.0"
   },
   "eslintConfig": {
     "root": true,
@@ -41,7 +44,14 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "endOfLine": "auto"
+        }
+      ]
+    }
   },
   "browserslist": [
     "> 1%",
