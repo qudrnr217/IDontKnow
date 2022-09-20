@@ -36,8 +36,6 @@ export default {
   /* background-color: black; */
 }
 .header {
-  position: fixed;
-  top: 0;
 }
 .footer {
   position: fixed;
