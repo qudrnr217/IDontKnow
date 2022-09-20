@@ -26,7 +26,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public UserResponse.UserInfoOnlyId join(UserRequest.Join request){
+    public UserResponse.OnlyId join(UserRequest.Join request){
         DistrictCode districtCode = districtCodeRepository.findById(request.getDistrictId());
 
         User newUser = User.builder()
@@ -39,6 +39,15 @@ public class UserService {
                 .role(Role.USER)
                 .build();
         userRepository.save(newUser);
-        return UserResponse.UserInfoOnlyId.build(newUser);
+        return UserResponse.OnlyId.build(newUser);
     }
+
+    public boolean checkEmailDuplication(String email){
+        return userRepository.existsByEmail(email);
+    }
+
+    public boolean checkNameDuplication(String name){
+        return userRepository.existsByName(name);
+    }
+
 }
