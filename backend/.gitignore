@@ -46,6 +46,7 @@ ssafy-web.log
 ### .http private env ###
 src/rest/http-client.private.env.json
 
-### application.properties ###
+### .http log 파일 ###
+.idea/httpRequests
 
 
