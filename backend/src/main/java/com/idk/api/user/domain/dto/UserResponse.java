@@ -25,12 +25,16 @@ public class UserResponse {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Login {
+        private Long id;
         private String name;
+        private int districtId;
         private String accessToken;
 
-        public static Login build(User user, Token accessToken) {
+        public static Login build(User user,Token accessToken) {
             return Login.builder()
+                    .id(user.getId())
                     .name(user.getName())
+                    .districtId(user.getDistrictCode().getId())
                     .accessToken(accessToken.getToken())
                     .build();
         }
