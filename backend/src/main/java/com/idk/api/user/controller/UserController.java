@@ -1,8 +1,8 @@
-package com.idk.api.user.domain.controller;
+package com.idk.api.user.controller;
 
-import com.idk.api.user.domain.dto.UserRequest;
-import com.idk.api.user.domain.dto.UserResponse;
-import com.idk.api.user.domain.service.UserService;
+import com.idk.api.user.dto.UserRequest;
+import com.idk.api.user.dto.UserResponse;
+import com.idk.api.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

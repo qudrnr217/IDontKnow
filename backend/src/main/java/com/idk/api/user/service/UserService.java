@@ -1,10 +1,10 @@
-package com.idk.api.user.domain.service;
+package com.idk.api.user.service;
 
 import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.districtcode.domain.repository.DistrictCodeRepository;
 import com.idk.api.user.domain.Role;
-import com.idk.api.user.domain.dto.UserRequest;
-import com.idk.api.user.domain.dto.UserResponse;
+import com.idk.api.user.dto.UserRequest;
+import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
 import com.idk.api.user.exception.InvalidPasswordException;

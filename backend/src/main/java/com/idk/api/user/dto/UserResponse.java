@@ -1,4 +1,4 @@
-package com.idk.api.user.domain.dto;
+package com.idk.api.user.dto;
 
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.security.token.Token;
