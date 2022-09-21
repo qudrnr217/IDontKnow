@@ -11,11 +11,11 @@ public class UserResponse {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class OnlyId{
-        private Long id;
+        private Long userId;
 
         public static OnlyId build(User user){
             return OnlyId.builder()
-                    .id(user.getId())
+                    .userId(user.getId())
                     .build();
         }
     }
@@ -25,14 +25,14 @@ public class UserResponse {
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Login {
-        private Long id;
+        private Long userId;
         private String name;
         private int districtId;
         private String accessToken;
 
         public static Login build(User user,Token accessToken) {
             return Login.builder()
-                    .id(user.getId())
+                    .userId(user.getId())
                     .name(user.getName())
                     .districtId(user.getDistrictCode().getId())
                     .accessToken(accessToken.getToken())
