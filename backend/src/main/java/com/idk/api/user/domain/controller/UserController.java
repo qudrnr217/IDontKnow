@@ -30,4 +30,10 @@ public class UserController {
     public ResponseEntity<Boolean> checkNameDuplicate(@PathVariable String name){
         return ResponseEntity.ok(userService.checkNameDuplication(name));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<UserResponse.Login> login(@RequestBody UserRequest.Login request){
+        UserResponse.Login response = userService.login(request);
+        return ResponseEntity.ok().body(response);
+    }
 }

@@ -7,6 +7,8 @@ import com.idk.api.user.domain.dto.UserRequest;
 import com.idk.api.user.domain.dto.UserResponse;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
+import com.idk.api.user.exception.InvalidPasswordException;
+import com.idk.api.user.exception.UserNotFoundException;
 import com.idk.api.user.security.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,4 +52,10 @@ public class UserService {
         return userRepository.existsByName(name);
     }
 
+    public UserResponse.Login login(UserRequest.Login request){
+        User findUser = userRepository.findByEmail(request.getEmail());
+        if(findUser == null)    throw new UserNotFoundException();
+        if(!passwordEncoder.matches(request.getPassword(), findUser.getPassword())) throw new InvalidPasswordException();
+        return UserResponse.Login.build(findUser, tokenProvider.generateAccessToken(findUser));
+    }
 }
