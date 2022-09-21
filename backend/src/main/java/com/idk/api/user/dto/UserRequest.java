@@ -1,4 +1,4 @@
-package com.idk.api.user.domain.dto;
+package com.idk.api.user.dto;
 
 import lombok.*;
 

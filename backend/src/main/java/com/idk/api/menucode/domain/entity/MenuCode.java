@@ -1,4 +1,4 @@
-package com.idk.api.districtcode.domain.entity;
+package com.idk.api.menucode.domain.entity;
 
 import lombok.*;
 
@@ -9,13 +9,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "district_code")
-public class DistrictCode {
+@Table(name = "menu_code")
+public class MenuCode {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "district_id")
+    @Column(name = "menu_id")
     private int id;
 
-    @Column(name = "district_name")
+    @Column(name = "menu_name")
     private String name;
+
 }
+
