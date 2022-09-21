@@ -21,12 +21,12 @@ public class UserController {
         return ResponseEntity.ok().body(userService.join(request));
     }
 
-    @GetMapping("/join/{email}/exists")
+    @GetMapping("/email/{email}/exist")
     public ResponseEntity<Boolean> checkEmailDuplicate(@PathVariable String email){
         return ResponseEntity.ok(userService.checkEmailDuplication(email));
     }
 
-    @GetMapping("/join/{name}/exists")
+    @GetMapping("/name/{name}/exist")
     public ResponseEntity<Boolean> checkNameDuplicate(@PathVariable String name){
         return ResponseEntity.ok(userService.checkNameDuplication(name));
     }
