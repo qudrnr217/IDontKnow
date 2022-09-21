@@ -25,14 +25,13 @@ spring:
 
 # server
 server:
-  address: localhost
   servlet:
     encoding:
       force: 'true'
       charset: UTF-8
       enabled: 'true'
     contextPath: /
-  port: '8080'
+  port: '8081'
 build:
   date: '@build.date@'
 
@@ -51,9 +50,6 @@ logging:
     com:
       samsung:
         security: DEBUG
-      amazonaws:
-        util:
-          EC2MetadataUtils: ERROR
   file:
     name: ./ssafy-web.log
 
