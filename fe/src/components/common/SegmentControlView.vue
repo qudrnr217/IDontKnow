@@ -132,12 +132,17 @@ export default {
   user-select: none;
 
   overflow-x: scroll;
-
   label {
     cursor: inherit;
   }
 
   .option {
+    font-family: "GmarketSansTTFLight";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 20px;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -246,6 +251,7 @@ export default {
         -webkit-transition: all 0.2s ease;
         transition: all 0.2s ease;
         will-change: transform;
+        // width: 50px;
       }
     }
   }

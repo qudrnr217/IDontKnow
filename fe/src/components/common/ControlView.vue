@@ -49,11 +49,7 @@ export default {
 <style>
 @media screen and (min-width: 600px) {
   .demo-wrapper {
-    margin-top: 32px;
-  }
-
-  h1 {
-    margin-bottom: 16px;
+    margin-top: 28px;
   }
 }
 
@@ -92,10 +88,14 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 25px;
+  /* background-color: red; */
 }
 
 .segmented-control--wrapper {
   max-width: 800px;
-  margin-top: 16px;
+  width: 355px;
+  /* margin-top: 16px; */
 }
 </style>
