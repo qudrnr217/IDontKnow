@@ -2,10 +2,7 @@ package com.idk.api.districtcode.domain.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @Builder
@@ -15,11 +12,10 @@ import javax.persistence.Table;
 @Table(name = "district_code")
 public class DistrictCode {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "district_id")
     private int id;
 
     @Column(name = "district_name")
     private String name;
-
-
 }

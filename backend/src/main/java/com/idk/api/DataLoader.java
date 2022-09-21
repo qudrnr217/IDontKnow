@@ -2,8 +2,9 @@ package com.idk.api;
 
 import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.districtcode.domain.repository.DistrictCodeRepository;
-import com.idk.api.menu.domain.entity.Menu;
-import com.idk.api.menu.domain.repository.MenuRepository;
+import com.idk.api.districtcode.exception.DistrictCodeNotFoundException;
+import com.idk.api.menucode.domain.entity.MenuCode;
+import com.idk.api.menucode.domain.repository.MenuCodeRepository;
 import com.idk.api.user.domain.Role;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
@@ -20,11 +21,11 @@ import java.util.List;
 public class DataLoader implements CommandLineRunner {
     private final UserRepository userRepository;
     private final DistrictCodeRepository districtCodeRepository;
-    private final MenuRepository menuRepository;
+    private final MenuCodeRepository menuCodeRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         if (districtCodeRepository.findAll().isEmpty()){
             List<DistrictCode> districtCodeList = new ArrayList<>();
             String[] districtNames = new String[] {"강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구",
@@ -36,18 +37,20 @@ public class DataLoader implements CommandLineRunner {
             }
             districtCodeRepository.saveAll(districtCodeList);
         }
-        if (menuRepository.findAll().isEmpty()){
-            List<Menu> menuList = new ArrayList<>();
-            String[] menuNames = new String[] {"한식","분식","카페/디저트","돈까스/일식","회","치킨","피자","아시안/양식",
+        if (menuCodeRepository.findAll().isEmpty()){
+            List<MenuCode> menuCodeList = new ArrayList<>();
+            String[] menuCodeNames = new String[] {"한식","분식","카페/디저트","돈까스/일식","회","치킨","피자","아시안/양식",
                     "중식","족발/보쌈","야식","찜탕","도시락","패스트푸드"};
 
-            for(String i : menuNames){
-                Menu menu = Menu.builder().name(i).build();
-                menuList.add(menu);
+            for(String i : menuCodeNames){
+                MenuCode menu = MenuCode.builder().name(i).build();
+                menuCodeList.add(menu);
             }
-            menuRepository.saveAll(menuList);
+            menuCodeRepository.saveAll(menuCodeList);
         }
         if (userRepository.findAll().isEmpty()) {
+            List<User> userList = new ArrayList<>();
+            DistrictCode districtCode = districtCodeRepository.findById(1).orElseThrow(DistrictCodeNotFoundException::new);
             User admin = User.builder()
                     .name("관리자")
                     .email("idontknow@idontknow.com")
@@ -55,9 +58,9 @@ public class DataLoader implements CommandLineRunner {
                     .role(Role.ADMIN)
                     .age(20)
                     .gender("F")
-                    .districtCode(DistrictCode.builder().id(1).name("강남구").build())
+                    .districtCode(districtCode)
                     .build();
-            userRepository.save(admin);
+            userList.add(admin);
             User user = User.builder()
                     .name("치킨러버")
                     .email("chikenLover@idontknow.com")
@@ -65,10 +68,10 @@ public class DataLoader implements CommandLineRunner {
                     .role(Role.USER)
                     .age(20)
                     .gender("M")
-                    .districtCode(DistrictCode.builder().id(1).name("강남구").build())
+                    .districtCode(districtCode)
                     .build();
-            userRepository.save(user);
+            userList.add(user);
+            userRepository.saveAll(userList);
         }
-
     }
 }

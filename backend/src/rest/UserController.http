@@ -1,8 +1,23 @@
-POST {{apiUrl}}/user/login
+### 유저 로그인
+POST {{apiUrl}}/users/login
 Content-Type: application/json;charset=UTF-8
 
 {
   "id": "2"
+}
+
+> {%
+client.global.set("authorizationToken", "Bearer " + response.body.accessToken);
+client.log("Auth Token : " + client.global.get("authorizationToken"));
+%}
+
+### 관리자 로그인
+
+POST {{apiUrl}}/users/login
+Content-Type: application/json;charset=UTF-8
+
+{
+  "id": "1"
 }
 
 > {%

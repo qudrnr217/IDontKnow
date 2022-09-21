@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Vote extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "vote_id")
+    @Column(name = "vote_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

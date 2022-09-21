@@ -32,7 +32,7 @@ public class User extends BaseEntity {
 
     private String gender;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id")
     private DistrictCode districtCode;
 
