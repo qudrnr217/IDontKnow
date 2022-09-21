@@ -28,5 +28,27 @@
 .title {
   text-align: center;
   font-size: 40px;
+  /* background-color: red; */
+}
+
+/* 폰트 */
+.v-application {
+  font-family: "GmarketSansTTF", sans-serif !important;
+}
+@font-face {
+  font-family: "GmarketSansTTFLight";
+  src: url("./assets/fonts/GmarketSansTTFLight.ttf") format("truetype");
+  /* font-weight: 400; */
+}
+@font-face {
+  font-family: "GmarketSansTTFMedium";
+  src: url("assets/fonts/GmarketSansTTFMedium.ttf") format("truetype");
+  /* font-weight: 300; */
+}
+
+@font-face {
+  font-family: "GmarketSansTTFBold";
+  src: url("assets/fonts/GmarketSansTTFBold.ttf") format("truetype");
+  /* font-weight: 300; */
 }
 </style>
