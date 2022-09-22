@@ -11,8 +11,8 @@
           :value="segment.id"
           v-model="selectedSegmentId"
         />
-        <label :for="segment.id">
-          <span>{{ segment.title }}</span>
+        <label :for="segment.id" class="seg-label">
+          <span class="seg-title">{{ segment.title }}</span>
         </label>
       </div>
     </div>
@@ -103,7 +103,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 // Root CSS class
 .vue-ios13-segmented-control {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -251,7 +251,6 @@ export default {
         -webkit-transition: all 0.2s ease;
         transition: all 0.2s ease;
         will-change: transform;
-        // width: 50px;
       }
     }
   }
@@ -268,6 +267,14 @@ export default {
     will-change: transform;
     -webkit-transition: transform 0.2s ease;
     transition: transform 0.2s ease;
+  }
+
+  .seg-title {
+    width: 27px;
+  }
+
+  .option {
+    width: 50px;
   }
 }
 </style>
