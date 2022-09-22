@@ -1,6 +1,5 @@
 package com.idk.api.vote.controller;
 
-
 import com.idk.api.user.security.userdetails.CurrentUser;
 import com.idk.api.user.security.userdetails.CustomUserDetails;
 import com.idk.api.vote.dto.VoteRequest;
@@ -21,6 +20,24 @@ public class VoteController {
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<VoteResponse.OnlyId> create(@RequestBody VoteRequest.Create request, @CurrentUser CustomUserDetails customUserDetails) {
         VoteResponse.OnlyId response = voteService.create(request, customUserDetails.getUser());
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/{voteId}")
+    public ResponseEntity<VoteResponse.Info> getOne(@PathVariable Long voteId, @CurrentUser CustomUserDetails customUserDetails) {
+        VoteResponse.Info response = voteService.getOne(voteId, customUserDetails);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @PatchMapping("/{voteId}")
+    public ResponseEntity<VoteResponse.OnlyId> update(@PathVariable Long voteId, @RequestBody VoteRequest.ChangeStatus request, @CurrentUser CustomUserDetails customUserDetails) {
+        VoteResponse.OnlyId response = voteService.changeStatus(voteId, request, customUserDetails.getUser());
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{voteId}")
+    public ResponseEntity<VoteResponse.OnlyId> delete(@PathVariable Long voteId, @CurrentUser CustomUserDetails customUserDetails) {
+        VoteResponse.OnlyId response = voteService.delete(voteId, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
     }
 }

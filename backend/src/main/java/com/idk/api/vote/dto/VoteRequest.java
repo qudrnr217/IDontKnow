@@ -16,4 +16,13 @@ public class VoteRequest {
         private String optionA;
         private String optionB;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class ChangeStatus {
+        private boolean status;
+    }
+
 }
