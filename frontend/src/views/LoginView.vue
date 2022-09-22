@@ -3,22 +3,7 @@
     <div class="background">
       <div class="body">
         <header-view class="header" />
-        <div class="title">회원가입</div>
-        <div class="textcontainer">
-          <div class="columnname">Name</div>
-          <div class="columntextfield">
-            <iTextField
-              width="100%"
-              maxlength="15"
-              placeholder="닉네임"
-              v-model="idValue"
-            />
-          </div>
-        </div>
-        <div class="textbutton">
-          <div>사용가능한 닉네임입니다.</div>
-          <button class="button">닉네임 중복 체크</button>
-        </div>
+        <div class="title">로그인</div>
         <div class="textcontainer">
           <div class="columnname">E-Mail</div>
           <div class="columntextfield">
@@ -29,10 +14,6 @@
               v-model="idValue"
             />
           </div>
-        </div>
-        <div class="textbutton">
-          <div>사용가능한 이메일입니다.</div>
-          <button class="button">이메일 중복 체크</button>
         </div>
         <div class="textcontainer">
           <div class="columnname">Password</div>
@@ -45,20 +26,11 @@
             />
           </div>
         </div>
-        <div class="textcontainer">
-          <div class="columnname">Password</div>
-          <div class="columntextfield">
-            <iTextField
-              width="100%"
-              maxlength="15"
-              placeholder="비밀번호 확인"
-              v-model="idValue"
-            />
-          </div>
+        <iButton>비밀번호 재설정</iButton>
+        <div>
+          <button class="button1" opacity="0.2">회원가입</button>
+          <button class="button2">로그인</button>
         </div>
-        <div class="columnname">거주지</div>
-        <div class="columnname">성별</div>
-        <div class="columnname">연령대</div>
         <footer-view class="footer" />
       </div>
     </div>
@@ -68,17 +40,20 @@
 <script>
 import HeaderView from "../components/common/HeaderView.vue";
 import FooterView from "../components/common/FooterView.vue";
-import iTextField from "../components/common/iTextField";
+import iTextField from "../components/common/iTextField.vue";
+import iButton from "../components/common/iButton.vue";
+
 export default {
   components: {
     HeaderView,
     FooterView,
     iTextField,
+    iButton,
   },
 };
 </script>
 
-<style>
+<style scoped>
 .textcontainer {
   display: flex;
   outline: none;
@@ -87,18 +62,7 @@ export default {
   border: none;
   border-radius: 6px;
 }
-.columnname {
-  display: flex;
-  outline: none;
-  padding: 0.4rem 0.8rem;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 6px;
-}
-.columntextfield {
-  justify-content: flex-end;
-}
-.button {
+.button1 {
   background-color: #007aff; /* Green */
   border: none;
   border-radius: 6px;
@@ -114,7 +78,20 @@ export default {
   transition-duration: 0.4s;
   cursor: pointer;
 }
-.textbutton {
-  display: flex;
+.button2 {
+  background-color: #007aff; /* Green */
+  border: none;
+  border-radius: 6px;
+  width: 80px;
+  height: 30px;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 10px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
 }
 </style>

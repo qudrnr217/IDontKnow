@@ -15,6 +15,21 @@ const routes = [
     name: "community",
     component: () => import("../views/CommunityView.vue"),
   },
+  {
+    path: "/regist",
+    name: "regist",
+    component: () => import("../views/RegistView.vue"),
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("../views/LoginView.vue"),
+  },
+  {
+    path: "/logout",
+    name: "logout",
+    component: () => import("../views/LogoutView.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",
