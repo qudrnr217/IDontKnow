@@ -77,8 +77,8 @@ public class Vote extends BaseEntity {
                 .optionA(request.getOptionA())
                 .optionB(request.getOptionB())
                 .status(false)
-                .category(request.getCategory())
-                .subCategory(request.getSubCategory())
+                .category(Category.fromString(request.getCategory()))
+                .subCategory(SubCategory.fromString(request.getSubCategory()))
                 .build();
 
     }

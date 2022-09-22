@@ -31,15 +31,17 @@ public class VoteResponse {
     @AllArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Info {
         private Long voteId;
-        private Category category;
-        private SubCategory subCategory;
+        private String category;
+        private String subCategory;
         private String title;
         private Long userId;
         private String name;
         private int hitCount;
         private int commentCount;
         private String optionA;
+        private int aCount;
         private String optionB;
+        private int bCount;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd hh:mm", timezone = "Asia/Seoul")
         private LocalDateTime createdAt;
         private boolean status;
@@ -50,15 +52,17 @@ public class VoteResponse {
         public static VoteResponse.Info build(Vote vote, Ballot ballot) {
             InfoBuilder builder = Info.builder()
                                             .voteId(vote.getId())
-                                            .category(vote.getCategory())
-                                            .subCategory(vote.getSubCategory())
+                                            .category(vote.getCategory().getName())
+                                            .subCategory(vote.getSubCategory().getName())
                                             .title(vote.getTitle())
                                             .userId(vote.getUser().getId())
                                             .name(vote.getUser().getName())
                                             .hitCount(vote.getHitCount())
                                             .commentCount(vote.getCommentCount())
                                             .optionA(vote.getOptionA())
+                                            .aCount(vote.getACount())
                                             .optionB(vote.getOptionB())
+                                            .bCount(vote.getBCount())
                                             .createdAt(vote.getCreatedAt())
                                             .status(vote.isStatus())
                                             .result(vote.getResult());

@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class BallotService {
     private final BallotRepository ballotRepository;
@@ -38,13 +37,13 @@ public class BallotService {
     @Transactional
     public BallotResponse.OnlyId delete(Long ballotId, User user) {
         Ballot ballot = ballotRepository.findById(ballotId).orElseThrow(BallotNotFoundException::new);
-        if(user.getId() == ballot.getUser().getId()){
-            ballotRepository.deleteById(ballot.getId());
-        }else throw new PermissionException();
         Vote vote = voteRepository.findById(ballot.getVote().getId()).orElseThrow(VoteNotFoundException::new);
         if(vote.isStatus()) {
             throw new VoteCompletedException();
         }
+        if(user.getId() == ballot.getUser().getId()){
+            ballotRepository.deleteById(ballot.getId());
+        }else throw new PermissionException();
         vote.changeBallotCount(true, ballot.getChoice());
         return BallotResponse.OnlyId.build(ballot);
     }

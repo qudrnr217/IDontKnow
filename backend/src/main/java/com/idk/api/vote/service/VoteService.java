@@ -45,6 +45,8 @@ public class VoteService {
             throw new PermissionException();
         }else if(!vote.isStatus()) {
             vote.changeStatus(request);
+        }else if(vote.getDeletedAt() == null) {
+            throw new VoteDeletedException();
         }else {
             throw new VoteCompletedException();
         }
@@ -56,6 +58,9 @@ public class VoteService {
         Vote vote = voteRepository.findById(voteId).orElseThrow(VoteNotFoundException::new);
         if(!checkPermission(user, vote.getUser())) {
             throw new PermissionException();
+        }
+        if(vote.getDeletedAt() != null){
+            throw new VoteDeletedException();
         }
         vote.delete(user.getRole().equals(Role.ADMIN));
         return VoteResponse.OnlyId.build(vote);
