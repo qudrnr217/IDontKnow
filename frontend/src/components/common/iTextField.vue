@@ -40,7 +40,7 @@ $placeholder-color: #8a8a8d;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
-  text-align: flex-end;
+  text-align: right;
 
   &::placeholder {
     color: $placeholder-color;
