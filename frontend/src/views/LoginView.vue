@@ -4,9 +4,9 @@
       <div class="body">
         <header-view class="header" />
         <div class="title">로그인</div>
-        <div class="textcontainer">
-          <div class="columnname">E-Mail</div>
-          <div class="columntextfield">
+        <div class="textcontainer" style="margin: 20px">
+          <div class="columnname" style="flex-grow: 1">E-Mail</div>
+          <div class="columntextfield" style="flex-grow: 3">
             <iTextField
               width="100%"
               maxlength="15"
@@ -15,9 +15,9 @@
             />
           </div>
         </div>
-        <div class="textcontainer">
-          <div class="columnname">Password</div>
-          <div class="columntextfield">
+        <div class="textcontainer" style="margin: 20px">
+          <div class="columnname" style="flex-grow: 1">Password</div>
+          <div class="columntextfield" style="flex-grow: 3">
             <iTextField
               width="100%"
               maxlength="15"
@@ -26,11 +26,16 @@
             />
           </div>
         </div>
-        <iButton>비밀번호 재설정</iButton>
-        <div>
-          <button class="button1" opacity="0.2">회원가입</button>
-          <button class="button2">로그인</button>
+        <div style="display: flex; justify-content: flex-end; margin: 20px">
+          <iButton>비밀번호 재설정</iButton>
         </div>
+        <div>
+          <div style="display: flex; justify-content: flex-end; margin: 20px">
+            <button class="button1" opacity="0.2">회원가입</button>
+            <button class="button2">로그인</button>
+          </div>
+        </div>
+
         <footer-view class="footer" />
       </div>
     </div>
@@ -66,10 +71,10 @@ export default {
   background-color: #007aff; /* Green */
   border: none;
   border-radius: 6px;
-  width: 80px;
+  width: 100px;
   height: 30px;
   color: white;
-  padding: 16px 32px;
+  /* padding: 16px 32px; */
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -82,10 +87,10 @@ export default {
   background-color: #007aff; /* Green */
   border: none;
   border-radius: 6px;
-  width: 80px;
+  width: 100px;
   height: 30px;
   color: white;
-  padding: 16px 32px;
+  /* padding: 16px 32px; */
   text-align: center;
   text-decoration: none;
   display: inline-block;
