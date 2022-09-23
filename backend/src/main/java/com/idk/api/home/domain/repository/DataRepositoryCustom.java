@@ -1,6 +1,6 @@
-package com.idk.api.main.domain.repository;
+package com.idk.api.home.domain.repository;
 
-import com.idk.api.main.domain.entity.Data;
+import com.idk.api.home.domain.entity.Data;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.idk.api.main.domain.entity;
+package com.idk.api.home.domain.entity;
 
 import lombok.EqualsAndHashCode;
 

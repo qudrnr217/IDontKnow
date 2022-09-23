@@ -1,8 +1,8 @@
-package com.idk.api.main.service;
+package com.idk.api.home.service;
 
-import com.idk.api.main.domain.entity.Data;
-import com.idk.api.main.domain.repository.DataRepository;
-import com.idk.api.main.dto.MainResponse;
+import com.idk.api.home.domain.repository.DataRepository;
+import com.idk.api.home.domain.entity.Data;
+import com.idk.api.home.dto.HomeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,14 +13,14 @@ import java.util.List;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class MainService {
+public class HomeService {
 
     private final DataRepository dataRepository;
 
-    public List<MainResponse.Menu> getBestMenusAtThisTimeInAddress(Integer addressId) {
+    public List<HomeResponse.Menu> getBestMenusAtThisTimeInAddress(Integer addressId) {
         List<Data> bestMenus = dataRepository.searchMenusAtThisTimeInAddress(addressId);
-        List<MainResponse.Menu> response = new ArrayList<>();
-        for (Data datum :bestMenus) response.add(MainResponse.Menu.build(datum));
+        List<HomeResponse.Menu> response = new ArrayList<>();
+        for (Data datum :bestMenus) response.add(HomeResponse.Menu.build(datum));
         return response;
     }
 }
