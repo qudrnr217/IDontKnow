@@ -1,7 +1,7 @@
 <template>
-  <div class="demo-wrapper">
-    <ios13-segmented-control
-      class="segmented-control--wrapper"
+  <div class="demo-wrapper2">
+    <ios13-segmented-control2
+      class="segmented-control--wrapper2"
       v-model="value"
       :elementName="elementName"
       :segments="segments"
@@ -11,9 +11,9 @@
 
 <script>
 import Vue from "vue";
-import iOS13SegmentedControl from "./SegmentControlView.vue";
+import iOS13SegmentedControl from "./SegmentControlView2.vue";
 
-Vue.component("ios13-segmented-control", iOS13SegmentedControl);
+Vue.component("ios13-segmented-control2", iOS13SegmentedControl);
 
 export default {
   name: "HelloWorld",
@@ -49,7 +49,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 @media screen and (min-width: 600px) {
-  .demo-wrapper {
+  .demo-wrapper2 {
     margin-top: 28px;
   }
 }
@@ -84,19 +84,20 @@ export default {
   }
 }
 
-.demo-wrapper {
+.demo-wrapper2 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  /* align-items: center; */
 
   margin-top: 25px;
   /* background-color: red; */
 }
 
-.segmented-control--wrapper {
+.segmented-control--wrapper2 {
   max-width: 800px;
-  width: 355px;
+  width: 100px;
+
   /* margin-top: 16px; */
 }
 </style>
