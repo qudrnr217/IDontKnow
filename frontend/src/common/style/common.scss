@@ -1,0 +1,33 @@
+@import 'mixins/breakpoint';
+@import 'mixins/disable-highlight';
+@import 'variables/breakpoint';
+@import 'variables/color';
+@import 'variables/transition';
+
+@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Helvetica Neue"
+  , "Apple SD Gothic Neo"
+  , "Nanum Gothic"
+  , Helvetica
+  , Arial
+  , sans-serif;
+
+
+  @include app-breakpoint(sm) {
+    font-size: 16px;
+  }
+
+  @include app-breakpoint(md) {
+    font-size: 16px;
+  }
+
+  @include app-breakpoint(lg) {
+    font-size: 16px;
+  }
+}
