@@ -4,43 +4,31 @@
       <div class="body">
         <header-view />
         <div class="title">커뮤니티</div>
-        <control-view />
+        <control-view :segments="segments" />
 
         <div class="trending">
           <img src="../assets/icon/fire.png" alt class="trending-icon" />
           <div class="trending-title">Trending</div>
         </div>
 
-        <carousel-3d class="slide">
-          <slide :index="0">
-            <comlist-view />
-          </slide>
-          <slide :index="1">
-            <comlist-view />
-          </slide>
-          <slide :index="2">
-            <comlist-view />
-          </slide>
-        </carousel-3d>
+        <Flicking
+          :options="{ align: 'prev', circular: true }"
+          @move-end="onMoveEnd"
+          class="flicking"
+        >
+          <div class="panel"><comlist-view /></div>
+          <div class="panel"><comlist-view /></div>
+          <div class="panel"><comlist-view /></div>
+          <!-- <div class="panel"><comlist-view /></div>
+          <div class="panel"><comlist-view /></div> -->
+        </Flicking>
 
-        <!-- <carousel-3d>
-          <slide v-for="(slide, i) in slides" :index="i" :key="i">
-            <template slot-scope="{ index, isCurrent, leftIndex, rightIndex }">
-              <img
-                :data-index="index"
-                :class="{
-                  current: isCurrent,
-                  onLeft: leftIndex >= 0,
-                  onRight: rightIndex >= 0,
-                }"
-                :src="slide.src"
-              />
-            </template>
-          </slide>
-        </carousel-3d>-->
+        <div class="body-mid">
+          <control-view-2 :segments="segments2" class="toggle-btn" />
+          <div class="create-btn">만들기</div>
+        </div>
 
-        <comlist-view />
-
+        <comlist-view class="card" />
         <footer-view class="footer" />
       </div>
     </div>
@@ -49,18 +37,51 @@
 
 <script>
 import ControlView from "../components/common/ControlView.vue";
+import ControlView2 from "../components/common/ControlView2.vue";
 import FooterView from "../components/common/FooterView.vue";
 import HeaderView from "../components/common/HeaderView.vue";
 import ComlistView from "../components/community/ComlistView.vue";
-import { Carousel3d, Slide } from "vue-carousel-3d";
+// import { Carousel3d, Slide } from "vue-carousel-3d";
+import { Flicking } from "@egjs/vue-flicking";
 export default {
   components: {
     FooterView,
     HeaderView,
     ControlView,
     ComlistView,
-    Carousel3d,
-    Slide,
+    ControlView2,
+    // Carousel3d,
+    // Slide,
+    Flicking: Flicking,
+  },
+  data() {
+    return {
+      segments: [
+        {
+          title: "메뉴",
+          id: "42",
+        },
+        {
+          title: "스타일",
+          id: "93",
+        },
+        {
+          title: "장소",
+          id: "11",
+        },
+      ],
+
+      segments2: [
+        {
+          title: "진행",
+          id: "1",
+        },
+        {
+          title: "종료",
+          id: "2",
+        },
+      ],
+    };
   },
 };
 </script>
@@ -103,8 +124,43 @@ export default {
   height: 170px;
 }
 
-slide {
-  width: 320px;
-  height: 170px;
+.flicking-viewport:not(.vertical) {
+  width: 100%;
+  height: 180px;
+}
+
+.panel > .vote-card {
+  margin: 10px;
+}
+
+/* 진행,종료,만들기 버튼 */
+.body-mid {
+  display: flex;
+}
+.toggle-btn {
+  margin-left: 35px;
+}
+
+.body-mid > .create-btn {
+  width: 60px;
+  height: 30px;
+  background: rgba(0, 122, 255, 0.15);
+  border-radius: 8.91px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 25px;
+  margin-left: 160px;
+
+  font-family: "GmarketSansTTFLight";
+  font-weight: 300;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.card {
+  margin-top: 20px;
 }
 </style>
