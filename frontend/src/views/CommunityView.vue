@@ -7,7 +7,7 @@
         <control-view :segments="segments" />
 
         <div class="trending">
-          <img src="../assets/icon/fire.png" alt="" class="trending-icon" />
+          <img src="../assets/icon/fire.png" alt class="trending-icon" />
           <div class="trending-title">Trending</div>
         </div>
 
