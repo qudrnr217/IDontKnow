@@ -7,14 +7,20 @@
         <control-view />
 
         <div class="trending">
-          <img src="../assets/icon/fire.png" alt="" class="trending-icon" />
+          <img src="../assets/icon/fire.png" alt class="trending-icon" />
           <div class="trending-title">Trending</div>
         </div>
 
         <carousel-3d class="slide">
-          <slide :index="0"><comlist-view /> </slide>
-          <slide :index="1"> <comlist-view /> </slide>
-          <slide :index="2"> <comlist-view /> </slide>
+          <slide :index="0">
+            <comlist-view />
+          </slide>
+          <slide :index="1">
+            <comlist-view />
+          </slide>
+          <slide :index="2">
+            <comlist-view />
+          </slide>
         </carousel-3d>
 
         <!-- <carousel-3d>
@@ -31,9 +37,10 @@
               />
             </template>
           </slide>
-        </carousel-3d> -->
+        </carousel-3d>-->
 
         <comlist-view />
+
         <footer-view class="footer" />
       </div>
     </div>

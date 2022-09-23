@@ -14,16 +14,19 @@ const routes = [
     path: "/community",
     name: "community",
     component: () => import("../views/CommunityView.vue"),
+    children: [
+      {
+        path: "createvote",
+        name: "createvote",
+        component: () => import("@/components/community/CreateVoteView.vue"),
+      },
+    ],
   },
-  // {
-  //   path: "/about",
-  //   name: "about",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-  // },
+  {
+    path: "/createvote",
+    name: "createvote",
+    component: () => import("@/components/community/CreateVoteView.vue"),
+  },
 ];
 
 const router = new VueRouter({
