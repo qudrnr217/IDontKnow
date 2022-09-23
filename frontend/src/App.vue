@@ -12,8 +12,9 @@
 
 .body {
   width: 390px;
-  height: 844px;
+  min-height: 100%;
   background-color: #f2f2f7;
+  padding-bottom: 73px;
 }
 
 .footer {
