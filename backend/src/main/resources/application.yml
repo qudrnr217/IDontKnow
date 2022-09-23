@@ -3,8 +3,10 @@ spring:
     group:
       local:
         - local
+        - oauth
       prod :
         - db
+        - oauth
   jpa:
     hibernate:
       naming:
@@ -72,3 +74,16 @@ spring:
       password: idontknow
       username: idontknow
     url: jdbc:mysql://localhost:3306/idontknow?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+  # mail setting
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: idontknowa208
+    password: ${SMTP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
