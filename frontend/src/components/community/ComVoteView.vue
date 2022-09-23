@@ -18,11 +18,22 @@
       <div class="select2-1" v-show="show2">노랑통닭</div>
     </div>
     <div class="vote-btn">투표하기</div>
+    <div class="comment-title">댓글</div>
+    <div class="comment-input">
+      <img src="../../assets/icon/avatar.png" alt="" />
+      <input type="text" class="comment-box" />
+      <img src="../../assets/icon/send.png" alt="" class="send-btn" />
+    </div>
+    <div class="comment"><comment-view /></div>
   </div>
 </template>
 
 <script>
+import CommentView from "./CommentView.vue";
 export default {
+  components: {
+    CommentView,
+  },
   data() {
     return {
       show1: false,
@@ -232,5 +243,35 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.comment-title {
+  font-family: "GmarketSansTTFMedium";
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 22px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+/* comment-input */
+.comment-input {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+}
+
+.comment-input > .comment-box {
+  background: #ffffff;
+  border: 1px solid #007aff;
+  border-radius: 10px;
+
+  width: 304px;
+  height: 24px;
+}
+
+.send-btn {
+  position: relative;
+  right: 26px;
 }
 </style>
