@@ -29,6 +29,7 @@ public class VoteService {
         return VoteResponse.OnlyId.build(savedVote);
     }
 
+    @Transactional
     public VoteResponse.Info getOne(Long voteId, CustomUserDetails customUserDetails) {
         Vote vote = voteRepository.findById(voteId).orElseThrow(VoteNotFoundException::new);
         if(vote.getDeletedAt() != null) {
@@ -67,10 +68,7 @@ public class VoteService {
     }
 
     private boolean checkPermission(User currentUser, User author) {
-        if(currentUser.getRole().equals(Role.ADMIN) || currentUser.getId() == author.getId()) {
-            return true;
-        }
-        return false;
+        return currentUser.getRole().equals(Role.ADMIN) || currentUser.getId() == author.getId();
     }
 
 }
