@@ -14,6 +14,18 @@ const routes = [
     path: "/community",
     name: "community",
     component: () => import("../views/CommunityView.vue"),
+    children: [
+      {
+        path: "createvote",
+        name: "createvote",
+        component: () => import("@/components/community/CreateVoteView.vue"),
+      },
+    ],
+  },
+  {
+    path: "/createvote",
+    name: "createvote",
+    component: () => import("@/components/community/CreateVoteView.vue"),
   },
   {
     path: "/regist",
