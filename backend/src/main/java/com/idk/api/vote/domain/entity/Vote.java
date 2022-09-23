@@ -4,10 +4,15 @@ import com.idk.api.common.category.Category;
 import com.idk.api.common.category.SubCategory;
 import com.idk.api.common.entity.BaseEntity;
 import com.idk.api.user.domain.entity.User;
+import com.idk.api.user.security.userdetails.CustomUserDetails;
 import com.idk.api.vote.dto.VoteRequest;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Builder
 @Getter
@@ -23,7 +28,7 @@ public class Vote extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User author;
+    private User user;
 
     @Column(nullable = false)
     private String title;
@@ -61,17 +66,73 @@ public class Vote extends BaseEntity {
 
     private String result;
 
+    @Builder.Default
+    @OneToMany(mappedBy = "vote", cascade = CascadeType.REMOVE)
+    private List<Ballot> ballotList = new ArrayList<>();
+
     public static Vote create(VoteRequest.Create request, User user) {
         return Vote.builder()
-                .author(user)
+                .user(user)
                 .title(request.getTitle())
                 .optionA(request.getOptionA())
                 .optionB(request.getOptionB())
                 .status(false)
-                .category(request.getCategory())
-                .subCategory(request.getSubCategory())
+                .category(Category.fromString(request.getCategory()))
+                .subCategory(SubCategory.fromString(request.getSubCategory()))
                 .build();
 
     }
 
+    public Ballot getVoted(CustomUserDetails customUserDetails) {
+        Optional<Ballot> ballot = this.ballotList.stream()
+                .filter(b -> b.getUser().getId().equals(customUserDetails.getUser().getId())).findFirst();
+        if(customUserDetails != null && ballot.isPresent()) {
+            return ballot.get();
+        }
+        return null;
+    }
+
+    public void changeStatus(VoteRequest.ChangeStatus request) {
+        this.status = request.isStatus();
+        if(this.aCount == this.bCount){
+            this.result = "E";
+        }else if(this.aCount > this.bCount){
+            this.result = "A";
+        }else {
+            this.result = "B";
+        }
+    }
+
+    public void hit() {
+        this.hitCount++;
+    }
+
+    public void changeBallotCount(boolean isDelete, String voted) {
+        if(isDelete){
+            switch(voted) {
+                case "A":
+                    this.aCount--;
+                    break;
+                case "B":
+                    this.bCount--;
+                    break;
+            }
+        }else {
+            switch(voted) {
+                case "A":
+                    this.aCount++;
+                    break;
+                case "B":
+                    this.bCount++;
+                    break;
+            }
+        }
+    }
+
+    public void delete(boolean isAdmin) {
+        if(isAdmin){
+            this.adminDeleted = true;
+        }
+        this.setDeletedAt(LocalDateTime.now());
+    }
 }
