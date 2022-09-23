@@ -3,10 +3,10 @@ spring:
     group:
       local:
         - local
-        - oauth
+        - smtp
       prod :
         - db
-        - oauth
+        - smtp
   jpa:
     hibernate:
       naming:
