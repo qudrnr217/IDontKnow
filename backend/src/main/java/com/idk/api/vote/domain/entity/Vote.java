@@ -107,8 +107,8 @@ public class Vote extends BaseEntity {
         this.hitCount++;
     }
 
-    public void changeBallotCount(boolean isDeleted, String voted) {
-        if(isDeleted){
+    public void changeBallotCount(boolean isDelete, String voted) {
+        if(isDelete){
             switch(voted) {
                 case "A":
                     this.aCount--;

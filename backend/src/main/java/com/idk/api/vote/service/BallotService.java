@@ -8,10 +8,7 @@ import com.idk.api.vote.domain.repository.BallotRepository;
 import com.idk.api.vote.domain.repository.VoteRepository;
 import com.idk.api.vote.dto.BallotRequest;
 import com.idk.api.vote.dto.BallotResponse;
-import com.idk.api.vote.exception.BallotDuplicatedException;
-import com.idk.api.vote.exception.BallotNotFoundException;
-import com.idk.api.vote.exception.VoteCompletedException;
-import com.idk.api.vote.exception.VoteNotFoundException;
+import com.idk.api.vote.exception.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +25,7 @@ public class BallotService {
         if(ballotRepository.existsByUserAndVote(user, vote)){
             throw new BallotDuplicatedException();
         }
+        checkVote(vote);
         Ballot ballot = Ballot.create(request, vote, user);
         vote.changeBallotCount(false, request.getChoice());
         Ballot savedBallot = ballotRepository.save(ballot);
@@ -38,13 +36,19 @@ public class BallotService {
     public BallotResponse.OnlyId delete(Long ballotId, User user) {
         Ballot ballot = ballotRepository.findById(ballotId).orElseThrow(BallotNotFoundException::new);
         Vote vote = voteRepository.findById(ballot.getVote().getId()).orElseThrow(VoteNotFoundException::new);
-        if(vote.isStatus()) {
-            throw new VoteCompletedException();
-        }
+        checkVote(vote);
         if(user.getId() == ballot.getUser().getId()){
             ballotRepository.deleteById(ballot.getId());
         }else throw new PermissionException();
         vote.changeBallotCount(true, ballot.getChoice());
         return BallotResponse.OnlyId.build(ballot);
+    }
+
+    private void checkVote(Vote vote) {
+        if(vote.isStatus()) {
+            throw new VoteCompletedException();
+        }else if(vote.getDeletedAt() != null){
+            throw new VoteDeletedException();
+        }
     }
 }
