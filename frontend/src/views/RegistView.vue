@@ -62,12 +62,16 @@
         </div>
         <div class="columnname" style="margin: 10px">
           <div class="location" style="flex-grow: 1">거주지</div>
-          <div class="selectorbox" style="flex-grow: 3"><select-view /></div>
+          <div class="selectorbox" style="flex-grow: 3">
+            <select-location-view />
+          </div>
         </div>
         <div class="columnname" style="margin: 10px">성별</div>
         <div class="columnname" style="margin: 10px">
           <div class="location" style="flex-grow: 1">연령대</div>
-          <div class="selectorbox" style="flex-grow: 3"><select-view /></div>
+          <div class="selectorbox" style="flex-grow: 3">
+            <select-age-view />
+          </div>
         </div>
         <div style="display: flex; justify-content: flex-end; margin: 10px">
           <button class="buttonregist">회원가입</button>
@@ -82,18 +86,31 @@
 import HeaderView from "../components/common/HeaderView.vue";
 import FooterView from "../components/common/FooterView.vue";
 import iTextField from "../components/common/iTextField";
-import SelectView from "../components/common/SelectView.vue";
+import SelectLocationView from "../components/regist/SelectLocationView.vue";
+import SelectAgeView from "../components/regist/SelectAgeView.vue";
 export default {
   components: {
     HeaderView,
     FooterView,
     iTextField,
-    SelectView,
+    SelectLocationView,
+    SelectAgeView,
   },
 };
 </script>
 
 <style>
+.body {
+  font-family: "GmarketSansTTFLight";
+}
+.title {
+  font-weight: 1000;
+  font-size: 34px;
+  line-height: 36px;
+  font-family: "GmarketSansTTFLight";
+  font-style: normal;
+  /* background-color: red; */
+}
 .textcontainer {
   display: flex;
   outline: none;
@@ -101,6 +118,7 @@ export default {
   background-color: #ffffff;
   border: none;
   border-radius: 6px;
+  font-family: "GmarketSansTTFLight";
 }
 .columnname {
   display: flex;
@@ -110,9 +128,11 @@ export default {
   border: none;
   border-radius: 6px;
   display: flex;
+  font-family: "GmarketSansTTFLight";
 }
 .columntextfield {
   justify-content: flex-end;
+  font-family: "GmarketSansTTFLight";
 }
 .button {
   background-color: #007aff; /* Green */
@@ -129,20 +149,24 @@ export default {
   /* margin: 4px 2px; */
   transition-duration: 0.4s;
   cursor: pointer;
+  font-family: "GmarketSansTTFLight";
 }
 .textbutton {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  font-family: "GmarketSansTTFLight";
 }
 .location {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "GmarketSansTTFLight";
 }
 .selectorbox {
   display: flex;
   justify-content: flex-end;
+  font-family: "GmarketSansTTFLight";
 }
 .buttonregist {
   background-color: #007aff; /* Green */
@@ -158,5 +182,6 @@ export default {
   /* margin: 4px 2px; */
   transition-duration: 0.4s;
   cursor: pointer;
+  font-family: "GmarketSansTTFLight";
 }
 </style>
