@@ -3,10 +3,10 @@ spring:
     group:
       local:
         - local
-        - apikey
+        - secret
       prod :
         - db
-        - apikey
+        - secret
   jpa:
     hibernate:
       naming:
