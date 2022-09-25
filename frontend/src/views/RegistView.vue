@@ -68,7 +68,7 @@
         </div>
         <div class="columnname" style="margin: 10px">성별</div>
         <div class="columnname" style="margin: 10px">
-          <div class="location" style="flex-grow: 1">연령대</div>
+          <div class="age" style="flex-grow: 1">연령대</div>
           <div class="selectorbox" style="flex-grow: 3">
             <select-age-view />
           </div>
@@ -163,6 +163,14 @@ export default {
   align-items: center;
   font-family: "GmarketSansTTFLight";
 }
+
+.age {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "GmarketSansTTFLight";
+}
+
 .selectorbox {
   display: flex;
   justify-content: flex-end;

@@ -17,7 +17,25 @@
       <div class="select2" @click="changeShow2()" v-show="!show2">노랑통닭</div>
       <div class="select2-1" v-show="show2">노랑통닭</div>
     </div>
-    <div class="vote-btn">투표하기</div>
+    <div class="others">
+      <div class="vote-btn" @click="cur_vote = true" v-if="!cur_vote">
+        투표하기
+      </div>
+      <div class="vote-btn-cancle" @click="cur_vote = false" v-else>
+        투표취소
+      </div>
+    </div>
+    <!-- <div class="writer">
+      <div class="vote-btn-close">투표마감</div>
+      <div class="vote-btn-end">투표하기</div>
+    </div> -->
+    <div class="detail-box">
+      <div class="vote-percent-title">투표율</div>
+      <div class="vote-percent-bar">
+        <bar-chart-view />
+      </div>
+    </div>
+
     <div class="comment-title">댓글</div>
     <div class="comment-input">
       <img src="../../assets/icon/avatar.png" alt="" />
@@ -30,14 +48,17 @@
 
 <script>
 import CommentView from "./CommentView.vue";
+import BarChartView from "./BarChartView.vue";
 export default {
   components: {
     CommentView,
+    BarChartView,
   },
   data() {
     return {
       show1: false,
       show2: false,
+      cur_vote: false,
     };
   },
   methods: {
@@ -243,6 +264,85 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
+}
+
+.vote-btn-cancle {
+  width: 340px;
+  height: 61px;
+  background: #007aff;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 22px;
+
+  font-family: "GmarketSansTTFMedium";
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.vote-btn-close {
+  width: 340px;
+  height: 61px;
+  background: #ff3b30;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 22px;
+
+  font-family: "GmarketSansTTFMedium";
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.vote-btn-end {
+  width: 340px;
+  height: 61px;
+  background: #8e8e93;
+  border-radius: 10px;
+
+  margin-top: 15px;
+  margin-left: 22px;
+
+  font-family: "GmarketSansTTFMedium";
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* 투표율 */
+.vote-percent-title {
+  font-family: "GmarketSansTTFLight";
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 15px;
+  margin-left: 22px;
+  margin-top: 20px;
+}
+
+.vote-percent-bar {
+  width: 340px;
 }
 
 .comment-title {

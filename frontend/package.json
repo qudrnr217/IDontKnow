@@ -9,8 +9,13 @@
   },
   "dependencies": {
     "@egjs/vue-flicking": "^4.10.0",
+    "apexcharts": "^3.35.5",
+    "bootstrap": "^5.2.1",
+    "bootstrap-vue": "^2.22.0",
     "core-js": "^3.8.3",
-    "vue": "^2.6.14",
+    "jquery": "^3.6.1",
+    "vue": "^2.7.10",
+    "vue-apexcharts": "^1.6.2",
     "vue-carousel-3d": "^1.0.1",
     "vue-router": "^3.5.1",
     "vuex": "^3.6.2"
