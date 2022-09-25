@@ -62,16 +62,14 @@ public class UserService {
     }
 
     public UserResponse.Login login(UserRequest.Login request){
-        User findUser = userRepository.findByEmail(request.getEmail());
-        if(findUser == null)    throw new UserNotFoundException();
+        User findUser = userRepository.findByEmail(request.getEmail()).orElseThrow(UserNotFoundException::new);
         if(!passwordEncoder.matches(request.getPassword(), findUser.getPassword())) throw new InvalidPasswordException();
         return UserResponse.Login.build(findUser, tokenProvider.generateAccessToken(findUser));
     }
 
     @Transactional
     public boolean resetPassword(UserRequest.RePassword request){
-        User findUser = userRepository.findByEmail(request.getEmail());
-        if(findUser == null)    throw new UserNotFoundException();
+        User findUser = userRepository.findByEmail(request.getEmail()).orElseThrow(UserNotFoundException::new);
         String newPassword = UUID.randomUUID().toString().replace("-", "");
         newPassword = newPassword.substring(0, 10);
         findUser.updatePassword(passwordEncoder.encode(newPassword));

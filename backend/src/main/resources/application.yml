@@ -3,10 +3,10 @@ spring:
     group:
       local:
         - local
-        - smtp
+        - secret
       prod :
         - db
-        - smtp
+        - secret
   jpa:
     hibernate:
       naming:
