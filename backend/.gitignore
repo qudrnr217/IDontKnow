@@ -49,4 +49,5 @@ src/rest/http-client.private.env.json
 ### .http log 파일 ###
 .idea/httpRequests
 
-
+### application.properties ###
+application-secret.yml

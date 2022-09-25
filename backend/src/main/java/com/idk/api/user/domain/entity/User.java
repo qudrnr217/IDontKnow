@@ -53,4 +53,8 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Report> reports = new ArrayList<>();
     */
+
+    public void updatePassword(String password){
+        this.password = password;
+    }
 }
