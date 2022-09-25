@@ -6,9 +6,12 @@ import com.idk.api.vote.dto.VoteRequest;
 import com.idk.api.vote.dto.VoteResponse;
 import com.idk.api.vote.service.VoteService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,6 +41,18 @@ public class VoteController {
     @DeleteMapping("/{voteId}")
     public ResponseEntity<VoteResponse.OnlyId> delete(@PathVariable Long voteId, @CurrentUser CustomUserDetails customUserDetails) {
         VoteResponse.OnlyId response = voteService.delete(voteId, customUserDetails.getUser());
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<Page<VoteResponse.GetOne>> getList(@RequestParam(name = "category") String category, @RequestParam(name = "status") boolean status, @RequestParam(name = "lastVoteId") Long lastVoteId) {
+        Page<VoteResponse.GetOne> response = voteService.getList(lastVoteId, category, status);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/top3")
+    public ResponseEntity<List<VoteResponse.GetOne>> getTop3(@RequestParam(name = "category") String category) {
+        List<VoteResponse.GetOne> response = voteService.getTop3(category);
         return ResponseEntity.ok().body(response);
     }
 }

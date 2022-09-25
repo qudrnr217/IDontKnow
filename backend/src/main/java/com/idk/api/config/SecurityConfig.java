@@ -48,6 +48,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/docs/**").permitAll() // restdocs 주소는 누구나 접근 가능
                 .antMatchers("/api/users/**").permitAll()
                 .antMatchers("/api/data/**").permitAll()
+                .antMatchers("/api/votes").permitAll()
+                .antMatchers("/api/votes/top3").permitAll()
                 .anyRequest().authenticated() // 그외 나머지 요청은 모두 인증된 회원만 접근 가능
                 .and()
                 .addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 추가
