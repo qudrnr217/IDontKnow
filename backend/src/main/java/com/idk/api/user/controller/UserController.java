@@ -36,4 +36,9 @@ public class UserController {
         UserResponse.Login response = userService.login(request);
         return ResponseEntity.ok().body(response);
     }
+
+    @PatchMapping("/pw")
+    public ResponseEntity<Boolean> resetPassword(@RequestBody UserRequest.RePassword request){
+        return ResponseEntity.ok().body(userService.resetPassword(request));
+    }
 }
