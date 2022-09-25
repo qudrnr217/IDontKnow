@@ -2,6 +2,7 @@ package com.idk.api.user.domain.entity;
 
 import com.idk.api.common.entity.BaseEntity;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
+import com.idk.api.user.domain.Age;
 import com.idk.api.user.domain.Role;
 import lombok.*;
 
@@ -36,7 +37,8 @@ public class User extends BaseEntity {
     @JoinColumn(name = "district_id")
     private DistrictCode districtCode;
 
-    private int age;
+    @Enumerated(EnumType.STRING)
+    private Age age;
 
     @Column(name = "refresh_token")
     private String refreshToken;
@@ -56,5 +58,12 @@ public class User extends BaseEntity {
 
     public void updatePassword(String password){
         this.password = password;
+    }
+
+    public void updateUserInfo(DistrictCode districtCode, String gender, Age age){
+        if(districtCode != null)    this.districtCode = districtCode;
+        if(gender != null)  this.gender = gender;
+        if(age != null)    this.age = age;
+
     }
 }
