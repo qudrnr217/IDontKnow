@@ -1,5 +1,6 @@
 package com.idk.api.vote.service;
 
+import com.idk.api.common.category.Category;
 import com.idk.api.common.exception.PermissionException;
 import com.idk.api.user.domain.Role;
 import com.idk.api.user.domain.entity.User;
@@ -13,8 +14,15 @@ import com.idk.api.vote.exception.VoteCompletedException;
 import com.idk.api.vote.exception.VoteDeletedException;
 import com.idk.api.vote.exception.VoteNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -42,7 +50,7 @@ public class VoteService {
     @Transactional
     public VoteResponse.OnlyId changeStatus(Long voteId, VoteRequest.ChangeStatus request, User user) {
         Vote vote = voteRepository.findById(voteId).orElseThrow(VoteNotFoundException::new);
-        if(!checkPermission(user, vote.getUser())) {
+        if(checkPermission(user, vote.getUser())) {
             throw new PermissionException();
         }else if(!vote.isStatus()) {
             vote.changeStatus(request);
@@ -57,7 +65,7 @@ public class VoteService {
     @Transactional
     public VoteResponse.OnlyId delete(Long voteId, User user) {
         Vote vote = voteRepository.findById(voteId).orElseThrow(VoteNotFoundException::new);
-        if(!checkPermission(user, vote.getUser())) {
+        if(checkPermission(user, vote.getUser())) {
             throw new PermissionException();
         }
         if(vote.getDeletedAt() != null){
@@ -67,8 +75,19 @@ public class VoteService {
         return VoteResponse.OnlyId.build(vote);
     }
 
+    public Page<VoteResponse.GetOne> getList(Long lastVoteId, String category, boolean status) {
+        Pageable of = PageRequest.of(0, 10);
+        Page<Vote> votes = voteRepository.findAllByCategoryAndStatusOrderByDesc(lastVoteId, Category.fromString(category), status, of);
+        return votes.map(VoteResponse.GetOne::build);
+    }
+
+    public List<VoteResponse.GetOne> getTop3(String category) {
+        List<Vote> votes = voteRepository.findHitCountTop3ByCategory(Category.fromString(category));
+        return votes.stream().map(VoteResponse.GetOne::build).collect(Collectors.toList());
+    }
+
     private boolean checkPermission(User currentUser, User author) {
-        return currentUser.getRole().equals(Role.ADMIN) || currentUser.getId() == author.getId();
+        return !currentUser.getRole().equals(Role.ADMIN) && !Objects.equals(currentUser.getId(), author.getId());
     }
 
 }
