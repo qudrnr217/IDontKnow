@@ -47,7 +47,7 @@ public class VoteResponse {
         private Long ballotId;
         private String voted;
 
-        public static Info build(Vote vote, Ballot ballot) {
+        public static VoteResponse.Info build(Vote vote, Ballot ballot) {
             InfoBuilder builder = Info.builder()
                                             .voteId(vote.getId())
                                             .category(vote.getCategory().getName())
