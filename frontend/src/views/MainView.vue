@@ -50,11 +50,10 @@
             <div class="weather-data">7</div>
           </div>
           <div class="separator"></div>
-          <div class="content-weather">
-            <div class="weather-data" style="padding-top: 60px">
-              햇볕에 노출 시 1-2시간 이내에도 피부 화상을 입을 수 있어 위험해요.
-              한낮에는 실내나 그늘에 머물러주세요.
-            </div>
+          <div class="content-weather" style="height: 100%">
+            햇볕에 노출 시 1-2시간 이내에도 피부 화상을 입을 수 있어 위험해요.
+            한낮에는 실내나 그늘에
+            머물러주세요.안녕하세요안녕하세요안녕하세요안녕하세
           </div>
         </div>
       </div>
@@ -98,7 +97,9 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  height: ;
   background: url(../assets/icon/main/sunnyday.png);
+  background-size: cover;
   font-family: "GmarketSansTTFMedium";
   font-style: normal;
 }
@@ -129,6 +130,7 @@ export default {
   font-family: "GmarketSansTTFLight";
 }
 .content_title {
+  display: center;
   justify-content: center;
   flex-grow: 2;
   font-size: 15px;

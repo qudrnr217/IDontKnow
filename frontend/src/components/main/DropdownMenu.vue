@@ -1,7 +1,7 @@
 <template>
-  <div class="location">
-    <div class="location_selected">날씨는?</div>
-    <ul class="location_list">
+  <div class="menu">
+    <div class="menu_selected">날씨는?</div>
+    <ul class="menu_list">
       <li class="option">날씨는?</li>
       <li class="option">뭐 입지?</li>
       <li class="option">뭐 먹지?</li>
@@ -12,18 +12,18 @@
 
 <script>
 window.onload = function () {
-  const locationEL = document.querySelector(".location");
-  const locationListEl = document.querySelector(".location_list");
+  const menuEL = document.querySelector(".menu");
+  const menuListEl = document.querySelector(".menu_list");
 
-  let isActiveLocationList = false;
-  locationEL.addEventListener("click", function () {
-    isActiveLocationList = !isActiveLocationList; // transition
-    if (isActiveLocationList) {
+  let isActiveMenuList = false;
+  menuEL.addEventListener("click", function () {
+    isActiveMenuList = !isActiveMenuList; // transition
+    if (isActiveMenuList) {
       // active Location list
-      locationListEl.classList.add("active");
+      menuListEl.classList.add("active");
     } else {
       // hide Location list
-      locationListEl.classList.remove("active");
+      menuListEl.classList.remove("active");
     }
   });
 };
@@ -31,14 +31,14 @@ export default {};
 </script>
 
 <style>
-.location {
+.menu {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   margin-left: 10px;
   cursor: pointer;
 }
-.location .location_list {
+.menu .menu_list {
   position: absolute;
   top: 100%;
   left: 0;
@@ -52,17 +52,17 @@ export default {};
   opacity: 0;
   transition: 0.3s;
 }
-.location .location_list .active {
+.menu .menu_list .active {
   /* 리스트 보이기 */
   overflow-x: hidden;
   overflow-y: auto;
   opacity: 1;
   max-height: 200px;
 }
-.location .location_list::-webkit-scrollbar {
+.menu .menu_list::-webkit-scrollbar {
   width: 4px;
 }
-.location .location_list::-webkit-scrollbar-thumb {
+.menu .location_list::-webkit-scrollbar-thumb {
   background-color: #8d8d8d;
   border-radius: 2px;
 }
