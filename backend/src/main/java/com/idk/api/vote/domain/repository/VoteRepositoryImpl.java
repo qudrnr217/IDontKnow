@@ -3,8 +3,6 @@ package com.idk.api.vote.domain.repository;
 import com.idk.api.common.category.Category;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.vote.domain.entity.Vote;
-import com.idk.api.vote.dto.BallotDto;
-import com.idk.api.vote.dto.QBallotDto_CountByDistrictCode;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
@@ -18,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Objects;
 
-import static com.idk.api.user.domain.entity.QUser.user;
 import static com.idk.api.vote.domain.entity.QBallot.ballot;
 import static com.idk.api.vote.domain.entity.QVote.vote;
 @RequiredArgsConstructor
