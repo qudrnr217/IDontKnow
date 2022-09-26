@@ -42,6 +42,16 @@ const routes = [
     name: "logout",
     component: () => import("../views/Logout1View.vue"),
   },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: () => import("../views/MypageView.vue"),
+  },
+  {
+    path: "/mypage/password",
+    name: "mypage/password",
+    component: () => import("../views/PasswordchangeView.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",
