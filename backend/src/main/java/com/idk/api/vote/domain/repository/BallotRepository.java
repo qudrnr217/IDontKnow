@@ -5,6 +5,6 @@ import com.idk.api.vote.domain.entity.Ballot;
 import com.idk.api.vote.domain.entity.Vote;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BallotRepository extends JpaRepository<Ballot, Long> {
+public interface BallotRepository extends JpaRepository<Ballot, Long>, BallotRepositoryCustom {
     boolean existsByUserAndVote(User user, Vote vote);
 }

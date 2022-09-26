@@ -18,11 +18,9 @@ import java.util.Objects;
 
 import static com.idk.api.vote.domain.entity.QBallot.ballot;
 import static com.idk.api.vote.domain.entity.QVote.vote;
-
 @RequiredArgsConstructor
 public class VoteRepositoryImpl implements VoteRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
-
     @Override
     public Page<Vote> findAllByCategoryAndStatusOrderByDesc(Long lastVoteId, Category category, boolean status, Pageable pageable) {
         if(lastVoteId == 0){
