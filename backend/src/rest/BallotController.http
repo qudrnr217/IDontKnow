@@ -13,13 +13,13 @@ DELETE {{apiUrl}}/ballots/1
 Authorization: {{authorizationToken}}
 
 ### 지역구에 따른 투표 참여 결과
-GET {{apiUrl}}/ballots/vote/1/district
+GET {{apiUrl}}/ballots/votes/1/district
 Authorization: {{authorizationToken}}
 
 ### 성별에 따른 투표 참여 결과
-GET {{apiUrl}}/ballots/vote/1/gender
+GET {{apiUrl}}/ballots/votes/1/gender
 Authorization: {{authorizationToken}}
 
 ### 연령대에 따른 투표 참여 결과
-GET {{apiUrl}}/ballots/vote/1/age
+GET {{apiUrl}}/ballots/votes/1/age
 Authorization: {{authorizationToken}}

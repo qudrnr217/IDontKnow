@@ -32,19 +32,19 @@ public class BallotController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/vote/{voteId}/district")
+    @GetMapping("/votes/{voteId}/district")
     public ResponseEntity<List<BallotDto.CountByDistrictCode>> getBallotsByDistrictCode(@PathVariable Long voteId, @CurrentUser CustomUserDetails customUserDetails) {
         List<BallotDto.CountByDistrictCode> response = ballotService.getCountByDistrictCode(voteId, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/vote/{voteId}/gender")
+    @GetMapping("/votes/{voteId}/gender")
     public ResponseEntity<List<BallotDto.CountByGender>> getBallotsByGender(@PathVariable Long voteId, @CurrentUser CustomUserDetails customUserDetails) {
         List<BallotDto.CountByGender> response = ballotService.getCountByGender(voteId, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/vote/{voteId}/age")
+    @GetMapping("/votes/{voteId}/age")
     public ResponseEntity<List<BallotDto.CountByAge>> getBallotsByAge(@PathVariable Long voteId, @CurrentUser CustomUserDetails customUserDetails) {
         List<BallotDto.CountByAge> response = ballotService.getCountByAge(voteId, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
