@@ -14,13 +14,18 @@ const routes = [
     path: "/community",
     name: "community",
     component: () => import("../views/CommunityView.vue"),
-    children: [
-      {
-        path: "createvote",
-        name: "createvote",
-        component: () => import("@/components/community/CreateVoteView.vue"),
-      },
-    ],
+    // children: [
+    //   {
+    //     path: "createvote",
+    //     name: "createvote",
+    //     component: () => import("@/components/community/CreateVoteView.vue"),
+    //   },
+    // ],
+  },
+  {
+    path: "/votedetail",
+    name: "votedetail",
+    component: () => import("@/components/community/VoteDetailView.vue"),
   },
   {
     path: "/createvote",

@@ -24,7 +24,9 @@ Vue.use(IconsPlugin);
 
 import VueApexCharts from "vue-apexcharts";
 Vue.use(VueApexCharts);
-Vue.component("apexchart", VueApexCharts);
+
+Vue.component("ApexChart", VueApexCharts);
+// Vue.component("apexchart", VueApexCharts);
 
 new Vue({
   router,

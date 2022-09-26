@@ -4,7 +4,7 @@
       <div class="left-progress"></div>
 
       <!-- <div class="right-progress">1</div>
-      <div class="third-progress"></div> -->
+      <div class="third-progress"></div>-->
     </div>
     <div class="detail-toggle">
       <div class="switch-title">상세보기</div>
@@ -22,10 +22,11 @@
 // import $ from "jquery";
 
 import ControlView from "../common/ControlView.vue";
-
+import PieChartView from "./PieChartVIew.vue";
 export default {
   components: {
     ControlView,
+    PieChartView,
   },
   data() {
     return {
@@ -88,7 +89,7 @@ export default {
   width: 340px;
   height: 30px;
   margin-left: 22px;
-  background-color: #dedede;
+  background-color: #ff9500;
   font-weight: 600;
   font-size: 0.8rem;
   margin-top: 10px;
