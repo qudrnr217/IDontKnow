@@ -30,17 +30,17 @@ const routes = [
   {
     path: "/regist",
     name: "regist",
-    component: () => import("../views/RegistView.vue"),
+    component: () => import("../views/Regist1View.vue"),
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("../views/LoginView.vue"),
+    component: () => import("../views/Login1View.vue"),
   },
   {
     path: "/logout",
     name: "logout",
-    component: () => import("../views/LogoutView.vue"),
+    component: () => import("../views/Logout1View.vue"),
   },
   // {
   //   path: "/about",
