@@ -59,10 +59,10 @@ export default {
 .content-back {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  height: ;
-  background: url(@/assets/icon/main/sunnyday.png);
-  background-size: cover;
+  padding: 15px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 10px;
   font-family: "GmarketSansTTFMedium";
   font-style: normal;
 }
@@ -121,6 +121,6 @@ export default {
   justify-content: center;
 }
 .separator {
-  border-top: 2px solid #ffffff;
+  border-top: 2px solid #ededed;
 }
 </style>
