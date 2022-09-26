@@ -40,20 +40,20 @@ class HomeControllerTest extends MvcTest {
 
     @MockBean
     private HomeService homeService;
-    private Data datum_한식, datum_치킨;
-    private DataId dataId_한식, dataId_치킨;
+    private Data datum1, datum2;
+    private DataId dataId1, dataId2;
     private DistrictCode districtCode;
-    private MenuCode menuCode_한식, menuCode_치킨;
+    private MenuCode menuCode1, menuCode2;
     private Hotspot hotspot;
 
     @BeforeEach
     public void setUp() {
-        dataId_한식 = DataId.builder()
+        dataId1 = DataId.builder()
                 .districtId(1)
                 .menuId(1)
                 .time(LocalTime.of(12, 0, 0))
                 .build();
-        dataId_치킨 = DataId.builder()
+        dataId2 = DataId.builder()
                 .districtId(1)
                 .menuId(6)
                 .time(LocalTime.of(12, 0, 0))
@@ -62,25 +62,25 @@ class HomeControllerTest extends MvcTest {
                 .id(1)
                 .name("강남구")
                 .build();
-        menuCode_한식 = MenuCode.builder()
+        menuCode1 = MenuCode.builder()
                 .id(1)
                 .name("한식")
                 .build();
-        menuCode_치킨 = MenuCode.builder()
+        menuCode2 = MenuCode.builder()
                 .id(6)
                 .name("치킨")
                 .build();
-        datum_한식 = Data.builder()
-                .id(dataId_한식)
+        datum1 = Data.builder()
+                .id(dataId1)
                 .orderQuantity(256L)
                 .districtCode(districtCode)
-                .menuCode(menuCode_한식)
+                .menuCode(menuCode1)
                 .build();
-        datum_치킨 = Data.builder()
-                .id(dataId_치킨)
+        datum2 = Data.builder()
+                .id(dataId2)
                 .orderQuantity(128L)
                 .districtCode(districtCode)
-                .menuCode(menuCode_치킨)
+                .menuCode(menuCode2)
                 .build();
         hotspot = Hotspot.builder()
                 .id(1L)
@@ -93,7 +93,7 @@ class HomeControllerTest extends MvcTest {
     @Test
     @DisplayName("현재시각_및_지역구_인기_메뉴_조회")
     public void getBestMenus() throws Exception {
-        List<HomeResponse.Menu> response = List.of(HomeResponse.Menu.build(datum_한식), HomeResponse.Menu.build(datum_치킨));
+        List<HomeResponse.Menu> response = List.of(HomeResponse.Menu.build(datum1), HomeResponse.Menu.build(datum2));
         String request = String.valueOf(1);
         given(homeService.getBestMenusAtThisTimeInAddress(1)).willReturn(response);
         ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/data/menu")
