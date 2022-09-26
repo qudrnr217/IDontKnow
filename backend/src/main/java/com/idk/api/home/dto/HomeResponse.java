@@ -32,7 +32,7 @@ public class HomeResponse {
     public static class Hotspot{
         private String placeA;
         private String placeB;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd hh:mm", timezone = "Asia/Seoul")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy.MM.dd hh:mm:ss", timezone = "Asia/Seoul")
         private LocalDateTime updatedAt;
 
         public static Hotspot build(com.idk.api.home.domain.entity.Hotspot hotspot){
