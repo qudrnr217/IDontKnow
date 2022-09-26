@@ -14,6 +14,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientException;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
@@ -154,11 +155,14 @@ public class FetchSeoulCityDataScheduler {
                 seoulCityDataApiResponseList.add(SeoulCityDataApiResponse.build(areaName, areaCongestionLevel, areaPopulationAvg, nonResidentPopulationRate));
 
             } catch (TimeoutException ex) {
-                log.warn("서울 실시간 도시데이터 / {}번 핫스팟 API Request Timeout", areaName);
+                log.warn("서울 실시간 도시데이터 / {}번 핫스팟 API Response Timeout", areaName);
+            } catch (WebClientException ex) {
+                log.warn("서울 실시간 도시데이터 / {}번 핫스팟 API Connection Timeout", areaName);
             } catch (ParserConfigurationException | IOException | SAXException ex) {
                 log.warn("서울 실시간 도시데이터 / {}번 핫스팟 XML Parsing Error", areaName);
             }
         }
+
 
         if (seoulCityDataApiResponseList.size() < 2) return;
 

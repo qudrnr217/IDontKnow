@@ -1,14 +1,15 @@
 package com.idk.api.home.domain.entity;
 
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.io.Serializable;
-import java.util.Date;
-
+import java.time.LocalTime;
+@Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Embeddable
 @EqualsAndHashCode
 public class DataId implements Serializable {
@@ -20,7 +21,6 @@ public class DataId implements Serializable {
     private int menuId;
 
     @Column(name = "time")
-    @Temporal(TemporalType.TIME)
-    private Date time;
+    private LocalTime time;
 
 }
