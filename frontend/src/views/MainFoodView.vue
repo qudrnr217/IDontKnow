@@ -2,41 +2,29 @@
   <div class="background">
     <div class="body">
       <header-view class="header" />
-      <dropdown-menu />
-      <dropdown-location />
-      <div class="food">
-        <div class="content_title">메뉴 추천</div>
-        <div>
-          <table>
-            <tr>
-              <th style="width: 100px"><img /></th>
-              <th style="width: 100px"><img /></th>
-            </tr>
-            <tr>
-              <th><button class="button1">메뉴1</button></th>
-              <th><button class="button2">메뉴2</button></th>
-            </tr>
-          </table>
+      <div class="content-box3">
+        <div class="content">
+          <div class="content_title">오늘의</div>
+          <div class="content_dropdown"><dropdown-menu /></div>
         </div>
       </div>
-      <div class="weather">
-        <table>
-          <tr>
-            <th><img /></th>
-            <th>기온</th>
-            <th><img /></th>
-            <th>바람세기</th>
-          </tr>
-          <tr>
-            <th><img /></th>
-            <th>습도</th>
-            <th><img /></th>
-            <th>강수량</th>
-          </tr>
-          <tr>
-            <th><div class="weather_comment">오늘은 덥습니다.</div></th>
-          </tr>
-        </table>
+      <div class="current-location"><dropdown-location /></div>
+
+      <div class="content-box3">
+        <div class="content" style="flex-direction: column">
+          <div class="content-title">오늘의 메뉴 추천</div>
+          <div class="content-img">
+            <img src="" alt class="clothes_img" />
+            <img src="" alt class="clothes_img" />
+          </div>
+          <div class="content-description">
+            <button class="button">메뉴 1</button>
+            <button class="button">메뉴 2</button>
+          </div>
+        </div>
+      </div>
+      <div class="content-box3">
+        <weather-view />
       </div>
       <footer-view class="footer" />
     </div>
@@ -48,60 +36,52 @@ import HeaderView from "../components/common/HeaderView.vue";
 import FooterView from "../components/common/FooterView.vue";
 import DropdownMenu from "../components/main/DropdownMenu.vue";
 import DropdownLocation from "@/components/regist/DropdownLocation.vue";
+import WeatherView from "@/components/main/WeatherView.vue";
 export default {
   components: {
     HeaderView,
     FooterView,
     DropdownMenu,
     DropdownLocation,
+    WeatherView,
   },
 };
 </script>
 
-<style>
-.food {
-  width: 300px;
-  height: 300px;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 6px;
-}
-.content_title {
+<style scoped>
+.content-box3 {
+  display: flex;
   justify-content: center;
-  flex-grow: 1;
+  align-content: center;
+  width: 100%;
+  font-family: "GmarketSansTTFLight";
+  font-style: normal;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  width: 250px;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  font-family: "GmarketSansTTFLight";
+}
+.content-title {
+  display: center;
+  justify-content: center;
+  flex-grow: 2;
   font-size: 15px;
   font-family: "GmarketSansTTFMedium";
   vertical-align: center;
+  margin: 10px;
 }
-.weather {
-  width: 300px;
-  height: 300px;
-  background-color: #ffffff;
-  border: none;
-  border-radius: 6px;
+.content-img {
+  margin: 10px;
 }
-.button1 {
-  background-color: #007aff;
-  border: none;
-  border-radius: 6px;
-  width: 100px;
-  height: 30px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 8px;
-  font-family: "GmarketSansTTFLight";
-}
-.button2 {
-  background-color: #007aff;
-  border: none;
-  border-radius: 6px;
-  width: 100px;
-  height: 30px;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  font-size: 8px;
-  font-family: "GmarketSansTTFLight";
+.content-description {
+  margin: 10px;
 }
 </style>
