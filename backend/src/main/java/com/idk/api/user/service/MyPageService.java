@@ -1,11 +1,11 @@
-package com.idk.api.mypage.service;
+package com.idk.api.user.service;
 
 import com.idk.api.common.exception.PermissionException;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.districtcode.domain.repository.DistrictCodeRepository;
 import com.idk.api.districtcode.exception.DistrictCodeNotFoundException;
-import com.idk.api.mypage.dto.MyPageRequest;
-import com.idk.api.mypage.dto.MyPageResponse;
+import com.idk.api.user.dto.MyPageRequest;
+import com.idk.api.user.dto.MyPageResponse;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
 import com.idk.api.user.dto.UserResponse;
@@ -54,6 +54,7 @@ public class MyPageService {
     public UserResponse.OnlyId deleteUserInfo(Long userId, User user){
         if(!userId.equals(user.getId()))    throw new PermissionException();
         user.setDeletedAt(LocalDateTime.now());
+        user.deleteName();
         userRepository.save(user);
         return UserResponse.OnlyId.build(user);
     }

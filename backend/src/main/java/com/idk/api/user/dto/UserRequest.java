@@ -1,6 +1,5 @@
 package com.idk.api.user.dto;
 
-import com.idk.api.user.domain.Age;
 import lombok.*;
 
 public class UserRequest {
@@ -15,7 +14,7 @@ public class UserRequest {
         private String password;
         private int districtId;
         private String gender;
-        private Age age;
+        private int age;
 
     }
 

@@ -1,13 +1,12 @@
-package com.idk.api.mypage.controller;
+package com.idk.api.user.controller;
 
-import com.idk.api.mypage.dto.MyPageRequest;
-import com.idk.api.mypage.dto.MyPageResponse;
-import com.idk.api.mypage.service.MyPageService;
+import com.idk.api.user.dto.MyPageRequest;
+import com.idk.api.user.dto.MyPageResponse;
+import com.idk.api.user.service.MyPageService;
 import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.security.userdetails.CurrentUser;
 import com.idk.api.user.security.userdetails.CustomUserDetails;
 import com.idk.api.vote.dto.VoteResponse;
-import com.idk.api.vote.service.VoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;

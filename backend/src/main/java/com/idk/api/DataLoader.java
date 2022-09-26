@@ -5,7 +5,6 @@ import com.idk.api.districtcode.domain.repository.DistrictCodeRepository;
 import com.idk.api.districtcode.exception.DistrictCodeNotFoundException;
 import com.idk.api.menucode.domain.entity.MenuCode;
 import com.idk.api.menucode.domain.repository.MenuCodeRepository;
-import com.idk.api.user.domain.Age;
 import com.idk.api.user.domain.Role;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
@@ -57,7 +56,7 @@ public class DataLoader implements CommandLineRunner {
                     .email("idontknow@idontknow.com")
                     .password(passwordEncoder.encode("1234"))
                     .role(Role.ADMIN)
-                    .age(Age.TWENTIES)
+                    .age(20)
                     .gender("F")
                     .districtCode(districtCode)
                     .build();
@@ -67,7 +66,7 @@ public class DataLoader implements CommandLineRunner {
                     .email("chickenLover@idontknow.com")
                     .password(passwordEncoder.encode("1234"))
                     .role(Role.USER)
-                    .age(Age.TWENTIES)
+                    .age(20)
                     .gender("M")
                     .districtCode(districtCode)
                     .build();

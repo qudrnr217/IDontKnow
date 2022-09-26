@@ -1,6 +1,5 @@
-package com.idk.api.mypage.dto;
+package com.idk.api.user.dto;
 
-import com.idk.api.user.domain.Age;
 import com.idk.api.user.domain.entity.User;
 import lombok.*;
 
@@ -16,7 +15,7 @@ public class MyPageResponse {
         private String email;
         private int districtId;
         private String gender;
-        private Age age;
+        private int age;
 
         public static UserInfo build(User user){
             return UserInfo.builder()

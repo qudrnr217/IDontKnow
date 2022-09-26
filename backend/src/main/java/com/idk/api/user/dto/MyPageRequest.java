@@ -1,6 +1,5 @@
-package com.idk.api.mypage.dto;
+package com.idk.api.user.dto;
 
-import com.idk.api.user.domain.Age;
 import lombok.*;
 
 public class MyPageRequest {
@@ -12,7 +11,7 @@ public class MyPageRequest {
     public static class UserInfo{
         private int districtId;
         private String gender;
-        private Age age;
+        private int age;
     }
 
     @Getter
