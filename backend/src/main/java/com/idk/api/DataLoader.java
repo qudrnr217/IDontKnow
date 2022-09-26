@@ -71,6 +71,18 @@ public class DataLoader implements CommandLineRunner {
                     .districtCode(districtCode)
                     .build();
             userList.add(user);
+            for(int i = 1 ; i <= 6; i++) {
+                User testUser = User.builder()
+                        .name("치킨좋아"+i)
+                        .email("chickenLover"+i+"@idontknow.com")
+                        .password(passwordEncoder.encode("1234"))
+                        .role(Role.USER)
+                        .age(10 * i)
+                        .gender(i % 2 == 0 ? "M" : "F")
+                        .districtCode(districtCodeRepository.findById(i).orElseThrow(DistrictCodeNotFoundException::new))
+                        .build();
+                userList.add(testUser);
+            }
             userRepository.saveAll(userList);
         }
     }

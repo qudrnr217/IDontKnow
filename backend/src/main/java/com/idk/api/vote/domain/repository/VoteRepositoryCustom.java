@@ -3,6 +3,8 @@ package com.idk.api.vote.domain.repository;
 import com.idk.api.common.category.Category;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.vote.domain.entity.Vote;
+import com.idk.api.vote.dto.BallotDto;
+import com.idk.api.vote.dto.BallotResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
