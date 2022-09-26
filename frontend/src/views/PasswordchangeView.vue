@@ -7,43 +7,46 @@
         <!-- <img src="../assets/image/profile.png" /> -->
       </div>
       <div class="content_title">비밀번호 변경</div>
-      <div class="content">
-        <table class="mypage">
-          <tr>
-            <th>
-              <input
-                class="content_input"
-                type="password"
-                id="password"
-                v-model="password"
-                placeholder="현재 비밀번호"
-              />
-            </th>
-          </tr>
-          <tr>
-            <td>
-              <input
-                class="content_input"
-                type="password"
-                id="password"
-                v-model="password"
-                placeholder="새로운 비밀번호"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <input
-                class="content_input"
-                type="password"
-                id="password"
-                v-model="password"
-                placeholder="새로운 비밀번호 확인"
-              />
-            </td>
-          </tr>
-        </table>
+      <div class="content-box">
+        <div class="content">
+          <table class="mypage">
+            <tr>
+              <th>
+                <input
+                  class="content_input"
+                  type="password"
+                  id="password"
+                  v-model="password"
+                  placeholder="현재 비밀번호"
+                />
+              </th>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  class="content_input"
+                  type="password"
+                  id="password"
+                  v-model="password"
+                  placeholder="새로운 비밀번호"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <input
+                  class="content_input"
+                  type="password"
+                  id="password"
+                  v-model="password"
+                  placeholder="새로운 비밀번호 확인"
+                />
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
+
       <div class="content_check">
         <button class="mypagebutton" @click="click">비밀번호 변경</button>
       </div>
@@ -75,8 +78,14 @@ export default {
 }
 .myprofile {
   margin: auto;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
+}
+.content-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 .content {
   display: flex;
@@ -96,13 +105,14 @@ export default {
   font-size: 15px;
   font-family: "GmarketSansTTFMedium";
   vertical-align: center;
+  margin-left: 30px;
 }
 .content_input {
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex-grow: 3;
   border: none;
   font-family: "GmarketSansTTFLight";
-  text-align: right;
+  text-align: left;
 }
 table {
   border-collapse: collapse;

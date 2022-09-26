@@ -7,46 +7,53 @@
         <!-- <img src="../assets/image/profile.png" /> -->
       </div>
       <div class="content_title">회원정보</div>
-      <div class="content">
-        <table class="mypage">
-          <tr>
-            <th>닉네임</th>
-          </tr>
-          <tr>
-            <td>이메일</td>
-          </tr>
-          <tr>
-            <td>비밀번호 변경</td>
-          </tr>
-        </table>
+      <div class="content-box1">
+        <div class="content">
+          <table class="mypage">
+            <tr>
+              <th>닉네임</th>
+            </tr>
+            <tr>
+              <td>이메일</td>
+            </tr>
+            <tr>
+              <td>비밀번호 변경</td>
+            </tr>
+          </table>
+        </div>
       </div>
       <div class="content_title">거주지, 성별, 연령대</div>
-      <div class="content">
-        <table class="mypage">
-          <tr>
-            <th>거주지</th>
-            <th>
-              <div class="dropdown"><dropdown-location /></div>
-            </th>
-          </tr>
-          <tr>
-            <td>성별</td>
-          </tr>
-          <tr>
-            <td>연령대</td>
-            <td>
-              <div class="dropdown"><dropdown-age /></div>
-            </td>
-          </tr>
-        </table>
+      <div class="content-box2">
+        <div class="content">
+          <table class="mypage">
+            <tr>
+              <th>거주지</th>
+              <th>
+                <div class="dropdown"><dropdown-location /></div>
+              </th>
+            </tr>
+            <tr>
+              <td>성별</td>
+            </tr>
+            <tr>
+              <td>연령대</td>
+              <td>
+                <div class="dropdown">
+                  <dropdown-age />
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
+
       <div class="content_check">
         <div>
           <button class="mypagebutton" @click="click">로그아웃</button>
           <button
             class="mypagebutton"
             @click="click"
-            style="background-color: #007aff"
+            style="background-color: #ff3b30"
           >
             탈퇴하기
           </button>
@@ -84,8 +91,15 @@ export default {
 }
 .myprofile {
   margin: auto;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
+}
+.content-box1,
+.content-box2 {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 .content {
   display: flex;
@@ -105,6 +119,7 @@ export default {
   font-size: 15px;
   font-family: "GmarketSansTTFMedium";
   vertical-align: center;
+  margin-left: 30px;
 }
 .password_change_button {
   background-color: transparent;
