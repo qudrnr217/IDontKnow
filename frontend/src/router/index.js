@@ -42,6 +42,11 @@ const routes = [
     name: "logout",
     component: () => import("../views/LogoutView.vue"),
   },
+  {
+    path: "/mypage",
+    name: "mypage",
+    component: () => import("../views/MypageView.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",
