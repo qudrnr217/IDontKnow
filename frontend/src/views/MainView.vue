@@ -9,8 +9,12 @@
           <div class="content_dropdown"><dropdown-menu /></div>
         </div>
       </div>
-
-      <div class="current-location"><dropdown-location /></div>
+      <div
+        class="content-box3"
+        style="justify-content: flex-end; padding-right: 30px"
+      >
+        <div class="current-location"><dropdown-location /></div>
+      </div>
 
       <div class="content-box3">
         <div class="content-back">
@@ -81,7 +85,6 @@ export default {
 <style>
 .current-location {
   display: flex;
-  justify-content: flex-end;
   margin-right: 30px;
   margin-bottom: 10px;
 }
