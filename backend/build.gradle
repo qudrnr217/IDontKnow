@@ -110,6 +110,16 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 
 	/*************************
+	 * WebClient
+	 *************************/
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux', version: '2.7.3'
+
+	/*************************
+	 * Quarts Scheduling
+	 *************************/
+	implementation 'org.springframework.boot:spring-boot-starter-quartz'
+
+	/*************************
 	 * Test
 	 *************************/
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
