@@ -4,66 +4,82 @@
       <div class="body">
         <header-view class="header" />
         <div class="title">회원가입</div>
-        <div class="content">
-          <div class="content_title">Name</div>
-          <input
-            class="content_input"
-            type="text"
-            id="name"
-            v-model="name"
-            placeholder="닉네임"
-          />
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">Name</div>
+            <input
+              class="content_input"
+              type="text"
+              id="name"
+              v-model="name"
+              placeholder="닉네임"
+            />
+          </div>
         </div>
         <div class="content_check">
           <div class="conten_check_text">사용 가능한 닉네임입니다.</div>
           <button class="button">닉네임 중복 체크</button>
         </div>
-        <div class="content">
-          <div class="content_title">E-mail</div>
-          <input
-            class="content_input"
-            type="text"
-            id="email"
-            v-model="email"
-            placeholder="이메일"
-          />
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">E-mail</div>
+            <input
+              class="content_input"
+              type="text"
+              id="email"
+              v-model="email"
+              placeholder="이메일"
+            />
+          </div>
         </div>
         <div class="content_check">
           <div class="conten_check_text">사용 가능한 이메일입니다.</div>
           <button class="button">이메일 중복 체크</button>
         </div>
-        <div class="content">
-          <div class="content_title">Password</div>
-          <input
-            class="content_input"
-            type="password"
-            id="password"
-            v-model="password"
-            placeholder="비밀번호"
-          />
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">Password</div>
+            <input
+              class="content_input"
+              type="password"
+              id="password"
+              v-model="password"
+              placeholder="비밀번호"
+            />
+          </div>
         </div>
-        <div class="content">
-          <div class="content_title">Password 확인</div>
-          <input
-            class="content_input"
-            type="password"
-            id="password"
-            v-model="password"
-            placeholder="비밀번호 확인"
-          />
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">Password 확인</div>
+            <input
+              class="content_input"
+              type="password"
+              id="password"
+              v-model="password"
+              placeholder="비밀번호 확인"
+            />
+          </div>
         </div>
-        <div class="content">
-          <div class="content_title">거주지</div>
-          <div class="dropdown"><dropdown-location /></div>
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">거주지</div>
+            <div class="dropdown"><dropdown-location /></div>
+          </div>
         </div>
-        <div class="content">
-          <div class="content_title">성별</div>
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">성별</div>
+          </div>
         </div>
-        <div class="content">
-          <div class="content_title">연령대</div>
-          <div class="dropdown"><dropdown-age /></div>
+        <div class="content-box1">
+          <div class="content">
+            <div class="content_title">연령대</div>
+            <div class="dropdown"><dropdown-age /></div>
+          </div>
         </div>
-        <button class="button">회원가입</button>
+        <div class="content_check">
+          <button class="button">회원가입</button>
+        </div>
 
         <footer-view class="footer" />
       </div>
@@ -100,10 +116,16 @@ export default {
   font-style: normal;
   /* background-color: red; */
 }
-.content {
+.content-box1 {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-content: center;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #ffffff;
   width: 300px;
   height: 30px;

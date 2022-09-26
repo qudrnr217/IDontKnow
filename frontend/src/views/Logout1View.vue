@@ -40,7 +40,10 @@ export default {
   /* background-color: red; */
 }
 .return {
+  display: flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 10px;
   font-size: 20px;
   line-height: 36px;
   font-family: "GmarketSansTTFLight";
