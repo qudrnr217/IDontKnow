@@ -5,7 +5,9 @@ import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.user.domain.Role;
 import lombok.*;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
 @Builder
@@ -34,6 +36,7 @@ public class User extends BaseEntity {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "district_id")
+
     private DistrictCode districtCode;
 
     private int age;
@@ -60,6 +63,7 @@ public class User extends BaseEntity {
     public void deleteInfo(){
         this.name = "알 수 없음";
         this.email = "deleted@idontknow.com";
+        this.setDeletedAt(LocalDateTime.now());
     }
 
     public void updateUserInfo(DistrictCode districtCode, String gender, int age){

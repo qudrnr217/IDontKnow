@@ -3,13 +3,11 @@ GET {{apiUrl}}/mypage/users/2/info
 Authorization: {{authorizationToken}}
 
 ### 유저 정보 수정
-PATCH {{apiUrl}}/mypage/users/2/info
+PATCH {{apiUrl}}/mypage/users/2/info?gender=F
 Authorization: {{authorizationToken}}
 Content-Type: application/json;charset=UTF-8
 
-{
-  "age": 20
-}
+
 
 ### 유저 탈퇴
 PATCH {{apiUrl}}/mypage/users/2
@@ -17,7 +15,7 @@ Authorization: {{authorizationToken}}
 Content-Type: application/json;charset=UTF-8
 
 ### 비밀번호 변경
-PATCH {{apiUrl}}/mypage/users/1/pw
+PATCH {{apiUrl}}/mypage/users/2/pw
 Authorization: {{authorizationToken}}
 Content-Type: application/json;charset=UTF-8
 
@@ -27,9 +25,9 @@ Content-Type: application/json;charset=UTF-8
 }
 
 ### 작성한 투표 목록 조회
-GET {{apiUrl}}/mypage/users/1/votes
+GET {{apiUrl}}/mypage/users/2/votes?status=false&lastVoteId=0
 Authorization: {{authorizationToken}}
 
 ### 참여한 투표 목록 조회
-GET {{apiUrl}}/mypage/users/1/ballots
+GET {{apiUrl}}/mypage/users/2/ballots?status=false
 Authorization: {{authorizationToken}}

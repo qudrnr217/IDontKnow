@@ -4,6 +4,7 @@ import com.idk.api.common.exception.PermissionException;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.districtcode.domain.repository.DistrictCodeRepository;
 import com.idk.api.districtcode.exception.DistrictCodeNotFoundException;
+import com.idk.api.user.domain.Role;
 import com.idk.api.user.dto.MyPageRequest;
 import com.idk.api.user.dto.MyPageResponse;
 import com.idk.api.user.domain.entity.User;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -40,46 +42,48 @@ public class MyPageService {
     }
 
     @Transactional
-    public MyPageResponse.UserInfo updateUserInfo(Long userId, User user, MyPageRequest.UserInfo request){
+    public MyPageResponse.UserInfo updateUserInfo(Long userId, User user, int districtId, String gender, int age){
+        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         DistrictCode districtCode = null;
-        if(request.getDistrictId() != 0) districtCode = districtCodeRepository.findById(request.getDistrictId()).orElseThrow(DistrictCodeNotFoundException::new);
+        if(districtId != 0) districtCode = districtCodeRepository.findById(districtId).orElseThrow(DistrictCodeNotFoundException::new);
         if(!userId.equals(user.getId()))    throw new PermissionException();
-        user.updateUserInfo(districtCode, request.getGender(), request.getAge());
-        userRepository.save(user);
-        return MyPageResponse.UserInfo.build(user);
+        findUser.updateUserInfo(districtCode, gender, age);
+        return MyPageResponse.UserInfo.build(findUser);
 
     }
 
     @Transactional
     public UserResponse.OnlyId deleteUserInfo(Long userId, User user){
+        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         if(!userId.equals(user.getId()))    throw new PermissionException();
-        user.setDeletedAt(LocalDateTime.now());
-        user.deleteInfo();
-        userRepository.save(user);
-        return UserResponse.OnlyId.build(user);
+        findUser.deleteInfo();
+        return UserResponse.OnlyId.build(findUser);
     }
 
     @Transactional
     public UserResponse.OnlyId updateUserPassword(Long userId, User user, MyPageRequest.UserPassword request){
-        if(!userId.equals(user.getId()))    throw new PermissionException();
+        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
+        if(checkPermission(user, findUser.getId()))    throw new PermissionException();
         if(!passwordEncoder.matches(request.getCurPassword(), user.getPassword())) throw new InvalidPasswordException();
-        user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
-        userRepository.save(user);
-
-        return UserResponse.OnlyId.build(user);
+        findUser.updatePassword(passwordEncoder.encode(request.getNewPassword()));
+        return UserResponse.OnlyId.build(findUser);
     }
 
     public Page<VoteResponse.GetOne> getVoteList(Long userId, Long lastVoteId, User user, boolean status) {
-        if(!userId.equals(user.getId()))    throw new PermissionException();
+        if(checkPermission(user, userId))    throw new PermissionException();
         Pageable of = PageRequest.of(0, 10);
         Page<Vote> votes = voteRepository.findAllByUserAndStatusOrderByDesc(lastVoteId, user, status, of);
         return votes.map(VoteResponse.GetOne::build);
     }
 
     public Page<VoteResponse.GetOne> getBallotList(Long userId, Long lastVoteId, User user, boolean status) {
-        if(!userId.equals(user.getId()))    throw new PermissionException();
+        if(checkPermission(user, userId))    throw new PermissionException();
         Pageable of = PageRequest.of(0, 10);
         Page<Vote> votes = voteRepository.findAllByBallotUserAndStatusOrderByDesc(lastVoteId, user, status, of);
         return votes.map(VoteResponse.GetOne::build);
+    }
+
+    private boolean checkPermission(User currentUser, long userId){
+        return !currentUser.getRole().equals(Role.ADMIN)  && !Objects.equals(currentUser.getId(), userId);
     }
 }

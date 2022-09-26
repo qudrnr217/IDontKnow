@@ -28,8 +28,8 @@ public class MyPageController {
     }
 
     @PatchMapping("/{userId}/info")
-    public ResponseEntity<MyPageResponse.UserInfo> updateUserInfo(@PathVariable("userId") Long userId, @CurrentUser CustomUserDetails customUserDetails, @RequestBody MyPageRequest.UserInfo request){
-        MyPageResponse.UserInfo response = myPageService.updateUserInfo(userId, customUserDetails.getUser(), request);
+    public ResponseEntity<MyPageResponse.UserInfo> updateUserInfo(@PathVariable("userId") Long userId, @CurrentUser CustomUserDetails customUserDetails, @RequestParam(name = "districtId", defaultValue = "0") int districtId, @RequestParam(name = "gender", required = false) String gender, @RequestParam(name = "age", defaultValue = "0") int age ){
+        MyPageResponse.UserInfo response = myPageService.updateUserInfo(userId, customUserDetails.getUser(), districtId, gender, age);
         return ResponseEntity.ok().body(response);
     }
 

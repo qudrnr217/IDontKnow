@@ -14,6 +14,7 @@ public class MyPageResponse {
         private String name;
         private String email;
         private int districtId;
+        private String districtName;
         private String gender;
         private int age;
 
@@ -23,6 +24,7 @@ public class MyPageResponse {
                     .name(user.getName())
                     .email(user.getEmail())
                     .districtId(user.getDistrictCode().getId())
+                    .districtName(user.getDistrictCode().getName())
                     .gender(user.getGender())
                     .age(user.getAge())
                     .build();
