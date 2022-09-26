@@ -42,6 +42,11 @@ const routes = [
     name: "logout",
     component: () => import("../views/LogoutView.vue"),
   },
+  {
+    path: "/main/clothes",
+    name: "clothes",
+    component: () => import("../views/MainClothesView.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",
