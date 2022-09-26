@@ -3,8 +3,8 @@ POST {{apiUrl}}/users/join
 Content-Type: application/json;charset=UTF-8
 
 {
-  "email": "gkdms6575@naver.com",
-  "name": "하은",
+  "email": "cafelover@naver.com",
+  "name": "카페러버",
   "password": "1234",
   "districtId": 1,
   "age": 20,

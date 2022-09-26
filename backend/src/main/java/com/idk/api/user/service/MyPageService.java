@@ -54,7 +54,7 @@ public class MyPageService {
     public UserResponse.OnlyId deleteUserInfo(Long userId, User user){
         if(!userId.equals(user.getId()))    throw new PermissionException();
         user.setDeletedAt(LocalDateTime.now());
-        user.deleteName();
+        user.deleteInfo();
         userRepository.save(user);
         return UserResponse.OnlyId.build(user);
     }
@@ -65,6 +65,7 @@ public class MyPageService {
         if(!passwordEncoder.matches(request.getCurPassword(), user.getPassword())) throw new InvalidPasswordException();
         user.updatePassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
+
         return UserResponse.OnlyId.build(user);
     }
 

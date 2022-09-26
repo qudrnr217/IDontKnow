@@ -57,8 +57,9 @@ public class User extends BaseEntity {
     public void updatePassword(String password){
         this.password = password;
     }
-    public void deleteName(){
+    public void deleteInfo(){
         this.name = "알 수 없음";
+        this.email = "deleted@idontknow.com";
     }
 
     public void updateUserInfo(DistrictCode districtCode, String gender, int age){
