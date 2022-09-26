@@ -1,33 +1,38 @@
 <template>
-  <div class="background">
-    <div class="body">
-      <HeaderView />
-      <div class="title">커뮤니티</div>
-      <div class="category-box">
-        <div class="category-title">카테고리</div>
+  <div>
+    <div class="background">
+      <div class="body">
+        <com-vote-view />
+        <div class="title">커뮤니티</div>
+        <footer-view class="footer" />
       </div>
-      <footer-view />
     </div>
   </div>
 </template>
 
 <script>
 import FooterView from "../common/FooterView.vue";
-import HeaderView from "../common/HeaderView.vue";
+import ComVoteView from "./ComVoteView.vue";
+
 export default {
   components: {
     FooterView,
-    HeaderView,
+    ComVoteView,
   },
 };
 </script>
 
-<style>
+<style scoped>
 .title {
   font-weight: 1000;
   font-size: 34px;
   line-height: 36px;
   font-family: "GmarketSansTTFLight";
   font-style: normal;
+  /* background-color: red; */
+}
+
+.vote-card {
+  margin-top: 8%;
 }
 </style>
