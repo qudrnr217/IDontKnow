@@ -1,11 +1,14 @@
 package com.idk.api.home.domain.repository;
 
 import com.idk.api.home.domain.entity.Data;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import static com.idk.api.home.domain.entity.QData.data;
+
 import javax.persistence.EntityManager;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.List;
+
+import static com.idk.api.home.domain.entity.QData.data;
 
 public class DataRepositoryImpl implements DataRepositoryCustom {
     private final JPAQueryFactory queryFactory;
@@ -16,11 +19,12 @@ public class DataRepositoryImpl implements DataRepositoryCustom {
 
     @Override
     public List<Data> searchMenusAtThisTimeInAddress(Integer districtId) {
+
         return queryFactory
                 .selectFrom(data)
                 .where(
-                        data.districtCode.id.eq(districtId),
-                        Expressions.numberTemplate(Integer.class, "HOUR(CURRENT_TIME)").eq(data.id.time.hour())
+                        data.id.districtId.eq(districtId),
+                        data.id.time.eq(LocalTime.of(LocalTime.now(ZoneId.of("Asia/Seoul")).getHour(), 0, 0))
                 )
                 .orderBy(data.orderQuantity.desc())
                 .limit(2)

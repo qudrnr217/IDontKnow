@@ -20,8 +20,8 @@ public class HomeService {
 
     private final DataRepository dataRepository;
     private final HotspotRepository hotspotRepository;
-    public List<HomeResponse.Menu> getBestMenusAtThisTimeInAddress(Integer addressId) {
-        List<Data> bestMenus = dataRepository.searchMenusAtThisTimeInAddress(addressId);
+    public List<HomeResponse.Menu> getBestMenusAtThisTimeInAddress(Integer districtId) {
+        List<Data> bestMenus = dataRepository.searchMenusAtThisTimeInAddress(districtId);
         List<HomeResponse.Menu> response = new ArrayList<>();
         for (Data datum :bestMenus) response.add(HomeResponse.Menu.build(datum));
         return response;

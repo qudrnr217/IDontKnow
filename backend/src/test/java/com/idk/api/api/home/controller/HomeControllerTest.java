@@ -97,7 +97,7 @@ class HomeControllerTest extends MvcTest {
         String request = String.valueOf(1);
         given(homeService.getBestMenusAtThisTimeInAddress(1)).willReturn(response);
         ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/data/menu")
-                .queryParam("addressId", request)
+                .queryParam("districtId", request)
                 .accept(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
         );
@@ -107,7 +107,7 @@ class HomeControllerTest extends MvcTest {
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
                         requestParameters(
-                                parameterWithName("addressId").description("서울 지역구 코드")
+                                parameterWithName("districtId").description("서울 지역구 코드")
                         ),
                         responseFields(
                                 fieldWithPath("[].menuId").type(JsonFieldType.NUMBER).description("메뉴 코드"),
