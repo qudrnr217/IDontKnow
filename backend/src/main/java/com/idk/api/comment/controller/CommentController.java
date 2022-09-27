@@ -18,7 +18,6 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CommentResponse.OnlyId> create(@RequestBody CommentRequest.Create request, @CurrentUser CustomUserDetails customUserDetails){
         CommentResponse.OnlyId response = commentService.create(request, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
