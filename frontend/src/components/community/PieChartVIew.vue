@@ -2,7 +2,7 @@
   <div id="chart">
     <apex-chart
       type="pie"
-      width="380"
+      width="300"
       :options="chartOptions"
       :series="series"
     ></apex-chart>
@@ -14,16 +14,17 @@ export default {
   name: "DonutExample",
   data() {
     return {
-      series: [44, 55, 13, 43, 22],
+      series: [50, 50],
       chartOptions: {
+        colors: ["#7B61FF", "#FF9500"],
         chart: {
-          width: 380,
+          width: 300,
           type: "pie",
         },
-        labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
+        labels: ["Team A", "Team B"],
         responsive: [
           {
-            breakpoint: 480,
+            breakpoint: 250,
             options: {
               chart: {
                 width: 200,
@@ -39,3 +40,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div class="body">
-      <HeaderView />
+      <header-view />
       <div class="title">커뮤니티</div>
       <div class="category-box">
         <div class="category-title">카테고리</div>
