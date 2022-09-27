@@ -21,7 +21,7 @@ const routes = [
     //   {
     //     path: "createvote",
     //     name: "createvote",
-    //     component: () => import("@/components/community/CreateVoteView.vue"),
+    //     component: () => import("../components/community/CreateVoteView.vue"),
     //   },
     // ],
   },
@@ -73,6 +73,16 @@ const routes = [
         component: () => import("../views/MainHotspotView.vue"),
       },
     ],
+  },
+  {
+    path: "/main/food",
+    name: "food",
+    component: () => import("../views/MainFoodView.vue"),
+  },
+  {
+    path: "/main/food/detail",
+    name: "food/detail",
+    component: () => import("../views/MainFoodDetailView.vue"),
   },
   // {
   //   path: "/about",
