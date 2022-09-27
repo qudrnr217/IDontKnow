@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div class="detail">
     <div class="alarm">
-      <img src="../../assets/icon/alarm.png" alt class="alarm-btn" />
+      <img src="../../assets/icon/etc.png" alt class="alarm-btn" />
+      <div class="hi" @click="data.isShow = true">
+        gd
+        <vue-confirm-dialog
+          :data="data"
+          v-if="data.isShow"
+        ></vue-confirm-dialog>
+      </div>
     </div>
     <div class="title-card">
       <div class="progress">
@@ -49,16 +56,24 @@
 <script>
 import CommentView from "./CommentView.vue";
 import BarChartView from "./BarChartView.vue";
+import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 export default {
   components: {
     CommentView,
     BarChartView,
+    VueConfirmDialog,
   },
   data() {
     return {
       show1: false,
       show2: false,
       cur_vote: false,
+      data: {
+        isShow: false,
+        message: "투표를 삭제하시겠습니까?",
+        no: "취소",
+        yes: "삭제",
+      },
     };
   },
   methods: {

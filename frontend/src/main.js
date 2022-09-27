@@ -28,6 +28,11 @@ Vue.use(VueApexCharts);
 Vue.component("ApexChart", VueApexCharts);
 // Vue.component("apexchart", VueApexCharts);
 
+// import VueConfirmDialog from "./components/community/VueComfirmDialog.vue";
+
+// Vue.use(VueConfirmDialog);
+// Vue.component("vue-confirm-dialog", VueConfirmDialog.default);
+
 new Vue({
   router,
   store,

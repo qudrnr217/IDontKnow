@@ -11,7 +11,7 @@
           <div class="trending-title">Trending</div>
         </div>
 
-        <Flicking
+        <!-- <Flicking
           :options="{ align: 'prev', circular: true }"
           @move-end="onMoveEnd"
           class="flicking"
@@ -19,16 +19,21 @@
           <div class="panel"><comlist-view /></div>
           <div class="panel"><comlist-view /></div>
           <div class="panel"><comlist-view /></div>
-          <!-- <div class="panel"><comlist-view /></div>
-          <div class="panel"><comlist-view /></div> -->
-        </Flicking>
+          <div class="panel"><comlist-view /></div>
+          <div class="panel"><comlist-view /></div>
+        </Flicking> -->
 
         <div class="body-mid">
           <control-view-2 :segments="segments2" class="toggle-btn" />
-          <div class="create-btn">만들기</div>
+          <div class="create-btn" @click="create_vote()">만들기</div>
+          <!-- <router-link to="/community/createvote" class="create-btn" -->
+          <!-- >만들기</router-link -->
         </div>
 
-        <comlist-view class="card" />
+        <div class="cards" @click="detail_card()">
+          <comlist-view class="card" />
+        </div>
+
         <footer-view class="footer" />
       </div>
     </div>
@@ -42,7 +47,7 @@ import FooterView from "../components/common/FooterView.vue";
 import HeaderView from "../components/common/HeaderView.vue";
 import ComlistView from "../components/community/ComlistView.vue";
 // import { Carousel3d, Slide } from "vue-carousel-3d";
-import { Flicking } from "@egjs/vue-flicking";
+// import { Flicking } from "@egjs/vue-flicking";
 export default {
   components: {
     FooterView,
@@ -52,7 +57,7 @@ export default {
     ControlView2,
     // Carousel3d,
     // Slide,
-    Flicking: Flicking,
+    // Flicking: Flicking,
   },
   data() {
     return {
@@ -82,6 +87,15 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    create_vote() {
+      this.$router.push({ name: "createvote" });
+    },
+    detail_card() {
+      console.log("hi");
+      this.$router.push({ name: "votedetail" });
+    },
   },
 };
 </script>
@@ -158,9 +172,11 @@ export default {
   font-weight: 300;
   font-size: 13px;
   line-height: 20px;
+  cursor: pointer;
 }
 
 .card {
   margin-top: 20px;
+  cursor: pointer;
 }
 </style>

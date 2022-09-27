@@ -18,7 +18,7 @@ const routes = [
     //   {
     //     path: "createvote",
     //     name: "createvote",
-    //     component: () => import("@/components/community/CreateVoteView.vue"),
+    //     component: () => import("../components/community/CreateVoteView.vue"),
     //   },
     // ],
   },
