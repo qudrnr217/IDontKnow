@@ -1,6 +1,6 @@
 <template>
   <div class="age">
-    <div class="age_selected">연령대</div>
+    <div class="age_selected">카테고리 선택</div>
     <ul class="age_list">
       <li class="option">10대</li>
       <li class="option">20대</li>
