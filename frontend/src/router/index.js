@@ -62,6 +62,16 @@ const routes = [
     name: "clothes",
     component: () => import("../views/MainClothesView.vue"),
   },
+  {
+    path: "/main/food",
+    name: "food",
+    component: () => import("../views/MainFoodView.vue"),
+  },
+  {
+    path: "/main/food/detail",
+    name: "food/detail",
+    component: () => import("../views/MainFoodDetailView.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",
