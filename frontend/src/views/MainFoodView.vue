@@ -13,13 +13,33 @@
       <div class="content-box3">
         <div class="content" style="flex-direction: column">
           <div class="content-title">오늘의 메뉴 추천</div>
-          <div class="content-img">
-            <img src="" alt class="clothes_img" />
-            <img src="" alt class="clothes_img" />
-          </div>
-          <div class="content-description">
-            <button class="button">메뉴 1</button>
-            <button class="button">메뉴 2</button>
+          <div class="content-content">
+            <div class="content-menu">
+              <div class="content-img">
+                <img
+                  src="../assets/icon/food/중식.png"
+                  alt
+                  class="food1_img"
+                  style="width: 100px; height: 100px"
+                />
+              </div>
+              <div class="content-description">
+                <button class="button1">메뉴 1</button>
+              </div>
+            </div>
+            <div class="content-menu">
+              <div class="content-img">
+                <img
+                  src="../assets/icon/food/피자.png"
+                  alt
+                  class="food2_img"
+                  style="width: 100px; height: 100px"
+                />
+              </div>
+              <div class="content-description">
+                <button class="button2">메뉴 2</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -78,10 +98,39 @@ export default {
   vertical-align: center;
   margin: 10px;
 }
+.content-menu {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.content-content {
+  display: flex;
+  justify-content: center;
+}
 .content-img {
   margin: 10px;
+  width: 100px;
+  height: 100px;
 }
 .content-description {
   margin: 10px;
+}
+.button1 {
+  width: 100px;
+  height: 30px;
+  background: #ff9500;
+  border: none;
+  border-radius: 10px;
+  font-family: "GmarketSansTTFMedium";
+  color: #ffffff;
+}
+.button2 {
+  width: 100px;
+  height: 30px;
+  background: #af52de;
+  border: none;
+  border-radius: 10px;
+  font-family: "GmarketSansTTFMedium";
+  color: #ffffff;
 }
 </style>
