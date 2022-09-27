@@ -59,7 +59,7 @@
 
 <script>
 import Vue from "vue";
-import { events } from "./events";
+import { events } from "../../components/common/events";
 Vue.directive("focus", {
   inserted: function (el) {
     el.focus();
@@ -76,8 +76,8 @@ const Component = {
       password: null,
       dialog: {
         auth: false,
-        title: this.data.message,
-        message: "",
+        title: this.data.title,
+        message: this.data.message,
         button: {
           no: this.data.no,
           yes: this.data.yes,
@@ -108,7 +108,7 @@ const Component = {
     },
     handleClickOverlay({ target }) {
       if (target.id == "vueConfirm") {
-        this.isShow = false;
+        this.data.isShow = false;
         // callback
         if (this.params.callback) {
           this.params.callback(false, this.password);

@@ -12,8 +12,8 @@
 
 .body {
   width: 390px;
-  height: 844px;
-  min-height: 100%;
+  height: 100%;
+  min-height: 844px;
   background-color: #f2f2f7;
   padding-bottom: 73px;
 }
