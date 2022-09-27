@@ -58,9 +58,19 @@ const routes = [
     component: () => import("../views/PasswordchangeView.vue"),
   },
   {
-    path: "/votes",
-    name: "votes",
-    component: () => import("../views/VoteView.vue"),
+    path: "/main/clothes",
+    name: "clothes",
+    component: () => import("../views/MainClothesView.vue"),
+  },
+  {
+    path: "/main/food",
+    name: "food",
+    component: () => import("../views/MainFoodView.vue"),
+  },
+  {
+    path: "/main/food/detail",
+    name: "food/detail",
+    component: () => import("../views/MainFoodDetailView.vue"),
   },
   // {
   //   path: "/about",
