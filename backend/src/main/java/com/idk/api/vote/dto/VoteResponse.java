@@ -1,11 +1,15 @@
 package com.idk.api.vote.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.idk.api.comment.domain.entity.Comment;
+import com.idk.api.comment.dto.CommentResponse;
 import com.idk.api.vote.domain.entity.Ballot;
 import com.idk.api.vote.domain.entity.Vote;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class VoteResponse {
     @Getter
@@ -46,8 +50,9 @@ public class VoteResponse {
         private String result;
         private Long ballotId;
         private String voted;
+        private List<CommentResponse.GetOne> commentList;
 
-        public static VoteResponse.Info build(Vote vote, Ballot ballot) {
+        public static VoteResponse.Info build(Vote vote, Ballot ballot, List<Comment> comments) {
             InfoBuilder builder = Info.builder()
                                             .voteId(vote.getId())
                                             .category(vote.getCategory().getName())
@@ -63,7 +68,8 @@ public class VoteResponse {
                                             .bCount(vote.getBCount())
                                             .createdAt(vote.getCreatedAt())
                                             .status(vote.isStatus())
-                                            .result(vote.getResult());
+                                            .result(vote.getResult())
+                                            .commentList(comments.stream().map(comment -> CommentResponse.GetOne.build(vote.getUser().getId(), comment)).collect(Collectors.toList()));
             if (ballot != null) {
                 builder.ballotId(ballot.getId())
                         .voted(ballot.getChoice());

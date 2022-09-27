@@ -7,7 +7,6 @@ import com.idk.api.vote.dto.BallotRequest;
 import com.idk.api.vote.dto.BallotResponse;
 import com.idk.api.vote.service.BallotService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

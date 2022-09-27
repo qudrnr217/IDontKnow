@@ -6,7 +6,6 @@ import com.idk.api.comment.service.CommentService;
 import com.idk.api.user.security.userdetails.CurrentUser;
 import com.idk.api.user.security.userdetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +31,12 @@ public class CommentController {
     @PatchMapping("/{commentId}")
     public ResponseEntity<CommentResponse.OnlyId> update(@PathVariable Long commentId, @RequestBody CommentRequest.Update request, @CurrentUser CustomUserDetails customUserDetails) {
         CommentResponse.OnlyId response = commentService.update(commentId, request, customUserDetails.getUser());
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<CommentResponse.OnlyId> delete(@PathVariable Long commentId, @CurrentUser CustomUserDetails customUserDetails){
+        CommentResponse.OnlyId response = commentService.delete(commentId, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
     }
 }
