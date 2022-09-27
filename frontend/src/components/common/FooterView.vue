@@ -19,20 +19,7 @@
 
 <script>
 export default {
-  methods: {
-    community() {
-      this.$router.push({ name: "community" });
-    },
-    home() {
-      this.$router.push({ name: "home" });
-    },
-    vote() {
-      this.$router.push({ name: "votes" });
-    },
-    mypage() {
-      this.$router.push({ name: "mypage" });
-    },
-  },
+  name: "FooterView",
 };
 </script>
 

@@ -2,6 +2,7 @@
   <div>
     <div class="background">
       <div class="body">
+        <router-view></router-view>
         <footer-view class="footer" />
       </div>
     </div>
