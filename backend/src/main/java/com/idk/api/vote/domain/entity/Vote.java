@@ -1,5 +1,6 @@
 package com.idk.api.vote.domain.entity;
 
+import com.idk.api.comment.domain.entity.Comment;
 import com.idk.api.common.category.Category;
 import com.idk.api.common.category.SubCategory;
 import com.idk.api.common.entity.BaseEntity;
@@ -69,6 +70,10 @@ public class Vote extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "vote", cascade = CascadeType.REMOVE)
     private List<Ballot> ballotList = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "vote", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList = new ArrayList<>();
 
     public static Vote create(VoteRequest.Create request, User user) {
         return Vote.builder()

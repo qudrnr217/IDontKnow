@@ -20,7 +20,6 @@ public class BallotController {
     private final BallotService ballotService;
 
     @PostMapping("")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<BallotResponse.OnlyId> create(@RequestBody BallotRequest.Create request, @CurrentUser CustomUserDetails customUserDetails){
         BallotResponse.OnlyId response = ballotService.create(request, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
