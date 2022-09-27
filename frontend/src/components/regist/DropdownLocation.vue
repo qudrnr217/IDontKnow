@@ -50,7 +50,7 @@ window.onload = function () {
 export default {};
 </script>
 
-<style>
+<style scoped>
 .location {
   display: flex;
   justify-content: flex-end;
