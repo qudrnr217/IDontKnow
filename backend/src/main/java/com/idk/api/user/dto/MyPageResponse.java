@@ -31,4 +31,23 @@ public class MyPageResponse {
 
         }
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    public static class Rate{
+        private Long id;
+        private int ballotCount;
+        private int correctCount;
+
+        public static Rate build(Long id, int ballotCount, int correctCount){
+            return Rate.builder()
+                    .id(id)
+                    .ballotCount(ballotCount)
+                    .correctCount(correctCount)
+                    .build();
+        }
+
+    }
 }

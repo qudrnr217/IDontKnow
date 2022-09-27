@@ -12,7 +12,9 @@ import com.idk.api.user.domain.repository.UserRepository;
 import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.exception.InvalidPasswordException;
 import com.idk.api.user.exception.UserNotFoundException;
+import com.idk.api.vote.domain.entity.Ballot;
 import com.idk.api.vote.domain.entity.Vote;
+import com.idk.api.vote.domain.repository.BallotRepository;
 import com.idk.api.vote.domain.repository.VoteRepository;
 import com.idk.api.vote.dto.VoteResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -34,6 +37,7 @@ public class MyPageService {
     private final UserRepository userRepository;
     private final DistrictCodeRepository districtCodeRepository;
     private final VoteRepository voteRepository;
+    private final BallotRepository ballotRepository;
     private final PasswordEncoder passwordEncoder;
 
     public MyPageResponse.UserInfo getUserInfo(Long userId){
@@ -63,7 +67,7 @@ public class MyPageService {
     @Transactional
     public UserResponse.OnlyId updateUserPassword(Long userId, User user, MyPageRequest.UserPassword request){
         User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
-        if(checkPermission(user, findUser.getId()))    throw new PermissionException();
+        if(checkPermission(user, userId))    throw new PermissionException();
         if(!passwordEncoder.matches(request.getCurPassword(), user.getPassword())) throw new InvalidPasswordException();
         findUser.updatePassword(passwordEncoder.encode(request.getNewPassword()));
         return UserResponse.OnlyId.build(findUser);
@@ -85,5 +89,23 @@ public class MyPageService {
 
     private boolean checkPermission(User currentUser, long userId){
         return !currentUser.getRole().equals(Role.ADMIN)  && !Objects.equals(currentUser.getId(), userId);
+    }
+
+    public MyPageResponse.Rate getRate(Long userId, User user){
+        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
+        if(checkPermission(user, userId))   throw new PermissionException();
+        List<Ballot> ballotList = ballotRepository.findBallotsByUser(findUser);
+        List<Vote> voteList = new ArrayList<>();
+        for (Ballot ballot : ballotList) {
+            voteList.add(voteRepository.findById(ballot.getVote().getId()).get());
+        }
+        int ballotCount = 0, correctCount = 0;
+        for (Vote vote : voteList) {
+            if(vote.isStatus() && vote.getDeletedAt() == null)  ballotCount++;
+        }
+        for(int i = 0; i < ballotList.size(); i++){
+            if(ballotList.get(i).getChoice().equals(voteList.get(i).getResult()))   correctCount++;
+        }
+        return MyPageResponse.Rate.build(userId, ballotCount, correctCount);
     }
 }
