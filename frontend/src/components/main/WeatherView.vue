@@ -37,6 +37,7 @@
 
 <script>
 export default {
+  name: "WeatherView",
   components: {},
 };
 </script>

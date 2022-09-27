@@ -9,6 +9,9 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+    redirect: () => {
+      return { path: "/main/clothes" };
+    },
   },
   {
     path: "/community",
@@ -58,9 +61,18 @@ const routes = [
     component: () => import("../views/PasswordchangeView.vue"),
   },
   {
-    path: "/main/clothes",
-    name: "clothes",
-    component: () => import("../views/MainClothesView.vue"),
+    path: "/main",
+    component: () => import("../views/HomeView.vue"),
+    children: [
+      {
+        path: "clothes",
+        component: () => import("../views/MainClothesView.vue"),
+      },
+      {
+        path: "hotspot",
+        component: () => import("../views/MainHotspotView.vue"),
+      },
+    ],
   },
   // {
   //   path: "/about",
