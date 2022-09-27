@@ -123,6 +123,11 @@ export default {
   border-radius: 10px;
   font-family: "GmarketSansTTFMedium";
   color: #ffffff;
+  opacity: 0.6;
+}
+.button1:hover {
+  background: #ff9500;
+  opacity: 1;
 }
 .button2 {
   width: 100px;
@@ -132,5 +137,10 @@ export default {
   border-radius: 10px;
   font-family: "GmarketSansTTFMedium";
   color: #ffffff;
+  opacity: 0.6;
+}
+.button2:hover {
+  background: #af52de;
+  opacity: 1;
 }
 </style>
