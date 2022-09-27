@@ -20,6 +20,20 @@
 <script>
 export default {
   name: "FooterView",
+  methods: {
+    home() {
+      this.$router.push({ name: "clothes" });
+    },
+    community() {
+      this.$router.push({ name: "community_home" });
+    },
+    vote() {
+      this.$router.push({ name: "vote_home" });
+    },
+    mypage() {
+      this.$router.push({ name: "mypage" });
+    },
+  },
 };
 </script>
 
