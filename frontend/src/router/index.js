@@ -18,7 +18,7 @@ const routes = [
     //   {
     //     path: "createvote",
     //     name: "createvote",
-    //     component: () => import("@/components/community/CreateVoteView.vue"),
+    //     component: () => import("../components/community/CreateVoteView.vue"),
     //   },
     // ],
   },
@@ -56,6 +56,11 @@ const routes = [
     path: "/mypage/password",
     name: "mypage/password",
     component: () => import("../views/PasswordchangeView.vue"),
+  },
+  {
+    path: "/votes",
+    name: "votes",
+    component: () => import("../views/VoteView.vue"),
   },
   // {
   //   path: "/about",
