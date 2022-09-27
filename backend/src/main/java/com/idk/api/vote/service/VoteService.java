@@ -1,5 +1,7 @@
 package com.idk.api.vote.service;
 
+import com.idk.api.comment.domain.entity.Comment;
+import com.idk.api.comment.domain.repository.CommentRepository;
 import com.idk.api.common.category.Category;
 import com.idk.api.common.exception.PermissionException;
 import com.idk.api.user.domain.Role;
@@ -29,7 +31,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class VoteService {
     public final VoteRepository voteRepository;
-
+    private final CommentRepository commentRepository;
     @Transactional
     public VoteResponse.OnlyId create(VoteRequest.Create request, User user) {
         Vote vote = Vote.create(request, user);
@@ -45,7 +47,8 @@ public class VoteService {
         }
         vote.hit();
         Ballot ballot = vote.getVoted(customUserDetails);
-        return VoteResponse.Info.build(vote, ballot);
+        List<Comment> comments = commentRepository.findAllByVoteOrderByAsc(vote);
+        return VoteResponse.Info.build(vote, ballot, comments);
     }
     @Transactional
     public VoteResponse.OnlyId changeStatus(Long voteId, VoteRequest.ChangeStatus request, User user) {

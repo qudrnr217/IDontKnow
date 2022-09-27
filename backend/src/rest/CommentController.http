@@ -20,3 +20,7 @@ Content-Type: application/json;charset=UTF-8
 ### 댓글 상세조회
 GET {{apiUrl}}/comments/1
 Authorization: {{authorizationToken}}
+
+### 댓글 삭제
+DELETE {{apiUrl}}/comments/1
+Authorization: {{authorizationToken}}
