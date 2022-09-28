@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div class="body">
-      <header-view class="header" />
+      <header-view />
       <div class="title">마이페이지</div>
       <div class="myprofile">
         <!-- <img src="../assets/image/profile.png" /> -->
@@ -29,7 +29,7 @@
             <tr>
               <th>거주지</th>
               <th>
-                <div class="dropdown"><dropdown-location /></div>
+                <!-- <div class="dropdown"><dropdown-location /></div> -->
               </th>
             </tr>
             <tr>
@@ -39,7 +39,7 @@
               <td>연령대</td>
               <td>
                 <div class="dropdown">
-                  <dropdown-age />
+                  <!-- <dropdown-age /> -->
                 </div>
               </td>
             </tr>
@@ -49,38 +49,63 @@
 
       <div class="content_check">
         <div>
-          <button class="mypagebutton" @click="click">로그아웃</button>
+          <button class="mypagebutton" @click="logout()">로그아웃</button>
           <button
             class="mypagebutton"
-            @click="click"
             style="background-color: #ff3b30"
+            @click="data.isShow = true"
           >
             탈퇴하기
           </button>
+          <vue-confirm-dialog
+            :data="data"
+            v-if="data.isShow"
+          ></vue-confirm-dialog>
         </div>
       </div>
 
-      <footer-view class="footer" />
+      <footer-view />
     </div>
   </div>
 </template>
 
 <script>
-import HeaderView from "../components/common/HeaderView.vue";
-import FooterView from "../components/common/FooterView.vue";
-import DropdownLocation from "../components/regist/DropdownLocation.vue";
-import DropdownAge from "../components/regist/DropdownAge.vue";
+import HeaderView from "../common/HeaderView.vue";
+import FooterView from "../common/FooterView.vue";
+// import DropdownLocation from "../regist/DropdownLocation.vue";
+// import DropdownAge from "../regist/DropdownAge.vue";
+import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+
 export default {
   components: {
     HeaderView,
     FooterView,
-    DropdownLocation,
-    DropdownAge,
+    // DropdownLocation,
+    // DropdownAge,
+    VueConfirmDialog,
+  },
+
+  data() {
+    return {
+      data: {
+        isShow: false,
+        title: "탈퇴하시겠습니까?",
+        message: "회원 탈퇴시 게시글 확인이 어려울 수 있습니다.",
+        yes: "탈퇴하기",
+        no: "취소",
+      },
+    };
+  },
+
+  methods: {
+    logout() {
+      this.$router.push({ path: "/mypage/login" });
+    },
   },
 };
 </script>
 
-<style>
+<style scoped>
 .title {
   font-weight: 1000;
   font-size: 34px;

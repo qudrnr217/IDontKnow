@@ -8,13 +8,13 @@
         <div class="content-box1">
           <div class="content">
             <div class="content_title">카테고리</div>
-            <dropdown-age-vue />
+            <!-- <dropdown-age-vue /> -->
           </div>
         </div>
         <div class="content-box2">
           <div class="content">
             <div class="content_title">세부 카테고리</div>
-            <select-location-view />
+            <!-- <select-location-view /> -->
           </div>
         </div>
 
@@ -53,15 +53,15 @@
 import FooterView from "../common/FooterView.vue";
 import HeaderView from "../common/HeaderView.vue";
 // import DropdownCategory from "./DropdownCategory.vue";
-import SelectLocationView from "../regist/SelectLocationView.vue";
-import DropdownAgeVue from "../regist/DropdownAge.vue";
+// import SelectLocationView from "../regist/SelectLocationView.vue";
+// import DropdownAgeVue from "../regist/DropdownAge.vue";
 export default {
   components: {
     FooterView,
     HeaderView,
     // DropdownCategory,
-    SelectLocationView,
-    DropdownAgeVue,
+    // SelectLocationView,
+    // DropdownAgeVue,
   },
 };
 </script>

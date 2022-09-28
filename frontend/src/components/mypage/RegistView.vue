@@ -43,14 +43,14 @@
               class="content_input"
               type="password"
               id="password"
-              v-model="password"
+              v-model="confirm_password"
               placeholder="비밀번호"
             />
           </div>
         </div>
         <div class="content-box1">
           <div class="content">
-            <div class="content_title">Password 확인</div>
+            <div class="content_title">Password</div>
             <input
               class="content_input"
               type="password"
@@ -78,7 +78,11 @@
           </div>
         </div>
         <div class="content_check">
-          <button class="button">회원가입</button>
+          <button class="button" @click="data.isShow = true">회원가입</button>
+          <vue-confirm-dialog
+            :data="data"
+            v-if="data.isShow"
+          ></vue-confirm-dialog>
         </div>
 
         <footer-view class="footer" />
@@ -88,10 +92,11 @@
 </template>
 
 <script>
-import HeaderView from "../components/common/HeaderView.vue";
-import FooterView from "../components/common/FooterView.vue";
-import DropdownLocation from "../components/regist/DropdownLocation.vue";
-import DropdownAge from "../components/regist/DropdownAge.vue";
+import HeaderView from "../common/HeaderView.vue";
+import FooterView from "../common/FooterView.vue";
+import DropdownLocation from "../mypage/DropdownAge.vue";
+import DropdownAge from "../mypage/DropdownLocation.vue";
+import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 
 export default {
   components: {
@@ -99,6 +104,24 @@ export default {
     FooterView,
     DropdownLocation,
     DropdownAge,
+    VueConfirmDialog,
+  },
+
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      confirm_password: "",
+
+      data: {
+        isShow: false,
+        title: "회원가입이 완료되었습니다.",
+        message:
+          "사이트에 가입하신걸 축하드립니다! 메인페이지로 가셔서 로그인을 하고 사이트를 즐겨보세요!",
+        yes: "확인",
+      },
+    };
   },
 };
 </script>
@@ -127,8 +150,8 @@ export default {
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  width: 300px;
-  height: 30px;
+  width: 360px;
+  height: 40px;
   border: none;
   border-radius: 10px;
   margin: 10px;
@@ -136,10 +159,10 @@ export default {
   font-family: "GmarketSansTTFLight";
 }
 .content_title {
-  justify-content: center;
+  /* justify-content: center; */
   flex-grow: 1;
   font-size: 15px;
-  font-family: "GmarketSansTTFMedium";
+  font-family: "GmarketSansTTFLight";
   vertical-align: center;
 }
 .content_input {

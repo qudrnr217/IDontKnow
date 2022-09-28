@@ -5,10 +5,10 @@
       <div class="content-box3">
         <div class="content">
           <div class="content_title">오늘의</div>
-          <div class="content_dropdown"><dropdown-menu /></div>
+          <!-- <div class="content_dropdown"><dropdown-menu /></div> -->
         </div>
       </div>
-      <div class="current-location"><dropdown-location /></div>
+      <!-- <div class="current-location"><dropdown-location /></div> -->
 
       <div class="content-box3">
         <div class="content" style="flex-direction: column">
@@ -36,15 +36,15 @@
 <script>
 import HeaderView from "../components/common/HeaderView.vue";
 import FooterView from "../components/common/FooterView.vue";
-import DropdownMenu from "../components/main/DropdownMenu.vue";
-import DropdownLocation from "@/components/regist/DropdownLocation.vue";
+// import DropdownMenu from "../components/main/DropdownMenu.vue";
+// import DropdownLocation from "@/components/regist/DropdownLocation.vue";
 import WeatherView from "../components/main/WeatherView.vue";
 export default {
   components: {
     HeaderView,
     FooterView,
-    DropdownMenu,
-    DropdownLocation,
+    // DropdownMenu,
+    // DropdownLocation,
     WeatherView,
   },
 };
