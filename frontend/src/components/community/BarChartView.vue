@@ -26,7 +26,7 @@
 // import $ from "jquery";
 
 import ControlView from "../common/ControlView.vue";
-import PieChartView from "./PieChartView.vue";
+import PieChartView from "./PieChartVIew.vue";
 export default {
   components: {
     ControlView,
