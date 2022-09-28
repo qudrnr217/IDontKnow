@@ -2,7 +2,7 @@
   <div id="chart">
     <apex-chart
       type="pie"
-      width="300"
+      width="310"
       :options="chartOptions"
       :series="series"
     ></apex-chart>
