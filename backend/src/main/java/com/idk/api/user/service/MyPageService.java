@@ -13,6 +13,7 @@ import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.exception.InvalidPasswordException;
 import com.idk.api.user.exception.UserNotFoundException;
 import com.idk.api.vote.domain.entity.Vote;
+import com.idk.api.vote.domain.repository.BallotRepository;
 import com.idk.api.vote.domain.repository.VoteRepository;
 import com.idk.api.vote.dto.VoteResponse;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,7 +64,7 @@ public class MyPageService {
     @Transactional
     public UserResponse.OnlyId updateUserPassword(Long userId, User user, MyPageRequest.UserPassword request){
         User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
-        if(checkPermission(user, findUser.getId()))    throw new PermissionException();
+        if(checkPermission(user, userId))    throw new PermissionException();
         if(!passwordEncoder.matches(request.getCurPassword(), user.getPassword())) throw new InvalidPasswordException();
         findUser.updatePassword(passwordEncoder.encode(request.getNewPassword()));
         return UserResponse.OnlyId.build(findUser);
@@ -85,5 +86,15 @@ public class MyPageService {
 
     private boolean checkPermission(User currentUser, long userId){
         return !currentUser.getRole().equals(Role.ADMIN)  && !Objects.equals(currentUser.getId(), userId);
+    }
+
+    public MyPageResponse.Rate getRate(Long userId, User user){
+        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
+        if(checkPermission(user, userId))   throw new PermissionException();
+
+        long ballotCount = voteRepository.countVoteByBallotUser(findUser).stream().count();
+        long correctCount = voteRepository.countVoteByBallotUserAndResult(findUser).stream().count();
+
+        return MyPageResponse.Rate.build(userId, ballotCount, correctCount);
     }
 }

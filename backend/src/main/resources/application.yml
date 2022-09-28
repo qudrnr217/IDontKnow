@@ -6,6 +6,7 @@ spring:
         - secret
       prod :
         - secret
+        - db
   jpa:
     hibernate:
       naming:

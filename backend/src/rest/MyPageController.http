@@ -31,3 +31,7 @@ Authorization: {{authorizationToken}}
 ### 참여한 투표 목록 조회
 GET {{apiUrl}}/mypage/users/2/ballots?status=false
 Authorization: {{authorizationToken}}
+
+### 예측률 조회
+GET {{apiUrl}}/mypage/users/2/rate
+Authorization: {{authorizationToken}}

@@ -13,4 +13,6 @@ public interface BallotRepositoryCustom {
 
     // 연령대에 따른 AB 투표 개수 조회
     List<BallotDto.CountByAge> countBallotByVoteAndAgeAndChoice(Long voteId);
+
+
 }

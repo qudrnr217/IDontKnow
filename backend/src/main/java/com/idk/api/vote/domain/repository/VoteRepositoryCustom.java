@@ -3,8 +3,6 @@ package com.idk.api.vote.domain.repository;
 import com.idk.api.common.category.Category;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.vote.domain.entity.Vote;
-import com.idk.api.vote.dto.BallotDto;
-import com.idk.api.vote.dto.BallotResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,4 +20,8 @@ public interface VoteRepositoryCustom {
 
     // 내가 참여한 투표 목록 조회 : 진행/종료 상태 구분, DeletedAt 으로 삭제여부 구분
     Page<Vote> findAllByBallotUserAndStatusOrderByDesc(Long lastVoteId, User user, boolean status, Pageable of);
+
+    List<Vote> countVoteByBallotUser(User user);
+
+    List<Vote> countVoteByBallotUserAndResult(User user);
 }
