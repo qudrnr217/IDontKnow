@@ -17,24 +17,37 @@ const routes = [
     path: "/community",
     name: "community",
     component: () => import("../views/CommunityView.vue"),
-    // children: [
-    //   {
-    //     path: "createvote",
-    //     name: "createvote",
-    //     component: () => import("../components/community/CreateVoteView.vue"),
-    //   },
-    // ],
+    children: [
+      {
+        path: "main",
+        name: "community_home",
+        component: () => import("../components/community/CommunityPage.vue"),
+      },
+      {
+        path: "votedetail",
+        name: "votedetail",
+        component: () => import("../components/community/VoteDetailView.vue"),
+      },
+      {
+        path: "votecreate",
+        name: "votecreate",
+        component: () => import("../components/community/CreateVote.vue"),
+      },
+    ],
   },
   {
-    path: "/votedetail",
-    name: "votedetail",
-    component: () => import("@/components/community/VoteDetailView.vue"),
+    path: "/votes",
+    name: "votes",
+    component: () => import("../views/VoteView.vue"),
+    children: [
+      {
+        path: "main",
+        name: "vote_home",
+        component: () => import("../components/vote/VotePage.vue"),
+      },
+    ],
   },
-  {
-    path: "/createvote",
-    name: "createvote",
-    component: () => import("@/components/community/CreateVoteView.vue"),
-  },
+
   {
     path: "/regist",
     name: "regist",
@@ -62,10 +75,12 @@ const routes = [
   },
   {
     path: "/main",
+    name: "main",
     component: () => import("../views/HomeView.vue"),
     children: [
       {
         path: "clothes",
+        name: "clothes",
         component: () => import("../views/MainClothesView.vue"),
       },
       {
