@@ -48,31 +48,40 @@ const routes = [
     ],
   },
 
-  {
-    path: "/regist",
-    name: "regist",
-    component: () => import("../views/Regist1View.vue"),
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: () => import("../views/Login1View.vue"),
-  },
-  {
-    path: "/logout",
-    name: "logout",
-    component: () => import("../views/Logout1View.vue"),
-  },
+  // 로그인
   {
     path: "/mypage",
     name: "mypage",
-    component: () => import("../views/MypageView.vue"),
+    component: () => import("../views/LoginView.vue"),
+    children: [
+      {
+        path: "login",
+        name: "login_home",
+        component: () => import("../components/mypage/LoginPage.vue"),
+      },
+      {
+        path: "regist",
+        name: "regist",
+        component: () => import("../components/mypage/RegistView.vue"),
+      },
+      {
+        path: "logout",
+        name: "logout",
+        component: () => import("../components/mypage/LogoutView.vue"),
+      },
+      {
+        path: "mypage_home",
+        name: "mypage",
+        component: () => import("../components/mypage/MypageView.vue"),
+      },
+      // {
+      //   path: "/mypage/password",
+      //   name: "mypage/password",
+      //   component: () => import("../views/PasswordchangeView.vue"),
+      // },
+    ],
   },
-  {
-    path: "/mypage/password",
-    name: "mypage/password",
-    component: () => import("../views/PasswordchangeView.vue"),
-  },
+
   {
     path: "/main",
     name: "main",
