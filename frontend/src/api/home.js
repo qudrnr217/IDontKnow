@@ -6,4 +6,11 @@ function getHotspots(param, success, fail) {
   api.get(`/data/hotspot`).then(success).catch(fail);
 }
 
-export { getHotspots };
+function getBestMenus(districtId, success, fail) {
+  api
+    .get(`/data/menu`, { params: { districtId: districtId } })
+    .then(success)
+    .catch(fail);
+}
+
+export { getHotspots, getBestMenus };

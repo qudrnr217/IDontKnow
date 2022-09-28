@@ -17,27 +17,31 @@
             <div class="content-menu">
               <div class="content-img">
                 <img
-                  src="../assets/icon/food/중식.png"
+                  :src="
+                    require(`@/assets/icon/food/${bestMenus[0].menuImgName}.png`)
+                  "
                   alt
                   class="food1_img"
                   style="width: 100px; height: 100px"
                 />
               </div>
               <div class="content-description">
-                <button class="button1">메뉴 1</button>
+                <button class="button1">{{ bestMenus[0].menuName }}</button>
               </div>
             </div>
             <div class="content-menu">
               <div class="content-img">
                 <img
-                  src="../assets/icon/food/피자.png"
+                  :src="
+                    require(`@/assets/icon/food/${bestMenus[1].menuImgName}.png`)
+                  "
                   alt
                   class="food2_img"
                   style="width: 100px; height: 100px"
                 />
               </div>
               <div class="content-description">
-                <button class="button2">메뉴 2</button>
+                <button class="button2">{{ bestMenus[1].menuName }}</button>
               </div>
             </div>
           </div>
@@ -57,6 +61,7 @@ import FooterView from "../components/common/FooterView.vue";
 import DropdownMenu from "../components/main/DropdownMenu.vue";
 import DropdownLocation from "@/components/regist/DropdownLocation.vue";
 import WeatherView from "@/components/main/WeatherView.vue";
+import { mapMutations, mapState, mapActions } from "vuex";
 export default {
   components: {
     HeaderView,
@@ -64,6 +69,20 @@ export default {
     DropdownMenu,
     DropdownLocation,
     WeatherView,
+  },
+  mounted() {
+    // TODO: userStore에 districId state 생성되면 파라미터로 그걸 넘겨준다.
+    this.getBestMenus(1);
+  },
+  computed: {
+    ...mapState("homeStore", ["districtId", "bestMenus"]),
+  },
+  methods: {
+    getBestMenus(districtId) {
+      this.FETCH_BEST_MENUS(districtId);
+    },
+    ...mapActions("homeStore", ["FETCH_BEST_MENUS"]),
+    ...mapMutations("homeStore", ["SET_DISTRICT"]),
   },
 };
 </script>
