@@ -87,6 +87,36 @@ public class VoteRepositoryImpl implements VoteRepositoryCustom {
         return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 
+    @Override
+    public List<Vote> countVoteByBallotUser(User user) {
+        return jpaQueryFactory.select(vote)
+                .from(vote)
+                .where(vote.id.in(
+                        JPAExpressions
+                                .select(ballot.vote.id)
+                                .from(ballot)
+                                .where(ballot.user.id.eq(user.getId()))
+                        ),
+                        statusEq(true),
+                        vote.deletedAt.isNull()).fetch();
+
+    }
+
+    @Override
+    public List<Vote> countVoteByBallotUserAndResult(User user) {
+        return jpaQueryFactory.select(vote)
+                .from(vote)
+                .where(vote.id.in(
+                                JPAExpressions
+                                        .select(ballot.vote.id)
+                                        .from(ballot)
+                                        .where(ballot.user.id.eq(user.getId()), ballot.vote.result.eq(ballot.choice) )
+                        ),
+                        statusEq(true),
+                        vote.deletedAt.isNull()).fetch();
+    }
+
+
     private BooleanExpression categoryEq(Category category) {
         if(Objects.nonNull(category)){
             return vote.category.eq(category);

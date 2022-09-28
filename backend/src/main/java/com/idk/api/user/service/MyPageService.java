@@ -12,7 +12,6 @@ import com.idk.api.user.domain.repository.UserRepository;
 import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.exception.InvalidPasswordException;
 import com.idk.api.user.exception.UserNotFoundException;
-import com.idk.api.vote.domain.entity.Ballot;
 import com.idk.api.vote.domain.entity.Vote;
 import com.idk.api.vote.domain.repository.BallotRepository;
 import com.idk.api.vote.domain.repository.VoteRepository;
@@ -25,9 +24,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +35,6 @@ public class MyPageService {
     private final UserRepository userRepository;
     private final DistrictCodeRepository districtCodeRepository;
     private final VoteRepository voteRepository;
-    private final BallotRepository ballotRepository;
     private final PasswordEncoder passwordEncoder;
 
     public MyPageResponse.UserInfo getUserInfo(Long userId){
@@ -94,18 +91,10 @@ public class MyPageService {
     public MyPageResponse.Rate getRate(Long userId, User user){
         User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         if(checkPermission(user, userId))   throw new PermissionException();
-        List<Ballot> ballotList = ballotRepository.findBallotsByUser(findUser);
-        List<Vote> voteList = new ArrayList<>();
-        for (Ballot ballot : ballotList) {
-            voteList.add(voteRepository.findById(ballot.getVote().getId()).get());
-        }
-        int ballotCount = 0, correctCount = 0;
-        for (Vote vote : voteList) {
-            if(vote.isStatus() && vote.getDeletedAt() == null)  ballotCount++;
-        }
-        for(int i = 0; i < ballotList.size(); i++){
-            if(ballotList.get(i).getChoice().equals(voteList.get(i).getResult()))   correctCount++;
-        }
+
+        long ballotCount = voteRepository.countVoteByBallotUser(findUser).stream().count();
+        long correctCount = voteRepository.countVoteByBallotUserAndResult(findUser).stream().count();
+
         return MyPageResponse.Rate.build(userId, ballotCount, correctCount);
     }
 }

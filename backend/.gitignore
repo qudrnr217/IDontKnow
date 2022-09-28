@@ -51,3 +51,4 @@ src/rest/http-client.private.env.json
 
 ### application.properties ###
 application-secret.yml
+application-db.yml
