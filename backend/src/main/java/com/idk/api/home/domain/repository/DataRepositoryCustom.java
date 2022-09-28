@@ -5,5 +5,5 @@ import com.idk.api.home.domain.entity.Data;
 import java.util.List;
 
 public interface DataRepositoryCustom {
-    List<Data> searchMenusAtThisTimeInAddress(Integer addressId);
+    List<Data> searchMenusAtThisTimeInAddress(Integer districtId);
 }
