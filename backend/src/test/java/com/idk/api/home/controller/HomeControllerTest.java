@@ -1,4 +1,4 @@
-package com.idk.api.api.home.controller;
+package com.idk.api.home.controller;
 
 import com.idk.api.MvcTest;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
