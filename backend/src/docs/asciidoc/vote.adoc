@@ -1,0 +1,82 @@
+= 투표 API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+
+== *투표 생성*
+
+`POST /api/votes`
+
+요청 HTTP Request
+include::{snippets}/votes_create/http-request.adoc[]
+include::{snippets}/votes_create/request-fields.adoc[]
+
+응답 HTTP Response
+include::{snippets}/votes_create/http-response.adoc[]
+include::{snippets}/votes_create/response-fields.adoc[]
+
+== *투표 상세 조회*
+
+`GET /api/votes/{voteId}`
+
+요청 HTTP Request
+include::{snippets}/votes_detail/http-request.adoc[]
+include::{snippets}/votes_detail/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/votes_detail/http-response.adoc[]
+include::{snippets}/votes_detail/response-fields.adoc[]
+
+== *투표 상태 변경*
+
+`PATCH /api/votes/{voteId}`
+
+요청 HTTP Request
+include::{snippets}/votes_update/http-request.adoc[]
+include::{snippets}/votes_update/path-parameters.adoc[]
+include::{snippets}/votes_update/request-fields.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/votes_update/http-response.adoc[]
+include::{snippets}/votes_update/response-fields.adoc[]
+
+== *투표 삭제*
+
+`DELETE /api/votes/{voteId}`
+
+요청 HTTP Request
+include::{snippets}/votes_delete/http-request.adoc[]
+include::{snippets}/votes_delete/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/votes_delete/http-response.adoc[]
+include::{snippets}/votes_delete/response-fields.adoc[]
+
+== *카테고리별 조회수 Top3*
+
+`GET /api/votes/top3?category=카테고리`
+
+요청 HTTP Request
+include::{snippets}/votes_top3/http-request.adoc[]
+include::{snippets}/votes_top3/request-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/votes_top3/http-response.adoc[]
+include::{snippets}/votes_top3/response-fields.adoc[]
+
+== *카테고리별 투표 목록 조회*
+
+`GET /api/votes?category=카테고리&status=false&lastVoteId=0`
+
+요청 HTTP Request
+include::{snippets}/votes_list/http-request.adoc[]
+include::{snippets}/votes_list/request-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/votes_list/http-response.adoc[]
+include::{snippets}/votes_list/response-fields.adoc[]
+
