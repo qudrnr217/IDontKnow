@@ -4,23 +4,18 @@ import com.idk.api.MvcTest;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.user.domain.Role;
 import com.idk.api.user.domain.entity.User;
-import com.idk.api.user.dto.MyPageRequest;
-import com.idk.api.user.dto.MyPageResponse;
 import com.idk.api.user.dto.UserRequest;
 import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.security.token.Token;
-import com.idk.api.user.security.token.TokenProvider;
 import com.idk.api.user.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.ResultActions;
 
 import java.time.LocalDateTime;
@@ -45,7 +40,7 @@ public class UserControllerTest extends MvcTest {
 
     private User user;
     private DistrictCode districtCode;
-    private Token token;
+    private Token accessToken, refreshToken;
 
 
     @BeforeEach
@@ -65,8 +60,12 @@ public class UserControllerTest extends MvcTest {
                 .districtCode(districtCode)
                 .age(20)
                 .build();
-        token = Token.builder()
+        accessToken = Token.builder()
                 .token("access-token")
+                .expiredAt(LocalDateTime.now())
+                .build();
+        refreshToken = Token.builder()
+                .token("refresh-token")
                 .expiredAt(LocalDateTime.now())
                 .build();
 
@@ -121,7 +120,7 @@ public class UserControllerTest extends MvcTest {
                 .password(user.getPassword())
                 .build();
 
-        UserResponse.Login response = UserResponse.Login.build(user, token);
+        UserResponse.LoginWithToken response = UserResponse.LoginWithToken.build(user, accessToken, refreshToken);
 
         given(userService.login(any())).willReturn(response);
         ResultActions results = mvc.perform(RestDocumentationRequestBuilders.post("/api/users/login")
@@ -142,8 +141,7 @@ public class UserControllerTest extends MvcTest {
                         responseFields(
                                 fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 ID"),
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("유저 이름"),
-                                fieldWithPath("districtId").type(JsonFieldType.NUMBER).description("지역구"),
-                                fieldWithPath("accessToken").type(JsonFieldType.STRING).description("access-token")
+                                fieldWithPath("districtId").type(JsonFieldType.NUMBER).description("지역구")
                         )
                 ));
         verify(userService).login(any());

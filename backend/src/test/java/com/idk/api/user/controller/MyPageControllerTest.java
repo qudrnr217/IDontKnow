@@ -4,13 +4,11 @@ import com.idk.api.MvcTest;
 import com.idk.api.common.category.Category;
 import com.idk.api.common.category.SubCategory;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
-import com.idk.api.user.domain.Role;
 import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.dto.MyPageRequest;
 import com.idk.api.user.dto.MyPageResponse;
 import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.service.MyPageService;
-import com.idk.api.vote.domain.entity.Ballot;
 import com.idk.api.vote.domain.entity.Vote;
 import com.idk.api.vote.dto.VoteResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,7 +25,6 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import springfox.documentation.spring.web.json.Json;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -37,7 +34,6 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
@@ -52,10 +48,9 @@ public class MyPageControllerTest extends MvcTest {
 
     @MockBean
     private MyPageService myPageService;
-    private User user1, user2, user3;
+    private User user1, user2;
     private DistrictCode districtCode;
     private Vote vote1, vote2;
-    private Ballot ballot1, ballot2;
     private final List<Vote> voteList = new ArrayList<>();
 
     @BeforeEach
@@ -80,19 +75,10 @@ public class MyPageControllerTest extends MvcTest {
                 .gender("F")
                 .age(20)
                 .build();
-        user3 = User.builder()
-                .id(3L)
-                .name("치킨짱")
-                .email("chickenZzang@idontknow.com")
-                .districtCode(districtCode)
-                .gender("M")
-                .age(10)
-                .build();
-
 
         vote1 = Vote.builder()
                 .id(1L)
-                .user(user3)
+                .user(user1)
                 .title("무슨 치킨 먹을까?")
                 .optionA("교촌치킨")
                 .optionB("노랑통닭")
@@ -125,23 +111,6 @@ public class MyPageControllerTest extends MvcTest {
 
         voteList.add(vote1);
         voteList.add(vote2);
-
-        ballot1 = Ballot.builder()
-                .id(1L)
-                .vote(vote1)
-                .user(user1)
-                .choice("A")
-                .build();
-        ballot1.setCreatedAt(LocalDateTime.now().minusHours(1L));
-
-        ballot2 = Ballot.builder()
-                .id(2L)
-                .vote(vote1)
-                .user(user2)
-                .choice("B")
-                .build();
-        ballot2.setCreatedAt(LocalDateTime.now().minusHours(1L));
-
     }
 
     @Test
@@ -424,7 +393,4 @@ public class MyPageControllerTest extends MvcTest {
         verify(myPageService).getRate(anyLong(), any());
 
     }
-
-
-
 }

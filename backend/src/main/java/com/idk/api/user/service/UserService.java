@@ -10,6 +10,7 @@ import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
 import com.idk.api.user.exception.InvalidPasswordException;
 import com.idk.api.user.exception.UserNotFoundException;
+import com.idk.api.user.security.token.Token;
 import com.idk.api.user.security.token.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -61,10 +62,14 @@ public class UserService {
         return userRepository.existsByName(name);
     }
 
-    public UserResponse.Login login(UserRequest.Login request){
+    @Transactional
+    public UserResponse.LoginWithToken login(UserRequest.Login request){
         User findUser = userRepository.findByEmail(request.getEmail()).orElseThrow(UserNotFoundException::new);
         if(!passwordEncoder.matches(request.getPassword(), findUser.getPassword())) throw new InvalidPasswordException();
-        return UserResponse.Login.build(findUser, tokenProvider.generateAccessToken(findUser));
+        Token refreshToken = tokenProvider.generateRefreshToken(findUser);
+        findUser.updateRefreshToken(refreshToken.getToken());
+        userRepository.save(findUser);
+        return UserResponse.LoginWithToken.build(findUser, tokenProvider.generateAccessToken(findUser), refreshToken);
     }
 
     @Transactional
@@ -82,8 +87,8 @@ public class UserService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
         message.setFrom(fromAddress);
-        message.setSubject("[아~ 모르겠다] 임시 비밀번호 재발급 안내");
-        message.setText("안녕하세요. '아~ 모르겠다' 임시비밀번호 안내 관련 이메일 입니다.\n"+" 임시 비밀번호는 " + password + "입니다.");
+        message.setSubject("[결정왕 김모르] 임시 비밀번호 재발급 안내");
+        message.setText("안녕하세요. '결정왕 김모르' 임시비밀번호 안내 관련 이메일 입니다.\n"+" 임시 비밀번호는 " + password + "입니다.");
         mailSender.send(message);
     }
 }
