@@ -317,9 +317,6 @@ public class VoteControllerTest extends MvcTest {
         given(voteService.getList(anyLong(), anyString(), anyBoolean())).willReturn(response);
 
         ResultActions results = mvc.perform(get("/api/votes")
-//                .param("category", "메뉴")
-//                .param("status", String.valueOf(false))
-//                .param("lastVoteId", "0")
                 .queryParam("category", "메뉴")
                 .queryParam("status", "false")
                 .queryParam("lastVoteId", "0")
