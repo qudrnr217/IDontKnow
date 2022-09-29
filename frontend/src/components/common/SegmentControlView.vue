@@ -69,6 +69,7 @@ export default {
       return this.segments.findIndex((segment) => segment.id === this.value);
     },
     pillTransformStyles() {
+      console.log(this.selectedSegmentIndex);
       return (
         "transform:translateX(" +
         this.selectedSegmentWidth * this.selectedSegmentIndex +

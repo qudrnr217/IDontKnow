@@ -3,7 +3,6 @@
     <ios13-segmented-control
       class="segmented-control--wrapper"
       v-model="value"
-      :elementName="elementName"
       :segments="segments"
     />
   </div>
