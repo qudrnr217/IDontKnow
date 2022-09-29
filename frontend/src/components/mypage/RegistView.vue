@@ -79,8 +79,11 @@
           </div>
         </div>
         <div class="content-box1">
-          <div class="content">
+          <div class="content" style="justify-content: flex-end">
             <div class="content_title">성별</div>
+            <div class="dropdown" style="margin: 0px">
+              <control-view-2 :segments="segments2" />
+            </div>
           </div>
         </div>
         <div class="content-box1">
@@ -119,12 +122,13 @@
 import HeaderView from "../common/HeaderView.vue";
 import FooterView from "../common/FooterView.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
-
+import ControlView2 from "../common/ControlView2.vue";
 export default {
   components: {
     HeaderView,
     FooterView,
     VueConfirmDialog,
+    ControlView2,
   },
 
   data() {
@@ -141,6 +145,16 @@ export default {
           "사이트에 가입하신걸 축하드립니다! 메인페이지로 가셔서 로그인을 하고 사이트를 즐겨보세요!",
         yes: "확인",
       },
+      segments2: [
+        {
+          title: "남자",
+          id: "1",
+        },
+        {
+          title: "여자",
+          id: "2",
+        },
+      ],
       Age: [
         {
           value: 1,
@@ -230,38 +244,42 @@ export default {
         },
         {
           value: 16,
-          text: "서울시 성북구",
+          text: "서울시 성동구",
         },
         {
           value: 17,
-          text: "서울시 송파구",
+          text: "서울시 성북구",
         },
         {
           value: 18,
-          text: "서울시 양천구",
+          text: "서울시 송파구",
         },
         {
           value: 19,
-          text: "서울시 영등포구",
+          text: "서울시 양천구",
         },
         {
           value: 20,
-          text: "서울시 용산구",
+          text: "서울시 영등포구",
         },
         {
           value: 21,
-          text: "서울시 은평구",
+          text: "서울시 용산구",
         },
         {
           value: 22,
-          text: "서울시 종로구",
+          text: "서울시 은평구",
         },
         {
           value: 23,
-          text: "서울시 중구",
+          text: "서울시 종로구",
         },
         {
           value: 24,
+          text: "서울시 중구",
+        },
+        {
+          value: 25,
           text: "서울시 중랑구",
         },
       ],
@@ -342,6 +360,9 @@ export default {
   font-family: "GmarketSansTTFLight";
 }
 .dropdown {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
   flex-grow: 3;
 }
 .sel {

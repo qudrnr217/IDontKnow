@@ -66,7 +66,12 @@
             <select-location-view />
           </div>
         </div>
-        <div class="columnname" style="margin: 10px">성별</div>
+        <div class="columnname" style="margin: 10px">
+          <div class="age" style="flex-grow: 1">성별</div>
+          <div class="selectorbox" style="flex-grow: 3">
+            <control-view-2 :segments="segments2" />
+          </div>
+        </div>
         <div class="columnname" style="margin: 10px">
           <div class="age" style="flex-grow: 1">연령대</div>
           <div class="selectorbox" style="flex-grow: 3">
@@ -88,6 +93,7 @@ import FooterView from "../components/common/FooterView.vue";
 import iTextField from "../components/common/iTextField";
 import SelectLocationView from "../components/regist/SelectLocationView.vue";
 import SelectAgeView from "../components/regist/SelectAgeView.vue";
+import ControlView2 from "../common/ControlView2.vue";
 export default {
   components: {
     HeaderView,
@@ -95,6 +101,21 @@ export default {
     iTextField,
     SelectLocationView,
     SelectAgeView,
+    ControlView2,
+  },
+  data() {
+    return {
+      segments2: [
+        {
+          title: "남자",
+          id: "1",
+        },
+        {
+          title: "여자",
+          id: "2",
+        },
+      ],
+    };
   },
 };
 </script>
