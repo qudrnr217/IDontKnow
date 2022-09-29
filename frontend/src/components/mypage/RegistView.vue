@@ -79,8 +79,11 @@
           </div>
         </div>
         <div class="content-box1">
-          <div class="content">
+          <div class="content" style="justify-content: flex-end">
             <div class="content_title">성별</div>
+            <div class="dropdown" style="margin: 0px">
+              <control-view-2 :segments="segments2" />
+            </div>
           </div>
         </div>
         <div class="content-box1">
@@ -119,12 +122,13 @@
 import HeaderView from "../common/HeaderView.vue";
 import FooterView from "../common/FooterView.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
-
+import ControlView2 from "../common/ControlView2.vue";
 export default {
   components: {
     HeaderView,
     FooterView,
     VueConfirmDialog,
+    ControlView2,
   },
 
   data() {
@@ -141,6 +145,16 @@ export default {
           "사이트에 가입하신걸 축하드립니다! 메인페이지로 가셔서 로그인을 하고 사이트를 즐겨보세요!",
         yes: "확인",
       },
+      segments2: [
+        {
+          title: "남자",
+          id: "1",
+        },
+        {
+          title: "여자",
+          id: "2",
+        },
+      ],
       Age: [
         {
           value: 1,
@@ -342,6 +356,9 @@ export default {
   font-family: "GmarketSansTTFLight";
 }
 .dropdown {
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
   flex-grow: 3;
 }
 .sel {
