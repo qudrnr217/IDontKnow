@@ -125,7 +125,7 @@ public class BallotControllerTest extends MvcTest {
                                 fieldWithPath("choice").type(JsonFieldType.STRING).description("선택지 (A/B)")
                         ),
                         responseFields(
-                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("투표 식별자")
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("투표참여 식별자")
                         )
                 ));
 

@@ -1,0 +1,57 @@
+= 댓글 API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+
+== *댓글 생성*
+
+`POST /api/comments`
+
+요청 HTTP Request
+include::{snippets}/comments_create/http-request.adoc[]
+include::{snippets}/comments_create/request-fields.adoc[]
+
+응답 HTTP Response
+include::{snippets}/comments_create/http-response.adoc[]
+include::{snippets}/comments_create/response-fields.adoc[]
+
+== *댓글 상세 조회*
+
+`GET /api/comments/{commentId}`
+
+요청 HTTP Request
+include::{snippets}/comments_detail/http-request.adoc[]
+include::{snippets}/comments_detail/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/comments_detail/http-response.adoc[]
+include::{snippets}/comments_detail/response-fields.adoc[]
+
+== *댓글 수정*
+
+`PATCH /api/comments/{commentId}`
+
+요청 HTTP Request
+include::{snippets}/comments_update/http-request.adoc[]
+include::{snippets}/comments_update/path-parameters.adoc[]
+include::{snippets}/comments_update/request-fields.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/comments_update/http-response.adoc[]
+include::{snippets}/comments_update/response-fields.adoc[]
+
+== *댓글 삭제*
+
+`DELETE /api/comments/{commentId}`
+
+요청 HTTP Request
+include::{snippets}/comments_delete/http-request.adoc[]
+include::{snippets}/comments_delete/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/comments_delete/http-response.adoc[]
+include::{snippets}/comments_delete/response-fields.adoc[]
