@@ -9,6 +9,9 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+    redirect: () => {
+      return { path: "/main/clothes" };
+    },
   },
   {
     path: "/community",
@@ -16,31 +19,84 @@ const routes = [
     component: () => import("../views/CommunityView.vue"),
     children: [
       {
-        path: "createvote",
-        name: "createvote",
-        component: () => import("@/components/community/CreateVoteView.vue"),
+        path: "main",
+        name: "community_home",
+        component: () => import("../components/community/CommunityPage.vue"),
+      },
+      {
+        path: "votedetail",
+        name: "votedetail",
+        component: () => import("../components/community/VoteDetailView.vue"),
+      },
+      {
+        path: "votecreate",
+        name: "votecreate",
+        component: () => import("../components/community/CreateVote.vue"),
       },
     ],
   },
   {
-    path: "/createvote",
-    name: "createvote",
-    component: () => import("@/components/community/CreateVoteView.vue"),
+    path: "/votes",
+    name: "votes",
+    component: () => import("../views/VoteView.vue"),
+    children: [
+      {
+        path: "main",
+        name: "vote_home",
+        component: () => import("../components/vote/VotePage.vue"),
+      },
+    ],
   },
+
+  // 로그인
   {
-    path: "/regist",
-    name: "regist",
-    component: () => import("../views/RegistView.vue"),
-  },
-  {
-    path: "/login",
-    name: "login",
+    path: "/mypage",
+    name: "mypage",
     component: () => import("../views/LoginView.vue"),
+    children: [
+      {
+        path: "login",
+        name: "login_home",
+        component: () => import("../components/mypage/LoginPage.vue"),
+      },
+      {
+        path: "regist",
+        name: "regist",
+        component: () => import("../components/mypage/RegistView.vue"),
+      },
+      {
+        path: "logout",
+        name: "logout",
+        component: () => import("../components/mypage/LogoutView.vue"),
+      },
+      {
+        path: "mypage_home",
+        name: "mypage",
+        component: () => import("../components/mypage/MypageView.vue"),
+      },
+      // {
+      //   path: "/mypage/password",
+      //   name: "mypage/password",
+      //   component: () => import("../views/PasswordchangeView.vue"),
+      // },
+    ],
   },
+
   {
-    path: "/logout",
-    name: "logout",
-    component: () => import("../views/LogoutView.vue"),
+    path: "/main",
+    name: "main",
+    component: () => import("../views/HomeView.vue"),
+    children: [
+      {
+        path: "clothes",
+        name: "clothes",
+        component: () => import("../views/MainClothesView.vue"),
+      },
+      {
+        path: "hotspot",
+        component: () => import("../views/MainHotspotView.vue"),
+      },
+    ],
   },
   {
     path: "/main/food",

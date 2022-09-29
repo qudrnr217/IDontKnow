@@ -1,7 +1,7 @@
 <template>
   <div class="box">
-    <div class="selectBox2">
-      <button class="label">연령대</button>
+    <div class="selectBox1">
+      <button class="label2">연령대</button>
       <ul class="optionList">
         <li class="optionItem">10대</li>
         <li class="optionItem">20대</li>
@@ -40,7 +40,7 @@ window.onload = function () {
 };
 </script>
 
-<style>
+<style scoped>
 .body {
   /* background: #ffffff; */
 }
@@ -81,10 +81,10 @@ select {
 }
 
 /* ------------------------------------------------------- */
-.selectBox2 * {
+.selectBox1 * {
   box-sizing: border-box;
 }
-.selectBox2 {
+.selectBox1 {
   position: relative;
   /* left: 50px; */
   width: 150px;
@@ -94,7 +94,7 @@ select {
   /* background-size: 20px; */
   cursor: pointer;
 }
-.selectBox2:before {
+.selectBox1:before {
   content: url("@/assets/icon/selecticon.png");
   display: block;
   width: 2px;
@@ -106,7 +106,7 @@ select {
   /* background: url("@/assets/icon/selecticon.png") center no-repeat; */
 }
 
-.selectBox2:after {
+.selectBox1:after {
   content: url("@/assets/icon/selecticon.png");
   display: block;
   width: 2px;
@@ -117,7 +117,7 @@ select {
   background: #ededed;
 }
 
-.selectBox2 .label {
+.selectBox1 .label2 {
   display: flex;
   align-items: center;
   width: inherit;
@@ -129,7 +129,7 @@ select {
   cursor: pointer;
 }
 
-.selectBox2 .optionList {
+.selectBox1 .optionList {
   position: absolute;
   top: 28px;
   left: 0;
@@ -144,36 +144,36 @@ select {
   transition: 0.3s ease-in;
 }
 
-.selectBox2 .optionList::-webkit-scrollbar {
+.selectBox1 .optionList::-webkit-scrollbar {
   width: 6px;
 }
-.selectBox2 .optionList::-webkit-scrollbar-track {
+.selectBox1 .optionList::-webkit-scrollbar-track {
   background: transparent;
 }
-.selectBox2 .optionList::-webkit-scrollbar-thumb {
+.selectBox1 .optionList::-webkit-scrollbar-thumb {
   background: #303030;
   border-radius: 45px;
 }
-.selectBox2 .optionList::-webkit-scrollbar-thumb:hover {
+.selectBox1 .optionList::-webkit-scrollbar-thumb:hover {
   background: #303030;
 }
 
-.selectBox2.active .optionList {
+.selectBox1.active .optionList {
   max-height: 500px;
 }
 
-.selectBox2 .optionItem {
+.selectBox1 .optionItem {
   border-bottom: 1px dashed;
   padding: 5px 15px 5px;
   transition: 0.1s;
   text-align: end;
 }
 
-.selectBox2 .optionItem:hover {
+.selectBox1 .optionItem:hover {
   background: rgb(175, 93, 93);
 }
 
-.selectBox2 .optionItem:last-child {
+.selectBox1 .optionItem:last-child {
   border-bottom: 0 none;
 }
 </style>

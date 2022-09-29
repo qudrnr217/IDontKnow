@@ -57,7 +57,7 @@ window.onload = function () {
 };
 </script>
 
-<style>
+<style scoped>
 .body {
   /* background: #ffffff; */
 }
@@ -142,7 +142,7 @@ select {
   border: 0 none;
   outline: 0 none;
   padding-left: 15px;
-  background: transparent;
+  background: #ededed;
   cursor: pointer;
 }
 
@@ -165,7 +165,7 @@ select {
   width: 6px;
 }
 .selectBox2 .optionList::-webkit-scrollbar-track {
-  background: transparent;
+  background: #ededed;
 }
 .selectBox2 .optionList::-webkit-scrollbar-thumb {
   background: #303030;
@@ -176,7 +176,12 @@ select {
 }
 
 .selectBox2.active .optionList {
-  max-height: 500px;
+  max-height: 200px;
+  overflow: overlay;
+}
+
+.optionList {
+  height: 200px;
 }
 
 .selectBox2 .optionItem {
