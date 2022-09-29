@@ -168,38 +168,42 @@ export default {
         },
         {
           value: 16,
-          text: "서울시 성북구",
+          text: "서울시 성동구",
         },
         {
           value: 17,
-          text: "서울시 송파구",
+          text: "서울시 성북구",
         },
         {
           value: 18,
-          text: "서울시 양천구",
+          text: "서울시 송파구",
         },
         {
           value: 19,
-          text: "서울시 영등포구",
+          text: "서울시 양천구",
         },
         {
           value: 20,
-          text: "서울시 용산구",
+          text: "서울시 영등포구",
         },
         {
           value: 21,
-          text: "서울시 은평구",
+          text: "서울시 용산구",
         },
         {
           value: 22,
-          text: "서울시 종로구",
+          text: "서울시 은평구",
         },
         {
           value: 23,
-          text: "서울시 중구",
+          text: "서울시 종로구",
         },
         {
           value: 24,
+          text: "서울시 중구",
+        },
+        {
+          value: 25,
           text: "서울시 중랑구",
         },
       ],
