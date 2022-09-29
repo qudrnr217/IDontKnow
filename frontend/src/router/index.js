@@ -108,6 +108,11 @@ const routes = [
     name: "food/detail",
     component: () => import("../views/MainFoodDetailView.vue"),
   },
+  {
+    path: "/main",
+    name: "main",
+    component: () => import("../views/MainView.vue"),
+  },
   // {
   //   path: "/about",
   //   name: "about",
