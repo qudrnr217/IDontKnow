@@ -114,7 +114,7 @@ public class CommentControllerTest extends MvcTest {
                                 fieldWithPath("content").type(JsonFieldType.STRING).description("댓글 내용")
                         ),
                         responseFields(
-                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("댓글 식별자")
+                                fieldWithPath("commentId").type(JsonFieldType.NUMBER).description("댓글 식별자")
                         )
                 ));
 
