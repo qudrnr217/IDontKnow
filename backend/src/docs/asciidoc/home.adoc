@@ -22,7 +22,7 @@ include::{snippets}/get-menus/response-fields.adoc[]
 
 `GET /api/data/hotspot`
 
-요청 HTTP Reqeust
+요청 HTTP Request
 include::{snippets}/get-hotspots/http-request.adoc[]
 
 성공 응답 HTTP Response

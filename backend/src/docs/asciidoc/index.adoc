@@ -7,5 +7,7 @@
 - link:/docs/home.html[메인 페이지 API]
 
 == *COMMUNITY*
-- link:/docs/community.html[커뮤니티 API]
+- link:/docs/vote.html[투표 API]
+- link:/docs/ballot.html[투표 참여 API]
+- link:/docs/comment.html[댓글 API]
 
