@@ -1,0 +1,71 @@
+= 투표참여 API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+
+== *투표 참여*
+
+`POST /api/ballots`
+
+요청 HTTP Request
+include::{snippets}/ballots_create/http-request.adoc[]
+include::{snippets}/ballots_create/request-fields.adoc[]
+
+응답 HTTP Response
+include::{snippets}/ballots_create/http-response.adoc[]
+include::{snippets}/ballots_create/response-fields.adoc[]
+
+== *투표 취소*
+
+`DELETE /api/ballots/{ballotId}`
+
+요청 HTTP Request
+include::{snippets}/ballots_delete/http-request.adoc[]
+include::{snippets}/ballots_delete/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/ballots_delete/http-response.adoc[]
+include::{snippets}/ballots_delete/response-fields.adoc[]
+
+== *투표별 투표참여 결과*
+
+- 투표 결과가 있는 것만 출력됨.
+- 반드시 각 지역구마다 A, B에 대한 결과가 나오지 않음.
+
+=== *지역구 결과*
+`GET /api/ballots/votes/{voteId}/district`
+
+요청 HTTP Request
+include::{snippets}/ballots_countByDistrict/http-request.adoc[]
+include::{snippets}/ballots_countByDistrict/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/ballots_countByDistrict/http-response.adoc[]
+include::{snippets}/ballots_countByDistrict/response-fields.adoc[]
+
+=== *성별 결과*
+`GET /api/ballots/votes/{voteId}/gender`
+
+요청 HTTP Request
+include::{snippets}/ballots_countByGender/http-request.adoc[]
+include::{snippets}/ballots_countByGender/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/ballots_countByGender/http-response.adoc[]
+include::{snippets}/ballots_countByGender/response-fields.adoc[]
+
+=== *연령대 결과*
+`GET /api/ballots/votes/{voteId}/age`
+
+요청 HTTP Request
+include::{snippets}/ballots_countByAge/http-request.adoc[]
+include::{snippets}/ballots_countByAge/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/ballots_countByAge/http-response.adoc[]
+include::{snippets}/ballots_countByAge/response-fields.adoc[]
+
