@@ -2,6 +2,7 @@
 
 == *USER*
 - link:/docs/user.html[유저 API]
+- link:/docs/mypage.html[마이 페이지 API]
 
 == *HOME*
 - link:/docs/home.html[메인 페이지 API]
