@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -122,6 +121,30 @@ const routes = [
   //   component: () =>
   //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   // },
+  // 새 디자인 적용부분 확인
+
+  {
+    path: "/copy",
+    name: "copy",
+    component: () => import("../views/StartView.vue"),
+  },
+  {
+    path: "/home",
+    name: "newHome",
+    component: () => import("../views/HomeViewCopy.vue"),
+    children: [
+      {
+        path: "create",
+        name: "voteCreate",
+        component: () => import("../components/home/VoteCreateView.vue"),
+      },
+      {
+        path: "detail/:voteId",
+        name: "voteDetail",
+        component: () => import("../components/home/VoteDetailView.vue"),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({

@@ -1,0 +1,243 @@
+/* color */
+/* common */
+.blue-0 {
+  background-color: #e3f6ff;
+}
+.blue-1 {
+  background-color: #b8e9ff;
+}
+.blue-2 {
+  background-color: #58ccff;
+}
+.blue-3 {
+  background-color: #18a8f1;
+}
+.blue-4 {
+  background-color: #1187cf;
+}
+.blue-3-text {
+  color: #18a8f1;
+}
+.blue-4-text {
+  color: #1187cf;
+}
+/* menu */
+.yellow-0 {
+  background-color: #fff7e2;
+}
+.yellow-1 {
+  background-color: #feebb6;
+}
+.yellow-2 {
+  background-color: #ffcd4a;
+}
+.yellow-3 {
+  background-color: #fd9f28;
+}
+.yellow-4 {
+  background-color: #fd6f22;
+}
+.yellow-3-text {
+  color: #fd9f28;
+}
+.yellow-4-text {
+  color: #fd6f22;
+}
+/* style */
+.purple-0 {
+  background-color: #f3e5f5;
+}
+.purple-1 {
+  background-color: #e0bfe6;
+}
+.purple-2 {
+  background-color: #b96bc6;
+}
+.purple-3 {
+  background-color: #9a30ae;
+}
+.purple-4 {
+  background-color: #692498;
+}
+.purple-3-text {
+  color: #9a30ae;
+}
+.purple-4-text {
+  color: #692498;
+}
+/* location */
+.green-0 {
+  background-color: #f1f7ea;
+}
+.green-1 {
+  background-color: #ddecca;
+}
+.green-2 {
+  background-color: #afd485;
+}
+.green-3 {
+  background-color: #7db249;
+}
+.green-4 {
+  background-color: #568a35;
+}
+.green-3-text {
+  color: #7db249;
+}
+.green-4-text {
+  color: #568a35;
+}
+
+/* background */
+.bgd-start {
+  background-image: url(../image/background/start.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* common */
+.bgd-common {
+  background-image: url(../image/background/blue.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* menu */
+.bgd-menu {
+  background-image: url(../image/background/yellow.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* style */
+.bgd-style {
+  background-image: url(../image/background/purple.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* location */
+.bgd-location {
+  background-image: url(../image/background/green.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+
+/* font */
+* {
+  font-family: "ONEMobileTitle";
+}
+.text-h1 {
+  font-size: 24px;
+}
+.text-h2 {
+  font-size: 20px;
+}
+.text-h3 {
+  font-size: 16px;
+}
+.text-h4 {
+  font-size: 12px;
+}
+.text-h5 {
+  font-size: 8px;
+}
+
+/* text-align */
+.text-align-left {
+  vertical-align: middle;
+  text-align: left;
+}
+.text-align-center {
+  vertical-align: middle;
+  text-align: center;
+}
+.text-align-justify {
+  vertical-align: middle;
+  text-align: justify;
+}
+/* box-align */
+.box-column {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+.box-row {
+  display: flex;
+  margin: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.box-btn-right {
+  display: flex;
+  margin: 10px 20px;
+  justify-content: flex-end;
+}
+
+/* button */
+.btn-rectangle-big {
+  display: flex;
+  width: 340px;
+  height: 60px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.btn-rectangle-midium {
+  display: flex;
+  width: 120px;
+  height: 50px;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.btn-rectangle-small {
+  display: flex;
+  width: 70px;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+.btn-square {
+  display: flex;
+  width: 160px;
+  height: 160px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* select box */
+.sb-rectangle-big {
+  width: 85px;
+  height: 40px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: center;
+}
+.sb-rectangle-small {
+  width: 50px;
+  height: 30px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: center;
+}
