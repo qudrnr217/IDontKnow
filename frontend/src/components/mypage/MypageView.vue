@@ -351,7 +351,7 @@ td {
   color: white;
   text-align: center;
   text-decoration: none;
-  font-size: 8px;
+  font-size: 14px;
   font-family: "GmarketSansTTFLight";
 }
 .sel {

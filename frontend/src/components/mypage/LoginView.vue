@@ -78,7 +78,7 @@ export default {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 10px;
+  font-size: 14px;
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
@@ -94,7 +94,7 @@ export default {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 10px;
+  font-size: 14px;
   margin: 4px 2px;
   transition-duration: 0.4s;
   cursor: pointer;

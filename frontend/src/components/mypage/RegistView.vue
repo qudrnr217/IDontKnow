@@ -18,7 +18,7 @@
         </div>
         <div class="content_check">
           <div class="conten_check_text">사용 가능한 닉네임입니다.</div>
-          <button class="button">닉네임 중복 체크</button>
+          <button class="button1">닉네임 중복 체크</button>
         </div>
         <div class="content-box1">
           <div class="content">
@@ -34,7 +34,7 @@
         </div>
         <div class="content_check">
           <div class="conten_check_text">사용 가능한 이메일입니다.</div>
-          <button class="button">이메일 중복 체크</button>
+          <button class="button1">이메일 중복 체크</button>
         </div>
         <div class="content-box1">
           <div class="content">
@@ -81,7 +81,7 @@
         <div class="content-box1">
           <div class="content" style="justify-content: flex-end">
             <div class="content_title">성별</div>
-            <div class="dropdown" style="margin: 0px">
+            <div class="dropdown" style="margin-top: 0px">
               <control-view-2 :segments="segments2" />
             </div>
           </div>
@@ -356,7 +356,19 @@ export default {
   color: white;
   text-align: center;
   text-decoration: none;
-  font-size: 8px;
+  font-size: 14px;
+  font-family: "GmarketSansTTFLight";
+}
+.button1 {
+  background-color: #007aff;
+  border: none;
+  border-radius: 6px;
+  width: 150px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
   font-family: "GmarketSansTTFLight";
 }
 .dropdown {

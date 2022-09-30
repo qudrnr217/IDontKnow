@@ -46,7 +46,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped>
 @media screen and (min-width: 600px) {
   .demo-wrapper {
     margin-top: 28px;

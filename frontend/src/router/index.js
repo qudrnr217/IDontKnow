@@ -10,7 +10,7 @@ const routes = [
     name: "home",
     component: HomeView,
     redirect: () => {
-      return { path: "/main/clothes" };
+      return { path: "/main" };
     },
   },
   {
@@ -85,7 +85,7 @@ const routes = [
   {
     path: "/main",
     name: "main",
-    component: () => import("../views/HomeView.vue"),
+    component: () => import("../views/MainView.vue"),
     children: [
       {
         path: "clothes",
