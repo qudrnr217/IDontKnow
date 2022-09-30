@@ -13,7 +13,7 @@
       <div class="content-box3">
         <div class="content" style="flex-direction: column">
           <div class="content-title">오늘의 메뉴 추천</div>
-          <div class="content-content">
+          <div class="content-content" v-if="bestMenus">
             <div class="content-menu">
               <div class="content-img">
                 <img
@@ -26,7 +26,17 @@
                 />
               </div>
               <div class="content-description">
-                <button class="button1">{{ bestMenus[0].menuName }}</button>
+                <button
+                  class="button1"
+                  @click="
+                    $router.push({
+                      name: 'food/detail',
+                      query: { menu_name: bestMenus[0].menuName },
+                    })
+                  "
+                >
+                  {{ bestMenus[0].menuName }}
+                </button>
               </div>
             </div>
             <div class="content-menu">
@@ -41,7 +51,17 @@
                 />
               </div>
               <div class="content-description">
-                <button class="button2">{{ bestMenus[1].menuName }}</button>
+                <button
+                  class="button2"
+                  @click="
+                    $router.push({
+                      name: 'food/detail',
+                      query: { menu_name: bestMenus[1].menuName },
+                    })
+                  "
+                >
+                  {{ bestMenus[1].menuName }}
+                </button>
               </div>
             </div>
           </div>
@@ -71,6 +91,9 @@ export default {
     WeatherView,
   },
   mounted() {
+    const script = document.createElement("script");
+    script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
+    document.head.appendChild(script);
     // TODO: userStore에 districId state 생성되면 파라미터로 그걸 넘겨준다.
     this.getBestMenus(1);
   },
@@ -135,6 +158,9 @@ export default {
   margin: 10px;
 }
 .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   height: 30px;
   background: #ff9500;

@@ -13,31 +13,55 @@
       <div class="content-box3">
         <div class="content" style="flex-direction: column">
           <div class="content-title">오늘의 메뉴 추천</div>
-          <div class="content-content">
+          <div class="content-content" v-if="bestMenus">
             <div class="content-menu">
               <div class="content-img">
                 <img
-                  src="../assets/icon/food/중식.png"
+                  :src="
+                    require(`@/assets/icon/food/${bestMenus[0].menuImgName}.png`)
+                  "
                   alt
                   class="food1_img"
                   style="width: 100px; height: 100px"
                 />
               </div>
               <div class="content-description">
-                <button class="button1">메뉴 1</button>
+                <button
+                  class="button1"
+                  @click="
+                    $router.push({
+                      name: 'food/detail',
+                      query: { menu_name: bestMenus[0].menuName },
+                    })
+                  "
+                >
+                  {{ bestMenus[0].menuName }}
+                </button>
               </div>
             </div>
             <div class="content-menu">
               <div class="content-img">
                 <img
-                  src="../assets/icon/food/피자.png"
+                  :src="
+                    require(`@/assets/icon/food/${bestMenus[1].menuImgName}.png`)
+                  "
                   alt
                   class="food2_img"
                   style="width: 100px; height: 100px"
                 />
               </div>
               <div class="content-description">
-                <button class="button2">메뉴 2</button>
+                <button
+                  class="button2"
+                  @click="
+                    $router.push({
+                      name: 'food/detail',
+                      query: { menu_name: bestMenus[1].menuName },
+                    })
+                  "
+                >
+                  {{ bestMenus[1].menuName }}
+                </button>
               </div>
             </div>
           </div>
@@ -46,15 +70,9 @@
       <div class="content-box3">
         <div class="content">
           <div class="content-content" style="flex-direction: column">
-            <div class="content-img">
-              <img
-                src="../assets/icon/food/피자.png"
-                alt
-                class="food2_img"
-                style="width: 100px; height: 100px"
-              />
-            </div>
-            <div class="content-description">ddddddd</div>
+            <div class="content-description">{{ $route.query.menu_name }}</div>
+            <hr />
+            <kakao-map></kakao-map>
           </div>
         </div>
       </div>
@@ -68,13 +86,29 @@ import HeaderView from "../components/common/HeaderView.vue";
 import FooterView from "../components/common/FooterView.vue";
 import DropdownMenu from "../components/main/DropdownMenu.vue";
 import DropdownLocation from "@/components/regist/DropdownLocation.vue";
-
+import KakaoMap from "@/components/main/KakaoMap.vue";
+import { mapMutations, mapState, mapActions } from "vuex";
 export default {
   components: {
     HeaderView,
     FooterView,
     DropdownMenu,
     DropdownLocation,
+    KakaoMap,
+  },
+  mounted() {
+    // TODO: userStore에 districId state 생성되면 파라미터로 그걸 넘겨준다.
+    this.getBestMenus(1);
+  },
+  computed: {
+    ...mapState("homeStore", ["districtId", "bestMenus"]),
+  },
+  methods: {
+    getBestMenus(districtId) {
+      this.FETCH_BEST_MENUS(districtId);
+    },
+    ...mapActions("homeStore", ["FETCH_BEST_MENUS"]),
+    ...mapMutations("homeStore", ["SET_DISTRICT"]),
   },
 };
 </script>
@@ -124,9 +158,13 @@ export default {
   height: 100px;
 }
 .content-description {
+  text-align: center;
   margin: 10px;
 }
 .button1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   height: 30px;
   background: #ff9500;
@@ -134,6 +172,7 @@ export default {
   border-radius: 10px;
   font-family: "GmarketSansTTFMedium";
   color: #ffffff;
+  opacity: 0.6;
 }
 .button1:hover {
   background: #ff9500;
@@ -147,6 +186,7 @@ export default {
   border-radius: 10px;
   font-family: "GmarketSansTTFMedium";
   color: #ffffff;
+  opacity: 0.6;
 }
 .button2:hover {
   background: #af52de;

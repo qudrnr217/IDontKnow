@@ -66,10 +66,12 @@ const routes = [
     children: [
       {
         path: "clothes",
+        name: "clothes",
         component: () => import("../views/MainClothesView.vue"),
       },
       {
         path: "hotspot",
+        name: "hotspot",
         component: () => import("../views/MainHotspotView.vue"),
       },
       {

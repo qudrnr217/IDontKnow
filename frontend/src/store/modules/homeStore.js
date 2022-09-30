@@ -22,6 +22,8 @@ const homeStore = {
       state.bestMenus.forEach((el) => {
         if (el.menuName.includes("/")) {
           el.menuImgName = el.menuName.replace("/", "_");
+        } else {
+          el.menuImgName = el.menuName;
         }
       });
     },
