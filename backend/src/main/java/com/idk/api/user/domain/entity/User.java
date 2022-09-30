@@ -5,7 +5,6 @@ import com.idk.api.districtcode.domain.entity.DistrictCode;
 import com.idk.api.user.domain.Role;
 import lombok.*;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -43,22 +42,12 @@ public class User extends BaseEntity {
 
     @Column(name = "refresh_token")
     private String refreshToken;
-    /*
-    @OneToMany(mappedBy = "user")
-    private List<Ballot> ballots = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Vote> votes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Comment> comments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Report> reports = new ArrayList<>();
-    */
 
     public void updatePassword(String password){
         this.password = password;
+    }
+    public void updateRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
     }
     public void deleteInfo(){
         this.name = "알 수 없음";

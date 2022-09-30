@@ -29,15 +29,16 @@ public class UserResponse {
         private String name;
         private int districtId;
         private String accessToken;
+        private String refreshToken;
 
-        public static Login build(User user,Token accessToken) {
+        public static Login build(User user, Token accessToken) {
             return Login.builder()
                     .userId(user.getId())
                     .name(user.getName())
                     .districtId(user.getDistrictCode().getId())
                     .accessToken(accessToken.getToken())
+                    .refreshToken(user.getRefreshToken())
                     .build();
         }
-
     }
 }

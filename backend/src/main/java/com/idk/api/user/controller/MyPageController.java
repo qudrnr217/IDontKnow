@@ -62,4 +62,10 @@ public class MyPageController {
         MyPageResponse.Rate response = myPageService.getRate(userId, customUserDetails.getUser());
         return ResponseEntity.ok().body(response);
     }
+
+    @GetMapping("/{userId}/logout")
+    public ResponseEntity<UserResponse.OnlyId> logout(@PathVariable("userId") Long userId, @CurrentUser CustomUserDetails customUserDetails){
+        UserResponse.OnlyId response = myPageService.logout(userId, customUserDetails.getUser());
+        return ResponseEntity.ok().body(response);
+    }
 }

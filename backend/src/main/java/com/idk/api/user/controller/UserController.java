@@ -33,8 +33,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserResponse.Login> login(@RequestBody UserRequest.Login request){
-        UserResponse.Login response = userService.login(request);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(userService.login(request));
     }
 
     @PatchMapping("/pw")
