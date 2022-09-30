@@ -1,6 +1,5 @@
 package com.idk.api.user.controller;
 
-import com.idk.api.common.utils.CookieUtils;
 import com.idk.api.user.dto.MyPageRequest;
 import com.idk.api.user.dto.MyPageResponse;
 import com.idk.api.user.service.MyPageService;
@@ -14,8 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -23,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 public class MyPageController {
 
     private final MyPageService myPageService;
-    private static final String REFRESH_TOKEN = "refresh_token";
 
     @GetMapping("/{userId}/info")
     public ResponseEntity<MyPageResponse.UserInfo> getUserInfo(@PathVariable("userId") Long userId){
@@ -67,9 +63,9 @@ public class MyPageController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("/logout")
-    public ResponseEntity<Void> logout(HttpServletResponse response){
-        CookieUtils.deleteCookie(response, REFRESH_TOKEN);
-        return ResponseEntity.ok().build();
+    @GetMapping("/{userId}/logout")
+    public ResponseEntity<UserResponse.OnlyId> logout(@PathVariable("userId") Long userId, @CurrentUser CustomUserDetails customUserDetails){
+        UserResponse.OnlyId response = myPageService.logout(userId, customUserDetails.getUser());
+        return ResponseEntity.ok().body(response);
     }
 }

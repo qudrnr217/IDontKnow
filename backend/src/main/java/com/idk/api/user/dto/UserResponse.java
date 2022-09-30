@@ -28,34 +28,16 @@ public class UserResponse {
         private Long userId;
         private String name;
         private int districtId;
+        private String accessToken;
+        private String refreshToken;
 
-        public static Login build(User user) {
+        public static Login build(User user, Token accessToken) {
             return Login.builder()
                     .userId(user.getId())
                     .name(user.getName())
                     .districtId(user.getDistrictCode().getId())
-                    .build();
-        }
-    }
-
-    @Getter
-    @Builder
-    @NoArgsConstructor(access = AccessLevel.PRIVATE)
-    @AllArgsConstructor(access = AccessLevel.PRIVATE)
-    public static class LoginWithToken {
-        private Long userId;
-        private String name;
-        private int districtId;
-        private String accessToken;
-        private String refreshToken;
-
-        public static LoginWithToken build(User user,Token accessToken, Token refreshToken) {
-            return LoginWithToken.builder()
-                    .userId(user.getId())
-                    .name(user.getName())
-                    .districtId(user.getDistrictCode().getId())
                     .accessToken(accessToken.getToken())
-                    .refreshToken(refreshToken.getToken())
+                    .refreshToken(user.getRefreshToken())
                     .build();
         }
     }

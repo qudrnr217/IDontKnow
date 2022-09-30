@@ -397,12 +397,26 @@ public class MyPageControllerTest extends MvcTest {
     @Test
     @DisplayName("로그아웃")
     public void logout() throws Exception{
+        UserResponse.OnlyId response = UserResponse.OnlyId.build(user1);
 
-        ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/mypage/users/logout"));
+        given(myPageService.logout(anyLong(), any())).willReturn(response);
+        ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/mypage/users/{userId}/logout", 1L));
 
         results.andExpect(status().isOk())
                 .andDo(print())
-                .andDo(document("logout"));
+                .andDo(document("logout",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(
+                                parameterWithName("userId").description("유저 ID")
+
+                        ),
+                        responseFields(
+                                fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 ID")
+                        )
+                ));
+        verify(myPageService).logout(anyLong(), any());
+
     }
 
 

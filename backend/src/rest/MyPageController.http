@@ -35,3 +35,7 @@ Authorization: {{authorizationToken}}
 ### 예측률 조회
 GET {{apiUrl}}/mypage/users/2/rate
 Authorization: {{authorizationToken}}
+
+### 로그아웃
+GET {{apiUrl}}/mypage/users/2/logout
+Authorization: {{authorizationToken}}

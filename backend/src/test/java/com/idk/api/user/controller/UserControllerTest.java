@@ -40,7 +40,7 @@ public class UserControllerTest extends MvcTest {
 
     private User user;
     private DistrictCode districtCode;
-    private Token accessToken, refreshToken;
+    private Token accessToken;
 
 
     @BeforeEach
@@ -64,11 +64,6 @@ public class UserControllerTest extends MvcTest {
                 .token("access-token")
                 .expiredAt(LocalDateTime.now())
                 .build();
-        refreshToken = Token.builder()
-                .token("refresh-token")
-                .expiredAt(LocalDateTime.now())
-                .build();
-
     }
 
     @Test
@@ -120,7 +115,7 @@ public class UserControllerTest extends MvcTest {
                 .password(user.getPassword())
                 .build();
 
-        UserResponse.LoginWithToken response = UserResponse.LoginWithToken.build(user, accessToken, refreshToken);
+        UserResponse.Login response = UserResponse.Login.build(user, accessToken);
 
         given(userService.login(any())).willReturn(response);
         ResultActions results = mvc.perform(RestDocumentationRequestBuilders.post("/api/users/login")
@@ -141,7 +136,9 @@ public class UserControllerTest extends MvcTest {
                         responseFields(
                                 fieldWithPath("userId").type(JsonFieldType.NUMBER).description("유저 ID"),
                                 fieldWithPath("name").type(JsonFieldType.STRING).description("유저 이름"),
-                                fieldWithPath("districtId").type(JsonFieldType.NUMBER).description("지역구")
+                                fieldWithPath("districtId").type(JsonFieldType.NUMBER).description("지역구"),
+                                fieldWithPath("accessToken").type(JsonFieldType.STRING).description("Access-Token"),
+                                fieldWithPath("refreshToken").type(JsonFieldType.STRING).description("Refresh-Token").optional()
                         )
                 ));
         verify(userService).login(any());

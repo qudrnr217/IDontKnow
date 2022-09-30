@@ -33,7 +33,15 @@ include::{snippets}/update-user-info/response-fields.adoc[]
 
 == *로그아웃*
 
-`GET /api/mypage/users/logout`
+`GET /api/mypage/users/{userId}/logout`
+
+요청 HTTP Request
+include::{snippets}/logout/http-request.adoc[]
+include::{snippets}/logout/path-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/logout/http-response.adoc[]
+include::{snippets}/logout/response-fields.adoc[]
 
 == *유저 정보 삭제*
 

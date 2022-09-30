@@ -89,10 +89,18 @@ public class MyPageService {
     public MyPageResponse.Rate getRate(Long userId, User user){
         User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         if(checkPermission(user, userId))   throw new PermissionException();
-
         long ballotCount = voteRepository.countVoteByBallotUser(findUser).stream().count();
         long correctCount = voteRepository.countVoteByBallotUserAndResult(findUser).stream().count();
-
         return MyPageResponse.Rate.build(userId, ballotCount, correctCount);
+    }
+
+    @Transactional
+    public UserResponse.OnlyId logout(Long userId, User user){
+        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
+        if(checkPermission(user, userId))   throw new PermissionException();
+        findUser.updateRefreshToken(null);
+        userRepository.save(findUser);
+        return UserResponse.OnlyId.build(findUser);
+
     }
 }

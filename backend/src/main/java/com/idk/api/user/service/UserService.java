@@ -63,13 +63,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserResponse.LoginWithToken login(UserRequest.Login request){
+    public UserResponse.Login login(UserRequest.Login request){
         User findUser = userRepository.findByEmail(request.getEmail()).orElseThrow(UserNotFoundException::new);
         if(!passwordEncoder.matches(request.getPassword(), findUser.getPassword())) throw new InvalidPasswordException();
         Token refreshToken = tokenProvider.generateRefreshToken(findUser);
         findUser.updateRefreshToken(refreshToken.getToken());
         userRepository.save(findUser);
-        return UserResponse.LoginWithToken.build(findUser, tokenProvider.generateAccessToken(findUser), refreshToken);
+        return UserResponse.Login.build(findUser, tokenProvider.generateAccessToken(findUser));
     }
 
     @Transactional
