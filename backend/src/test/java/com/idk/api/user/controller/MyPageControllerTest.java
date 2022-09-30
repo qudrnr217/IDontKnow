@@ -393,4 +393,17 @@ public class MyPageControllerTest extends MvcTest {
         verify(myPageService).getRate(anyLong(), any());
 
     }
+
+    @Test
+    @DisplayName("로그아웃")
+    public void logout() throws Exception{
+
+        ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/mypage/users/logout"));
+
+        results.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("logout"));
+    }
+
+
 }

@@ -31,6 +31,10 @@ include::{snippets}/update-user-info/path-parameters.adoc[]
 include::{snippets}/update-user-info/http-response.adoc[]
 include::{snippets}/update-user-info/response-fields.adoc[]
 
+== *로그아웃*
+
+`GET /api/mypage/users/logout`
+
 == *유저 정보 삭제*
 
 `PATCH /api/mypage/users/{userId}`
@@ -90,3 +94,4 @@ include::{snippets}/get-user-rate/path-parameters.adoc[]
 응답 HTTP Response
 include::{snippets}/get-user-rate/http-response.adoc[]
 include::{snippets}/get-user-rate/response-fields.adoc[]
+

@@ -13,7 +13,6 @@ import com.idk.api.user.dto.UserResponse;
 import com.idk.api.user.exception.InvalidPasswordException;
 import com.idk.api.user.exception.UserNotFoundException;
 import com.idk.api.vote.domain.entity.Vote;
-import com.idk.api.vote.domain.repository.BallotRepository;
 import com.idk.api.vote.domain.repository.VoteRepository;
 import com.idk.api.vote.dto.VoteResponse;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
