@@ -99,7 +99,7 @@ public class MyPageService {
         User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
         if(checkPermission(user, userId))   throw new PermissionException();
         findUser.updateRefreshToken(null);
-        userRepository.save(findUser);
+        findUser = userRepository.save(findUser);
         return UserResponse.OnlyId.build(findUser);
 
     }
