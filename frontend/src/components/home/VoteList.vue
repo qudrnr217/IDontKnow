@@ -393,7 +393,6 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  /* margin: 10px 20px; */
 }
 .vote-card {
   width: 320px;

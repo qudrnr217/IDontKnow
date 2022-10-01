@@ -48,7 +48,7 @@ export default {
 }
 
 .body {
-  width: 390px;
+  max-width: 390px;
   height: 100%;
   min-height: 844px;
   /* background-color: #f2f2f7; */
@@ -57,8 +57,8 @@ export default {
 
 .footer {
   position: fixed;
-  width: 100%;
-  width: 390px;
+  width: 100vw;
+  max-width: 390px;
   height: 73px;
   bottom: 0;
   background: white;
@@ -105,32 +105,47 @@ export default {
   justify-content: space-around;
   position: relative;
 }
-@media (hover: none) {
+
+.btn-rounded-rectangle {
+  display: flex;
+  width: 170px;
+  height: 60px;
+  border-radius: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-text {
+  font-size: 20px;
+  letter-spacing: 2px;
+}
+
+@media (hover: none) and (max-height: 1000px) {
   .box-row-center {
     left: 0px;
-    top: 460px;
+    top: 500px;
   }
-  .btn-text {
-    color: black;
-    font-size: 20px;
-    letter-spacing: 2px;
+}
+@media (hover: none) and (min-height: 1000px) {
+  .box-row-center {
+    left: 0px;
+    top: 750px;
   }
 }
 @media (hover: hover) {
   .box-row-center {
     left: 0px;
-    top: 500px;
+    top: 550px;
   }
   .btn-rounded-rectangle {
+    cursor: pointer;
     transition: all 1s ease-in-out;
   }
   .btn-text {
     box-sizing: border-box;
     transition: all 1s ease-in-out;
-    opacity: 0;
     transform: scale(0);
-    font-size: 20px;
-    letter-spacing: 2px;
+    opacity: 0;
   }
   .btn-rounded-rectangle:hover {
     box-shadow: inset 0 0 0 100px rgba(148, 110, 110, 0.6);
@@ -139,13 +154,5 @@ export default {
     opacity: 1;
     transform: scale(1);
   }
-}
-.btn-rounded-rectangle {
-  display: flex;
-  width: 170px;
-  height: 60px;
-  border-radius: 30px;
-  align-items: center;
-  justify-content: center;
 }
 </style>

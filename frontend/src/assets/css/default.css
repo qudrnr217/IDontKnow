@@ -241,3 +241,43 @@
   border-style: none;
   text-align: center;
 }
+
+/* 작은 화면 최적화 */
+@media (hover: none) and (max-width: 389px) {
+  /* common */
+  .bgd-common {
+    background-image: url(../image/background/blue.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* menu */
+  .bgd-menu {
+    background-image: url(../image/background/yellow.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* style */
+  .bgd-style {
+    background-image: url(../image/background/purple.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* location */
+  .bgd-location {
+    background-image: url(../image/background/green.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+}

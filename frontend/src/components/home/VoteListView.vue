@@ -125,11 +125,10 @@ export default {
       this.$router.push({ name: "voteDetail" });
     },
     changeCategory() {
-      this.$emit("pass", this.category);
+      this.this.$emit("pass", this.category);
     },
     changeStatus() {
       // 여기서 진행 종료 바꾸는 목록 함수 호출
-      console.log(this.status);
     },
   },
 };

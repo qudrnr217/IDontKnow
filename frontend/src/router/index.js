@@ -122,12 +122,6 @@ const routes = [
   //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   // },
   // 새 디자인 적용부분 확인
-
-  {
-    path: "/copy",
-    name: "copy",
-    component: () => import("../views/StartView.vue"),
-  },
   {
     path: "/home",
     name: "newHome",
