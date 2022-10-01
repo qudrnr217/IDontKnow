@@ -8,22 +8,21 @@
     }"
   >
     <div class="body">
-      <vote-list v-on:pass="updateCategory"></vote-list>
+      <vote-detail v-on:pass="updateCategory"></vote-detail>
     </div>
   </div>
 </template>
 
 <script>
-import VoteList from "../components/home/VoteList.vue";
-
+import VoteDetail from "../components/home/VoteDetail.vue";
 export default {
-  name: "HomeViewCopy",
+  name: "VoteDetailView",
   components: {
-    VoteList,
+    VoteDetail,
   },
   data() {
     return {
-      category: "메뉴",
+      category: "",
     };
   },
   methods: {
@@ -34,4 +33,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style></style>

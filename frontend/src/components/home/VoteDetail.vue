@@ -78,6 +78,7 @@ import VoteBarChart from "./VoteBarChart.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 export default {
   name: "VoteDetail",
+  props: ["voteId", "category"],
   components: {
     VoteCommentList,
     VoteBarChart,
@@ -124,6 +125,12 @@ export default {
       this.show1 = false;
       this.show2 = true;
     },
+  },
+  created() {
+    // vote 값을 api로 불러오면 고민할 필요가 없는 부분 !
+    this.$emit("pass", this.$route.params.category);
+    // console.log(this.$route.params.voteId);
+    // console.log(this.$route.params.category);
   },
 };
 </script>

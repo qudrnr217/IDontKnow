@@ -126,16 +126,46 @@ const routes = [
     path: "/home",
     name: "newHome",
     component: () => import("../views/HomeViewCopy.vue"),
+    redirect: () => {
+      return { path: "/home/community" };
+    },
+    children: [
+      {
+        // path: "community/:category",
+        path: "community",
+        hidden: true,
+        component: () => import("../components/home/VoteList.vue"),
+        name: "voteList",
+        props: true,
+      },
+    ],
+  },
+  {
+    path: "/vote",
+    name: "voteCreateView",
+    component: () => import("../views/VoteCreateView.vue"),
+    redirect: () => {
+      return { path: "/vote/create" };
+    },
     children: [
       {
         path: "create",
         name: "voteCreate",
-        component: () => import("../components/home/VoteCreateView.vue"),
+        component: () => import("../components/home/VoteCreate.vue"),
+        props: true,
       },
+    ],
+  },
+  {
+    path: "/vote",
+    name: "voteDetailView",
+    component: () => import("../views/VoteDetailView.vue"),
+    children: [
       {
         path: "detail/:voteId",
         name: "voteDetail",
-        component: () => import("../components/home/VoteDetailView.vue"),
+        component: () => import("../components/home/VoteDetail.vue"),
+        props: true,
       },
     ],
   },

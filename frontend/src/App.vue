@@ -1,9 +1,12 @@
 <template>
-  <div v-if="activeNav === 0">
+  <div v-if="$store.state.started === 0">
     <div class="background bgd-start">
       <div class="body">
         <div class="box-row-center">
-          <div @click="start" class="btn-rounded-rectangle yellow-1">
+          <div
+            @click="start, update_started(1)"
+            class="btn-rounded-rectangle yellow-1"
+          >
             <div class="btn-text">시작하기</div>
           </div>
         </div>
@@ -17,9 +20,15 @@
 </template>
 <script>
 import FooterView from "../src/components/common/FooterViewCopy.vue";
+import { mapState, mapActions } from "vuex";
 export default {
   components: {
     FooterView,
+  },
+  computed: {
+    ...mapState({
+      started: (state) => state.started,
+    }),
   },
   data() {
     return {
@@ -34,7 +43,22 @@ export default {
       this.activeNav = 1;
       this.$router.push({ name: "newHome" });
     },
+    ...mapActions(["update_started"]),
   },
+  // created() {
+  //   if (this.$store.state.started === 1) {
+  //     const currPath = this.$route.path;
+  //     if (currPath.includes("main")) {
+  //       this.updateNav(2);
+  //     } else if (currPath.includes("votes")) {
+  //       this.updateNav(3);
+  //     } else if (currPath.includes("mypage")) {
+  //       this.updateNav(4);
+  //     } else {
+  //       this.updateNav(1);
+  //     }
+  //   }
+  // },
 };
 </script>
 

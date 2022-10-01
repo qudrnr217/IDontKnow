@@ -15,6 +15,9 @@
 .blue-4 {
   background-color: #1187cf;
 }
+.blue-2-border {
+  border-color: #58ccff;
+}
 .blue-3-text {
   color: #18a8f1;
 }
@@ -36,6 +39,9 @@
 }
 .yellow-4 {
   background-color: #fd6f22;
+}
+.yellow-2-border {
+  border-color: #ffcd4a;
 }
 .yellow-3-text {
   color: #fd9f28;
@@ -59,6 +65,9 @@
 .purple-4 {
   background-color: #692498;
 }
+.purple-2-border {
+  border-color: #b96bc6;
+}
 .purple-3-text {
   color: #9a30ae;
 }
@@ -80,6 +89,9 @@
 }
 .green-4 {
   background-color: #568a35;
+}
+.green-2-border {
+  border-color: #afd485;
 }
 .green-3-text {
   color: #7db249;
@@ -186,6 +198,12 @@
   align-items: center;
   justify-content: space-between;
 }
+.box-row-title {
+  display: flex;
+  margin: 10px 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
 .box-btn-right {
   display: flex;
   margin: 10px 20px;
@@ -241,7 +259,11 @@
   border-style: none;
   text-align: center;
 }
-
+/* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
 /* 작은 화면 최적화 */
 @media (hover: none) and (max-width: 389px) {
   /* common */

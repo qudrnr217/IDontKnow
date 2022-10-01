@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "FooterViewCopy",
   props: ["click"],
@@ -54,12 +55,31 @@ export default {
       activated: this.click,
     };
   },
+  computed: {
+    ...mapState({
+      started: (state) => state.data.started,
+    }),
+  },
+  created() {
+    if (this.$store.state.started === 1) {
+      this.activated = 1;
+    }
+  },
   methods: {
     home() {
-      if (this.activated !== 1) {
+      if (this.$route.path !== "/home/community") {
+        this.activated = 1;
+        this.$router.push({
+          name: "voteList",
+          path: "home",
+          params: { status: "진행", category: "메뉴" },
+        });
+      } else if (this.activated !== 1) {
         this.activated = 1;
         this.$emit("move", this.activated);
-        this.$router.push({ name: "newHome" });
+        this.$router.push({
+          name: "newHome",
+        });
       }
     },
     chat() {
