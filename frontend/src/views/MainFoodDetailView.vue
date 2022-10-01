@@ -29,10 +29,11 @@
                 <button
                   class="button1"
                   @click="
+                    menuName = bestMenus[0].menuName;
                     $router.push({
                       name: 'food/detail',
                       query: { menu_name: bestMenus[0].menuName },
-                    })
+                    });
                   "
                 >
                   {{ bestMenus[0].menuName }}
@@ -54,10 +55,11 @@
                 <button
                   class="button2"
                   @click="
+                    menuName = bestMenus[1].menuName;
                     $router.push({
                       name: 'food/detail',
                       query: { menu_name: bestMenus[1].menuName },
-                    })
+                    });
                   "
                 >
                   {{ bestMenus[1].menuName }}
@@ -67,12 +69,11 @@
           </div>
         </div>
       </div>
-      <div class="content-box3">
+      <div class="content-box3" style="height: 800px">
         <div class="content">
           <div class="content-content" style="flex-direction: column">
             <div class="content-description">{{ $route.query.menu_name }}</div>
-            <hr />
-            <kakao-map></kakao-map>
+            <kakao-map :menuName="menuName"></kakao-map>
           </div>
         </div>
       </div>
@@ -95,6 +96,11 @@ export default {
     DropdownMenu,
     DropdownLocation,
     KakaoMap,
+  },
+  data() {
+    return {
+      menuName: "",
+    };
   },
   mounted() {
     // TODO: userStore에 districId state 생성되면 파라미터로 그걸 넘겨준다.

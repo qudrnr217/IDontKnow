@@ -91,9 +91,6 @@ export default {
     WeatherView,
   },
   mounted() {
-    const script = document.createElement("script");
-    script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
-    document.head.appendChild(script);
     // TODO: userStore에 districId state 생성되면 파라미터로 그걸 넘겨준다.
     this.getBestMenus(1);
   },

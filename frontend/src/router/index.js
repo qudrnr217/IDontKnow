@@ -82,6 +82,7 @@ const routes = [
       {
         path: "food/detail",
         name: "food/detail",
+        props: true,
         component: () => import("../views/MainFoodDetailView.vue"),
       },
     ],

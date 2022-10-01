@@ -1,17 +1,18 @@
 <template>
   <div id="map_wrap">
-    <div id="map" style="width: 500px; height: 300px"></div>
+    <div id="map" style="width: 350px; height: 300px"></div>
     <div id="menu_wrap" class="bg_white">
       <ul id="placesList"></ul>
       <div id="pagination"></div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: "KakaoMap",
-  props: {},
+  props: {
+    menuName: String,
+  },
   components: {},
   data() {
     return {
@@ -22,13 +23,20 @@ export default {
       mapOption: {},
       ps: {},
       infowindow: {},
-      menuName: "",
     };
   },
-  created() {},
+  watch: {
+    menuName() {
+      this.searchPlaces();
+    },
+  },
   mounted() {
-    this.menuName = this.$route.query.menu_name;
-    window.kakao.maps.load(this.initMap);
+    const script = document.createElement("script");
+    script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
+    document.head.appendChild(script);
+    script.onload = () => {
+      window.kakao.maps.load(this.initMap);
+    };
   },
   methods: {
     initMap() {
@@ -50,7 +58,7 @@ export default {
     },
     // 키워드 검색을 요청하는 함수입니다
     searchPlaces() {
-      let keyword = "강남구" + " " + this.$route.query.menu_name;
+      let keyword = "서초구" + " " + this.$route.query.menu_name;
       if (!keyword.replace(/^\s+|\s+$/g, "")) {
         alert("키워드를 입력해주세요!");
         return false;
@@ -139,9 +147,11 @@ export default {
     getListItem(index, places) {
       var el = document.createElement("li"),
         itemStr =
+          `<a href="https://map.kakao.com/link/map/${places.id}"` +
           '<span class="markerbg marker_' +
           (index + 1) +
           '"></span>' +
+          "</a>" +
           '<div class="info">' +
           "   <h5>" +
           places.place_name +
@@ -248,20 +258,14 @@ export default {
       }
     },
   },
-  wathch: {
-    $route.query.menu_name() {
-      this.searchPlaces();
-    },
-  },
 };
 </script>
 
-<style scoped>
+<style>
 .map_wrap,
 .map_wrap * {
   margin: 0;
   padding: 0;
-  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
   font-size: 12px;
 }
 .map_wrap a,
@@ -271,11 +275,13 @@ export default {
   text-decoration: none;
 }
 .map_wrap {
+  /* border-top: thick solid #ff0000; */
   width: 100%;
   height: 100%;
 }
 #menu_wrap {
   width: 100%;
+  height: 300px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.7);
   z-index: 1;
