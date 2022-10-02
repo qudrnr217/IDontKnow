@@ -281,7 +281,7 @@ export default {
   height: 100%;
 }
 #menu_wrap {
-  width: 100%;
+  width: 350px;
   height: 300px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.7);
