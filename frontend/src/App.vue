@@ -3,6 +3,7 @@
     <router-view />
   </div>
 </template>
+<script></script>
 
 <style>
 .background {
@@ -20,7 +21,6 @@
 
 .footer {
   position: fixed;
-  width: 100%;
   width: 390px;
   height: 73px;
   bottom: 0;
