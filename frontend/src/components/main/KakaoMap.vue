@@ -58,6 +58,7 @@ export default {
     },
     // 키워드 검색을 요청하는 함수입니다
     searchPlaces() {
+      // TODO: userStore.districtName에서 가져오기
       let keyword = "서초구" + " " + this.$route.query.menu_name;
       if (!keyword.replace(/^\s+|\s+$/g, "")) {
         alert("키워드를 입력해주세요!");
