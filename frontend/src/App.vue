@@ -1,14 +1,12 @@
 <template>
-  <div v-if="$store.state.started === 0">
-    <div class="background bgd-start">
-      <div class="body">
-        <div class="box-row-center">
-          <div
-            @click="start, update_started(1)"
-            class="btn-rounded-rectangle yellow-1"
-          >
-            <div class="btn-text">시작하기</div>
-          </div>
+  <div v-if="$store.state.started === 0" class="background bgd-start">
+    <div class="body">
+      <div class="box-row-center">
+        <div
+          @click="start, update_started(1)"
+          class="btn-rounded-rectangle yellow-1"
+        >
+          <div class="btn-text">시작하기</div>
         </div>
       </div>
     </div>
@@ -66,16 +64,14 @@ export default {
 @import "./assets/css/default.css";
 
 .background {
-  /* background-color: #ffffff; */
   display: flex;
   justify-content: center;
 }
 
 .body {
   max-width: 390px;
-  height: 100%;
+  height: 100vh;
   min-height: 844px;
-  /* background-color: #f2f2f7; */
   padding-bottom: 73px;
 }
 
@@ -101,9 +97,8 @@ export default {
 @font-face {
   font-family: "ONEMobileTitle";
   src: url("./assets/fonts/ONEMobileTitle.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
 }
+
 @font-face {
   font-family: "GmarketSansTTFLight";
   src: url("./assets/fonts/GmarketSansTTFLight.ttf") format("truetype");

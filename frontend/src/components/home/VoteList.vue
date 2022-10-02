@@ -1,6 +1,6 @@
 <template>
   <div class="body">
-    <div class="box-row-title">
+    <div class="box-row-left">
       <div class="text-title text-h1">모두에게 물어봐</div>
       <select
         v-model="category"
@@ -29,6 +29,9 @@
         >
           인기 투표🔥
         </div>
+      </div>
+      <div class="box-row">
+        <div class="vote-percent-bar">인기투표가 나오도록 변경 필요 !</div>
       </div>
     </div>
     <div class="box-column">
@@ -276,17 +279,21 @@ export default {
       // console.log(clickedId);
       this.$router.push({
         name: "voteDetail",
-        params: { voteId: clickedId, category: this.category },
+        params: {
+          voteId: clickedId,
+          // categoryParam: this.category,
+          // statusParam: this.status,
+        },
       });
     },
     changeCategory() {
       this.$emit("pass", this.category);
       this.status = "진행";
-      // this.$router.push({
-      //   name: "voteList",
-      //   path: "home",
-      //   params: { status: this.status, category: this.category },
-      // });
+      this.$router.push({
+        name: "voteList",
+        path: "home",
+        params: { status: this.status, category: this.category },
+      });
     },
     changeStatus() {
       // 여기서 진행 종료 바꾸는 목록 함수 호출
@@ -296,103 +303,6 @@ export default {
 </script>
 
 <style scoped>
-.text-title {
-  margin-right: 20px;
-}
-.vote-list {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-/* 배경이미지는 각 card의 id 값으로 변경하도록 함수 실행 */
-.vote-card {
-  width: 320px;
-  height: 180px;
-  border-radius: 10px;
-  margin: 10px;
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("~@/assets/image/교촌치킨.jpg");
-  background-position: center center;
-  background-size: 100% 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: left;
-  justify-content: center;
-}
-
-/* vote card 내부 */
-.vote-title-box {
-  margin: 5px 20px;
-}
-
-.vote-writer-box {
-  margin: 5px 20px;
-}
-
-.vote-options-box {
-  display: flex;
-  margin: 5px 20px;
-  align-items: center;
-  justify-content: space-between;
-}
-.vote-option-box {
-  box-sizing: border-box;
-  width: 45%;
-  height: 50px;
-
-  background: #ffffff;
-  border-width: 3px;
-  border-style: solid;
-  border-radius: 10px;
-}
-.vote-option-text {
-  padding: 4px;
-  text-align: center;
-}
-
-.vote-info-box {
-  display: flex;
-  margin: 5px 20px;
-  align-items: center;
-  justify-content: space-between;
-}
-.vote-category-box {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-.vote-category-main,
-.vote-category-sub {
-  align-items: center;
-  justify-content: space-between;
-  margin: 0px 5px;
-}
-.vote-count-box {
-  display: flex;
-  justify-content: center;
-  margin: 0px 15px;
-}
-.vote-view-box,
-.vote-comment-box {
-  display: flex;
-  align-items: center;
-  margin: 0px 5px;
-}
-.vote-btn-view {
-  width: 14px;
-  margin: 0px 5px;
-}
-.vote-btn-comment {
-  width: 12px;
-  margin: 0px 5px;
-}
-
 /* 트랜드 */
 
 /* .slide {

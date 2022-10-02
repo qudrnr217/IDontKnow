@@ -51,9 +51,6 @@ export default {
 <style scoped>
 .comment-writer-date {
   margin-left: 175px;
-
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 12px;
   line-height: 22px;
 }
@@ -83,8 +80,6 @@ export default {
   padding-bottom: 10px;
   max-width: 247px;
   /* background-color: red; */
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 15px;
   line-height: 22px;
   color: #ffffff;
@@ -104,8 +99,6 @@ export default {
 
 .w-report {
   margin-left: 30px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 10px;
   line-height: 22px;
   /* or 220% */
@@ -117,8 +110,6 @@ export default {
 
 .w-delete {
   margin-left: 5px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 10px;
   line-height: 22px;
   /* or 220% */
@@ -131,8 +122,6 @@ export default {
 .w-writer-name {
   display: flex;
   margin-left: 165px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 12px;
   line-height: 22px;
   /* or 183% */
@@ -147,8 +136,6 @@ export default {
 
 .comment-others-date {
   margin-left: 85px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 12px;
   line-height: 22px;
 }
@@ -177,8 +164,6 @@ export default {
   padding-bottom: 10px;
   max-width: 247px;
   /* background-color: red; */
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 15px;
   line-height: 22px;
   color: black;
@@ -198,8 +183,6 @@ export default {
 
 .o-report {
   margin-left: 190px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 10px;
   line-height: 22px;
   /* or 220% */
@@ -211,8 +194,6 @@ export default {
 
 .o-delete {
   margin-left: 5px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 10px;
   line-height: 22px;
   /* or 220% */
@@ -225,8 +206,6 @@ export default {
 .o-writer-name {
   display: flex;
   margin-left: 5px;
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
   font-size: 12px;
   line-height: 22px;
   /* or 183% */

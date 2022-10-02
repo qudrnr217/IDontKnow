@@ -131,8 +131,8 @@ const routes = [
     },
     children: [
       {
-        // path: "community/:category",
-        path: "community",
+        path: "community/:category",
+        // path: "community",
         hidden: true,
         component: () => import("../components/home/VoteList.vue"),
         name: "voteList",
@@ -160,6 +160,9 @@ const routes = [
     path: "/vote",
     name: "voteDetailView",
     component: () => import("../views/VoteDetailView.vue"),
+    redirect: () => {
+      return { path: "/vote/detail/:voteId" };
+    },
     children: [
       {
         path: "detail/:voteId",

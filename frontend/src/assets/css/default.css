@@ -1,4 +1,17 @@
 /* color */
+/* default */
+.white {
+  background-color: white;
+}
+.grey {
+  background-color: grey;
+}
+.grey-text {
+  color: grey;
+}
+.red {
+  background-color: #feccbe;
+}
 /* common */
 .blue-0 {
   background-color: #e3f6ff;
@@ -17,6 +30,9 @@
 }
 .blue-2-border {
   border-color: #58ccff;
+}
+.blue-3-border {
+  border-color: #18a8f1;
 }
 .blue-3-text {
   color: #18a8f1;
@@ -184,7 +200,18 @@
   vertical-align: middle;
   text-align: justify;
 }
+.text-title {
+  margin-right: 20px;
+}
+
 /* box-align */
+.box-content {
+  width: 320px;
+  margin: auto 20px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+}
 .box-column {
   display: flex;
   flex-wrap: wrap;
@@ -198,7 +225,7 @@
   align-items: center;
   justify-content: space-between;
 }
-.box-row-title {
+.box-row-left {
   display: flex;
   margin: 10px 20px;
   align-items: center;
@@ -209,23 +236,32 @@
   margin: 10px 20px;
   justify-content: flex-end;
 }
+.box-align-center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
 
 /* button */
 .btn-rectangle-big {
   display: flex;
-  width: 340px;
+  width: 320px;
   height: 60px;
-  border-radius: 5px;
+  border-radius: 10px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
-.btn-rectangle-midium {
+.btn-rectangle-medium {
   display: flex;
   width: 120px;
   height: 50px;
-  border-radius: 5px;
+  border-radius: 20px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 .btn-rectangle-small {
   display: flex;
@@ -234,23 +270,61 @@
   border-radius: 10px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
-.btn-square {
-  display: flex;
-  width: 160px;
-  height: 160px;
+.btn-rectangle-tiny {
+  width: 40px;
+  height: 20px;
   border-radius: 10px;
-  align-items: center;
+  text-align: center;
   justify-content: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+.btn-status {
+  width: 50px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  line-height: 30px;
+}
+.btn-toggle {
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  line-height: 30px;
+  cursor: pointer;
 }
 
 /* select box */
+.sb-rectangle-long {
+  width: 320px;
+  height: 36px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  text-align: left;
+  cursor: pointer;
+  padding: 4px;
+}
 .sb-rectangle-big {
   width: 85px;
   height: 40px;
   border-radius: 10px;
   border-style: none;
   text-align: center;
+  cursor: pointer;
+}
+.sb-rectangle-medium {
+  width: 65px;
+  height: 35px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: center;
+  cursor: pointer;
 }
 .sb-rectangle-small {
   width: 50px;
@@ -258,12 +332,177 @@
   border-radius: 10px;
   border-style: none;
   text-align: center;
+  cursor: pointer;
 }
+
+/* 입력창 */
+.input-rectangle-long {
+  width: 320px;
+  height: 36px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* vote 배치 */
+/* 배경이미지는 각 card의 id 값으로 변경하도록 함수 실행 */
+.vote-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.vote-card {
+  width: 320px;
+  height: 180px;
+  border-radius: 10px;
+  margin: 10px;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("~@/assets/image/교촌치킨.jpg");
+  background-position: center center;
+  background-size: 100% 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+
+/* vote card 내부 */
+.vote-title-box {
+  margin: 5px 20px;
+}
+
+.vote-writer-box {
+  margin: 5px 20px;
+}
+
+.vote-options-box {
+  display: flex;
+  margin: 5px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.vote-option-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 45%;
+  height: 50px;
+  background: #ffffff;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 10px;
+}
+.vote-option-text {
+  padding: 4px;
+  text-align: center;
+}
+
+.vote-info-box {
+  display: flex;
+  margin: 5px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.vote-category-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.vote-category-main,
+.vote-category-sub {
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 5px;
+}
+.vote-count-box {
+  display: flex;
+  justify-content: center;
+  margin: 0px 15px;
+}
+.vote-view-box,
+.vote-comment-box {
+  display: flex;
+  align-items: center;
+  margin: 0px 5px;
+}
+.vote-btn-view {
+  width: 14px;
+  margin: 0px 5px;
+}
+.vote-btn-comment {
+  width: 12px;
+  margin: 0px 5px;
+}
+
+/* vote detail 선택지 */
+.vote-options-box-big {
+  display: flex;
+  margin: 5px 20px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.vote-option-box-big {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 150px;
+  height: 170px;
+  max-height: 250px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#vote-option-a {
+  margin-right: 10px;
+}
+#vote-option-b {
+  margin-left: 10px;
+}
+.vote-option-box-big-menu:hover {
+  background-color: #feebb6;
+}
+.vote-option-box-big-style:hover {
+  background-color: #e0bfe6;
+}
+.vote-option-box-big-location:hover {
+  background-color: #ddecca;
+}
+.vote-option-input {
+  width: 146px;
+  height: 166px;
+  max-height: 250px;
+  display: inline-block;
+  padding: 4px;
+  text-align: center;
+  border-style: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* vote detail - 투표율 */
+.vote-percent-bar {
+  width: 320px;
+  height: 25px;
+}
+
 /* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
 a {
   text-decoration: none;
   cursor: pointer;
 }
+
 /* 작은 화면 최적화 */
 @media (hover: none) and (max-width: 389px) {
   /* common */
