@@ -14,27 +14,33 @@
       <div class="progress">
         <div class="progress-title">진행중</div>
       </div>
-      <div class="vote-title">지금까지 이런 맛은 없었다.</div>
-      <div class="vote-writer">작성자 : 수원왕갈비</div>
-      <div class="vote-date">2022.09.10 오후 13:00</div>
+      <div class="vote-title">{{ info.title }}</div>
+      <div class="vote-writer">작성자 : {{ info.name }}</div>
+      <div class="vote-date">{{ info.createdAt }}</div>
     </div>
     <div class="vote-box">
-      <div class="select1" @click="changeShow1()" v-show="!show1">지금까지</div>
-      <div class="select1-1" v-show="show1">지금까지</div>
-      <div class="select2" @click="changeShow2()" v-show="!show2">노랑통닭</div>
-      <div class="select2-1" v-show="show2">노랑통닭</div>
+      <div class="select1" @click="changeShow1()" v-show="!show1">
+        {{ info.optionA }}
+      </div>
+      <div class="select1-1" v-show="show1">
+        {{ info.optionA }}
+      </div>
+      <div class="select2" @click="changeShow2()" v-show="!show2">
+        {{ info.optionB }}
+      </div>
+      <div class="select2-1" v-show="show2">{{ info.optionB }}</div>
     </div>
     <div class="others">
       <div
         class="vote-btn"
-        @click="(cur_vote = true), (data2.isShow = true)"
-        v-if="!cur_vote"
+        @click="data2.isShow = true"
+        v-if="!cur_vote && info.voted == null"
       >
         투표하기
       </div>
       <div
         class="vote-btn-cancle"
-        @click="(cur_vote = false), (data3.isShow = true)"
+        @click="(data3.isShow = true), change_vallots()"
         v-else
       >
         투표취소
@@ -43,21 +49,28 @@
       <!-- 투표 팝업 창 -->
       <vue-confirm-dialog
         :data="data2"
+        :select="select"
+        :voteId="info.voteId"
         v-if="data2.isShow"
       ></vue-confirm-dialog>
       <vue-confirm-dialog
         :data="data3"
+        :ballotId="ballotId"
         v-if="data3.isShow"
       ></vue-confirm-dialog>
     </div>
-    <!-- <div class="writer">
-      <div class="vote-btn-close">투표마감</div>
+    <div class="writer">
+      <div class="vote-btn-close" @click="finish_vote()">투표마감</div>
       <div class="vote-btn-end">투표하기</div>
-    </div> -->
+    </div>
     <div class="detail-box">
       <div class="vote-percent-title">투표율</div>
       <div class="vote-percent-bar">
-        <bar-chart-view />
+        <bar-chart-view
+          :acount="acount"
+          :bcount="bcount"
+          :voteId="info.voteId"
+        />
       </div>
     </div>
 
@@ -66,8 +79,13 @@
     <div class="comment"><comment-view /></div>
     <div class="comment-input">
       <img src="../../assets/icon/avatar.png" alt="" />
-      <input type="text" class="comment-box" />
-      <img src="../../assets/icon/send.png" alt="" class="send-btn" />
+      <input type="text" class="comment-box" v-model="comment" />
+      <img
+        src="../../assets/icon/send.png"
+        alt=""
+        class="send-btn"
+        @click="regist_comment"
+      />
     </div>
   </div>
 </template>
@@ -76,16 +94,28 @@
 import CommentView from "./CommentView.vue";
 import BarChartView from "./BarChartView.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+import { detailVote, commentCreate, changVoteStatus } from "@/api/community.js";
+import { mapState, mapMutations } from "vuex";
+var token =
+  "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0NzE2ODExfQ.TUtMYZuidjffk5TO8oEkmhSNkm6LAUU-hJOKg--MjqfCQCknCJj9-dHuDAEeyFNA";
 export default {
   components: {
     CommentView,
     BarChartView,
     VueConfirmDialog,
   },
+  computed: {
+    ...mapState("communityStore", ["select"]),
+  },
+
   data() {
     return {
       show1: false,
       show2: false,
+      reload: 0,
+      ballotId: "",
+      comment: "",
+
       cur_vote: false,
       data: {
         isShow: false,
@@ -98,12 +128,14 @@ export default {
         title: "투표하시겠습니까?",
         no: "취소",
         yes: "투표",
+        mode: "1",
       },
       data3: {
         isShow: false,
         title: "투표를 취소하시겠습니까?",
         no: "취소",
         yes: "투표취소",
+        mode: "2",
       },
       data4: {
         isShow: false,
@@ -112,17 +144,70 @@ export default {
         yes: "완료",
         no: null,
       },
+      info: [],
+      acount: 0,
+      bcount: 0,
     };
   },
   methods: {
+    ...mapMutations("communityStore", ["SET_SELECT", "SET_VOTE_DETAIL"]),
     changeShow1() {
       this.show1 = true;
       this.show2 = false;
+      // this.select = "A";
+      // this.$store.state.select = "A";
+      this.SET_SELECT("A");
     },
     changeShow2() {
       this.show1 = false;
       this.show2 = true;
+      // this.select = "B";
+
+      this.SET_SELECT("B");
     },
+    change_vallots() {
+      this.ballotId = this.info.ballotId;
+      console.log("바럿:" + this.ballotId);
+      console.log("selected:" + this.select);
+    },
+    set_vote_detail() {
+      this.SET_VOTE_DETAIL(this.info);
+      console.log("인포: ", this.info);
+    },
+    regist_comment() {
+      var params = { voteId: this.info.voteId, content: this.comment };
+      commentCreate(token, params, ({ data }) => {
+        console.log(data);
+        this.$router.go();
+      });
+    },
+
+    finish_vote() {
+      var params = { status: true };
+      changVoteStatus(token, this.info.voteId, params, ({ data }) => {
+        console.log(data);
+      });
+    },
+  },
+  mounted() {
+    // console.log(this.$route.query);
+
+    detailVote(token, this.$route.query, ({ data }) => {
+      console.log(data);
+      this.info = data;
+      this.set_vote_detail();
+      // console.log("ㅎㅇㅎㅇ:" + this.info.bcount);
+      if (data.voted == "A") {
+        this.show1 = true;
+        this.show2 = false;
+      } else if (data.voted == "B") {
+        this.show1 = false;
+        this.show2 = true;
+      } else {
+        this.show1 = false;
+        this.show2 = false;
+      }
+    });
   },
 };
 </script>

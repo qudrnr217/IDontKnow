@@ -4,6 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 import homeStore from "@/store/modules/homeStore.js";
+import communityStore from "./modules/communityStore";
 
 export default new Vuex.Store({
   state: {},
@@ -12,5 +13,6 @@ export default new Vuex.Store({
   actions: {},
   modules: {
     homeStore,
+    communityStore,
   },
 });

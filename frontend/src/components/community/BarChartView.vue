@@ -1,10 +1,10 @@
 <template>
   <div class="hi">
     <div class="progress-bar">
-      <div class="left-progress"></div>
+      <!-- <div class="left-progress"></div> -->
 
-      <!-- <div class="right-progress">1</div>
-      <div class="third-progress"></div>-->
+      <!-- <div class="right-progress">1</div> -->
+      <div class="third-progress"></div>
     </div>
     <div class="detail-toggle">
       <div class="switch-title">상세보기</div>
@@ -14,9 +14,78 @@
       </label>
     </div>
     <div class="chart-box" v-if="detail_show">
-      <control-view :segments="segments" class="control-view" />
+      <!-- <control-view :segments="segments" class="control-view" /> -->
+      <!-- 셀렉트 박스 -->
+      <div class="content">
+        <div class="content_title">내가 선택한 카테고리</div>
+        <div class="content_dropdown">
+          <select class="sel" v-model="select_category">
+            <!-- v-model=""  -->
+            <!-- <option value="메뉴" selected>메뉴</option> -->
+            <option
+              v-for="(menu, index) in category"
+              :key="index"
+              :value="menu.text"
+            >
+              {{ menu.text }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="content" v-if="select_category == '연령'">
+        <div class="content_title">선택</div>
+        <div class="content_dropdown">
+          <select
+            class="sel"
+            v-model="select_age_category"
+            @change="change_chart()"
+          >
+            <!-- v-model=""  -->
+            <!-- <option value="메뉴" selected>메뉴</option> -->
+            <option
+              v-for="(menu, index) in age_category"
+              :key="index"
+              :value="menu.text"
+            >
+              {{ menu.text }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="content" v-if="select_category == '성별'">
+        <div class="content_title">선택</div>
+        <div class="content_dropdown">
+          <select
+            class="sel"
+            v-model="select_gender_category"
+            @change="change_chart()"
+          >
+            <!-- v-model=""  -->
+            <!-- <option value="메뉴" selected>메뉴</option> -->
+            <option
+              v-for="(menu, index) in gender_category"
+              :key="index"
+              :value="menu.value"
+            >
+              {{ menu.text }}
+            </option>
+          </select>
+        </div>
+      </div>
+
       <div class="pie-chart">
-        <pie-chart-view />
+        <pie-chart-view
+          :voteId="voteId"
+          :age="select_age_category"
+          :idx="select_category"
+          :gender="select_gender_category"
+          :key="reload"
+        />
+      </div>
+      <div class="line-chart">
+        <line-chart :voteId="voteId" :idx="select_category" />
       </div>
     </div>
   </div>
@@ -24,67 +93,159 @@
 
 <script>
 // import $ from "jquery";
-
-import ControlView from "../common/ControlView.vue";
+import { detailVote } from "@/api/community.js";
+// import ControlView from "../common/ControlView.vue";
 import PieChartView from "./PieChartVIew.vue";
+import LineChart from "./LineChart.vue";
+// import { mapState } from "vuex";
 export default {
   components: {
-    ControlView,
+    // ControlView,
     PieChartView,
+    LineChart,
+  },
+
+  props: {
+    // acount: Number,
+    // bcount: Number,
+    voteId: Number,
   },
   data() {
     return {
       values: [50, 30, 20],
       max: 100,
-
-      segments: [
+      category: [
         {
-          title: "연령",
-          id: "42",
+          value: 1,
+          text: "연령",
         },
         {
-          title: "성별",
-          id: "93",
+          value: 2,
+          text: "성별",
         },
         {
-          title: "거주지",
-          id: "11",
+          value: 3,
+          text: "거주지",
+        },
+      ],
+      age_category: [
+        {
+          value: 1,
+          text: 10,
+        },
+        {
+          value: 2,
+          text: 20,
+        },
+        {
+          value: 3,
+          text: 30,
+        },
+        {
+          value: 4,
+          text: 40,
+        },
+        {
+          value: 5,
+          text: 50,
+        },
+        {
+          value: 6,
+          text: 60,
+        },
+      ],
+      gender_category: [
+        {
+          value: "F",
+          text: "여자",
+        },
+        {
+          value: "M",
+          text: "남자",
         },
       ],
       detail_show: false,
+      info: [],
+      acount: 0,
+      bcount: 0,
+      idx: 0,
+      age: 0,
+      gender: "",
+      location: "",
+      select_category: "연령",
+      select_age_category: 10,
+      select_gender_category: "F",
+      reload: 0,
     };
   },
 
+  methods: {
+    change_chart() {
+      this.reload += 1;
+    },
+  },
+  // computed: {
+  //   ...mapState("communityStore", ["acount", "bcount"]),
+  // },
   mounted() {
-    const bar = document.querySelector(".left-progress");
+    var token =
+      "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0NzE2ODExfQ.TUtMYZuidjffk5TO8oEkmhSNkm6LAUU-hJOKg--MjqfCQCknCJj9-dHuDAEeyFNA";
+    // console.log(this.$route.query);
+
+    detailVote(token, this.$route.query, ({ data }) => {
+      console.log(data);
+      this.info = data;
+
+      // console.log("ㅎㅇㅎㅇ:" + this.info.bcount);
+    });
+
+    // const bar = document.querySelector(".left-progress");
     // const bar2 = document.querySelector(".right-progress");
+
     // const bar3 = document.querySelector(".third-progress");
-    let t = 0;
-    let totalMinwon = 75;
-    // let resolveMinwon = 25;
-    const barAnimation = setInterval(() => {
-      bar.style.width = t + "%";
-      t++ >= totalMinwon && clearInterval(barAnimation);
-    }, 10);
 
-    // let t2 = 0;
-    // const barAnimation2 = setInterval(() => {
-    //   bar2.style.background = `linear-gradient(to right, #4F98FF 0 ${t2}%, #dedede ${t2}% 100% )`;
-    //   t2++ >= resolveMinwon && clearInterval(barAnimation2);
-    // }, 10);
+    // // let t = 0;
+    // // let totalMinwon = (this.acount / this.acount + this.bcount) * 100;
+    // console.log("gdgd:" + this.acount + ":" + this.bcount);
 
-    // let t3 = 0;
-    // const barAnimation3 = setInterval(() => {
-    //   bar3.style.background =
-    //     totalMinwon > t
-    //       ? `linear-gradient(to right, #4F98FF 0 ${t}%, #dedede ${t}% 100% )`
-    //       : totalMinwon + resolveMinwon > t
-    //       ? `linear-gradient(to right, #4F98FF 0 ${totalMinwon}%, #f44336 ${totalMinwon}% ${t3}%, #dedede ${t3}% 100%)`
-    //       : `linear-gradient(to right, #4F98FF 0 ${totalMinwon}%, #f44336 ${totalMinwon}% ${
-    //           totalMinwon + resolveMinwon
-    //         }%, #dedede ${totalMinwon + resolveMinwon}% 100%)`;
-    //   t3++ >= 100 && clearInterval(barAnimation3);
-    // }, 10);
+    // setTimeout(() => {
+    //   this.acount = this.info.acount;
+    //   this.bcount = this.info.bcount;
+    //   let totalMinwon = (this.acount / this.acount + this.bcount) * 100;
+    //   let resolveMinwon = (this.bcount / this.acount + this.bcount) * 100;
+    //   if (this.acount == 0 && this.bcount == 0) {
+    //     totalMinwon = 0;
+    //     resolveMinwon = 0;
+    //   } else if (this.acount == 0) {
+    //     totalMinwon = 0;
+    //   } else if (this.bcount == 0) {
+    //     resolveMinwon = 0;
+    //   }
+
+    //   // const barAnimation = setInterval(() => {
+    //   //   bar.style.width = t + "%";
+    //   //   t++ >= totalMinwon && clearInterval(barAnimation);
+    //   // }, 10);
+
+    //   // let t2 = 0;
+    //   // const barAnimation2 = setInterval(() => {
+    //   //   bar2.style.background = `linear-gradient(to right, #4F98FF 0 ${t2}%, #dedede ${t2}% 100% )`;
+    //   //   t2++ >= resolveMinwon && clearInterval(barAnimation2);
+    //   // }, 10);
+
+    //   let t3 = 0;
+    //   const barAnimation3 = setInterval(() => {
+    //     bar3.style.background =
+    //       totalMinwon > t3
+    //         ? `linear-gradient(to right, #4F98FF 0 ${t3}%, #dedede ${t3}% 100% )`
+    //         : totalMinwon + resolveMinwon > t3
+    //         ? `linear-gradient(to right, #4F98FF 0 ${totalMinwon}%, #f44336 ${totalMinwon}% ${t3}%, #dedede ${t3}% 100%)`
+    //         : `linear-gradient(to right, #4F98FF 0 ${totalMinwon}%, #f44336 ${totalMinwon}% ${
+    //             totalMinwon + resolveMinwon
+    //           }%, #dedede ${totalMinwon + resolveMinwon}% 100%)`;
+    //     t3++ >= 100 && clearInterval(barAnimation3);
+    //   }, 10);
+    // }, 50);
   },
 };
 </script>
