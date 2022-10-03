@@ -2,7 +2,7 @@
   <div class="background">
     <div class="body">
       <header-view />
-      <div class="title">weejee의 투표</div>
+      <div class="title">{{ this.name }}의 투표</div>
       <div class="prediction-title">나의 예측률</div>
       <div class="prediction-rate">
         <vote-pie-chart />
@@ -10,7 +10,10 @@
         <div class="result">
           <div class="result-rank">당신은 금손입니다!</div>
           <div class="percent">80%</div>
-          <div class="answer">10개 중 8개 정답</div>
+          <div class="answer">
+            {{ this.count.ballotCount }}개 중 {{ this.count.correctCount }}개
+            정답
+          </div>
         </div>
       </div>
       <div class="vote-toggle"><control-view :segments="segments" /></div>
@@ -30,6 +33,8 @@ import VotePieChart from "../vote/VotePieChart.vue";
 import ControlView from "../common/ControlView.vue";
 import ControlView2 from "../common/ControlView2.vue";
 import ComlistView from "../community/ComlistView.vue";
+import { getRate } from "../../api/mypage";
+import { mapState } from "vuex";
 export default {
   components: {
     HeaderView,
@@ -41,6 +46,11 @@ export default {
   },
   data() {
     return {
+      count: {
+        id: 0,
+        ballotCount: 0,
+        correctCount: 0,
+      },
       segments: [
         {
           title: "내가 작성한 투표",
@@ -62,6 +72,29 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    this.getVotesCount();
+  },
+  methods: {
+    getVotesCount() {
+      getRate(
+        this.accessToken,
+        this.userId,
+        (response) => {
+          console.log(response.data);
+          this.count.id = response.data.id;
+          this.count.ballotCount = response.data.ballotCount;
+          this.count.correctCount = response.data.correctCount;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
+  computed: {
+    ...mapState("userStore", ["userId", "name", "accessToken"]),
   },
 };
 </script>

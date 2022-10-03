@@ -11,14 +11,34 @@
               class="content_input"
               type="text"
               id="name"
-              v-model="name"
+              v-model="user.name"
               placeholder="닉네임"
             />
           </div>
         </div>
         <div class="content_check">
-          <div class="conten_check_text">사용 가능한 닉네임입니다.</div>
-          <button class="button">닉네임 중복 체크</button>
+          <div
+            class="conten_check_text"
+            v-if="!data.checkNameResult && data.nameCheckClicked"
+          >
+            사용 가능한 닉네임입니다.
+          </div>
+          <div
+            class="conten_check_text"
+            v-if="data.checkNameResult && data.nameCheckClicked"
+            style="color: #be0000"
+          >
+            사용 불 가능한 닉네임입니다.
+          </div>
+          <button
+            class="button"
+            @click="
+              checkName();
+              data.nameCheckClicked = true;
+            "
+          >
+            닉네임 중복 체크
+          </button>
         </div>
         <div class="content-box1">
           <div class="content">
@@ -27,14 +47,34 @@
               class="content_input"
               type="text"
               id="email"
-              v-model="email"
-              placeholder="이메일"
+              v-model="user.email"
+              placeholder="morl@idontknow.com"
             />
           </div>
         </div>
         <div class="content_check">
-          <div class="conten_check_text">사용 가능한 이메일입니다.</div>
-          <button class="button">이메일 중복 체크</button>
+          <div
+            class="conten_check_text"
+            v-if="!data.checkEmailResult && data.emailCheckClicked"
+          >
+            사용 가능한 이메일입니다.
+          </div>
+          <div
+            class="conten_check_text"
+            v-else-if="data.checkEmailResult && data.emailCheckClicked"
+            style="color: #be0000"
+          >
+            사용 불가능한 이메일입니다.
+          </div>
+          <button
+            class="button"
+            @click="
+              checkEmail();
+              data.emailCheckClicked = true;
+            "
+          >
+            이메일 중복 체크
+          </button>
         </div>
         <div class="content-box1">
           <div class="content">
@@ -43,7 +83,6 @@
               class="content_input"
               type="password"
               id="password"
-              v-model="confirm_password"
               placeholder="비밀번호"
             />
           </div>
@@ -54,8 +93,8 @@
             <input
               class="content_input"
               type="password"
-              id="password"
-              v-model="password"
+              id="passwordCheck"
+              v-model="user.password"
               placeholder="비밀번호 확인"
             />
           </div>
@@ -64,15 +103,15 @@
           <div class="content">
             <div class="content_title">거주지</div>
             <div class="dropdown">
-              <select class="sel">
+              <select class="sel" v-model="user.districtId">
                 <!-- v-model=""  -->
                 <option value="">거주지</option>
                 <option
-                  v-for="(location, index) in Location"
+                  v-for="(value, index) in locations"
                   :key="index"
-                  :value="location.value"
+                  :value="index + 1"
                 >
-                  {{ location.text }}
+                  {{ locations[index] }}
                 </option>
               </select>
             </div>
@@ -90,22 +129,18 @@
           <div class="content">
             <div class="content_title">연령대</div>
             <div class="dropdown">
-              <select class="sel">
+              <select class="sel" v-model="user.age">
                 <!-- v-model=""  -->
                 <option value="">연령대</option>
-                <option
-                  v-for="(age, index) in Age"
-                  :key="index"
-                  :value="age.value"
-                >
-                  {{ age.text }}
+                <option v-for="(value, key) in ages" :key="key" :value="value">
+                  {{ key }}
                 </option>
               </select>
             </div>
           </div>
         </div>
         <div class="content_check">
-          <button class="button" @click="data.isShow = true">회원가입</button>
+          <button class="button" @click="confirm">회원가입</button>
           <vue-confirm-dialog
             :data="data"
             v-if="data.isShow"
@@ -123,7 +158,14 @@ import HeaderView from "../common/HeaderView.vue";
 import FooterView from "../common/FooterView.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import ControlView2 from "../common/ControlView2.vue";
+import { ages, locations } from "../../const/const.js";
+import {
+  regist,
+  checkEmailDuplication,
+  checkNameDuplication,
+} from "../../api/user";
 export default {
+  name: "RegistView",
   components: {
     HeaderView,
     FooterView,
@@ -133,12 +175,21 @@ export default {
 
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      confirm_password: "",
-
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        districtId: 0,
+        gender: "M",
+        age: 0,
+      },
+      ages: { ...ages },
+      locations: locations,
       data: {
+        checkEmailResult: false,
+        checkNameResult: false,
+        emailCheckClicked: false,
+        nameCheckClicked: false,
         isShow: false,
         title: "회원가입이 완료되었습니다.",
         message:
@@ -148,142 +199,66 @@ export default {
       segments2: [
         {
           title: "남자",
-          id: "1",
+          id: "M",
         },
         {
           title: "여자",
-          id: "2",
-        },
-      ],
-      Age: [
-        {
-          value: 1,
-          text: "10대",
-        },
-        {
-          value: 2,
-          text: "20대",
-        },
-        {
-          value: 3,
-          text: "30대",
-        },
-        {
-          value: 4,
-          text: "40대",
-        },
-        {
-          value: 5,
-          text: "50대",
-        },
-        {
-          value: 6,
-          text: "60대",
-        },
-      ],
-      Location: [
-        {
-          value: 1,
-          text: "서울시 강남구",
-        },
-        {
-          value: 2,
-          text: "서울시 강동구",
-        },
-        {
-          value: 3,
-          text: "서울시 강북구",
-        },
-        {
-          value: 4,
-          text: "서울시 강서구",
-        },
-        {
-          value: 5,
-          text: "서울시 관악구",
-        },
-        {
-          value: 6,
-          text: "서울시 광진구",
-        },
-        {
-          value: 7,
-          text: "서울시 구로구",
-        },
-        {
-          value: 8,
-          text: "서울시 금천구",
-        },
-        {
-          value: 9,
-          text: "서울시 노원구",
-        },
-        {
-          value: 10,
-          text: "서울시 도봉구",
-        },
-        {
-          value: 11,
-          text: "서울시 동대문구",
-        },
-        {
-          value: 12,
-          text: "서울시 동작구",
-        },
-        {
-          value: 13,
-          text: "서울시 마포구",
-        },
-        {
-          value: 14,
-          text: "서울시 서대문구",
-        },
-        {
-          value: 15,
-          text: "서울시 서초구",
-        },
-        {
-          value: 16,
-          text: "서울시 성동구",
-        },
-        {
-          value: 17,
-          text: "서울시 성북구",
-        },
-        {
-          value: 18,
-          text: "서울시 송파구",
-        },
-        {
-          value: 19,
-          text: "서울시 양천구",
-        },
-        {
-          value: 20,
-          text: "서울시 영등포구",
-        },
-        {
-          value: 21,
-          text: "서울시 용산구",
-        },
-        {
-          value: 22,
-          text: "서울시 은평구",
-        },
-        {
-          value: 23,
-          text: "서울시 종로구",
-        },
-        {
-          value: 24,
-          text: "서울시 중구",
-        },
-        {
-          value: 25,
-          text: "서울시 중랑구",
+          id: "F",
         },
       ],
     };
+  },
+  methods: {
+    confirm() {
+      if (this.data.checkEmailResult || this.data.checkNameResult) {
+        this.isShow = true;
+      }
+      regist(
+        this.user,
+        (response) => {
+          console.log(response.data);
+          this.movePage();
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    checkEmail() {
+      if (this.user.email == "") {
+        this.data.checkEmailResult = true;
+        return;
+      }
+      checkEmailDuplication(
+        this.user.email,
+        (response) => {
+          console.log(response.data);
+          this.data.checkEmailResult = response.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    checkName() {
+      if (this.user.name == "") {
+        this.data.checkNameResult = true;
+        return;
+      }
+      checkNameDuplication(
+        this.user.name,
+        (response) => {
+          console.log(response.data);
+          this.data.checkNameResult = response.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    movePage() {
+      this.$router.push({ name: "login_home" });
+    },
   },
 };
 </script>

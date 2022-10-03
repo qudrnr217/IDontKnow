@@ -18,7 +18,7 @@
             <span v-if="dialog.auth">
               <input
                 v-focus
-                v-model="password"
+                v-model="info.email"
                 @keyup.13="(e) => handleClickButton(e, true)"
                 class="vc-input"
                 type="email"
@@ -43,10 +43,10 @@
 
             <button
               v-if="dialog.button.yes"
-              :disabled="dialog.auth ? !password : false"
               @click.stop="(e) => handleClickButton(e, true)"
               class="vc-btn"
               type="button"
+              @click="select_vote()"
             >
               {{ dialog.button.yes }}
             </button>
@@ -60,6 +60,8 @@
 <script>
 import Vue from "vue";
 import { events } from "../../components/common/events";
+import { participateVote, nonparticipateVote } from "@/api/community.js";
+
 Vue.directive("focus", {
   inserted: function (el) {
     el.focus();
@@ -68,10 +70,17 @@ Vue.directive("focus", {
 const Component = {
   name: "VueConfirmDialog",
   props: {
-    data: JSON,
+    data: Object,
+    select: String,
+    voteId: Number,
+    ballotId: Number,
   },
+
   data() {
     return {
+      info: {
+        email: "",
+      },
       isShow: this.data.isShow,
       password: null,
       dialog: {
@@ -97,10 +106,42 @@ const Component = {
         callback: () => {},
       };
     },
+
+    select_vote() {
+      //api사용
+      console.log("안녕?:" + this.data.mode);
+      var token =
+        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0NzE2ODExfQ.TUtMYZuidjffk5TO8oEkmhSNkm6LAUU-hJOKg--MjqfCQCknCJj9-dHuDAEeyFNA";
+      if (this.data.mode == "1") {
+        //투표하기
+        var params = {
+          voteId: this.voteId,
+          choice: this.select,
+        };
+
+        participateVote(token, params, ({ data }) => {
+          console.log(data);
+          this.info = data;
+          this.$router.go();
+        });
+      } else if (this.data.mode == "2") {
+        //투표취소
+        console.log(this.ballotId);
+        nonparticipateVote(token, this.ballotId, ({ data }) => {
+          console.log("취소:", data);
+          this.info = data;
+          this.$router.go();
+        });
+      }
+    },
     handleClickButton({ target }, confirm) {
       if (target.id == "vueConfirm") return;
+
       if (confirm && this.dialog.auth && !this.password) return;
       this.data.isShow = false;
+
+      // this.$emit("change_show", (this.show1 = false), (this.show2 = false));
+
       // callback
       if (this.params.callback) {
         this.params.callback(confirm, this.password);
@@ -110,6 +151,7 @@ const Component = {
       if (target.id == "vueConfirm") {
         this.data.isShow = false;
         // callback
+
         if (this.params.callback) {
           this.params.callback(false, this.password);
         }
@@ -133,6 +175,17 @@ const Component = {
           this.dialog[param[0]] = param[1];
         }
       });
+    },
+    sendEmail() {
+      resetPassword(
+        this.info.email,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
   mounted() {

@@ -1,37 +1,44 @@
 <template>
   <div class="vote-card">
     <div class="com-header">
-      <div class="com-header-title">지금까지 이런 맛은 없었다.</div>
+      <div class="com-header-title">{{ cards.title }}</div>
     </div>
     <div class="writer">
-      <div class="writer-name">작성자 : 치킨러버</div>
+      <div class="writer-name">작성자 : {{ cards.name }}</div>
     </div>
     <div class="menu">
       <div class="select-box1">
-        <div class="select1">교촌치킨...</div>
+        <div class="select1">{{ cards.optionA }}</div>
       </div>
       <div class="vs">vs</div>
       <div class="select-box2">
-        <div class="select2">교촌치킨...</div>
+        <div class="select2">{{ cards.optionB }}</div>
       </div>
     </div>
     <div class="com-footer">
-      <div class="tag1"># 메뉴</div>
-      <div class="tag2"># 치킨</div>
+      <div class="tag1"># {{ cards.category }}</div>
+      <div class="tag2"># {{ cards.subCategory }}</div>
       <div class="views">
         <img src="../../assets/icon/views.png" alt="" class="view-btn" />
-        120만
+        {{ cards.hitCount }}
       </div>
       <div class="chat">
         <img src="../../assets/icon/chat.png" alt="" class="chat-btn" />
-        12
+        {{ cards.commentCount }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    cards: Object,
+  },
+  mounted() {
+    // console.log("cards:" + this.cards);
+  },
+};
 </script>
 
 <style scoped>

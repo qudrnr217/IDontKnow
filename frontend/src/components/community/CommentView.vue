@@ -1,49 +1,84 @@
 <template>
   <!-- comment-box에는 v-for를 사용하자 -->
-  <div class="comment-box">
-    <div class="writer">
-      <div class="comment-writer-date">2022.09.15 09:35</div>
-      <div class="comment-writer">
-        <div class="comment-user-wirter">교촌 레허반반 먹을까요?...</div>
-      </div>
-      <div class="comment-writer-footer">
-        <div class="w-report">신고</div>
-        <div class="w-delete">삭제</div>
-        <div class="w-writer-name">
-          <img
-            src="../../assets/icon/avatar.png"
-            alt=""
-            class="w-comment-avatar"
-          />
-          수원왕갈비(작성자)
+  <div>
+    <div
+      class="comment-box"
+      v-for="list in vote_detail.commentList"
+      :key="list.commentId"
+    >
+      <div class="writer" v-if="list.checkAuthor">
+        <div class="comment-writer-date">{{ list.createdAt }}</div>
+        <div class="comment-writer">
+          <div class="comment-user-wirter">{{ list.content }}</div>
+        </div>
+        <div class="comment-writer-footer">
+          <div class="w-report" @click="modify_comment(list.commentId)">
+            수정
+          </div>
+          <div class="w-delete" @click="delete_comment(list.commentId)">
+            삭제
+          </div>
+          <div class="w-writer-name">
+            <img
+              src="../../assets/icon/avatar.png"
+              alt=""
+              class="w-comment-avatar"
+            />
+            {{ list.name }}(작성자)
+          </div>
         </div>
       </div>
-    </div>
-    <div class="others">
-      <div class="comment-others-date">2022.09.15 09:35</div>
-      <div class="comment-others">
-        <div class="comment-user-others">
-          노통에 왕큰 후라이드가 진리입니다~ㅋㅋ
+      <div class="others" v-else>
+        <div class="comment-others-date">{{ list.createdAt }}</div>
+        <div class="comment-others">
+          <div class="comment-user-others">
+            {{ list.content }}
+          </div>
         </div>
-      </div>
-      <div class="comment-others-footer">
-        <div class="o-writer-name">
-          치킨에진심인사람
-          <img
-            src="../../assets/icon/avatar.png"
-            alt=""
-            class="o-comment-avatar"
-          />
+        <div class="comment-others-footer">
+          <div class="o-writer-name">
+            {{ list.name }}
+            <img
+              src="../../assets/icon/avatar.png"
+              alt=""
+              class="o-comment-avatar"
+            />
+          </div>
+          <div class="o-report" @click="modify_comment(list.commentId)">
+            수정
+          </div>
+          <div class="o-delete" @click="delete_comment(list.commentId)">
+            삭제
+          </div>
         </div>
-        <div class="o-report">신고</div>
-        <div class="o-delete">삭제</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { commentDelete, commentModify } from "@/api/community.js";
+import { mapState } from "vuex";
+var token =
+  "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0NzE2ODExfQ.TUtMYZuidjffk5TO8oEkmhSNkm6LAUU-hJOKg--MjqfCQCknCJj9-dHuDAEeyFNA";
+export default {
+  computed: {
+    ...mapState("communityStore", ["vote_detail"]),
+  },
+  methods: {
+    modify_comment(commentId) {
+      commentModify(token, commentId, ({ data }) => {
+        console.log(data);
+      });
+    },
+    delete_comment(commentId) {
+      commentDelete(token, commentId, ({ data }) => {
+        console.log(data);
+        this.$router.go();
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -110,7 +145,7 @@ export default {};
 
   letter-spacing: -0.408px;
 
-  color: #ff3b30;
+  color: #000000;
 }
 
 .w-delete {
@@ -122,8 +157,7 @@ export default {};
   /* or 220% */
 
   letter-spacing: -0.408px;
-
-  color: #000000;
+  color: #ff3b30;
 }
 
 .w-writer-name {
@@ -204,7 +238,7 @@ export default {};
 
   letter-spacing: -0.408px;
 
-  color: #ff3b30;
+  color: #000000;
 }
 
 .o-delete {
@@ -216,8 +250,7 @@ export default {};
   /* or 220% */
 
   letter-spacing: -0.408px;
-
-  color: #000000;
+  color: #ff3b30;
 }
 
 .o-writer-name {
