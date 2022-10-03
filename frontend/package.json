@@ -22,7 +22,8 @@
     "vue-confirm-dialog": "^1.1.0",
     "vue-infinite-loading": "^2.4.5",
     "vue-router": "^3.5.1",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

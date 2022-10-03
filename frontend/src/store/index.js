@@ -1,18 +1,36 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-Vue.use(Vuex);
+import createPersistedState from "vuex-persistedstate";
 
 import homeStore from "@/store/modules/homeStore.js";
 import communityStore from "./modules/communityStore";
 
+Vue.use(Vuex);
+
 export default new Vuex.Store({
-  state: {},
+  state: {
+    started: 0,
+    userId: 1,
+  },
   getters: {},
-  mutations: {},
-  actions: {},
+  mutations: {
+    UPDATE_STARTED(state, payload) {
+      state.started = payload;
+    },
+  },
+  actions: {
+    update_started({ commit }, data) {
+      commit("UPDATE_STARTED", data);
+    },
+  },
   modules: {
     homeStore,
     communityStore,
   },
+  plugins: [
+    createPersistedState({
+      whiteList: ["started"],
+    }),
+  ],
 });
