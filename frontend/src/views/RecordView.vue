@@ -1,5 +1,5 @@
 <template>
-  <div class="background bgd-common">
+  <div class="background">
     <div class="body">
       <router-view />
     </div>
@@ -7,7 +7,10 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["userId"],
+  components: {},
+};
 </script>
 
 <style></style>

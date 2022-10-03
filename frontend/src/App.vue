@@ -1,11 +1,8 @@
 <template>
-  <div v-if="$store.state.started === 0" class="background bgd-start">
+  <div v-if="this.$store.state.started === 0" class="background bgd-start">
     <div class="body">
       <div class="box-row-center">
-        <div
-          @click="start, update_started(1)"
-          class="btn-rounded-rectangle yellow-1"
-        >
+        <div @click="start()" class="btn-rounded-rectangle yellow-1">
           <div class="btn-text">시작하기</div>
         </div>
       </div>
@@ -25,7 +22,7 @@ export default {
   },
   computed: {
     ...mapState({
-      started: (state) => state.started,
+      started: (state) => state.data.started,
     }),
   },
   data() {
@@ -38,25 +35,13 @@ export default {
       this.activeNav = param;
     },
     start() {
+      console.log(this.$store.state.started);
       this.activeNav = 1;
-      this.$router.push({ name: "newHome" });
+      this.update_started();
+      this.$router.push({ name: "home" });
     },
     ...mapActions(["update_started"]),
   },
-  // created() {
-  //   if (this.$store.state.started === 1) {
-  //     const currPath = this.$route.path;
-  //     if (currPath.includes("main")) {
-  //       this.updateNav(2);
-  //     } else if (currPath.includes("votes")) {
-  //       this.updateNav(3);
-  //     } else if (currPath.includes("mypage")) {
-  //       this.updateNav(4);
-  //     } else {
-  //       this.updateNav(1);
-  //     }
-  //   }
-  // },
 };
 </script>
 

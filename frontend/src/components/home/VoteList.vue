@@ -10,12 +10,24 @@
           'purple-0': category === '스타일',
           'green-0': category === '장소',
         }"
-        @change="changeCategory()"
+        @change="changeCategory"
       >
         <option v-for="(item, index) in categoryList" :key="index">
           {{ item }}
         </option>
       </select>
+    </div>
+    <div class="box-row-left">
+      <div
+        class="text-title text-h4"
+        :class="{
+          'yellow-3-text': category === '메뉴',
+          'purple-3-text': category === '스타일',
+          'green-3-text': category === '장소',
+        }"
+      >
+        사람들과 고민을 공유해보세요 !
+      </div>
     </div>
     <div class="box-column">
       <div class="box-row">
@@ -53,7 +65,7 @@
             'purple-2': category === '스타일',
             'green-2': category === '장소',
           }"
-          @click="createVote()"
+          @click="createVote"
         >
           <div class="text-align-center">만들기</div>
         </div>
@@ -71,7 +83,7 @@
             'purple-0': category === '스타일' && status === '종료',
             'green-0': category === '장소' && status === '종료',
           }"
-          @change="changeStatus()"
+          @change="changeStatus"
         >
           <option v-for="(item, index) in statusList" :key="index">
             {{ item }}
@@ -105,9 +117,6 @@
                 :value="`${vote.voteId}`"
               >
                 {{ vote.title }}
-                <!-- <router-link :to="`/vote/${vote.voteId}`">{{
-                  vote.title
-                }}</router-link> -->
               </div>
             </div>
             <div
@@ -121,9 +130,6 @@
                 :value="`${vote.voteId}`"
               >
                 작성자 : {{ vote.name }}
-                <!-- <router-link :to="`/votes/user/${vote.userId}`">{{
-                  vote.name
-                }}</router-link> -->
               </div>
             </div>
             <div
@@ -271,33 +277,39 @@ export default {
   },
   methods: {
     createVote() {
-      this.$router.push({ name: "voteCreate" });
+      if (this.$store.state.userStore.userId === 0) {
+        this.$router.push({ name: "userLogin" });
+      } else this.$router.push({ name: "voteCreate" });
     },
     detailCard(e) {
-      const clickedId = e.target.getAttribute("value");
-      // 파라미터 같이 보내기 !
-      // console.log(clickedId);
-      this.$router.push({
-        name: "voteDetail",
-        params: {
-          voteId: clickedId,
-          // categoryParam: this.category,
-          // statusParam: this.status,
-        },
-      });
+      if (this.$store.state.userStore.userId === 0) {
+        this.$router.push({ name: "userLogin" });
+      } else {
+        const clickedId = e.target.getAttribute("value");
+        // 파라미터 같이 보내기 !
+        this.$router.push({
+          name: "voteDetail",
+          params: {
+            voteId: clickedId,
+          },
+        });
+      }
     },
     changeCategory() {
       this.$emit("pass", this.category);
       this.status = "진행";
       this.$router.push({
         name: "voteList",
-        path: "home",
+        path: "/",
         params: { status: this.status, category: this.category },
       });
     },
     changeStatus() {
       // 여기서 진행 종료 바꾸는 목록 함수 호출
     },
+  },
+  created() {
+    // voteList api 호출
   },
 };
 </script>

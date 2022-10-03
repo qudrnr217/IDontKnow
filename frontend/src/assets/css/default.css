@@ -12,6 +12,10 @@
 .red {
   background-color: #feccbe;
 }
+.red-text {
+  color: red;
+}
+
 /* common */
 .blue-0 {
   background-color: #e3f6ff;
@@ -186,6 +190,9 @@
 .text-h5 {
   font-size: 8px;
 }
+.text-chat {
+  font-size: 14px;
+}
 
 /* text-align */
 .text-align-left {
@@ -230,6 +237,11 @@
   margin: 10px 20px;
   align-items: center;
   justify-content: flex-start;
+}
+.box-row-center {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
 }
 .box-btn-right {
   display: flex;
@@ -281,6 +293,24 @@
   line-height: 20px;
   cursor: pointer;
 }
+.btn-rectangle-long {
+  display: flex;
+  width: 120px;
+  height: 30px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-rectangle-short {
+  display: flex;
+  width: 70px;
+  height: 30px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 .btn-status {
   width: 50px;
   height: 30px;
@@ -309,6 +339,13 @@
   text-align: left;
   cursor: pointer;
   padding: 4px;
+}
+.sb-rectangle-short {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: right;
 }
 .sb-rectangle-big {
   width: 85px;
@@ -345,6 +382,10 @@
   text-align: left;
   cursor: pointer;
   padding: 8px;
+}
+.input-align-right {
+  border: none;
+  text-align: right;
 }
 
 /* vote 배치 */
@@ -497,6 +538,29 @@
   height: 25px;
 }
 
+/* profile 이미지 배치 */
+.profile-image-box {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.profile-image {
+  width: 70px;
+  height: 70px;
+}
+.profile-image-box-small {
+  display: flex;
+}
+.profile-image-small {
+  width: 50px;
+  height: 50px;
+}
+
+/* chat 이미지 배치 */
+.food-image {
+  width: 80px;
+  height: 80px;
+}
 /* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
 a {
   text-decoration: none;

@@ -25,20 +25,20 @@
         <img
           :class="{ 'img-active': activated === 3 }"
           class="img-footer"
-          src="../../assets/icon/btn/btn_vote.png"
-          alt="Vote"
-          id="vote"
-          @click="vote()"
+          src="../../assets/icon/btn/btn_record.png"
+          alt="Record"
+          id="record"
+          @click="record()"
         />
       </div>
       <div class="btn-footer">
         <img
           :class="{ 'img-active': activated === 4 }"
           class="img-footer"
-          src="../../assets/icon/btn/btn_mypage.png"
-          alt="Mypage"
-          id="mypage"
-          @click="mypage()"
+          src="../../assets/icon/btn/btn_profile.png"
+          alt="Profile"
+          id="profile"
+          @click="profile()"
         />
       </div>
     </div>
@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 export default {
   name: "FooterViewCopy",
   props: ["click"],
@@ -55,30 +54,35 @@ export default {
       activated: this.click,
     };
   },
-  computed: {
-    ...mapState({
-      started: (state) => state.data.started,
-    }),
-  },
   created() {
     if (this.$store.state.started === 1) {
-      this.activated = 1;
+      const currPath = this.$route.path;
+      if (currPath.includes("chat")) {
+        this.activated = 2;
+      } else if (currPath.includes("record")) {
+        this.activated = 3;
+      } else if (currPath.includes("profile")) {
+        this.activated = 4;
+      } else {
+        this.activated = 1;
+      }
     }
   },
   methods: {
     home() {
-      if (this.$route.path !== "/home/community") {
+      if (decodeURI(this.$route.path) !== "/home/메뉴") {
         this.activated = 1;
         this.$router.push({
           name: "voteList",
-          path: "home",
+          path: "/",
           params: { status: "진행", category: "메뉴" },
         });
       } else if (this.activated !== 1) {
         this.activated = 1;
         this.$emit("move", this.activated);
         this.$router.push({
-          name: "newHome",
+          name: "home",
+          path: "/",
         });
       }
     },
@@ -86,21 +90,41 @@ export default {
       if (this.activated !== 2) {
         this.activated = 2;
         this.$emit("move", this.activated);
-        this.$router.push({ name: "community_home" });
+        this.$router.push({ name: "chat", path: "/chat" });
       }
     },
-    vote() {
+    record() {
       if (this.activated !== 3) {
         this.activated = 3;
         this.$emit("move", this.activated);
-        this.$router.push({ name: "vote_home" });
+        if (this.$store.state.userStore.userId === 0) {
+          if (this.$route.path !== "/profile/login") {
+            this.$router.push({ name: "userLogin", path: "/profile/login" });
+          }
+        } else {
+          this.$router.push({
+            name: "record",
+            path: "/record/user",
+            params: { userId: this.$store.state.userStore.userId },
+          });
+        }
       }
     },
-    mypage() {
+    profile() {
       if (this.activated !== 4) {
         this.activated = 4;
         this.$emit("move", this.activated);
-        this.$router.push({ name: "mypage" });
+        if (this.$store.state.userStore.userId === 0) {
+          if (this.$route.path !== "/profile/login") {
+            this.$router.push({ name: "userLogin", path: "/profile/login" });
+          }
+        } else {
+          this.$router.push({
+            name: "userInfo",
+            path: "/profile/user",
+            params: { userId: this.$store.state.userStore.userId },
+          });
+        }
       }
     },
   },
