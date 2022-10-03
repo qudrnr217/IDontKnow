@@ -2,8 +2,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-import createPersistedState from "vuex-persistedstate";
-
 import homeStore from "@/store/modules/homeStore.js";
 import userStore from "@/store/modules/userStore.js";
 import communityStore from "./modules/communityStore";
@@ -35,6 +33,6 @@ export default new Vuex.Store({
     createPersistedState({
       paths: ["userStore"],
       whiteList: ["started"],
-  }),
+    }),
   ],
 });
