@@ -35,7 +35,15 @@
 
 /* 폰트 */
 .v-application {
-  font-family: "GmarketSansTTF", sans-serif !important;
+  /* font-family: "GmarketSansTTF", sans-serif !important; */
+  font-family: "ONEMobileTitle";
+}
+
+@font-face {
+  font-family: "ONEMobileTitle";
+  src: url("./assets/fonts/ONEMobileTitle.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face {
   font-family: "GmarketSansTTFLight";

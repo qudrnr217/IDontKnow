@@ -57,35 +57,35 @@ const routes = [
       {
         path: "login",
         name: "login_home",
-        component: () => import("../components/mypage/LoginPage.vue"),
+        component: () => import("../components/mypage/LoginView1.vue"),
       },
       {
         path: "regist",
         name: "regist",
-        component: () => import("../components/mypage/RegistView.vue"),
+        component: () => import("../components/mypage/RegistView1.vue"),
       },
       {
         path: "logout",
         name: "logout",
-        component: () => import("../components/mypage/LogoutView.vue"),
+        component: () => import("../components/mypage/LogoutView1.vue"),
       },
       {
         path: "mypage_home",
         name: "mypage",
-        component: () => import("../components/mypage/MypageView.vue"),
+        component: () => import("../components/mypage/MypageView1.vue"),
       },
-      // {
-      //   path: "/mypage/password",
-      //   name: "mypage/password",
-      //   component: () => import("../views/PasswordchangeView.vue"),
-      // },
+      {
+        path: "/mypage/password",
+        name: "mypage/password",
+        component: () => import("../components/mypage/PasswordchangeView.vue"),
+      },
     ],
   },
 
   {
     path: "/main",
     name: "main",
-    component: () => import("../views/HomeView.vue"),
+    component: () => import("../views/MainView1.vue"),
     children: [
       {
         path: "clothes",
@@ -111,7 +111,7 @@ const routes = [
   {
     path: "/main",
     name: "main",
-    component: () => import("../views/MainView.vue"),
+    component: () => import("../views/MainView1.vue"),
   },
   // {
   //   path: "/about",
