@@ -176,17 +176,17 @@ const Component = {
         }
       });
     },
-    sendEmail() {
-      resetPassword(
-        this.info.email,
-        (response) => {
-          console.log(response.data);
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    },
+    // sendEmail() {
+    //   resetPassword(
+    //     this.info.email,
+    //     (response) => {
+    //       console.log(response.data);
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // },
   },
   mounted() {
     if (!document) return;
