@@ -38,7 +38,7 @@
         <div class="vote-writer-box">
           <div class="vote-writer-text text-h3">
             작성자 :
-            <router-link :to="`/votes/users/${vote.userId}`">{{
+            <router-link :to="`/record/user/${vote.userId}`">{{
               vote.name
             }}</router-link>
           </div>
@@ -57,7 +57,7 @@
         <div
           class="box-btn-right"
           @click="deleteVote"
-          v-if="this.$store.state.userId === this.vote.userId"
+          v-if="this.$store.state.userStore.userId === this.vote.userId"
         >
           <div class="btn-rectangle-tiny text-h4 red">삭제</div>
         </div>
@@ -128,7 +128,7 @@
             'green-4': vote.category === '장소',
           }"
           @click="changeStatus"
-          v-else-if="this.$store.state.userId === this.vote.userId"
+          v-else-if="this.$store.state.userStore.userId === this.vote.userId"
         >
           <div class="text-h2">투표마감</div>
         </div>
@@ -142,7 +142,7 @@
           }"
           v-else-if="
             this.vote.voted === null &&
-            this.$store.state.userId !== this.vote.userId &&
+            this.$store.state.userStore.userId !== this.vote.userId &&
             this.clickedOption === 0
           "
         >
@@ -159,7 +159,7 @@
           @click="clickVote, (data2.isShow = true)"
           v-else-if="
             this.vote.voted === null &&
-            this.$store.state.userId !== this.vote.userId &&
+            this.$store.state.userStore.userId !== this.vote.userId &&
             this.clickedOption !== 0
           "
         >
@@ -194,7 +194,7 @@
     <div
       class="box-column"
       v-if="
-        this.vote.userId === this.$store.state.userId ||
+        this.vote.userId === this.$store.state.userStore.userId ||
         this.vote.voted !== null ||
         this.vote.status
       "
@@ -237,7 +237,7 @@
     <div
       class="box-column"
       v-if="
-        this.vote.userId === this.$store.state.userId ||
+        this.vote.userId === this.$store.state.userStore.userId ||
         this.vote.voted !== null ||
         this.vote.status
       "
@@ -285,7 +285,7 @@
               'purple-0': vote.category === '스타일',
               'green-0': vote.category === '장소',
             }"
-            @change="changeChart()"
+            @change="changeChart"
           >
             <option v-for="(item, index) in chartOptionList" :key="index">
               {{ item }}
@@ -358,9 +358,10 @@ export default {
       chartOptionList: ["연령", "성별", "거주지"],
       vote: {
         voteId: 1,
-        category: "스타일",
+        category: "메뉴",
         subCategory: "치킨",
-        title: "지금까지 이런 맛은 없었다.",
+        title:
+          "지금까지 이런 맛은 없었다.지금까지 이런 맛은 없었다.지금까지 이런 맛은 없었다.지금까지까지",
         userId: 2,
         name: "수원왕갈비",
         hitCount: 12000,
@@ -375,7 +376,7 @@ export default {
         commentList: [
           {
             commentId: 1,
-            userId: 1,
+            userId: 2,
             name: "수원왕갈비",
             content: "당연히 교촌",
             createdAt: "2022.09.30 06:16",
@@ -383,7 +384,7 @@ export default {
           },
           {
             commentId: 2,
-            userId: 2,
+            userId: 1,
             name: "치킨마니아",
             content: "당연히 노통",
             createdAt: "2022.09.30 06:26",
@@ -423,7 +424,7 @@ export default {
   },
   methods: {
     changeClickedOptionA() {
-      if (this.vote.voted === null) {
+      if (this.vote.voted === null && !this.vote.status) {
         if (this.clickedOption === 1) {
           this.clickedOption = 0;
         } else {
@@ -432,7 +433,7 @@ export default {
       }
     },
     changeClickedOptionB() {
-      if (this.vote.voted === null) {
+      if (this.vote.voted === null && !this.vote.status) {
         if (this.clickedOption === 2) {
           this.clickedOption = 0;
         } else {

@@ -110,11 +110,12 @@
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import ControlView2 from "../common/ControlView2.vue";
 export default {
+  name: "UserInfo",
   components: {
     VueConfirmDialog,
     ControlView2,
   },
-
+  props: ["userId"],
   data() {
     return {
       data: {

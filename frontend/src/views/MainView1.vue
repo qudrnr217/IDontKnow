@@ -22,25 +22,13 @@
         <div class="content-chat">
           <div class="text-chat">오늘은 어떤 고민이 있어서 왔어?</div>
           <div class="btn-box">
-            <button
-              class="btn-rectangle-small"
-              style="background-color: #fff7e2"
-              id="1"
-            >
+            <button class="btn-rectangle-small yellow-1" id="1">
               뭐먹을까?
             </button>
-            <button
-              class="btn-rectangle-small"
-              style="background-color: #f3e5f5"
-              id="2"
-            >
+            <button class="btn-rectangle-small purple-1" id="2">
               뭐입을까?
             </button>
-            <button
-              class="btn-rectangle-small"
-              style="background-color: #f1f7ea"
-              id="3"
-            >
+            <button class="btn-rectangle-small green-1" id="3">
               어디가지?
             </button>
           </div>

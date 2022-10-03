@@ -11,17 +11,17 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     started: 0,
-    userId: 1,
+    // userId: 1,
   },
   getters: {},
   mutations: {
-    UPDATE_STARTED(state, payload) {
-      state.started = payload;
+    UPDATE_STARTED: (state) => {
+      state.started = 1;
     },
   },
   actions: {
-    update_started({ commit }, data) {
-      commit("UPDATE_STARTED", data);
+    update_started: ({ commit }) => {
+      return commit("UPDATE_STARTED");
     },
   },
   modules: {
@@ -31,8 +31,7 @@ export default new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: ["userStore"],
-      whiteList: ["started"],
+      paths: ["userStore", "started"],
     }),
   ],
 });

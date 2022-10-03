@@ -17,7 +17,7 @@
         v-model="category"
         class="sb-rectangle-long sel text-h3 blue-3-border"
       >
-        <option selected disabled>카테고리를 선택해주세요.</option>
+        <option selected disabled value="">카테고리를 선택해주세요.</option>
         <option
           v-for="(category, index) in Category"
           :key="index"
@@ -87,15 +87,21 @@
     <div class="box-row text-h3">
       <input
         id="title"
-        class="input-rectangle-long blue-3-border text-h3"
+        class="input-rectangle-long blue-3-border"
         type="text"
+        style="font-size: 16px; border-radius: 10px"
         v-model="title"
-        placeholder="제목을 작성해주세요."
+        placeholder="제목을 작성해주세요(25자 이내)."
       />
     </div>
     <!-- 투표 선택지 -->
     <div class="box-row-left">
       <div class="text-title text-h2 blue-4-text">선택지📝</div>
+    </div>
+    <div class="box-row-left">
+      <div class="text-title text-h4 blue-3-text">
+        25자 이내로 작성해주세요.
+      </div>
     </div>
     <div class="vote-options-box-big">
       <div
@@ -168,6 +174,7 @@ export default {
   methods: {
     createVote() {
       // 투표 만들기 api 호출
+      // 투표 목록으로 돌아가기
     },
   },
 };

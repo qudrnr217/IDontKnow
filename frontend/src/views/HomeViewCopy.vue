@@ -17,7 +17,7 @@
 import VoteList from "../components/home/VoteList.vue";
 
 export default {
-  name: "HomeViewCopy",
+  // name: "HomeView",
   components: {
     VoteList,
   },
