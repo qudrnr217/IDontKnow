@@ -11,13 +11,13 @@ import VoteDetailView from "../views/VoteDetailView.vue";
 import VoteDetail from "../components/home/VoteDetail.vue";
 // profile
 import ProfileView from "../views/LoginView.vue";
-import UserLogin from "../components/mypage/LoginView1.vue";
-import UserLogout from "../components/mypage/LogoutView1.vue";
-import UserInfo from "../components/mypage/MypageView1.vue";
-import UserPassword from "../components/mypage/PasswordchangeView.vue";
-import UserRegist from "../components/mypage/RegistView1.vue";
+import UserLogin from "../components/profile/UserLogin.vue";
+import UserLogout from "../components/profile/UserLogout.vue";
+import UserInfo from "../components/profile/UserInfo.vue";
+import UserPassword from "../components/profile/UserPassword.vue";
+import UserRegist from "../components/profile/UserRegist.vue";
 // chat
-import ChatView from "../views/MainView1.vue";
+import ChatView from "../views/ChatView.vue";
 // record
 import RecordView from "../views/RecordView.vue";
 

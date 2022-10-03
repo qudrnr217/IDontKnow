@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="background bgd-common">
     <div class="body">
       <router-view />
     </div>
