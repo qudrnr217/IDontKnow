@@ -110,25 +110,6 @@ const routes = [
       },
     ],
   },
-<<<<<<< HEAD
-
-=======
-  {
-    path: "/main/food",
-    name: "food",
-    component: () => import("../views/MainFoodView.vue"),
-  },
-  {
-    path: "/main/food/detail",
-    name: "food/detail",
-    component: () => import("../views/MainFoodDetailView.vue"),
-  },
-  {
-    path: "/main",
-    name: "main",
-    component: () => import("../views/MainView.vue"),
-  },
->>>>>>> fe
   // {
   //   path: "/about",
   //   name: "about",
