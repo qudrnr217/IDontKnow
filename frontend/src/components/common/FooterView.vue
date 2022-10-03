@@ -19,7 +19,6 @@
 
 <script>
 export default {
-  name: "FooterView",
   methods: {
     home() {
       this.$router.push({ name: "clothes" });
@@ -42,7 +41,7 @@ export default {
   margin-left: 55px;
   margin-top: 15px;
 }
-#homem,
+#home,
 #community,
 #vote,
 #mypage {

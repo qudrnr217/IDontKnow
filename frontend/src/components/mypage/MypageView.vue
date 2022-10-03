@@ -12,12 +12,14 @@
           <table class="mypage">
             <tr>
               <th>닉네임</th>
+              <th>{{ user.name }}</th>
             </tr>
             <tr>
               <td>이메일</td>
+              <td>{{ user.email }}</td>
             </tr>
             <tr>
-              <td>비밀번호 변경</td>
+              <td colspan="2">비밀번호 변경</td>
             </tr>
           </table>
         </div>
@@ -29,15 +31,13 @@
             <tr>
               <th>거주지</th>
               <th>
-                <select class="sel">
-                  <!-- v-model=""  -->
-                  <option value="">거주지</option>
+                <select class="sel" v-model="user.districtId">
                   <option
-                    v-for="(location, index) in Location"
+                    v-for="(value, index) in locations"
                     :key="index"
-                    :value="location.value"
+                    :value="index + 1"
                   >
-                    {{ location.text }}
+                    {{ locations[index] }}
                   </option>
                 </select>
               </th>
@@ -45,15 +45,14 @@
             <tr>
               <td>성별</td>
               <td>
-                <select class="sel">
+                <select class="sel" v-model="user.gender">
                   <!-- v-model=""  -->
-                  <option value="">성별</option>
                   <option
-                    v-for="(gender, index) in Gender"
+                    v-for="(value, index) in genders"
                     :key="index"
-                    :value="gender.value"
+                    :value="value"
                   >
-                    {{ gender.text }}
+                    {{ genders[index] }}
                   </option>
                 </select>
               </td>
@@ -62,15 +61,14 @@
               <td>연령대</td>
               <td>
                 <div class="dropdown">
-                  <select class="sel">
+                  <select class="sel" v-model="user.age">
                     <!-- v-model=""  -->
-                    <option value="">연령대</option>
                     <option
-                      v-for="(age, index) in Age"
-                      :key="index"
-                      :value="age.value"
+                      v-for="(value, key) in ages"
+                      :key="key"
+                      :value="value"
                     >
-                      {{ age.text }}
+                      {{ key }}
                     </option>
                   </select>
                 </div>
@@ -106,7 +104,9 @@
 import HeaderView from "../common/HeaderView.vue";
 import FooterView from "../common/FooterView.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
-
+import { locations, ages, genders } from "../../const/const.js";
+import { mapState, mapMutations } from "vuex";
+import { getUserInfo, updateUserInfo } from "@/api/mypage";
 export default {
   components: {
     HeaderView,
@@ -116,6 +116,18 @@ export default {
 
   data() {
     return {
+      ages: { ...ages },
+      locations: locations,
+      genders: genders,
+      user: {
+        id: 0,
+        name: "",
+        email: "",
+        districtId: 0,
+        districtName: "",
+        gender: "",
+        age: 0,
+      },
       data: {
         isShow: false,
         title: "탈퇴하시겠습니까?",
@@ -123,150 +135,109 @@ export default {
         yes: "탈퇴하기",
         no: "취소",
       },
-      Gender: [
-        {
-          value: 1,
-          text: "남성",
-        },
-        {
-          value: 2,
-          text: "여성",
-        },
-      ],
-      Age: [
-        {
-          value: 1,
-          text: "10대",
-        },
-        {
-          value: 2,
-          text: "20대",
-        },
-        {
-          value: 3,
-          text: "30대",
-        },
-        {
-          value: 4,
-          text: "40대",
-        },
-        {
-          value: 5,
-          text: "50대",
-        },
-        {
-          value: 6,
-          text: "60대",
-        },
-      ],
-      Location: [
-        {
-          value: 1,
-          text: "서울시 강남구",
-        },
-        {
-          value: 2,
-          text: "서울시 강동구",
-        },
-        {
-          value: 3,
-          text: "서울시 강북구",
-        },
-        {
-          value: 4,
-          text: "서울시 강서구",
-        },
-        {
-          value: 5,
-          text: "서울시 관악구",
-        },
-        {
-          value: 6,
-          text: "서울시 광진구",
-        },
-        {
-          value: 7,
-          text: "서울시 구로구",
-        },
-        {
-          value: 8,
-          text: "서울시 금천구",
-        },
-        {
-          value: 9,
-          text: "서울시 노원구",
-        },
-        {
-          value: 10,
-          text: "서울시 도봉구",
-        },
-        {
-          value: 11,
-          text: "서울시 동대문구",
-        },
-        {
-          value: 12,
-          text: "서울시 동작구",
-        },
-        {
-          value: 13,
-          text: "서울시 마포구",
-        },
-        {
-          value: 14,
-          text: "서울시 서대문구",
-        },
-        {
-          value: 15,
-          text: "서울시 서초구",
-        },
-        {
-          value: 16,
-          text: "서울시 성동구",
-        },
-        {
-          value: 17,
-          text: "서울시 성북구",
-        },
-        {
-          value: 18,
-          text: "서울시 송파구",
-        },
-        {
-          value: 19,
-          text: "서울시 양천구",
-        },
-        {
-          value: 20,
-          text: "서울시 영등포구",
-        },
-        {
-          value: 21,
-          text: "서울시 용산구",
-        },
-        {
-          value: 22,
-          text: "서울시 은평구",
-        },
-        {
-          value: 23,
-          text: "서울시 종로구",
-        },
-        {
-          value: 24,
-          text: "서울시 중구",
-        },
-        {
-          value: 25,
-          text: "서울시 중랑구",
-        },
-      ],
     };
+  },
+  mounted() {
+    this.user.id = this.userId;
+    this.getUser();
   },
 
   methods: {
+    ...mapMutations("userStore", [
+      "SET_ACCESS_TOKEN",
+      "SET_REFRESH_TOKEN",
+      "SET_DISTRICT_ID",
+    ]),
     logout() {
+      this.SET_ACCESS_TOKEN("");
+      this.SET_REFRESH_TOKEN("");
       this.$router.push({ path: "/mypage/login" });
+    },
+    getUser() {
+      getUserInfo(
+        this.accessToken,
+        this.user.id,
+        (response) => {
+          this.user.id = response.data.id;
+          this.user.name = response.data.name;
+          this.user.email = response.data.email;
+          this.user.districtId = response.data.districtId;
+          this.user.districtName = response.data.districtName;
+          this.user.gender = response.data.gender;
+          this.user.age = response.data.age;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
+  computed: {
+    ...mapState("userStore", ["userId", "name", "districtId", "accessToken"]),
+    districtId() {
+      return this.user.districtId;
+    },
+    gender() {
+      console.log(this.user.gender);
+      return this.user.gender;
+    },
+    age() {
+      return this.user.age;
+    },
+  },
+  watch: {
+    districtId() {
+      console.log(this.user.districtId);
+      if (this.user.districtId == 0) return;
+      updateUserInfo(
+        this.accessToken,
+        this.userId,
+        this.user.districtId,
+        this.user.gender,
+        this.user.age,
+        (response) => {
+          console.log(response.data);
+          this.SET_DISTRICT_ID(response.data.districtId);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    age() {
+      console.log(this.user.age);
+      if (this.user.age == 0) return;
+      updateUserInfo(
+        this.accessToken,
+        this.userId,
+        this.user.districtId,
+        this.user.gender,
+        this.user.age,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    gender() {
+      console.log(this.user.gender);
+      if (this.user.gender == "") return;
+      updateUserInfo(
+        this.accessToken,
+        this.userId,
+        this.user.districtId,
+        this.user.gender,
+        this.user.age,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
 };

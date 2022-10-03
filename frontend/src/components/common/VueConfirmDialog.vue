@@ -18,7 +18,7 @@
             <span v-if="dialog.auth">
               <input
                 v-focus
-                v-model="password"
+                v-model="info.email"
                 @keyup.13="(e) => handleClickButton(e, true)"
                 class="vc-input"
                 type="email"
@@ -43,7 +43,6 @@
 
             <button
               v-if="dialog.button.yes"
-              :disabled="dialog.auth ? !password : false"
               @click.stop="(e) => handleClickButton(e, true)"
               class="vc-btn"
               type="button"
@@ -79,6 +78,9 @@ const Component = {
 
   data() {
     return {
+      info: {
+        email: "",
+      },
       isShow: this.data.isShow,
       password: null,
       dialog: {
@@ -173,6 +175,17 @@ const Component = {
           this.dialog[param[0]] = param[1];
         }
       });
+    },
+    sendEmail() {
+      resetPassword(
+        this.info.email,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
   mounted() {

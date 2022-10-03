@@ -10,7 +10,7 @@
             class="content_input"
             type="text"
             id="email"
-            v-model="email"
+            v-model="user.email"
             placeholder="이메일"
           />
         </div>
@@ -22,7 +22,7 @@
             class="content_input"
             type="password"
             id="password"
-            v-model="password"
+            v-model="user.password"
             placeholder="비밀번호"
           />
         </div>
@@ -45,7 +45,7 @@
           <button class="button" @click="regist()" style="opacity: 0.6">
             회원가입
           </button>
-          <button class="button" @click="data.isShow = true">로그인</button>
+          <button class="button" @click="login()">로그인</button>
           <vue-confirm-dialog
             :data="data"
             v-if="data.isShow"
@@ -61,6 +61,8 @@
 import HeaderView from "../common/HeaderView.vue";
 import FooterView from "../common/FooterView.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+import { mapMutations, mapState } from "vuex";
+import { login } from "../../api/user";
 export default {
   components: {
     HeaderView,
@@ -70,8 +72,10 @@ export default {
 
   data() {
     return {
-      email: "",
-      password: "",
+      user: {
+        email: "",
+        password: "",
+      },
       data: {
         isShow: false,
         title: "로그인 실패",
@@ -88,11 +92,43 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState("userStore", ["userId", "name", "districtId"]),
+  },
 
   methods: {
     regist() {
       this.$router.push({ name: "regist" });
     },
+    login() {
+      login(
+        this.user,
+        (response) => {
+          console.log(response.data);
+          this.SET_USERID(response.data.userId);
+          this.SET_NAME(response.data.name);
+          this.SET_DISTRICT_ID(response.data.districtId);
+          this.SET_ACCESS_TOKEN(response.data.accessToken);
+          this.SET_REFRESH_TOKEN(response.data.refreshToken);
+          this.movePage();
+          console.log(this.userId);
+        },
+        (error) => {
+          console.log(error);
+          this.isShow = true;
+        }
+      );
+    },
+    movePage() {
+      this.$router.replace({ name: "home" });
+    },
+    ...mapMutations("userStore", [
+      "SET_USERID",
+      "SET_NAME",
+      "SET_DISTRICT_ID",
+      "SET_ACCESS_TOKEN",
+      "SET_REFRESH_TOKEN",
+    ]),
   },
 };
 </script>
