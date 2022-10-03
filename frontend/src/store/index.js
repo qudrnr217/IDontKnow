@@ -29,12 +29,12 @@ export default new Vuex.Store({
   modules: {
     homeStore,
     userStore,
+    communityStore,
   },
   plugins: [
     createPersistedState({
       paths: ["userStore"],
       whiteList: ["started"],
-    communityStore,
   }),
   ],
 });
