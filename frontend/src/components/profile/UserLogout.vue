@@ -1,91 +1,61 @@
 <template>
-  <div class="bgd-common">
-    <div class="body">
-      <div class="title">모르에게 물어봐</div>
-      <div class="title-description">로그아웃</div>
-      <div class="box-regist" style="background: transparent; height: 10px" />
-      <div class="box-regist">
-        <router-link to="/home" style="font-size: 24px"
-          >메인 페이지로 돌아가기</router-link
-        >
+  <div class="body">
+    <div class="box-row-left">
+      <div class="text-title text-h1 blue-4-text">로그아웃</div>
+    </div>
+    <div class="box-row-left">
+      <div class="text-title text-h4 blue-4-text">
+        결정왕 김모르를 이용해주셔서 감사합니다 !
       </div>
-      <div
-        class="box-regist"
-        style="justify-content: flex-end; background: transparent"
-      >
-        <button
-          class="btn-rectangle-small"
-          @click="regist()"
-          style="background-color: #58ccff"
+    </div>
+    <div class="profile-image-box">
+      <img class="profile-image" src="@/assets/image/김모르.png" />
+    </div>
+    <div class="box-column">
+      <div class="box-row">
+        <div
+          class="btn-rectangle-big blue-0 text-h2 blue-4-text"
+          @click="backToHome()"
         >
-          회원가입
-        </button>
-        <button
-          class="btn-rectangle-small"
-          @click="login()"
-          style="background-color: #1187cf"
-        >
-          로그인
-        </button>
+          홈으로🏠
+        </div>
+      </div>
+      <div class="box-btn-right">
+        <div class="btn-rectangle-small blue-0" @click="regist()">회원가입</div>
+        <div class="btn-rectangle-small blue-1" @click="login()">로그인</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 export default {
   components: {},
+  computed: {
+    ...mapState({
+      started: (state) => state.data.started,
+    }),
+  },
   methods: {
     regist() {
-      this.$router.push({ name: "regist" });
+      this.update_started();
+      this.$router.push({ name: "userRegist", path: "/profile/regist" });
     },
     login() {
-      this.$router.push({ path: "/mypage/login" });
+      this.update_started();
+      this.$router.push({ name: "userLogin", path: "/profile/login" });
     },
+    backToHome() {
+      this.$router.push({ name: "home", path: "/" });
+    },
+    ...mapActions(["update_started"]),
   },
 };
 </script>
 
 <style scoped>
-.bgd-common {
-  background-image: url("~@/assets/image/background/blue.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  margin: auto;
-}
-.body {
-  padding: 10px;
-}
-.title {
-  font-family: "ONEMobileTitle";
-  font-size: 24px;
-  text-align: left;
-}
-.title-description {
-  font-family: "ONEMobileTitle";
-  font-size: 20px;
-  text-align: left;
-}
-.box-regist {
-  display: flex;
-  justify-content: space-around;
-  background-color: transparent;
-  border-radius: 10px;
-  margin: 0px 10px 10px 10px;
-  padding: 0px 10px 0px 10px;
-  font-family: "ONEMobileTitle";
-}
 .btn-rectangle-small {
-  font-family: "ONEMobileTitle";
-  font-size: 8px;
-  display: flex;
-  width: 80px;
-  height: 30px;
-  border-radius: 10px;
   margin-left: 10px;
-  align-items: center;
-  justify-content: center;
 }
 </style>

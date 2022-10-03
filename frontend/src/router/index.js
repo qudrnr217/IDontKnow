@@ -92,16 +92,15 @@ const routes = [
         component: UserLogout,
       },
       {
-        path: "/user/:userId",
+        path: "user/:userId",
         name: "userInfo",
         component: UserInfo,
         props: true,
       },
       {
-        path: "/password",
+        path: "password",
         name: "userPassword",
         component: UserPassword,
-        props: true,
       },
     ],
   },

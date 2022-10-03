@@ -1,102 +1,79 @@
 <template>
-  <div class="bgd-common">
-    <div class="body">
-      <div class="title">모르에게 물어봐</div>
-      <div class="title-description">회원정보</div>
-      <div class="box-regist" style="background: transparent; height: 10px" />
-      <div class="myprofile">
-        <img class="cat" src="@/assets/image/김게따.png" />
+  <div class="body">
+    <div class="box-row-left">
+      <div class="text-title text-h1 blue-4-text">회원정보</div>
+    </div>
+    <div class="box-row-left">
+      <div class="text-title text-h4 blue-4-text">
+        {{ user.name }}님 환영합니다 !
       </div>
-      <div class="box-regist">
-        <div class="content-regist">
-          <div class="title-regist">Name</div>
-          <div class="text-regist">{{ name }} weejee</div>
-        </div>
+    </div>
+    <div class="profile-image-box">
+      <img class="profile-image" src="@/assets/image/김게따.png" />
+    </div>
+    <div class="box-column">
+      <div class="box-row input-rectangle-long white blue-3-border">
+        <div class="text-h3">Name</div>
+        <div class="input-align-right">{{ user.name }}ddd</div>
       </div>
-      <div class="box-regist">
-        <div class="content-regist">
-          <div class="title-regist">EMAIL</div>
-          <div class="text-regist">{{ email }} abc123@gmail.com</div>
-        </div>
+      <div class="box-row input-rectangle-long white blue-3-border">
+        <div class="text-h3">E-MAIL</div>
+        <div class="input-align-right">{{ user.email }}ddd</div>
       </div>
-      <div class="box-regist">
-        <div class="content-regist">
-          <div class="title-regist">Password</div>
-          <button
-            class="btn-rectangle-small"
-            @click="passwordchange()"
-            style="background-color: #b8e9ff; margin-top: 6px"
-          >
+      <div class="box-row input-rectangle-long white blue-3-border">
+        <div class="text-h3">Password</div>
+        <div class="input-align-right">
+          <div class="btn-rectangle-long blue-0" @click="passwordChange()">
             비밀번호 변경
-          </button>
-        </div>
-      </div>
-
-      <div class="box-regist">
-        <div class="content-regist">
-          <div class="title-regist">거주지</div>
-          <div class="input-regist">
-            <select class="sb-rectangle-big">
-              <!-- v-model=""  -->
-              <option value="">거주지</option>
-              <option
-                v-for="(location, index) in Location"
-                :key="index"
-                :value="location.value"
-              >
-                {{ location.text }}
-              </option>
-            </select>
           </div>
         </div>
       </div>
-
-      <div class="box-regist">
-        <div class="content-regist">
-          <div class="title-regist">성별</div>
-          <div class="input-regist" style="margin-top: 6px">
-            <control-view-2 :segments="segments2" />
-          </div>
+      <div class="box-row input-rectangle-long white blue-3-border">
+        <div class="text-h3">거주지</div>
+        <div class="input-align-right">
+          <select class="sb-rectangle-short">
+            <option selected disabled value="">거주지</option>
+            <option
+              v-for="(location, index) in Location"
+              :key="index"
+              :value="location.value"
+            >
+              {{ location.text }}
+            </option>
+          </select>
         </div>
       </div>
-
-      <div class="box-regist">
-        <div class="content-regist">
-          <div class="title-regist">연령대</div>
-          <div class="input-regist">
-            <select class="sb-rectangle-big">
-              <!-- v-model=""  -->
-              <option value="">연령대</option>
-              <option
-                v-for="(age, index) in Age"
-                :key="index"
-                :value="age.value"
-              >
-                {{ age.text }}
-              </option>
-            </select>
-          </div>
+      <div class="box-row input-rectangle-long white blue-3-border">
+        <div class="text-h3">성별</div>
+        <div class="input-align-right">
+          <select class="sb-rectangle-short">
+            <option selected disabled value="">성별</option>
+            <option
+              v-for="(gender, index) in Gender"
+              :key="index"
+              :value="gender.value"
+            >
+              {{ gender.text }}
+            </option>
+          </select>
         </div>
       </div>
-
-      <div
-        class="box-regist"
-        style="justify-content: flex-end; background: transparent"
-      >
-        <button
-          class="btn-rectangle-small"
-          @click="logout()"
-          style="background-color: #18a8f1"
-        >
-          로그아웃
-        </button>
-        <button
-          class="btn-rectangle-small"
-          @click="login()"
-          style="background-color: #feccbe"
-        >
+      <div class="box-row input-rectangle-long white blue-3-border">
+        <div class="text-h3">연령대</div>
+        <div class="input-align-right">
+          <select class="sb-rectangle-short">
+            <option selected disabled value="">연령대</option>
+            <option v-for="(age, index) in Age" :key="index" :value="age.value">
+              {{ age.text }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="box-btn-right">
+        <div class="btn-rectangle-small blue-0" @click="logout()">로그아웃</div>
+        <div class="btn-rectangle-small red" @click="withdrawal()">
           탈퇴하기
-        </button>
+        </div>
         <vue-confirm-dialog
           :data="data"
           v-if="data.isShow"
@@ -108,16 +85,23 @@
 
 <script>
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
-import ControlView2 from "../common/ControlView2.vue";
 export default {
   name: "UserInfo",
   components: {
     VueConfirmDialog,
-    ControlView2,
   },
   props: ["userId"],
   data() {
     return {
+      user: {
+        id: 0,
+        name: "",
+        email: "",
+        districtId: 0,
+        districtName: "",
+        gender: "",
+        age: 0,
+      },
       data: {
         isShow: false,
         title: "탈퇴하시겠습니까?",
@@ -127,12 +111,12 @@ export default {
       },
       Gender: [
         {
-          value: 1,
-          text: "남성",
+          value: "M",
+          text: "남자",
         },
         {
-          value: 2,
-          text: "여성",
+          value: "F",
+          text: "여자",
         },
       ],
       Age: [
@@ -268,95 +252,23 @@ export default {
 
   methods: {
     logout() {
-      this.$router.push({ path: "/mypage/logout" });
+      // vue 날리기
+      this.$router.push({ name: "userLogout", path: "/profile/logout" });
     },
-    passwordchange() {
-      this.$router.push({ path: "/mypage/password" });
+    passwordChange() {
+      this.$router.push({ name: "userPassword", path: "/profile/password" });
+    },
+    withdrawal() {
+      // TODO: dialog 체크 필요
+      // 탈퇴하기 api 호출 (vue 날리기)
+      // home 으로 이동
     },
   },
 };
 </script>
 
 <style scoped>
-.cat {
-  width: 100px;
-  height: 100px;
-}
-.bgd-common {
-  background-image: url("~@/assets/image/background/blue.png");
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  margin: auto;
-}
-.body {
-  padding: 10px;
-}
-.title {
-  font-family: "ONEMobileTitle";
-  font-size: 24px;
-  text-align: left;
-}
-.title-description {
-  font-family: "ONEMobileTitle";
-  font-size: 20px;
-  text-align: left;
-}
-.myprofile {
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-}
-.box-regist {
-  display: flex;
-  justify-content: space-around;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: 0px 10px 10px 10px;
-  padding: 0px 10px 0px 10px;
-}
-.content-regist {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-content: center;
-  width: 100%;
-}
-.title-regist {
-  font-family: "ONEMobileTitle";
-  font-size: 16px;
-  vertical-align: center;
-  padding: 10px;
-  flex-grow: 2;
-}
-.text-regist {
-  font-family: "ONEMobileTitle";
-  font-size: 12px;
-  display: flex;
-  flex-grow: 3;
-  align-items: center;
-  margin-right: 10px;
-  padding: 10px;
-}
 .btn-rectangle-small {
-  font-family: "ONEMobileTitle";
-  font-size: 8px;
-  display: flex;
-  width: 80px;
-  height: 30px;
-  border-radius: 10px;
   margin-left: 10px;
-  align-items: center;
-  justify-content: center;
-}
-.sb-rectangle-big {
-  width: 200px;
-  height: 40px;
-  border-radius: 10px;
-  border-style: none;
-  font-family: "ONEMobileTitle";
-  font-size: 12px;
-  text-align: center;
 }
 </style>

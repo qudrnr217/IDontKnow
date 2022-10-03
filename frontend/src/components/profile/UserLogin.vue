@@ -8,11 +8,14 @@
         결정왕 김모르에 오신 것을 환영합니다 !
       </div>
     </div>
+    <div class="profile-image-box">
+      <img class="profile-image" src="@/assets/image/김모르.png" />
+    </div>
     <div class="box-column">
       <div class="box-row input-rectangle-long white blue-3-border">
-        <div class="title-regist text-h3">E-Mail</div>
+        <div class="text-h3">E-Mail</div>
         <input
-          class="input-regist"
+          class="input-align-right"
           type="email"
           id="email"
           style="font-size: 16px; border-radius: 10px"
@@ -21,9 +24,9 @@
         />
       </div>
       <div class="box-row input-rectangle-long white blue-3-border">
-        <div class="title-regist text-h3">Password</div>
+        <div class="text-h3">Password</div>
         <input
-          class="input-regist"
+          class="input-align-right"
           type="password"
           id="password"
           style="font-size: 16px; border-radius: 10px"
@@ -97,36 +100,10 @@ export default {
 </script>
 
 <style scoped>
-.box-regist {
-  display: flex;
-  justify-content: space-around;
-  background-color: #ffffff;
-  border-radius: 10px;
-  margin: 0px 10px 10px 10px;
-  padding: 0px 10px 0px 10px;
-}
-.content-regist {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
-  width: 100%;
-}
-.title-regist {
-  vertical-align: center;
-  padding: 4px;
-}
-.input-regist {
-  justify-content: flex-end;
-  border: none;
-  font-family: "ONEMobileTitle";
-  font-size: 16px;
-  text-align: right;
-}
-
 .btn-rectangle-small {
   margin-left: 10px;
 }
+
 .password_reset_button {
   background-color: transparent;
   border: none;
@@ -135,8 +112,6 @@ export default {
   height: 30px;
   text-align: right;
   text-decoration: none;
-  /* margin-top: 10px; */
-  /* line-height: 22px; */
   cursor: pointer;
 }
 </style>
