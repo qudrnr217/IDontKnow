@@ -170,6 +170,26 @@
   max-width: 390px;
   margin: auto;
 }
+/* sunnyday */
+.bgd-sunnyday {
+  background-image: url(../image/background/sunnyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* rainyday */
+.bgd-rainyday {
+  background-image: url(../image/background/rainyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
 
 /* font */
 * {
@@ -191,7 +211,7 @@
   font-size: 8px;
 }
 .text-chat {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* text-align */
@@ -238,11 +258,6 @@
   align-items: center;
   justify-content: flex-start;
 }
-.box-row-center {
-  display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-}
 .box-btn-right {
   display: flex;
   margin: 10px 20px;
@@ -254,6 +269,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+.box-column-center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* button */
@@ -550,17 +572,43 @@
 }
 .profile-image-box-small {
   display: flex;
+  align-self: baseline;
 }
 .profile-image-small {
   width: 50px;
   height: 50px;
 }
 
-/* chat 이미지 배치 */
-.food-image {
-  width: 80px;
-  height: 80px;
+/* chat 배치 */
+/* 채팅 박스 */
+.box-chat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+.box-chat-background-moleu {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 24px;
+  background-image: url(../image/chat/chat-common-border-light.png);
+  background-size: 100% 100%;
+  width: 220px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-text {
+  display: flex;
+  text-align: left;
+  padding: 4px;
+}
+
+/* food 이미지 배치 */
+.food-image {
+  width: 60px;
+  height: 60px;
+}
+
 /* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
 a {
   text-decoration: none;
