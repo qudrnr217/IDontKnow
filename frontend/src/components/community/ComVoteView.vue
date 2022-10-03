@@ -3,11 +3,11 @@
     <div class="alarm">
       <img src="../../assets/icon/etc.png" alt class="alarm-btn" />
       <div class="hi" @click="data.isShow = true">
-        gd
         <vue-confirm-dialog
           :data="data"
           v-if="data.isShow"
         ></vue-confirm-dialog>
+        <vue-confirm-dialog :data="data4"></vue-confirm-dialog>
       </div>
     </div>
     <div class="title-card">
@@ -25,12 +25,30 @@
       <div class="select2-1" v-show="show2">노랑통닭</div>
     </div>
     <div class="others">
-      <div class="vote-btn" @click="cur_vote = true" v-if="!cur_vote">
+      <div
+        class="vote-btn"
+        @click="(cur_vote = true), (data2.isShow = true)"
+        v-if="!cur_vote"
+      >
         투표하기
       </div>
-      <div class="vote-btn-cancle" @click="cur_vote = false" v-else>
+      <div
+        class="vote-btn-cancle"
+        @click="(cur_vote = false), (data3.isShow = true)"
+        v-else
+      >
         투표취소
       </div>
+
+      <!-- 투표 팝업 창 -->
+      <vue-confirm-dialog
+        :data="data2"
+        v-if="data2.isShow"
+      ></vue-confirm-dialog>
+      <vue-confirm-dialog
+        :data="data3"
+        v-if="data3.isShow"
+      ></vue-confirm-dialog>
     </div>
     <!-- <div class="writer">
       <div class="vote-btn-close">투표마감</div>
@@ -44,12 +62,13 @@
     </div>
 
     <div class="comment-title">댓글</div>
+
+    <div class="comment"><comment-view /></div>
     <div class="comment-input">
       <img src="../../assets/icon/avatar.png" alt="" />
       <input type="text" class="comment-box" />
       <img src="../../assets/icon/send.png" alt="" class="send-btn" />
     </div>
-    <div class="comment"><comment-view /></div>
   </div>
 </template>
 
@@ -70,9 +89,28 @@ export default {
       cur_vote: false,
       data: {
         isShow: false,
-        message: "투표를 삭제하시겠습니까?",
+        title: "투표를 삭제하시겠습니까?",
         no: "취소",
         yes: "삭제",
+      },
+      data2: {
+        isShow: false,
+        title: "투표하시겠습니까?",
+        no: "취소",
+        yes: "투표",
+      },
+      data3: {
+        isShow: false,
+        title: "투표를 취소하시겠습니까?",
+        no: "취소",
+        yes: "투표취소",
+      },
+      data4: {
+        isShow: false,
+        title: "투표삭제 완료",
+        message: "투표가 정상적으로 삭제되었습니다.",
+        yes: "완료",
+        no: null,
       },
     };
   },

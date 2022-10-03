@@ -3,23 +3,22 @@
     <div class="body">
       <header-view class="header" />
       <div class="content-box3">
-        <div class="content" style="flex-direction: row">
+        <div class="content">
           <div class="content_title">오늘</div>
-          <div class="content_dropdown">
-            <select class="sel">
-              <!-- v-model=""  -->
-              <option value="">날씨는?</option>
-              <option
-                v-for="(menu, index) in Mainmenu"
-                :key="index"
-                :value="menu.value"
-              >
-                {{ menu.text }}
-              </option>
-            </select>
-          </div>
+          <select class="sel">
+            <!-- v-model=""  -->
+            <option value="">날씨는?</option>
+            <option
+              v-for="(menu, index) in Mainmenu"
+              :key="index"
+              :value="menu.value"
+            >
+              {{ menu.text }}
+            </option>
+          </select>
         </div>
       </div>
+
       <div class="content-box3" style="justify-content: flex-end">
         <select class="sel2">
           <!-- v-model=""  -->
@@ -33,32 +32,50 @@
           </option>
         </select>
       </div>
+
       <div class="content-box3">
-        <div class="content">
-          <div class="content-title">실시간 인기 장소</div>
-          <div class="content-hotspot">
-            <div class="content-hotspot-box-left">
-              <img
-                :src="require(`@/assets/image/hotspots/${hotspots.placeA}.jpg`)"
-                alt
-                class="hotspot-left-img"
-              />
-              <span class="hotspot-name">{{ hotspots.placeA }}</span>
+        <div class="content-back">
+          <div class="content-weather">
+            <div class="weather-icon">
+              <img src="../assets/icon/main/temp.png" alt class="temp_icon" />
             </div>
-            <div class="content-hotspot-box-right">
-              <img
-                :src="require(`@/assets/image/hotspots/${hotspots.placeB}.jpg`)"
-                alt
-                class="hotspot-left-img"
-              />
-              <span class="hotspot-name">{{ hotspots.placeB }}</span>
-            </div>
+            <div class="weather-title">기온</div>
+            <div class="weather-data">16도</div>
           </div>
-          <div class="content-authorship">출처: 서울시 실시간 도시데이터</div>
+          <div class="content-weather">
+            <div class="weather-icon">
+              <img src="../assets/icon/main/wind.png" alt class="wind_icon" />
+            </div>
+            <div class="weather-title">바람세기</div>
+            <div class="weather-data">2m/s</div>
+          </div>
+          <div class="content-weather">
+            <div class="weather-icon">
+              <img src="../assets/icon/main/humid.png" alt class="humid_icon" />
+            </div>
+            <div class="weather-title">습도</div>
+            <div class="weather-data">36%</div>
+          </div>
+          <div class="content-weather">
+            <div class="weather-icon">
+              <img src="../assets/icon/main/rain.png" alt class="rain-icon" />
+            </div>
+            <div class="weather-title">강수확률</div>
+            <div class="weather-data">20%</div>
+          </div>
+          <div class="content-weather">
+            <div class="weather-icon">
+              <img src="../assets/icon/main/sun.png" alt class="sun-icon" />
+            </div>
+            <div class="weather-title">자외선지수</div>
+            <div class="weather-data">7</div>
+          </div>
+          <div class="separator"></div>
+          <div class="content-weather" style="height: 100%">
+            햇볕에 노출 시 1-2시간 이내에도 피부 화상을 입을 수 있어 위험해요.
+            한낮에는 실내나 그늘에 머물러주세요.
+          </div>
         </div>
-      </div>
-      <div class="content-box3">
-        <weather-view />
       </div>
       <footer-view class="footer" />
     </div>
@@ -68,15 +85,11 @@
 <script>
 import HeaderView from "../components/common/HeaderView.vue";
 import FooterView from "../components/common/FooterView.vue";
-import WeatherView from "../components/main/WeatherView.vue";
 
-import { mapMutations, mapState, mapActions } from "vuex";
 export default {
-  name: "MainHotspotView",
   components: {
     HeaderView,
     FooterView,
-    WeatherView,
   },
   data() {
     return {
@@ -161,65 +174,52 @@ export default {
         },
         {
           value: 16,
-          text: "서울시 성동구",
-        },
-        {
-          value: 17,
           text: "서울시 성북구",
         },
         {
-          value: 18,
+          value: 17,
           text: "서울시 송파구",
         },
         {
-          value: 19,
+          value: 18,
           text: "서울시 양천구",
         },
         {
-          value: 20,
+          value: 19,
           text: "서울시 영등포구",
         },
         {
-          value: 21,
+          value: 20,
           text: "서울시 용산구",
         },
         {
-          value: 22,
+          value: 21,
           text: "서울시 은평구",
         },
         {
-          value: 23,
+          value: 22,
           text: "서울시 종로구",
         },
         {
-          value: 24,
+          value: 23,
           text: "서울시 중구",
         },
         {
-          value: 25,
+          value: 24,
           text: "서울시 중랑구",
         },
       ],
     };
   },
-
-  mounted() {
-    this.getHotspots();
-  },
-  computed: {
-    ...mapState("homeStore", ["districtId", "hotspots"]),
-  },
-  methods: {
-    getHotspots() {
-      this.FETCH_HOTSPOTS();
-    },
-    ...mapActions("homeStore", ["FETCH_HOTSPOTS"]),
-    ...mapMutations("homeStore", ["SET_DISTRICT", "SET_HOTSPOTS"]),
-  },
 };
 </script>
 
-<style scoped>
+<style>
+.current-location {
+  display: flex;
+  margin-right: 30px;
+  margin-bottom: 10px;
+}
 .content-box3 {
   display: flex;
   justify-content: center;
@@ -228,65 +228,73 @@ export default {
   font-family: "GmarketSansTTFLight";
   font-style: normal;
 }
-.content {
+.content-back {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  /* height: ; */
+  background: url(../assets/icon/main/sunnyday.png);
+  background-size: cover;
+  font-family: "GmarketSansTTFMedium";
+  font-style: normal;
+}
+.content {
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
   width: 250px;
+  height: 30px;
   border: none;
   border-radius: 10px;
   margin: 10px;
   padding: 10px;
   font-family: "GmarketSansTTFLight";
 }
-.title-box {
+.content-weather {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  width: 200px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 10px;
+  font-family: "GmarketSansTTFLight";
+  line-height: 2;
 }
-.content-title {
-  display: center;
+.content_title {
+  display: flex;
   justify-content: center;
   flex-grow: 2;
   font-size: 15px;
   font-family: "GmarketSansTTFMedium";
   vertical-align: center;
-  margin: 10px;
 }
-.hotspot-left-img {
-  width: 7rem;
-  height: 6rem;
+.content-dropdown {
+  flex-grow: 2;
+  justify-content: flex-end;
 }
-.hotspot-right-img {
-  width: 7rem;
-  height: 6rem;
-}
-.content-hotspot {
+.weather-icon {
+  width: 20px;
+  flex-grow: 3;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
-.content-hotspot-box-left {
+.weather-title {
+  flex-grow: 2;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-right: 0.3rem;
+  justify-content: center;
 }
-.content-hotspot-box-right {
+.weather-data {
+  flex-grow: 2;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-left: 0.3rem;
+  justify-content: center;
 }
-.hotspot-name {
-  font-size: 0.8rem;
-}
-.content-description {
-  margin: 10px;
-}
-.content-authorship {
-  font-size: 0.5rem;
-  margin: 1rem 0 auto auto;
+.separator {
+  border-top: 2px solid #ffffff;
 }
 .sel {
   width: 150px;

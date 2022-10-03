@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <footer-view class="footer" />
+      <footer-view />
     </div>
   </div>
 </template>

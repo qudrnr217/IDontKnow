@@ -21,9 +21,9 @@
                 v-model="password"
                 @keyup.13="(e) => handleClickButton(e, true)"
                 class="vc-input"
-                type="password"
+                type="email"
                 name="vc-password"
-                placeholder="Password"
+                placeholder="이메일"
                 autocomplete="off"
               />
             </span>
@@ -59,7 +59,7 @@
 
 <script>
 import Vue from "vue";
-import { events } from "./events";
+import { events } from "../../components/common/events";
 Vue.directive("focus", {
   inserted: function (el) {
     el.focus();
@@ -75,9 +75,9 @@ const Component = {
       isShow: this.data.isShow,
       password: null,
       dialog: {
-        auth: false,
-        title: this.data.message,
-        message: "",
+        auth: this.data.dialog,
+        title: this.data.title,
+        message: this.data.message,
         button: {
           no: this.data.no,
           yes: this.data.yes,
@@ -108,7 +108,7 @@ const Component = {
     },
     handleClickOverlay({ target }) {
       if (target.id == "vueConfirm") {
-        this.isShow = false;
+        this.data.isShow = false;
         // callback
         if (this.params.callback) {
           this.params.callback(false, this.password);
@@ -189,7 +189,7 @@ export default Component;
 }
 .vc-title {
   color: var(--title-color);
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
   width: 100%;
   font-weight: var(--font-weight-black);
   text-align: center;
@@ -199,12 +199,13 @@ export default Component;
 }
 .vc-text {
   color: var(--message-color);
-  padding: 0 1rem;
+  /* padding: 0 1rem; */
   width: 100%;
   font-weight: var(--font-weight-medium);
   text-align: center;
   font-size: var(--font-size-s);
   line-height: initial;
+  margin-top: 20px;
 }
 .vc-overlay {
   background-color: var(--overlay-background-color);
@@ -267,7 +268,7 @@ export default Component;
   border-radius: 0;
   border-right: 1px solid var(--button-border-color);
 }
-.vc-input[type="password"] {
+.vc-input[type="email"] {
   width: 100%;
   outline: none;
   border-radius: 8px;
@@ -278,9 +279,10 @@ export default Component;
   padding: 0 0.5rem;
   font-size: var(--font-size-m);
   transition: 0.21s ease;
+  margin-top: 30px;
 }
-.vc-input[type="password"]:hover,
-.vc-input[type="password"]:focus {
+.vc-input[type="email"]:hover,
+.vc-input[type="email"]:focus {
   background-color: var(--input-background-color-hover);
 }
 /**

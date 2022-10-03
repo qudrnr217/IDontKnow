@@ -10,11 +10,15 @@
       <div class="switch-title">상세보기</div>
       <label class="switch">
         <input type="checkbox" />
-        <span class="slider round"></span>
+        <span class="slider round" @click="detail_show = !detail_show"></span>
       </label>
     </div>
-    <control-view :segments="segments" class="control-view" />
-    <pie-chart-view />
+    <div class="chart-box" v-if="detail_show">
+      <control-view :segments="segments" class="control-view" />
+      <div class="pie-chart">
+        <pie-chart-view />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -47,6 +51,7 @@ export default {
           id: "11",
         },
       ],
+      detail_show: false,
     };
   },
 
@@ -197,5 +202,13 @@ input:checked + .slider:before {
 /* controlView */
 .control-view {
   margin-left: 50px;
+}
+.pie-chart {
+  /* background-color: red; */
+  width: 390px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
 }
 </style>
