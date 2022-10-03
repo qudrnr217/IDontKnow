@@ -2,16 +2,30 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-Vue.use(Vuex);
+import createPersistedState from "vuex-persistedstate";
 
 import homeStore from "@/store/modules/homeStore.js";
 import userStore from "@/store/modules/userStore.js";
+import communityStore from "./modules/communityStore";
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
+  state: {
+    started: 0,
+    userId: 1,
+  },
   getters: {},
-  mutations: {},
-  actions: {},
+  mutations: {
+    UPDATE_STARTED(state, payload) {
+      state.started = payload;
+    },
+  },
+  actions: {
+    update_started({ commit }, data) {
+      commit("UPDATE_STARTED", data);
+    },
+  },
   modules: {
     homeStore,
     userStore,
@@ -19,6 +33,8 @@ export default new Vuex.Store({
   plugins: [
     createPersistedState({
       paths: ["userStore"],
-    }),
+      whiteList: ["started"],
+    communityStore,
+  }),
   ],
 });

@@ -8,13 +8,13 @@
         <div class="content-box1">
           <div class="content">
             <div class="content_title">카테고리</div>
-            <select class="sel">
+            <select class="sel" v-model="info.category">
               <!-- v-model=""  -->
               <option value="">카테고리</option>
               <option
                 v-for="(category, index) in Category"
                 :key="index"
-                :value="category.value"
+                :value="category.text"
               >
                 {{ category.text }}
               </option>
@@ -24,20 +24,19 @@
         <div class="content-box2">
           <div class="content">
             <div class="content_title">세부 카테고리</div>
-            <select class="sel">
+            <select class="sel" v-model="info.subCategory">
               <!-- v-model=""  -->
               <option value="">세부 카테고리</option>
               <option
                 v-for="(category_menu, index) in Category_Menu"
                 :key="index"
-                :value="category_menu.value"
+                :value="category_menu.text"
               >
                 {{ category_menu.text }}
               </option>
             </select>
+            <!-- <select class="sel">
 
-            <select class="sel">
-              <!-- v-model=""  -->
               <option value="">세부 카테고리</option>
               <option
                 v-for="(category_style, index) in Category_Style"
@@ -49,7 +48,6 @@
             </select>
 
             <select class="sel">
-              <!-- v-model=""  -->
               <option value="">세부 카테고리</option>
               <option
                 v-for="(category_location, index) in Category_Location"
@@ -58,7 +56,7 @@
               >
                 {{ category_location.text }}
               </option>
-            </select>
+            </select> -->
           </div>
         </div>
 
@@ -70,7 +68,7 @@
               class="content_input"
               type="text"
               id="email"
-              v-model="email"
+              v-model="info.title"
               placeholder="제목을 작성해주세요"
             />
           </div>
@@ -80,14 +78,26 @@
       <div class="select-box">
         <div class="vote-box1">
           <div class="select1">A</div>
-          <div class="select2">A 선택지를 작성해주세요.</div>
+          <!-- <div class="select2">A 선택지를 작성해주세요.</div> -->
+          <input
+            type="text"
+            class="select2"
+            placeholder="A 선택지를 작성해주세요"
+            v-model="info.optionA"
+          />
         </div>
         <div class="vote-box2">
           <div class="select1">B</div>
-          <div class="select2">B 선택지를 작성해주세요.</div>
+          <!-- <div class="select2">B 선택지를 작성해주세요.</div> -->
+          <input
+            type="text"
+            class="select2"
+            placeholder="B 선택지를 작성해주세요"
+            v-model="info.optionB"
+          />
         </div>
       </div>
-      <div class="create-btn">만들기</div>
+      <div class="create-btn" @click="create_vote()">만들기</div>
       <footer-view />
     </div>
   </div>
@@ -99,6 +109,7 @@ import HeaderView from "../common/HeaderView.vue";
 // import DropdownCategory from "./DropdownCategory.vue";
 // import SelectLocationView from "../regist/SelectLocationView.vue";
 // import DropdownAgeVue from "../regist/DropdownAge.vue";
+import { mapActions } from "vuex";
 export default {
   components: {
     FooterView,
@@ -109,6 +120,14 @@ export default {
   },
   data() {
     return {
+      info: {
+        category: "",
+        subCategory: "",
+        title: "",
+        optionA: "",
+        optionB: "",
+      },
+
       Category: [
         {
           value: 1,
@@ -210,6 +229,17 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    ...mapActions("communityStore", ["REGIST_VOTE"]),
+    create_vote() {
+      // console.log(this.info.title);
+      this.REGIST_VOTE({
+        info: this.info,
+        token:
+          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDczMDM0NX0.uFzNm7uqYyqiYvxj4DQKMKSlNG5swevdgTIooo5af8xRiVtPFx5JL1_I6EtR9ByI",
+      });
+    },
   },
 };
 </script>

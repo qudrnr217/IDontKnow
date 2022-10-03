@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import HomeView from "../views/HomeView.vue";
-
 Vue.use(VueRouter);
 
 const routes = [
@@ -94,24 +93,21 @@ const routes = [
       },
       {
         path: "hotspot",
+        name: "hotspot",
         component: () => import("../views/MainHotspotView.vue"),
       },
+      {
+        path: "food",
+        name: "food",
+        component: () => import("../views/MainFoodView.vue"),
+      },
+      {
+        path: "food/detail",
+        name: "food/detail",
+        props: true,
+        component: () => import("../views/MainFoodDetailView.vue"),
+      },
     ],
-  },
-  {
-    path: "/main/food",
-    name: "food",
-    component: () => import("../views/MainFoodView.vue"),
-  },
-  {
-    path: "/main/food/detail",
-    name: "food/detail",
-    component: () => import("../views/MainFoodDetailView.vue"),
-  },
-  {
-    path: "/main",
-    name: "main",
-    component: () => import("../views/MainView.vue"),
   },
   // {
   //   path: "/about",
@@ -122,6 +118,57 @@ const routes = [
   //   component: () =>
   //     import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   // },
+  // 새 디자인 적용부분 확인
+  {
+    path: "/home",
+    name: "newHome",
+    component: () => import("../views/HomeViewCopy.vue"),
+    redirect: () => {
+      return { path: "/home/community" };
+    },
+    children: [
+      {
+        path: "community/:category",
+        // path: "community",
+        hidden: true,
+        component: () => import("../components/home/VoteList.vue"),
+        name: "voteList",
+        props: true,
+      },
+    ],
+  },
+  {
+    path: "/vote",
+    name: "voteCreateView",
+    component: () => import("../views/VoteCreateView.vue"),
+    redirect: () => {
+      return { path: "/vote/create" };
+    },
+    children: [
+      {
+        path: "create",
+        name: "voteCreate",
+        component: () => import("../components/home/VoteCreate.vue"),
+        props: true,
+      },
+    ],
+  },
+  {
+    path: "/vote",
+    name: "voteDetailView",
+    component: () => import("../views/VoteDetailView.vue"),
+    redirect: () => {
+      return { path: "/vote/detail/:voteId" };
+    },
+    children: [
+      {
+        path: "detail/:voteId",
+        name: "voteDetail",
+        component: () => import("../components/home/VoteDetail.vue"),
+        props: true,
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
