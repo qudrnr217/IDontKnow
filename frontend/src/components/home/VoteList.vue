@@ -17,6 +17,18 @@
         </option>
       </select>
     </div>
+    <div class="box-row-left">
+      <div
+        class="text-title text-h4"
+        :class="{
+          'yellow-3-text': category === '메뉴',
+          'purple-3-text': category === '스타일',
+          'green-3-text': category === '장소',
+        }"
+      >
+        사람들과 고민을 공유해보세요 !
+      </div>
+    </div>
     <div class="box-column">
       <div class="box-row">
         <div
