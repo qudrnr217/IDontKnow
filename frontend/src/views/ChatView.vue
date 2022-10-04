@@ -47,6 +47,25 @@
             </div>
           </div>
         </div>
+
+        <div class="box-row" v-if="isOpened">
+          <div class="profile-image-box-small">
+            <img class="profile-image-small" src="@/assets/image/김모르.png" />
+          </div>
+          <div class="box-chat-background-moleu-info">
+            <div class="box-chat-source-text text-chat">
+              본 저작물은 '기상청'에서 '2022년'작성하여 공공누리 제1유형으로
+              개방한 '기상청_단기예보 ((구)_동네예보)
+              조회서비스(작성자:기상청)'을 이용하였으며, 해당 저작물은
+              <a
+                href="https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15084084"
+                >'공공데이터포털'</a
+              >
+              에서 무료로 다운받으실 수 있습니다.
+            </div>
+          </div>
+        </div>
+
         <!-- 오늘의 날씨 -->
         <div class="box-row">
           <div class="profile-image-box-small">

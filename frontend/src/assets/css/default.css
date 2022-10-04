@@ -630,6 +630,10 @@
   text-align: left;
   padding: 4px;
 }
+.box-chat-source-text {
+  text-align: left;
+  padding: 4px;
+}
 
 /* food 이미지 배치 */
 .box-chat-image {
