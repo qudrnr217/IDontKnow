@@ -58,16 +58,24 @@
           placeholder="이메일"
         />
       </div>
+      <div class="box-btn-right" v-if="valid.email">
+        <div class="text-h5 red-text">이메일 형식이 올바르지 않습니다.</div>
+      </div>
       <div class="box-btn-right">
         <div
           class="text-discription text-h5 blue-4-text"
-          v-if="!data.checkEmailResult && data.emailCheckClicked"
+          v-if="
+            !valid.email && !data.checkEmailResult && data.emailCheckClicked
+          "
         >
           사용 가능한 이메일입니다.
         </div>
         <div
           class="text-discription text-h5 red-text"
-          v-else-if="data.checkEmailResult && data.emailCheckClicked"
+          v-if="
+            (valid.email && data.emailCheckClicked) ||
+            (data.checkEmailResult && data.emailCheckClicked)
+          "
         >
           사용 불가능한 이메일입니다.
         </div>
@@ -93,6 +101,11 @@
           placeholder="비밀번호"
         />
       </div>
+      <div class="box-btn-right" v-if="valid.password">
+        <div class="text-h5 red-text">
+          영문, 숫자, 특수문자를 조합하여 입력해주세요.(8~16자).
+        </div>
+      </div>
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">Password</div>
         <input
@@ -104,9 +117,11 @@
           placeholder="비밀번호 확인"
         />
       </div>
-      <!-- TODO: v-if로 처리 필요 -->
-      <div class="box-btn-right" v-if="!checkPassword()">
-        <div class="text-h4 red-text">입력한 비밀번호가 다릅니다.</div>
+      <div
+        class="box-btn-right"
+        v-if="!valid.password && user.confirmPassword != 0 && !checkPassword()"
+      >
+        <div class="text-h5 red-text">입력한 비밀번호가 다릅니다.</div>
       </div>
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">거주지</div>
@@ -182,7 +197,10 @@ export default {
         gender: "",
         age: 0,
       },
-
+      valid: {
+        email: false,
+        password: false,
+      },
       ages: { ...ages },
       locations: locations,
       genders: { ...genders },
@@ -204,6 +222,17 @@ export default {
   },
   methods: {
     confirm() {
+      if (
+        this.data.checkNameResult ||
+        this.data.checkEmailResult ||
+        !this.checkPassword() ||
+        this.user.name == "" ||
+        this.user.email == "" ||
+        this.user.password == ""
+      ) {
+        console.log("회원가입 안돼!!!");
+        return;
+      }
       regist(
         this.user,
         (response) => {
@@ -253,8 +282,42 @@ export default {
       }
       return false;
     },
+    confirmEmail() {
+      const validateEmail =
+        /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/;
+      if (!validateEmail.test(this.user.email)) {
+        this.valid.email = true;
+        return;
+      }
+      this.valid.email = false;
+    },
+    confirmPassword() {
+      const validatePassword =
+        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+      if (!validatePassword.test(this.data.password)) {
+        this.valid.password = true;
+        return;
+      }
+      this.valid.password = false;
+    },
     movePage() {
       this.$router.push({ name: "userLogin" });
+    },
+  },
+  computed: {
+    email() {
+      return this.user.email;
+    },
+    password() {
+      return this.data.password;
+    },
+  },
+  watch: {
+    email() {
+      this.confirmEmail();
+    },
+    password() {
+      this.confirmPassword();
     },
   },
 };
