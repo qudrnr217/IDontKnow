@@ -330,7 +330,7 @@
 </template>
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import KakaoMap from "@/components/main/KakaoMap.vue";
+import KakaoMap from "@/components/chat/KakaoMap.vue";
 export default {
   components: {
     KakaoMap,
