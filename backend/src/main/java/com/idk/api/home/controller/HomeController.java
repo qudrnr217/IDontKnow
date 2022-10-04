@@ -2,8 +2,6 @@ package com.idk.api.home.controller;
 
 import com.idk.api.home.dto.HomeResponse;
 import com.idk.api.home.service.HomeService;
-import com.idk.api.user.security.userdetails.CurrentUser;
-import com.idk.api.user.security.userdetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +34,7 @@ public class HomeController {
 
     @GetMapping("/weather")
     public ResponseEntity<HomeResponse.Weather> getTodayWeather(
-            @CurrentUser CustomUserDetails customUserDetails) {
-        return ResponseEntity.ok().body(homeService.getTodayWeatherInAddress(customUserDetails));
+            @RequestParam(value = "districtId", required = false, defaultValue = "1") Integer districtId) {
+        return ResponseEntity.ok().body(homeService.getTodayWeatherInAddress(districtId));
     }
 }

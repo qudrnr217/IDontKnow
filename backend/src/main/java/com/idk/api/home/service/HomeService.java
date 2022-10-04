@@ -7,7 +7,6 @@ import com.idk.api.home.domain.repository.HotspotRepository;
 import com.idk.api.home.dto.HomeResponse;
 import com.idk.api.home.exception.FetchWeatherApiException;
 import com.idk.api.home.exception.HotspotNotExistsException;
-import com.idk.api.user.security.userdetails.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -96,12 +95,11 @@ public class HomeService {
         return HomeResponse.Hotspot.build(hotspot);
     }
 
-    public HomeResponse.Weather getTodayWeatherInAddress(CustomUserDetails customUserDetails) {
+    public HomeResponse.Weather getTodayWeatherInAddress(Integer districtId) {
         WebClient webClient = WebClient.create(baseUrl);
         Map<String, String> weatherApiResponse = new HashMap<>();
 
         try {
-            int districtId = customUserDetails == null ? 1 : customUserDetails.getUser().getDistrictCode().getId();
             String responseBody = webClient.get()
                     .uri(uriBuilder -> uriBuilder.path("/getVilageFcst")
                             .queryParam("serviceKey", weatherApiKey)

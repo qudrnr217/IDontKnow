@@ -160,6 +160,9 @@ class HomeControllerTest extends MvcTest {
                 .andDo(document("get-weather",
                         preprocessRequest(prettyPrint()),
                         preprocessResponse(prettyPrint()),
+                        requestParameters(
+                                parameterWithName("districtId").description("서울 지역구 코드").optional()
+                        ),
                         responseFields(
                                 fieldWithPath("sky").type(JsonFieldType.STRING).description("하늘상태"),
                                 fieldWithPath("pty").type(JsonFieldType.STRING).description("강수형태"),
