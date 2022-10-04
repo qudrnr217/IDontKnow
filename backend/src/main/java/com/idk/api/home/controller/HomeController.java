@@ -22,13 +22,19 @@ public class HomeController {
 
     @GetMapping("/menu")
     public ResponseEntity<List<HomeResponse.Menu>> getBestMenus(
-            @RequestParam(value = "districtId", required = false) Integer districtId){
+            @RequestParam(value = "districtId", required = false) Integer districtId) {
         if (districtId == null) districtId = 1;
         return ResponseEntity.ok().body(homeService.getBestMenusAtThisTimeInAddress(districtId));
     }
 
     @GetMapping("/hotspot")
-    public ResponseEntity<HomeResponse.Hotspot> getHotspots(){
+    public ResponseEntity<HomeResponse.Hotspot> getHotspots() {
         return ResponseEntity.ok().body(homeService.getBestHotspotsAtThisTime());
+    }
+
+    @GetMapping("/weather")
+    public ResponseEntity<HomeResponse.Weather> getTodayWeather(
+            @RequestParam(value = "districtId", required = false, defaultValue = "1") Integer districtId) {
+        return ResponseEntity.ok().body(homeService.getTodayWeatherInAddress(districtId));
     }
 }
