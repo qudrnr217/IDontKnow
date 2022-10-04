@@ -2,7 +2,6 @@ package com.idk.api.home.controller;
 
 import com.idk.api.MvcTest;
 import com.idk.api.districtcode.domain.entity.DistrictCode;
-import com.idk.api.home.controller.HomeController;
 import com.idk.api.home.domain.entity.Data;
 import com.idk.api.home.domain.entity.DataId;
 import com.idk.api.home.domain.entity.Hotspot;
@@ -23,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -138,6 +138,37 @@ class HomeControllerTest extends MvcTest {
                         )
                 ));
         verify(homeService).getBestHotspotsAtThisTime();
+    }
 
+    @Test
+    @DisplayName("오늘_서울_지역구_날씨예보_조회")
+    public void getTodayWeather() throws Exception {
+        HomeResponse.Weather response = HomeResponse.Weather.build(
+                "흐림",
+                "강수 없음",
+                "30",
+                "95",
+                "18",
+                "3.7"
+        );
+        given(homeService.getTodayWeatherInAddress(any())).willReturn(response);
+        ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/data/weather")
+                .accept(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8"));
+        results.andExpect(status().isOk())
+                .andDo(print())
+                .andDo(document("get-weather",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        responseFields(
+                                fieldWithPath("sky").type(JsonFieldType.STRING).description("하늘상태"),
+                                fieldWithPath("pty").type(JsonFieldType.STRING).description("강수형태"),
+                                fieldWithPath("pop").type(JsonFieldType.STRING).description("강수확률"),
+                                fieldWithPath("reh").type(JsonFieldType.STRING).description("습도"),
+                                fieldWithPath("tmp").type(JsonFieldType.STRING).description("일 평균 기온"),
+                                fieldWithPath("wsd").type(JsonFieldType.STRING).description("풍속")
+                        )
+                ));
+        verify(homeService).getTodayWeatherInAddress(any());
     }
 }
