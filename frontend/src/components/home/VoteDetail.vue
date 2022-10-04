@@ -329,7 +329,10 @@
             v-for="comment in vote.commentList"
             :key="comment.commentId"
           >
-            <div v-if="comment.checkAuthor" class="box-comment-row-right">
+            <div
+              v-if="comment.checkAuthor"
+              class="box-row box-comment-row-right"
+            >
               <div class="box-comment-column">
                 <div class="box-comment-row text-h5">
                   {{ comment.createdAt }}
@@ -380,8 +383,11 @@
                 </div>
               </div>
             </div>
-            <div v-else>
-              <div class="box-comment-column comment-profile-box">
+            <div v-else class="box-row">
+              <div
+                class="box-comment-column comment-profile-box"
+                style="margin: 5px"
+              >
                 <div class="box-comment-row">
                   <img
                     class="comment-profile-image"
@@ -526,7 +532,7 @@ export default {
           {
             commentId: 1,
             userId: 2,
-            name: "수원왕갈비",
+            name: "수원왕갈비수원왕갈비",
             content: "당연히 교촌",
             createdAt: "2022.09.30 06:16",
             checkAuthor: true,

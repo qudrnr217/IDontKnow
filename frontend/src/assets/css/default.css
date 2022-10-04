@@ -592,6 +592,10 @@
   justify-content: space-between;
   flex-direction: row;
 }
+.box-comment-row-right {
+  margin-left: 48px;
+}
+
 .box-comment-btn-row {
   display: flex;
   align-items: center;
@@ -682,6 +686,7 @@
 }
 
 .comment-profile-box {
+  margin-top: 8px;
   display: flex;
   align-items: center;
   justify-content: baseline;
