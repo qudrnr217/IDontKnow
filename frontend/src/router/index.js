@@ -63,10 +63,9 @@ const routes = [
     component: VoteDetailView,
     children: [
       {
-        path: "/:voteId",
+        path: ":voteId",
         name: "voteDetail",
         component: VoteDetail,
-        props: true,
       },
     ],
   },

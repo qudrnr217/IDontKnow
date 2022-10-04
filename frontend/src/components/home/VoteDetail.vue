@@ -322,13 +322,160 @@
         }"
       >
         <!-- 댓글 구현 필요 -->
-        <div class="vote-percent-bar">댓글이 나오도록 변경 필요 !</div>
-        <!-- <div class="comment"><vote-comment-list /></div>
-        <div class="comment-input">
-          <img src="../../assets/icon/avatar.png" alt="" />
-          <input type="text" class="comment-box" />
-          <img src="../../assets/icon/send.png" alt="" class="send-btn" />
-        </div> -->
+        <!-- <div class="vote-percent-bar">댓글이 나오도록 변경 필요 ! :value="`${comment.commentId}`"</div> -->
+        <div class="box-comment-column">
+          <div
+            class="box-comment-row"
+            v-for="comment in vote.commentList"
+            :key="comment.commentId"
+          >
+            <div v-if="comment.checkAuthor" class="box-comment-row-right">
+              <div class="box-comment-column">
+                <div class="box-comment-row text-h5">
+                  {{ comment.createdAt }}
+                </div>
+                <div
+                  class="box-comment-row text-align-left text-h4"
+                  :class="{
+                    'comment-background-menu-author': vote.category === '메뉴',
+                    'comment-background-style-author':
+                      vote.category === '스타일',
+                    'comment-background-location-author':
+                      vote.category === '장소',
+                  }"
+                >
+                  <div class="box-comment-text">{{ comment.content }}</div>
+                </div>
+                <div class="box-comment-btn-row box-comment-btn-left">
+                  <div
+                    class="btn-rectangle-tiny red-text text-h5"
+                    @click="updateComment()"
+                    :value="`${comment.commentId}`"
+                  >
+                    수정
+                  </div>
+                  <div
+                    class="btn-rectangle-tiny text-h5"
+                    @click="deleteComment()"
+                    :value="`${comment.commentId}`"
+                  >
+                    삭제
+                  </div>
+                </div>
+              </div>
+              <div class="box-comment-column comment-profile-box">
+                <div class="box-comment-row">
+                  <img
+                    class="comment-profile-image"
+                    src="../../assets/image/김게따.png"
+                    alt="작성자"
+                  />
+                </div>
+                <div
+                  class="box-comment-row comment-profile-name text-align-center text-h5"
+                >
+                  <router-link :to="`/record/user/${comment.userId}`">
+                    {{ comment.name }}
+                  </router-link>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="box-comment-column comment-profile-box">
+                <div class="box-comment-row">
+                  <img
+                    class="comment-profile-image"
+                    src="../../assets/image/김모르.png"
+                    alt="참여자"
+                  />
+                </div>
+                <div
+                  class="box-comment-row comment-profile-name text-align-center text-h5"
+                >
+                  <router-link :to="`/record/user/${comment.userId}`">
+                    {{ comment.name }}</router-link
+                  >
+                </div>
+              </div>
+              <div class="box-comment-column">
+                <div class="box-comment-row text-h5" style="margin-left: 90px">
+                  {{ comment.createdAt }}
+                </div>
+                <div
+                  class="box-comment-row text-align-left text-h4"
+                  :class="{
+                    'comment-background-menu-commenter':
+                      vote.category === '메뉴',
+                    'comment-background-style-commenter':
+                      vote.category === '스타일',
+                    'comment-background-location-commenter':
+                      vote.category === '장소',
+                  }"
+                >
+                  <!-- TODO: 수정 버튼 클릭 시 해당 댓글 바꾸는 처리 필요 -->
+                  <!-- <div v-if="isUpdated" class="box-comment-text">
+                    <input
+                      type="text"
+                      v-model="commentForUpdate"
+                      style="border: none"
+                    />
+                  </div> -->
+                  <div class="box-comment-text">
+                    {{ comment.content }}
+                  </div>
+                </div>
+                <div class="box-comment-btn-row box-comment-btn-right">
+                  <div
+                    class="btn-rectangle-tiny red-text text-h5"
+                    @click="updateComment()"
+                    :value="`${comment.commentId}`"
+                  >
+                    수정
+                  </div>
+                  <div
+                    class="btn-rectangle-tiny text-h5"
+                    @click="deleteComment()"
+                    :value="`${comment.commentId}`"
+                  >
+                    삭제
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-row">
+        <div style="margin: 5px">
+          <img
+            v-if="this.$store.state.userStore.userId === this.vote.userId"
+            class="comment-profile-image"
+            src="../../assets/image/김게따.png"
+            alt=""
+          />
+          <img
+            v-else
+            class="comment-profile-image"
+            src="../../assets/image/김모르.png"
+            alt=""
+          />
+        </div>
+        <input
+          type="text"
+          v-model="comment"
+          class="input-rectangle-short text-h4"
+          :class="{
+            'yellow-2-border': vote.category === '메뉴',
+            'purple-2-border': vote.category === '스타일',
+            'green-2-border': vote.category === '장소',
+          }"
+          placeholder="댓글을 입력해주세요."
+        />
+        <img
+          src="../../assets/icon/send.png"
+          alt="전송"
+          @click="sendComment()"
+        />
       </div>
     </div>
   </div>
@@ -356,6 +503,8 @@ export default {
       isOpened: false,
       chartOption: "연령",
       chartOptionList: ["연령", "성별", "거주지"],
+      comment: "",
+      commentForUpdate: "",
       vote: {
         voteId: 1,
         category: "메뉴",
@@ -388,6 +537,24 @@ export default {
             name: "치킨마니아",
             content: "당연히 노통",
             createdAt: "2022.09.30 06:26",
+            checkAuthor: false,
+          },
+          {
+            commentId: 3,
+            userId: 2,
+            name: "수원왕갈비",
+            content:
+              "당연히 교촌당연히 교촌당연히 교촌당연히 교촌당연히 교촌당연히 교촌당연히 교촌",
+            createdAt: "2022.09.30 06:36",
+            checkAuthor: true,
+          },
+          {
+            commentId: 4,
+            userId: 1,
+            name: "치킨마니아",
+            content:
+              "당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통",
+            createdAt: "2022.09.30 06:46",
             checkAuthor: false,
           },
         ],
@@ -468,6 +635,20 @@ export default {
     changeChart() {
       // 값에 따라 차트 변경 !
     },
+    updateComment() {
+      // 수정 관련 팝업창 띄우기
+      // 댓글 작성자와 현재 로그인한 회원이 동일한지 확인
+      // 권한 없음 표시 or 수정하기 위한 input으로 변경
+    },
+    deleteComment() {
+      // 새로고침
+      location.reload();
+    },
+    sendComment() {
+      // this.comment 값을 활용하여 댓글 생성 api 호출
+      // 새로고침
+      location.reload();
+    },
   },
   created() {
     // vote 값을 this.$route.params.voteId로 api 호출
@@ -493,28 +674,5 @@ export default {
 <style scoped>
 .body {
   height: 105vh;
-}
-.comment-title {
-  font-size: 17px;
-  line-height: 22px;
-  margin-top: 15px;
-  margin-left: 15px;
-}
-.comment-input {
-  display: flex;
-  margin-left: 10px;
-  align-items: center;
-}
-.comment-input > .comment-box {
-  background: #ffffff;
-  border: 1px solid #007aff;
-  border-radius: 10px;
-
-  width: 304px;
-  height: 24px;
-}
-.send-btn {
-  position: relative;
-  right: 26px;
 }
 </style>
