@@ -6,6 +6,7 @@ import com.idk.api.user.security.token.TokenProvider;
 import com.idk.api.user.security.userdetails.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -49,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/users/**").permitAll()
                 .antMatchers("/api/data/**").permitAll()
                 .antMatchers("/api/votes").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/votes/*").permitAll()
                 .antMatchers("/api/votes/top3").permitAll()
                 .anyRequest().authenticated() // 그외 나머지 요청은 모두 인증된 회원만 접근 가능
                 .and()
