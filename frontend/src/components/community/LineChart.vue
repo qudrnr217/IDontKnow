@@ -15,6 +15,7 @@ export default {
   props: {
     voteId: Number,
     idx: String,
+    category: String,
   },
   data() {
     return {
@@ -32,6 +33,11 @@ export default {
         chart: {
           height: 350,
           type: "line",
+          fontFamily: "ONEMobileTitle",
+          legend: {
+            horizontalAlign: "center",
+            floating: false,
+          },
           dropShadow: {
             enabled: true,
             color: "#000",
@@ -44,7 +50,26 @@ export default {
             show: false,
           },
         },
-        colors: ["#77B6EA", "#545454"],
+        colors: [
+          function ({ category }) {
+            if (category === "메뉴") {
+              return "#FD6F22";
+            } else if (category === "스타일") {
+              return "#692498";
+            } else {
+              return "#568A35";
+            }
+          },
+          function ({ category }) {
+            if (category === "메뉴") {
+              return "#FD9F28";
+            } else if (category === "스타일") {
+              return "#9A30AE";
+            } else {
+              return "#7DB249";
+            }
+          },
+        ],
         dataLabels: {
           enabled: true,
         },

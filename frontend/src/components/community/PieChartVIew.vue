@@ -94,11 +94,16 @@ export default {
         chart: {
           width: 300,
           type: "pie",
+          fontFamily: "ONEMobileTitle",
+          legend: {
+            horizontalAlign: "center",
+            floating: false,
+          },
         },
         labels: ["Team A", "Team B"],
         responsive: [
           {
-            breakpoint: 250,
+            breakpoint: 1500,
             options: {
               chart: {
                 width: 200,
