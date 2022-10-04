@@ -211,7 +211,6 @@ export default {
         checkNameResult: false,
         emailCheckClicked: false,
         nameCheckClicked: false,
-
         isShow: false,
         title: "회원가입이 완료되었습니다.",
         message:
