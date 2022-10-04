@@ -13,8 +13,40 @@
       <div class="box-row-left">
         <div class="text-title text-h4">당신의 고민을 함께 해요♥</div>
       </div>
-
+      <div class="box-btn-right">
+        <!-- 서비스 소개 토글 버튼 -->
+        <div
+          class="btn-rectangle-long text-h3 blue-0"
+          @click="isOpened = true"
+          v-if="!isOpened"
+        >
+          모르에 대해🔽
+        </div>
+        <div class="btn-toggle text-h3 white" @click="isOpened = false" v-else>
+          접기🔼
+        </div>
+      </div>
       <div class="box-column">
+        <!-- 모르에 대해 -->
+        <div class="box-row" v-if="isOpened">
+          <div class="profile-image-box-small">
+            <img class="profile-image-small" src="@/assets/image/김모르.png" />
+          </div>
+          <div class="box-chat-background-moleu-info">
+            <div class="box-chat-text text-chat">
+              안녕 나는 김모르 ! <br />
+              지금부터 너의 고민을 함께 할거야 ~ <br />
+              메뉴는 36만 건의 배달 빅데이터를<br />
+              지역구와 시간대별로 분산처리해서<br />
+              추천해주고 있어 :)<br />
+              스타일은 기상청 날씨 정보를 바탕으로<br />
+              기온별 옷차림을 추천해주고 있고 ! <br />
+              마지막으로, 장소는<br />
+              서울시 실시간 도시 데이터 api를 통해<br />
+              현재 사람들이 많이 찾는 인기 장소를 추천해줄거야 ! <br />
+            </div>
+          </div>
+        </div>
         <!-- 오늘의 날씨 -->
         <div class="box-row">
           <div class="profile-image-box-small">
@@ -35,7 +67,7 @@
           <div class="profile-image-box-small">
             <img class="profile-image-small" src="@/assets/image/김모르.png" />
           </div>
-          <div class="box-column box-chat-background-moleu">
+          <div class="box-chat-background-moleu">
             <div class="box-chat-text text-chat">
               오늘은 어떤 고민이 있어서 왔어?
             </div>
@@ -49,10 +81,10 @@
               style="opacity: 0"
             />
           </div>
-          <div class="box-column box-chat-background-moleu">
-            <div class="box-chat-row text-chat">
+          <div class="box-chat-background-moleu-info">
+            <div class="text-chat box-chat-row">
               <div
-                class="btn-rectangle-small yellow-1"
+                class="box-chat-btn btn-rectangle-small yellow-1"
                 id="1"
                 value="메뉴"
                 @click="checkCategory"
@@ -60,20 +92,18 @@
                 뭐먹을까?
               </div>
               <div
-                class="btn-rectangle-small purple-1"
+                class="box-chat-btn btn-rectangle-small purple-1"
                 id="2"
                 value="스타일"
                 @click="checkCategory"
-                style="margin-left: 4px"
               >
                 뭐입을까?
               </div>
               <div
-                class="btn-rectangle-small green-1"
+                class="box-chat-btn btn-rectangle-small green-1"
                 id="3"
                 value="장소"
                 @click="checkCategory"
-                style="margin-left: 4px"
               >
                 어디가지?
               </div>
@@ -89,7 +119,7 @@
                 src="@/assets/image/김모르.png"
               />
             </div>
-            <div class="box-column box-chat-background-moleu">
+            <div class="box-chat-background-moleu">
               <div class="box-chat-text text-chat">
                 메뉴 고민이구나! 그럼 이건 어때?
               </div>
@@ -103,31 +133,40 @@
                 style="opacity: 0"
               />
             </div>
-            <div class="box-column box-chat-background-moleu">
-              <div class="box-row">
-                <div class="box-align-center">
-                  <div class="box-row">
-                    <img
-                      src="../assets/icon/food/중식.png"
-                      alt
-                      class="food-image"
-                      style=""
-                    />
+            <div class="box-chat-background-moleu-info">
+              <div class="box-column">
+                <div class="box-chat-row" style="margin-left: 18px">
+                  <div class="box-chat-image box-align-center">
+                    <div class="box-chat-row">
+                      <img
+                        src="../assets/icon/food/중식.png"
+                        alt
+                        class="menu-image"
+                        style=""
+                      />
+                    </div>
+                    <div class="box-chat-row">
+                      <div class="btn-rectangle-small blue-1 text-h4">
+                        아시안/양식
+                      </div>
+                    </div>
                   </div>
-                  <div class="box-row">
-                    <div class="btn-rectangle-small blue-1 text-h4">중식</div>
+                  <div class="box-chat-image box-align-center">
+                    <div class="box-chat-row">
+                      <img
+                        src="../assets/icon/food/피자.png"
+                        alt
+                        class="menu-image"
+                      />
+                    </div>
+                    <div class="box-chat-rowbox-chat-text">
+                      <div class="btn-rectangle-small blue-1 text-h4">피자</div>
+                    </div>
                   </div>
                 </div>
-                <div class="box-align-center">
-                  <div class="box-row">
-                    <img
-                      src="../assets/icon/food/피자.png"
-                      alt
-                      class="food-image"
-                    />
-                  </div>
-                  <div class="box-row box-chat-text">
-                    <div class="btn-rectangle-small blue-1 text-h4">피자</div>
+                <div class="box-chat-row" style="margin-left: 26px">
+                  <div class="box-chat-row style-text text-h5">
+                    메뉴를 클릭해봐 ! 근처 맛집을 찾아줄게 ~
                   </div>
                 </div>
               </div>
@@ -143,7 +182,7 @@
                 src="@/assets/image/김모르.png"
               />
             </div>
-            <div class="box-column box-chat-background-moleu">
+            <div class="box-chat-background-moleu">
               <div class="box-chat-text text-chat">
                 장소 고민이구나! 그럼 이건 어때?
               </div>
@@ -158,30 +197,33 @@
                 style="opacity: 0"
               />
             </div>
-            <div class="box-column box-chat-background-moleu">
-              <div class="box-row">
-                <div class="box-align-center">
-                  <div class="box-row">
+            <div class="box-chat-background-moleu-info">
+              <div class="box-chat-row">
+                <div class="box-chat-image box-align-center">
+                  <div class="box-chat-row">
                     <!-- TODO: 장소 이미지 불러오기 -->
                     <img
-                      src="../assets/icon/food/중식.png"
+                      src="../assets/image/hotspots/국립중앙박물관·용산가족공원.jpg"
                       alt
-                      class="food-image"
+                      class="location-image"
                       style=""
                     />
                   </div>
-                  <div class="box-row box-chat-text text-h5">장소 이름</div>
+                  <div class="box-chat-row location-text text-h5">
+                    국립중앙박물관·용산가족공원
+                  </div>
                 </div>
-                <div class="box-align-center">
-                  <div class="box-row">
-                    <!-- TODO: 장소 이미지 불러오기 -->
+                <div class="box-chat-image box-align-center">
+                  <div class="box-chat-row">
                     <img
-                      src="../assets/icon/food/피자.png"
+                      src="../assets/image/hotspots/강남 MICE 관광특구.jpg"
                       alt
-                      class="food-image"
+                      class="location-image"
                     />
                   </div>
-                  <div class="box-row box-chat-text text-h5">장소 이름</div>
+                  <div class="box-chat-row location-text text-h5">
+                    강남 MICE 관광특구
+                  </div>
                 </div>
               </div>
             </div>
@@ -197,7 +239,7 @@
                 src="@/assets/image/김모르.png"
               />
             </div>
-            <div class="box-column box-chat-background-moleu">
+            <div class="box-chat-background-moleu">
               <div class="box-chat-text text-chat">
                 스타일 고민이구나! 그럼 이건 어때?
               </div>
@@ -211,18 +253,21 @@
                 style="opacity: 0"
               />
             </div>
-            <div class="box-column box-chat-background-moleu text-chat">
-              <div class="box-row">
-                <div class="box-row">
+            <div class="box-chat-background-moleu-info">
+              <div class="box-chat-image box-align-center">
+                <div class="box-chat-row">
                   <img
                     src="../assets/image/clothes/12~16.png"
                     alt
-                    class="clothes_img"
+                    class="style-image"
                   />
                 </div>
-              </div>
-              <div class="box-row">
-                얇은 니트, 맨투맨, 가디건, 청바지 가 좋을 것 같네요!
+                <div class="box-chat-row style-text text-h5">
+                  얇은 니트, 맨투맨, 가디건, 청바지
+                </div>
+                <div class="box-chat-row style-text text-h5">
+                  오늘 같은 날씨엔 이렇게 입는 게 딱이야 !
+                </div>
               </div>
             </div>
           </div>
@@ -236,6 +281,7 @@ export default {
   components: {},
   data() {
     return {
+      isOpened: false,
       temperatures: 0,
       humidity: 0,
       windSpeed: 0,
@@ -271,6 +317,6 @@ export default {
 
 <style scoped>
 .body {
-  height: 105vh;
+  height: 110vh;
 }
 </style>
