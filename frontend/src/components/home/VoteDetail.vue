@@ -491,14 +491,9 @@ export default {
 </script>
 
 <style scoped>
-/* 여기에만 적용이 안되어서 추가 */
 .body {
-  max-width: 390px;
-  height: 110vh;
-  min-height: 844px;
-  padding-bottom: 73px;
+  height: 105vh;
 }
-
 .comment-title {
   font-size: 17px;
   line-height: 22px;

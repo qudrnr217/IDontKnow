@@ -170,6 +170,34 @@
   max-width: 390px;
   margin: auto;
 }
+/* sunnyday */
+.bgd-sunnyday {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(../image/background/sunnyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* rainyday */
+.bgd-rainyday {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(../image/background/rainyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
 
 /* font */
 * {
@@ -191,7 +219,7 @@
   font-size: 8px;
 }
 .text-chat {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* text-align */
@@ -218,6 +246,8 @@
   border-radius: 5px;
   border-width: 2px;
   border-style: solid;
+  min-height: 250px;
+  max-height: 430px;
 }
 .box-column {
   display: flex;
@@ -238,11 +268,6 @@
   align-items: center;
   justify-content: flex-start;
 }
-.box-row-center {
-  display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-}
 .box-btn-right {
   display: flex;
   margin: 10px 20px;
@@ -254,6 +279,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+.box-column-center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* button */
@@ -550,17 +582,90 @@
 }
 .profile-image-box-small {
   display: flex;
+  align-self: baseline;
 }
 .profile-image-small {
   width: 50px;
   height: 50px;
 }
 
-/* chat 이미지 배치 */
-.food-image {
+/* chat 배치 */
+/* 채팅 박스 */
+.box-chat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+.box-chat-btn {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin: 4px;
+}
+.box-chat-background-moleu {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 24px;
+  background-image: url(../image/chat/chat-common-border-light.png);
+  background-size: 100% 100%;
+  width: 270px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-background-moleu-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 25px;
+  background-image: url(../image/chat/box-common-border-light.png);
+  background-size: 100% 100%;
+  width: 270px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-text {
+  display: flex;
+  text-align: left;
+  padding: 4px;
+}
+
+/* food 이미지 배치 */
+.box-chat-image {
+  padding: 10px;
+}
+.menu-image {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  filter: opacity(0.7) drop-shadow(0 0 0 rgb(221, 162, 95));
+}
+.style-image {
+  width: 200px;
+  height: 80px;
+  margin: 10px;
+}
+.style-text {
+  display: flex;
+  text-align: center;
+  padding: 4px;
+  width: 200px;
+  height: 20px;
+}
+.location-image {
   width: 80px;
   height: 80px;
+  margin: 10px;
 }
+.location-text {
+  display: flex;
+  text-align: center;
+  padding: 4px;
+  width: 80px;
+  height: 50px;
+}
+
 /* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
 a {
   text-decoration: none;
@@ -599,6 +704,32 @@ a {
   /* location */
   .bgd-location {
     background-image: url(../image/background/green.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* sunnyday */
+  .bgd-sunnyday {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../image/background/sunnyday.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* rainyday */
+  .bgd-rainyday {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../image/background/rainyday.png);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
