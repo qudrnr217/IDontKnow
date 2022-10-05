@@ -155,7 +155,7 @@
                         class="btn-rectangle-small blue-1 text-h4"
                         @click="clickMenu(bestMenus[0].menuName)"
                       >
-                        {{ this.bestMenus[0].menuName }}
+                        {{ bestMenus[0].menuName }}
                       </div>
                     </div>
                   </div>
@@ -174,7 +174,7 @@
                         class="btn-rectangle-small blue-1 text-h4"
                         @click="clickMenu(bestMenus[1].menuName)"
                       >
-                        {{ this.bestMenus[1].menuName }}
+                        {{ bestMenus[1].menuName }}
                       </div>
                     </div>
                   </div>

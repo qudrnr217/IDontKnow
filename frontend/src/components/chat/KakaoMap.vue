@@ -66,9 +66,10 @@ export default {
     },
     // 키워드 검색을 요청하는 함수입니다
     searchPlaces() {
-      let keyword = this.districtId
-        ? locations[this.districtId - 1]
-        : "서울" + " " + this.menuName;
+      let keyword =
+        (this.districtId > 0 ? locations[this.districtId - 1] : "강남구") +
+        " " +
+        this.menuName;
       // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
       this.ps.keywordSearch(keyword, this.placesSearchCB);
     },
