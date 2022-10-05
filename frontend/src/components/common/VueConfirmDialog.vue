@@ -27,6 +27,9 @@
                 autocomplete="off"
               />
             </span>
+            <p class="text-h5 red-text" v-if="error !== ''">
+              {{ error }}
+            </p>
           </span>
           <div
             class="vc-btn-grid"
@@ -61,6 +64,7 @@
 import Vue from "vue";
 import { events } from "../../components/common/events";
 import { participateVote, nonparticipateVote } from "@/api/community.js";
+import { resetPassword } from "@/api/user";
 
 Vue.directive("focus", {
   inserted: function (el) {
@@ -82,6 +86,7 @@ const Component = {
         email: "",
       },
       isShow: this.data.isShow,
+      error: "",
       password: null,
       dialog: {
         auth: this.data.dialog,
@@ -132,6 +137,12 @@ const Component = {
           this.info = data;
           this.$router.go();
         });
+      } else if (this.data.mode == "3") {
+        // 회원가입 완료
+        this.$router.push({ name: "userLogin", path: "/profile/login" });
+      } else if (this.data.mode == "4") {
+        // 비밀번호 재 설정
+        this.sendEmail();
       }
     },
     handleClickButton({ target }, confirm) {
@@ -176,17 +187,21 @@ const Component = {
         }
       });
     },
-    // sendEmail() {
-    //   resetPassword(
-    //     this.info.email,
-    //     (response) => {
-    //       console.log(response.data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
+    sendEmail() {
+      resetPassword(
+        this.info,
+        (response) => {
+          this.data.isShow = false;
+          console.log(response.data);
+          console.log("이메일 보냄");
+        },
+        (error) => {
+          console.log(error);
+          console.log("이메일 틀림");
+          this.error = "등록된 이메일이 없습니다.";
+        }
+      );
+    },
   },
   mounted() {
     if (!document) return;

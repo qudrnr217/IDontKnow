@@ -163,12 +163,7 @@
     </div>
 
     <div class="box-btn-right">
-      <div
-        class="btn-rectangle-medium blue-2"
-        @click="confirm(), (data.isShow = true)"
-      >
-        회원가입
-      </div>
+      <div class="btn-rectangle-medium blue-2" @click="confirm()">회원가입</div>
       <vue-confirm-dialog :data="data" v-if="data.isShow"></vue-confirm-dialog>
     </div>
   </div>
@@ -213,6 +208,7 @@ export default {
         nameCheckClicked: false,
         isShow: false,
         title: "회원가입이 완료되었습니다.",
+        mode: "3",
         message:
           "사이트에 가입하신걸 축하드립니다! 메인페이지로 가셔서 로그인을 하고 사이트를 즐겨보세요!",
         yes: "확인",
@@ -232,6 +228,7 @@ export default {
         console.log("회원가입 안돼!!!");
         return;
       }
+      this.data.isShow = true;
       regist(
         this.user,
         (response) => {
