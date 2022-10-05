@@ -27,6 +27,9 @@
                 autocomplete="off"
               />
             </span>
+            <p class="text-h5 red-text" v-if="error !== ''">
+              {{ error }}
+            </p>
           </span>
           <div
             class="vc-btn-grid"
@@ -60,12 +63,11 @@
 <script>
 import Vue from "vue";
 import { events } from "../../components/common/events";
-import {
-  participateVote,
-  nonparticipateVote,
-  changVoteStatus,
-} from "@/api/community.js";
-import { mapMutations } from "vuex";
+
+import { participateVote, nonparticipateVote, changVoteStatus } from "@/api/community.js";
+import { resetPassword } from "@/api/user";
+import { deleteUserInfo } from "@/api/mypage";
+import { mapMutations, mapState } from "vuex";
 
 Vue.directive("focus", {
   inserted: function (el) {
@@ -87,6 +89,7 @@ const Component = {
         email: "",
       },
       isShow: this.data.isShow,
+      error: "",
       password: null,
       dialog: {
         auth: this.data.dialog,
@@ -102,6 +105,7 @@ const Component = {
   },
   methods: {
     ...mapMutations("communityStore", ["SET_SELECT"]),
+    ...mapMutations("userStore", ["SET_INIT"]),
     resetState() {
       this.password = null;
       this.dialog = {
@@ -141,7 +145,16 @@ const Component = {
           this.info = data;
           this.$router.go();
         });
-      } else if (this.data.mode == "3") {
+      } else if (this.data.mode === "3") {
+        // 회원가입 완료
+        this.$router.push({ name: "userLogin", path: "/profile/login" });
+      } else if (this.data.mode === "4") {
+        // 비밀번호 재 설정
+        this.sendEmail();
+      } else if (this.data.mode === "5") {
+        // 회원 탈퇴
+        this.deleteUser();
+      } else if (this.data.mode == "6") {
         //투표 마감
         let params = { status: true };
         changVoteStatus(token, this.voteId, params, ({ data }) => {
@@ -192,17 +205,41 @@ const Component = {
         }
       });
     },
-    // sendEmail() {
-    //   resetPassword(
-    //     this.info.email,
-    //     (response) => {
-    //       console.log(response.data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
+    sendEmail() {
+      this.error = "이메일을 확인 해 주세요!!(5초 후 자동으로 종료됩니다.)";
+      resetPassword(
+        this.info,
+        (response) => {
+          this.data.isShow = false;
+          console.log(response.data);
+          console.log("이메일 보냄");
+        },
+        (error) => {
+          console.log(error);
+          console.log("이메일 틀림");
+          this.error = "등록된 이메일이 없습니다.";
+        }
+      );
+    },
+    deleteUser() {
+      deleteUserInfo(
+        this.accessToken,
+        this.userId,
+        (response) => {
+          console.log(response.data);
+          this.data.isShow = false;
+          this.SET_INIT();
+          this.$store.state.started = 0;
+          this.$router.push({ name: "home", path: "/" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
+  computed: {
+    ...mapState("userStore", ["userId", "accessToken"]),
   },
   mounted() {
     if (!document) return;
