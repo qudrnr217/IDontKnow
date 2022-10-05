@@ -40,7 +40,7 @@ export default {
   },
   mounted() {
     const script = document.createElement("script");
-    script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
     document.head.appendChild(script);
     script.onload = () => {
       window.kakao.maps.load(this.initMap);
