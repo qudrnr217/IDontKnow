@@ -64,7 +64,11 @@
 import Vue from "vue";
 import { events } from "../../components/common/events";
 
-import { participateVote, nonparticipateVote, changVoteStatus } from "@/api/community.js";
+import {
+  participateVote,
+  nonparticipateVote,
+  changVoteStatus,
+} from "@/api/community.js";
 import { resetPassword } from "@/api/user";
 import { deleteUserInfo } from "@/api/mypage";
 import { mapMutations, mapState } from "vuex";
