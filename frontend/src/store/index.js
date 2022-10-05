@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
-import homeStore from "@/store/modules/homeStore.js";
+import chatStore from "@/store/modules/chatStore.js";
 import userStore from "@/store/modules/userStore.js";
 import communityStore from "./modules/communityStore";
 
@@ -25,7 +25,7 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    homeStore,
+    chatStore,
     userStore,
     communityStore,
   },
