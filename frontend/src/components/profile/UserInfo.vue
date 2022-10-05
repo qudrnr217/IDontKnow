@@ -146,25 +146,7 @@ export default {
       this.$router.push({ name: "userPassword", path: "/profile/password" });
     },
     withdrawal() {
-      // TODO: dialog 체크 필요
-      // 탈퇴하기 api 호출 (vue 날리기)
-      // home 으로 이동
       this.data.isShow = true;
-
-      // deleteUserInfo(
-      //   this.accessToken,
-      //   this.user.id,
-      //   (response) => {
-      //     console.log(response.data);
-      //     this.data.isShow = true;
-      //     // this.SET_INIT();
-      //     // this.$store.state.started = 0;
-      //     // this.$router.push({ name: "home", path: "/" });
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //   }
-      // );
     },
     getUser() {
       getUserInfo(
