@@ -47,6 +47,7 @@ public class MyPageService {
         if(districtId != 0) districtCode = districtCodeRepository.findById(districtId).orElseThrow(DistrictCodeNotFoundException::new);
         if(!userId.equals(user.getId()))    throw new PermissionException();
         findUser.updateUserInfo(districtCode, gender, age);
+//        userRepository.save(findUser);
         return MyPageResponse.UserInfo.build(findUser);
 
     }
@@ -86,9 +87,8 @@ public class MyPageService {
         return !currentUser.getRole().equals(Role.ADMIN)  && !Objects.equals(currentUser.getId(), userId);
     }
 
-    public MyPageResponse.Rate getRate(Long userId, User user){
-        User findUser = userRepository.findById(user.getId()).orElseThrow(UserNotFoundException::new);
-        if(checkPermission(user, userId))   throw new PermissionException();
+    public MyPageResponse.Rate getRate(Long userId){
+        User findUser = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
         long ballotCount = voteRepository.countVoteByBallotUser(findUser).stream().count();
         long correctCount = voteRepository.countVoteByBallotUserAndResult(findUser).stream().count();
         return MyPageResponse.Rate.build(userId, ballotCount, correctCount);

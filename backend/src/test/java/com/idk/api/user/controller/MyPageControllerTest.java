@@ -372,7 +372,7 @@ public class MyPageControllerTest extends MvcTest {
                 .correctCount(1)
                 .build();
 
-        given(myPageService.getRate(anyLong(), any())).willReturn(response);
+        given(myPageService.getRate(anyLong())).willReturn(response);
         ResultActions results = mvc.perform(RestDocumentationRequestBuilders.get("/api/mypage/users/{userId}/rate", 1L));
 
         results.andExpect(status().isOk())
@@ -390,7 +390,7 @@ public class MyPageControllerTest extends MvcTest {
                                 fieldWithPath("correctCount").type(JsonFieldType.NUMBER).description("맞춘 투표 개수")
                         )
                 ));
-        verify(myPageService).getRate(anyLong(), any());
+        verify(myPageService).getRate(anyLong());
 
     }
 
