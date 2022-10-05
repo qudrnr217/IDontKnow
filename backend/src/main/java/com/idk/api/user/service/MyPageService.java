@@ -47,7 +47,6 @@ public class MyPageService {
         if(districtId != 0) districtCode = districtCodeRepository.findById(districtId).orElseThrow(DistrictCodeNotFoundException::new);
         if(!userId.equals(user.getId()))    throw new PermissionException();
         findUser.updateUserInfo(districtCode, gender, age);
-//        userRepository.save(findUser);
         return MyPageResponse.UserInfo.build(findUser);
 
     }
