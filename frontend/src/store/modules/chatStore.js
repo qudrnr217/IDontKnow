@@ -35,7 +35,22 @@ const chatStore = {
       state.bestHotspots = bestHotspots;
     },
     SET_BEST_MENUS: (state, bestMenus) => {
-      state.bestMenus = bestMenus;
+      if (bestMenus.length === 0) {
+        state.bestMenus = [
+          {
+            menuId: 14,
+            menuName: "패스트푸드",
+            orderQuantity: 256,
+          },
+          {
+            menuId: 7,
+            menuName: "피자",
+            orderQuantity: 128,
+          },
+        ];
+      } else {
+        state.bestMenus = bestMenus;
+      }
       state.bestMenus.forEach((el) => {
         if (el.menuName.includes("/")) {
           el.menuImgName = el.menuName.replace("/", "_");
