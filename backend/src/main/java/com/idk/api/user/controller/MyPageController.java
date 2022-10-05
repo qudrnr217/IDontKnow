@@ -58,8 +58,8 @@ public class MyPageController {
     }
 
     @GetMapping("/{userId}/rate")
-    public ResponseEntity<MyPageResponse.Rate> getRate(@PathVariable("userId") Long userId, @CurrentUser CustomUserDetails customUserDetails){
-        MyPageResponse.Rate response = myPageService.getRate(userId, customUserDetails.getUser());
+    public ResponseEntity<MyPageResponse.Rate> getRate(@PathVariable("userId") Long userId){
+        MyPageResponse.Rate response = myPageService.getRate(userId);
         return ResponseEntity.ok().body(response);
     }
 
