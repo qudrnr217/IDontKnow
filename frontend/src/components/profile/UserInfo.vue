@@ -87,12 +87,7 @@
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import { locations, ages, genders } from "@/const/const.js";
 import { mapState, mapMutations } from "vuex";
-import {
-  getUserInfo,
-  updateUserInfo,
-  deleteUserInfo,
-  logout,
-} from "@/api/mypage";
+import { getUserInfo, updateUserInfo, logout } from "@/api/mypage";
 export default {
   name: "UserInfo",
   components: {
@@ -114,6 +109,7 @@ export default {
       },
       data: {
         isShow: false,
+        mode: "5",
         title: "탈퇴하시겠습니까?",
         message: "회원 탈퇴시 게시글 확인이 어려울 수 있습니다.",
         yes: "탈퇴하기",
@@ -138,6 +134,9 @@ export default {
           this.$router.push({ name: "userLogout", path: "/profile/logout" });
         },
         (error) => {
+          if (error == 401) {
+            this.$router.push({ name: "userLogin", path: "/profile/login" });
+          }
           console.log(error);
           console.log("로그아웃 실패");
         }
@@ -150,19 +149,22 @@ export default {
       // TODO: dialog 체크 필요
       // 탈퇴하기 api 호출 (vue 날리기)
       // home 으로 이동
-      deleteUserInfo(
-        this.accessToken,
-        this.user.id,
-        (response) => {
-          console.log(response.data);
-          this.SET_INIT();
-          this.$store.state.started = 0;
-          this.$router.push({ name: "home", path: "/" });
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+      this.data.isShow = true;
+
+      // deleteUserInfo(
+      //   this.accessToken,
+      //   this.user.id,
+      //   (response) => {
+      //     console.log(response.data);
+      //     this.data.isShow = true;
+      //     // this.SET_INIT();
+      //     // this.$store.state.started = 0;
+      //     // this.$router.push({ name: "home", path: "/" });
+      //   },
+      //   (error) => {
+      //     console.log(error);
+      //   }
+      // );
     },
     getUser() {
       getUserInfo(

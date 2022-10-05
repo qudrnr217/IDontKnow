@@ -112,7 +112,9 @@ export default {
         (error) => {
           console.log("계정 틀림");
           console.log(error);
-          this.isShow = true;
+          this.data.isShow = true;
+          this.user.email = "";
+          this.user.password = "";
         }
       );
     },

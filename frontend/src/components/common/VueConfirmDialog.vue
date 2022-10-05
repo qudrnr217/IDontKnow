@@ -65,6 +65,8 @@ import Vue from "vue";
 import { events } from "../../components/common/events";
 import { participateVote, nonparticipateVote } from "@/api/community.js";
 import { resetPassword } from "@/api/user";
+import { deleteUserInfo } from "@/api/mypage";
+import { mapMutations, mapState } from "vuex";
 
 Vue.directive("focus", {
   inserted: function (el) {
@@ -137,12 +139,15 @@ const Component = {
           this.info = data;
           this.$router.go();
         });
-      } else if (this.data.mode == "3") {
+      } else if (this.data.mode === "3") {
         // 회원가입 완료
         this.$router.push({ name: "userLogin", path: "/profile/login" });
-      } else if (this.data.mode == "4") {
+      } else if (this.data.mode === "4") {
         // 비밀번호 재 설정
         this.sendEmail();
+      } else if (this.data.mode === "5") {
+        // 회원 탈퇴
+        this.deleteUser();
       }
     },
     handleClickButton({ target }, confirm) {
@@ -188,6 +193,7 @@ const Component = {
       });
     },
     sendEmail() {
+      this.error = "이메일을 확인 해 주세요!!(5초 후 자동으로 종료됩니다.)";
       resetPassword(
         this.info,
         (response) => {
@@ -202,6 +208,26 @@ const Component = {
         }
       );
     },
+    deleteUser() {
+      deleteUserInfo(
+        this.accessToken,
+        this.userId,
+        (response) => {
+          console.log(response.data);
+          this.data.isShow = false;
+          this.SET_INIT();
+          this.$store.state.started = 0;
+          this.$router.push({ name: "home", path: "/" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    ...mapMutations("userStore", ["SET_INIT"]),
+  },
+  computed: {
+    ...mapState("userStore", ["userId", "accessToken"]),
   },
   mounted() {
     if (!document) return;
