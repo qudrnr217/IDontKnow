@@ -44,7 +44,7 @@
       </div>
 
       <div class="box-row">
-        <slider-chart :category="category" />
+        <slider-chart :category="category" :key="reload" />
         <!-- <div class="vote-percent-bar">인기투표가 나오도록 변경 필요 !</div> -->
       </div>
     </div>
@@ -267,6 +267,7 @@ export default {
       categoryList: ["메뉴", "스타일", "장소"],
       statusList: ["진행", "종료"],
       id: 0,
+      reload: 0,
     };
   },
   computed: {
@@ -313,6 +314,8 @@ export default {
       // } else {
       //   this.status = true;
       // }
+      // console.log(this.category);
+      this.reload += 1;
       let params = {
         category: this.category,
         status: false,
@@ -335,10 +338,11 @@ export default {
       console.log(this.status);
       //초기화
       if (this.status == "진행") {
-        this.boolanStatus = false;
+        this.booleanStatus = false;
       } else {
         this.booleanStatus = true;
       }
+
       let params = {
         category: this.category,
         status: this.booleanStatus,

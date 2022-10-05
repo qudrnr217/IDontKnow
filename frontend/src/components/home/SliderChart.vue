@@ -1,7 +1,7 @@
 <template>
   <div ref="slider" class="keen-slider">
     <div class="keen-slider__slide number-slide1">
-      <div class="vote-list">
+      <div class="vote-list" v-if="vote_list1">
         <!-- v-for="vote in voteList" :key="vote.voteId"  -->
         <div
           class="vote-card"
@@ -141,7 +141,7 @@
       </div>
     </div>
     <div class="keen-slider__slide number-slide1">
-      <div class="vote-list">
+      <div class="vote-list" v-if="vote_list2">
         <!-- v-for="vote in voteList" :key="vote.voteId"  -->
         <div
           class="vote-card"
@@ -281,7 +281,7 @@
       </div>
     </div>
     <div class="keen-slider__slide number-slide1">
-      <div class="vote-list">
+      <div class="vote-list" v-if="vote_list3">
         <!-- v-for="vote in voteList" :key="vote.voteId"  -->
         <div
           class="vote-card"
@@ -438,6 +438,7 @@ export default {
   mounted() {
     trendVote(this.category, ({ data }) => {
       console.log("트랜드: ", data);
+      this.vote_list = data;
       this.vote_list1 = data[0];
       this.vote_list2 = data[1];
       this.vote_list3 = data[2];
@@ -463,6 +464,7 @@ export default {
   },
   data() {
     return {
+      vote_list: [],
       vote_list1: [],
       vote_list2: [],
       vote_list3: [],
