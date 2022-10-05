@@ -52,14 +52,14 @@ export default {
   display: flex;
   justify-content: center;
   height: calc(100vh-73px);
-  /* padding-bottom: 200px; */
+  min-height: 844px;
 }
 
 .body {
+  overflow: auto;
   max-width: 390px;
   height: calc(100vh-73px);
   min-height: 844px;
-  padding-bottom: 73px;
 }
 
 .background-footer {
@@ -87,7 +87,6 @@ export default {
 
 /* 폰트 */
 .v-application {
-  /* font-family: "GmarketSansTTF", sans-serif !important; */
   font-family: "ONEMobileTitle";
 }
 

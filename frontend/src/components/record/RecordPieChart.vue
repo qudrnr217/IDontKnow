@@ -11,10 +11,13 @@
 
 <script>
 export default {
-  name: "DonutExample",
+  name: "RecordPieChart",
+  props: {
+    percentage: Number,
+  },
   data() {
     return {
-      series: [50, 50],
+      series: [this.percentage, 100 - this.percentage],
       chartOptions: {
         chart: {
           width: 200,

@@ -63,7 +63,8 @@
 <script>
 import Vue from "vue";
 import { events } from "../../components/common/events";
-import { participateVote, nonparticipateVote } from "@/api/community.js";
+
+import { participateVote, nonparticipateVote, changVoteStatus } from "@/api/community.js";
 import { resetPassword } from "@/api/user";
 import { deleteUserInfo } from "@/api/mypage";
 import { mapMutations, mapState } from "vuex";
@@ -103,6 +104,8 @@ const Component = {
     };
   },
   methods: {
+    ...mapMutations("communityStore", ["SET_SELECT"]),
+    ...mapMutations("userStore", ["SET_INIT"]),
     resetState() {
       this.password = null;
       this.dialog = {
@@ -118,9 +121,11 @@ const Component = {
       //api사용
       console.log("안녕?:" + this.data.mode);
       var token =
-        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0NzE2ODExfQ.TUtMYZuidjffk5TO8oEkmhSNkm6LAUU-hJOKg--MjqfCQCknCJj9-dHuDAEeyFNA";
+        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg2OTg2MH0.y9JdmDtUWCK51a_QlwZodeNwwAg7sa7IXQzVc_VgD1LSzP02FfTqs06LBvBdVrCc";
+
       if (this.data.mode == "1") {
         //투표하기
+
         var params = {
           voteId: this.voteId,
           choice: this.select,
@@ -129,6 +134,7 @@ const Component = {
         participateVote(token, params, ({ data }) => {
           console.log(data);
           this.info = data;
+          // this.$router.go();
           this.$router.go();
         });
       } else if (this.data.mode == "2") {
@@ -148,6 +154,13 @@ const Component = {
       } else if (this.data.mode === "5") {
         // 회원 탈퇴
         this.deleteUser();
+      } else if (this.data.mode == "6") {
+        //투표 마감
+        let params = { status: true };
+        changVoteStatus(token, this.voteId, params, ({ data }) => {
+          console.log("마감:" + data);
+          this.$router.go();
+        });
       }
     },
     handleClickButton({ target }, confirm) {
@@ -224,7 +237,6 @@ const Component = {
         }
       );
     },
-    ...mapMutations("userStore", ["SET_INIT"]),
   },
   computed: {
     ...mapState("userStore", ["userId", "accessToken"]),

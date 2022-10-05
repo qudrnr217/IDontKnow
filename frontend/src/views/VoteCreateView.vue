@@ -21,6 +21,6 @@ export default {
 
 <style scoped>
 .body {
-  height: 105vh;
+  height: 101vh;
 }
 </style>

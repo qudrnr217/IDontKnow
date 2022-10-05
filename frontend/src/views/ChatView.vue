@@ -2,8 +2,8 @@
   <div
     class="background"
     :class="{
-      'bgd-sunnyday': precipitationProbability <= 50,
-      'bgd-rainyday': precipitationProbability > 50,
+      'bgd-sunnyday': weather.pop <= 50,
+      'bgd-rainyday': weather.pop > 50,
     }"
   >
     <div class="body">
@@ -33,7 +33,7 @@
             <img class="profile-image-small" src="@/assets/image/김모르.png" />
           </div>
           <div class="box-chat-background-moleu-info">
-            <div class="box-chat-text text-chat">
+            <div class="box-chat-text text-chat" style="display: block">
               안녕 나는 김모르 ! <br />
               지금부터 너의 고민을 함께 할거야 ~ <br />
               메뉴는 36만 건의 배달 빅데이터를<br />
@@ -44,9 +44,11 @@
               마지막으로, 장소는<br />
               서울시 실시간 도시 데이터 api를 통해<br />
               현재 사람들이 많이 찾는 인기 장소를 추천해줄거야 ! <br />
+              <router-link to="/licenses">[저작자/출처 표시]</router-link>
             </div>
           </div>
         </div>
+
         <!-- 오늘의 날씨 -->
         <div class="box-row">
           <div class="profile-image-box-small">
@@ -55,9 +57,10 @@
           <div class="box-chat-background-moleu">
             <div class="box-chat-text text-chat">
               오늘의 날씨는, <br />
-              기온🌡️ {{ temperatures }}도, 습도💧 {{ humidity }}%, <br />
+              기온🌡️ {{ weather.tmp }}도, 습도💧 {{ weather.reh }}%, <br />
               풍속🌬 {{ checkWindSpeed }}, <br />
-              강수확률☔ {{ precipitationProbability }}%!<br />
+              강수확률☔ {{ weather.pop }}%! ({{ weather.pty }})<br />
+              하늘은🌤 {{ weather.sky }}<br />
               결정에 참고해~ <br />
             </div>
           </div>
@@ -139,37 +142,67 @@
                   <div class="box-chat-image box-align-center">
                     <div class="box-chat-row">
                       <img
-                        src="../assets/icon/food/중식.png"
+                        :src="
+                          require(`@/assets/icon/food/${bestMenus[0].menuImgName}.png`)
+                        "
                         alt
                         class="menu-image"
                         style=""
                       />
                     </div>
                     <div class="box-chat-row">
-                      <div class="btn-rectangle-small blue-1 text-h4">
-                        아시안/양식
+                      <div
+                        class="btn-rectangle-small blue-1 text-h4"
+                        @click="clickMenu(bestMenus[0].menuName)"
+                      >
+                        {{ this.bestMenus[0].menuName }}
                       </div>
                     </div>
                   </div>
                   <div class="box-chat-image box-align-center">
                     <div class="box-chat-row">
                       <img
-                        src="../assets/icon/food/피자.png"
+                        :src="
+                          require(`@/assets/icon/food/${bestMenus[1].menuImgName}.png`)
+                        "
                         alt
                         class="menu-image"
                       />
                     </div>
                     <div class="box-chat-rowbox-chat-text">
-                      <div class="btn-rectangle-small blue-1 text-h4">피자</div>
+                      <div
+                        class="btn-rectangle-small blue-1 text-h4"
+                        @click="clickMenu(bestMenus[1].menuName)"
+                      >
+                        {{ this.bestMenus[1].menuName }}
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="box-chat-row" style="margin-left: 26px">
-                  <div class="box-chat-row style-text text-h5">
+                  <div
+                    class="box-chat-row style-text text-h5"
+                    style="justify-content: center"
+                  >
                     메뉴를 클릭해봐 ! 근처 맛집을 찾아줄게 ~
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div
+            class="box-row"
+            style="margin-bottom: 5rem"
+            v-if="clickedMenu !== ''"
+          >
+            <div class="profile-image-box-small">
+              <img
+                class="profile-image-small"
+                src="@/assets/image/김모르.png"
+              />
+            </div>
+            <div class="box-chat-background-moleu-info">
+              <kakao-map :menuName="clickedMenu"></kakao-map>
             </div>
           </div>
         </div>
@@ -199,30 +232,39 @@
             </div>
             <div class="box-chat-background-moleu-info">
               <div class="box-chat-row">
-                <div class="box-chat-image box-align-center">
+                <div
+                  class="box-chat-image box-align-center"
+                  @click="findRoute(bestHotspots.placeA)"
+                >
                   <div class="box-chat-row">
-                    <!-- TODO: 장소 이미지 불러오기 -->
                     <img
-                      src="../assets/image/hotspots/국립중앙박물관·용산가족공원.jpg"
+                      :src="
+                        require(`@/assets/image/hotspots/${bestHotspots.placeA}.jpg`)
+                      "
                       alt
                       class="location-image"
                       style=""
                     />
                   </div>
-                  <div class="box-chat-row location-text text-h5">
-                    국립중앙박물관·용산가족공원
+                  <div class="box-chat-row location-text text-h4">
+                    {{ bestHotspots.placeA }}
                   </div>
                 </div>
-                <div class="box-chat-image box-align-center">
+                <div
+                  class="box-chat-image box-align-center"
+                  @click="findRoute(bestHotspots.placeB)"
+                >
                   <div class="box-chat-row">
                     <img
-                      src="../assets/image/hotspots/강남 MICE 관광특구.jpg"
+                      :src="
+                        require(`@/assets/image/hotspots/${bestHotspots.placeB}.jpg`)
+                      "
                       alt
                       class="location-image"
                     />
                   </div>
-                  <div class="box-chat-row location-text text-h5">
-                    강남 MICE 관광특구
+                  <div class="box-chat-row location-text text-h4">
+                    {{ bestHotspots.placeB }}
                   </div>
                 </div>
               </div>
@@ -257,13 +299,15 @@
               <div class="box-chat-image box-align-center">
                 <div class="box-chat-row">
                   <img
-                    src="../assets/image/clothes/12~16.png"
+                    :src="
+                      require(`@/assets/image/clothes/${bestStyles[1]}.png`)
+                    "
                     alt
                     class="style-image"
                   />
                 </div>
                 <div class="box-chat-row style-text text-h5">
-                  얇은 니트, 맨투맨, 가디건, 청바지
+                  <span class="style-text-strong">{{ bestStyles[0] }}</span>
                 </div>
                 <div class="box-chat-row style-text text-h5">
                   오늘 같은 날씨엔 이렇게 입는 게 딱이야 !
@@ -277,30 +321,32 @@
   </div>
 </template>
 <script>
+import { mapState, mapActions, mapGetters } from "vuex";
+import { locationIds } from "@/const/const";
+import KakaoMap from "@/components/chat/KakaoMap.vue";
 export default {
-  components: {},
+  components: {
+    KakaoMap,
+  },
   data() {
     return {
       isOpened: false,
-      temperatures: 0,
-      humidity: 0,
-      windSpeed: 0,
-      precipitationProbability: 0,
       category: "",
+      clickedMenu: "",
     };
   },
+  mounted() {
+    this.FETCH_TODAY_WEATHER(this.districtId > 0 ? this.districtId : 1);
+  },
   computed: {
-    checkWindSpeed() {
-      if (this.windSpeed < 4) {
-        return "약한 바람";
-      } else if (this.windSpeed < 9) {
-        return "약간 강한 바람";
-      } else if (this.windSpeed < 14) {
-        return "강한 바람";
-      } else {
-        return "매우 강한 바람";
-      }
-    },
+    ...mapState("chatStore", [
+      "bestMenus",
+      "bestHotspots",
+      "bestStyles",
+      "weather",
+    ]),
+    ...mapState("userStore", ["districtId"]),
+    ...mapGetters("chatStore", ["checkWindSpeed"]),
   },
   methods: {
     checkCategory(event) {
@@ -311,12 +357,41 @@ export default {
         this.category = "";
       }
     },
+    findRoute(placeName) {
+      console.log(placeName);
+      location.href = `https://map.kakao.com/link/to/${locationIds[placeName]}`;
+    },
+    clickMenu(menuName) {
+      this.clickedMenu = menuName;
+    },
+    ...mapActions("chatStore", [
+      "FETCH_BEST_MENUS",
+      "FETCH_BEST_HOTSPOTS",
+      "FETCH_BEST_STYLES",
+      "FETCH_TODAY_WEATHER",
+    ]),
+  },
+  watch: {
+    category(newCategory) {
+      switch (newCategory) {
+        case "메뉴":
+          this.FETCH_BEST_MENUS(this.districtId > 0 ? this.districtId : 1);
+          break;
+        case "스타일":
+          this.FETCH_BEST_STYLES();
+          break;
+        case "장소":
+          this.FETCH_BEST_HOTSPOTS();
+          break;
+      }
+    },
   },
 };
 </script>
 
 <style scoped>
 .body {
-  height: 110vh;
+  height: 103vh;
+  padding-bottom: 73px;
 }
 </style>

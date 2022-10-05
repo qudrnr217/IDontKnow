@@ -1,4 +1,7 @@
-import { apiInstanceWithAuthorization } from "./index.js";
+import {
+  apiInstanceWithAuthorization,
+  apiInstanceWithoutAuthorization,
+} from "./index.js";
 
 // 방생성
 function createVote(token, params, success, fail) {
@@ -7,8 +10,8 @@ function createVote(token, params, success, fail) {
 }
 
 // 카테고리별 방목록 조회
-function showVoteList(token, params, success, fail) {
-  const api = apiInstanceWithAuthorization(token);
+function showVoteList(params, success, fail) {
+  const api = apiInstanceWithoutAuthorization();
   api
     .get(
       `/votes?category=${params.category}&status=${params.status}&lastVoteId=${params.lastVoteId}`
@@ -23,8 +26,8 @@ function detailVote(token, params, success, fail) {
 }
 
 // 조회수 Top3
-function trendVote(token, params, success, fail) {
-  const api = apiInstanceWithAuthorization(token);
+function trendVote(params, success, fail) {
+  const api = apiInstanceWithoutAuthorization();
   api.get(`/votes/top3?category=${params}`).then(success).catch(fail);
 }
 

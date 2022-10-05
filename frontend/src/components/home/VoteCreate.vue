@@ -14,7 +14,7 @@
     </div>
     <div class="box-row">
       <select
-        v-model="category"
+        v-model="info.category"
         class="sb-rectangle-long sel text-h3 blue-3-border"
       >
         <option selected disabled value="">카테고리를 선택해주세요.</option>
@@ -27,21 +27,23 @@
         </option>
       </select>
     </div>
-    <div class="box-row-left" v-if="category === '메뉴'">
+    <div class="box-row-left" v-if="info.category === '메뉴'">
       <div class="text-title text-h2 blue-4-text">세부 카테고리🍙</div>
     </div>
-    <div class="box-row-left" v-if="category === '스타일'">
+    <div class="box-row-left" v-if="info.category === '스타일'">
       <div class="text-title text-h2 blue-4-text">세부 카테고리👕</div>
     </div>
-    <div class="box-row-left" v-if="category === '장소'">
+    <div class="box-row-left" v-if="info.category === '장소'">
       <div class="text-title text-h2 blue-4-text">세부 카테고리🚗</div>
     </div>
-    <div class="box-row" v-if="category === '메뉴'">
+    <div class="box-row" v-if="info.category === '메뉴'">
       <select
-        v-model="subCategory"
+        v-model="info.subCategory"
         class="sb-rectangle-long sel text-h3 blue-3-border"
       >
-        <option selected disabled>세부 카테고리를 선택해주세요.</option>
+        <option selected disabled value="">
+          세부 카테고리를 선택해주세요.
+        </option>
         <option
           v-for="(item, index) in Category_Menu"
           :key="index"
@@ -51,9 +53,9 @@
         </option>
       </select>
     </div>
-    <div class="box-row" v-if="category === '스타일'">
+    <div class="box-row" v-if="info.category === '스타일'">
       <select
-        v-model="subCategory"
+        v-model="info.subCategory"
         class="sb-rectangle-long sel text-h3 blue-3-border"
       >
         <option selected disabled>세부 카테고리를 선택해주세요.</option>
@@ -66,9 +68,9 @@
         </option>
       </select>
     </div>
-    <div class="box-row" v-if="category === '장소'">
+    <div class="box-row" v-if="info.category === '장소'">
       <select
-        v-model="subCategory"
+        v-model="info.subCategory"
         class="sb-rectangle-long sel text-h3 blue-3-border"
       >
         <option selected disabled>세부 카테고리를 선택해주세요.</option>
@@ -90,7 +92,7 @@
         class="input-rectangle-long blue-3-border"
         type="text"
         style="font-size: 16px; border-radius: 10px"
-        v-model="title"
+        v-model="info.title"
         placeholder="제목을 작성해주세요(25자 이내)."
       />
     </div>
@@ -110,7 +112,7 @@
       >
         <div class="box-row">
           <textarea
-            v-model="optionA"
+            v-model="info.optionA"
             id="optionA"
             type="text"
             class="vote-option-input"
@@ -124,7 +126,7 @@
       >
         <div class="box-row">
           <textarea
-            v-model="optionB"
+            v-model="info.optionB"
             id="optionB"
             type="text"
             class="vote-option-input"
@@ -140,16 +142,20 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   name: "VoteCreate",
   components: {},
   data() {
     return {
-      category: "",
-      subCategory: "",
-      title: "",
-      optionA: "",
-      optionB: "",
+      info: {
+        category: "",
+        subCategory: "",
+        title: "",
+        optionA: "",
+        optionB: "",
+      },
+
       Category: ["메뉴", "스타일", "장소"],
       Category_Menu: [
         "한식",
@@ -172,9 +178,21 @@ export default {
     };
   },
   methods: {
+    ...mapActions("communityStore", ["REGIST_VOTE"]),
     createVote() {
       // 투표 만들기 api 호출
       // 투표 목록으로 돌아가기
+      this.REGIST_VOTE({
+        info: this.info,
+        token:
+          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg2OTg2MH0.y9JdmDtUWCK51a_QlwZodeNwwAg7sa7IXQzVc_VgD1LSzP02FfTqs06LBvBdVrCc",
+      });
+      console.log(this.info.category);
+      this.$router.push({
+        name: "voteList",
+        path: "/",
+        params: { status: false, category: this.info.category },
+      });
     },
   },
 };

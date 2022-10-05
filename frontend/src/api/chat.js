@@ -13,4 +13,11 @@ function getBestMenus(districtId, success, fail) {
     .catch(fail);
 }
 
-export { getHotspots, getBestMenus };
+function getTodayWeather(districtId, success, fail) {
+  api
+    .get(`/data/weather`, { params: { districtId: districtId } })
+    .then(success)
+    .catch(fail);
+}
+
+export { getHotspots, getBestMenus, getTodayWeather };
