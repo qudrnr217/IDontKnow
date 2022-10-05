@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="background-footer">
     <div class="footer">
       <div class="btn-footer">
         <img

@@ -51,13 +51,20 @@ export default {
 .background {
   display: flex;
   justify-content: center;
+  height: calc(100vh-73px);
+  /* padding-bottom: 200px; */
 }
 
 .body {
   max-width: 390px;
-  height: 100vh;
+  height: calc(100vh-73px);
   min-height: 844px;
   padding-bottom: 73px;
+}
+
+.background-footer {
+  display: flex;
+  justify-content: center;
 }
 
 .footer {
@@ -66,7 +73,10 @@ export default {
   max-width: 390px;
   height: 73px;
   bottom: 0;
-  background: white;
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.9)
+  );
 }
 
 .title {

@@ -14,11 +14,11 @@
     <div class="box-column">
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">Name</div>
-        <div class="input-align-right">{{ user.name }}ddd</div>
+        <div class="input-align-right">{{ user.name }}</div>
       </div>
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">E-MAIL</div>
-        <div class="input-align-right">{{ user.email }}ddd</div>
+        <div class="input-align-right">{{ user.email }}</div>
       </div>
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">Password</div>
@@ -31,14 +31,14 @@
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">거주지</div>
         <div class="input-align-right">
-          <select class="sb-rectangle-short">
+          <select class="sb-rectangle-short" v-model="user.districtId">
             <option selected disabled value="">거주지</option>
             <option
-              v-for="(location, index) in Location"
+              v-for="(value, index) in locations"
               :key="index"
-              :value="location.value"
+              :value="index + 1"
             >
-              {{ location.text }}
+              {{ locations[index] }}
             </option>
           </select>
         </div>
@@ -46,14 +46,14 @@
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">성별</div>
         <div class="input-align-right">
-          <select class="sb-rectangle-short">
+          <select class="sb-rectangle-short" v-model="user.gender">
             <option selected disabled value="">성별</option>
             <option
-              v-for="(gender, index) in Gender"
+              v-for="(value, index) in genders"
               :key="index"
-              :value="gender.value"
+              :value="value"
             >
-              {{ gender.text }}
+              {{ index }}
             </option>
           </select>
         </div>
@@ -61,10 +61,10 @@
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">연령대</div>
         <div class="input-align-right">
-          <select class="sb-rectangle-short">
+          <select class="sb-rectangle-short" v-model="user.age">
             <option selected disabled value="">연령대</option>
-            <option v-for="(age, index) in Age" :key="index" :value="age.value">
-              {{ age.text }}
+            <option v-for="(value, key) in ages" :key="key" :value="value">
+              {{ key }}
             </option>
           </select>
         </div>
@@ -85,14 +85,24 @@
 
 <script>
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+import { locations, ages, genders } from "@/const/const.js";
+import { mapState, mapMutations } from "vuex";
+import {
+  getUserInfo,
+  updateUserInfo,
+  deleteUserInfo,
+  logout,
+} from "@/api/mypage";
 export default {
   name: "UserInfo",
   components: {
     VueConfirmDialog,
   },
-  props: ["userId"],
   data() {
     return {
+      ages: { ...ages },
+      locations: locations,
+      genders: genders,
       user: {
         id: 0,
         name: "",
@@ -109,151 +119,29 @@ export default {
         yes: "탈퇴하기",
         no: "취소",
       },
-      Gender: [
-        {
-          value: "M",
-          text: "남자",
-        },
-        {
-          value: "F",
-          text: "여자",
-        },
-      ],
-      Age: [
-        {
-          value: 1,
-          text: "10대",
-        },
-        {
-          value: 2,
-          text: "20대",
-        },
-        {
-          value: 3,
-          text: "30대",
-        },
-        {
-          value: 4,
-          text: "40대",
-        },
-        {
-          value: 5,
-          text: "50대",
-        },
-        {
-          value: 6,
-          text: "60대",
-        },
-      ],
-      Location: [
-        {
-          value: 1,
-          text: "서울시 강남구",
-        },
-        {
-          value: 2,
-          text: "서울시 강동구",
-        },
-        {
-          value: 3,
-          text: "서울시 강북구",
-        },
-        {
-          value: 4,
-          text: "서울시 강서구",
-        },
-        {
-          value: 5,
-          text: "서울시 관악구",
-        },
-        {
-          value: 6,
-          text: "서울시 광진구",
-        },
-        {
-          value: 7,
-          text: "서울시 구로구",
-        },
-        {
-          value: 8,
-          text: "서울시 금천구",
-        },
-        {
-          value: 9,
-          text: "서울시 노원구",
-        },
-        {
-          value: 10,
-          text: "서울시 도봉구",
-        },
-        {
-          value: 11,
-          text: "서울시 동대문구",
-        },
-        {
-          value: 12,
-          text: "서울시 동작구",
-        },
-        {
-          value: 13,
-          text: "서울시 마포구",
-        },
-        {
-          value: 14,
-          text: "서울시 서대문구",
-        },
-        {
-          value: 15,
-          text: "서울시 서초구",
-        },
-        {
-          value: 16,
-          text: "서울시 성동구",
-        },
-        {
-          value: 17,
-          text: "서울시 성북구",
-        },
-        {
-          value: 18,
-          text: "서울시 송파구",
-        },
-        {
-          value: 19,
-          text: "서울시 양천구",
-        },
-        {
-          value: 20,
-          text: "서울시 영등포구",
-        },
-        {
-          value: 21,
-          text: "서울시 용산구",
-        },
-        {
-          value: 22,
-          text: "서울시 은평구",
-        },
-        {
-          value: 23,
-          text: "서울시 종로구",
-        },
-        {
-          value: 24,
-          text: "서울시 중구",
-        },
-        {
-          value: 25,
-          text: "서울시 중랑구",
-        },
-      ],
     };
   },
-
+  mounted() {
+    this.user.id = this.userId;
+    this.getUser();
+  },
   methods: {
+    ...mapMutations("userStore", ["SET_INIT", "SET_DISTRICT_ID"]),
     logout() {
-      // vue 날리기
-      this.$router.push({ name: "userLogout", path: "/profile/logout" });
+      logout(
+        this.accessToken,
+        this.userId,
+        (response) => {
+          console.log(response.data);
+          this.SET_INIT();
+          console.log("로그아웃 완료");
+          this.$router.push({ name: "userLogout", path: "/profile/logout" });
+        },
+        (error) => {
+          console.log(error);
+          console.log("로그아웃 실패");
+        }
+      );
     },
     passwordChange() {
       this.$router.push({ name: "userPassword", path: "/profile/password" });
@@ -262,6 +150,105 @@ export default {
       // TODO: dialog 체크 필요
       // 탈퇴하기 api 호출 (vue 날리기)
       // home 으로 이동
+      deleteUserInfo(
+        this.accessToken,
+        this.user.id,
+        (response) => {
+          console.log(response.data);
+          this.SET_INIT();
+          this.$store.state.started = 0;
+          this.$router.push({ name: "home", path: "/" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    getUser() {
+      getUserInfo(
+        this.accessToken,
+        this.user.id,
+        (response) => {
+          this.user.id = response.data.id;
+          this.user.name = response.data.name;
+          this.user.email = response.data.email;
+          this.user.districtId = response.data.districtId;
+          this.user.districtName = response.data.districtName;
+          this.user.gender = response.data.gender;
+          this.user.age = response.data.age;
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+  },
+  computed: {
+    ...mapState("userStore", ["userId", "name", "districtId", "accessToken"]),
+    districtId() {
+      return this.user.districtId;
+    },
+    gender() {
+      console.log(this.user.gender);
+      return this.user.gender;
+    },
+    age() {
+      return this.user.age;
+    },
+  },
+  watch: {
+    districtId() {
+      console.log(this.user.districtId);
+      if (this.user.districtId == 0) return;
+      updateUserInfo(
+        this.accessToken,
+        this.userId,
+        this.user.districtId,
+        this.user.gender,
+        this.user.age,
+        (response) => {
+          console.log(response.data);
+          this.SET_DISTRICT_ID(response.data.districtId);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    age() {
+      console.log(this.user.age);
+      if (this.user.age == 0) return;
+      updateUserInfo(
+        this.accessToken,
+        this.userId,
+        this.user.districtId,
+        this.user.gender,
+        this.user.age,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    gender() {
+      console.log(this.user.gender);
+      if (this.user.gender == "") return;
+      updateUserInfo(
+        this.accessToken,
+        this.userId,
+        this.user.districtId,
+        this.user.gender,
+        this.user.age,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
 };

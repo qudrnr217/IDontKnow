@@ -19,7 +19,7 @@
           type="email"
           id="email"
           style="font-size: 16px; border-radius: 10px"
-          v-model="email"
+          v-model="user.email"
           placeholder="이메일"
         />
       </div>
@@ -30,7 +30,7 @@
           type="password"
           id="password"
           style="font-size: 16px; border-radius: 10px"
-          v-model="password"
+          v-model="user.password"
           placeholder="비밀번호"
         />
       </div>
@@ -59,6 +59,8 @@
 
 <script>
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+import { mapMutations, mapState } from "vuex";
+import { login } from "@/api/user";
 export default {
   components: {
     VueConfirmDialog,
@@ -66,8 +68,10 @@ export default {
 
   data() {
     return {
-      email: "",
-      password: "",
+      user: {
+        email: "",
+        password: "",
+      },
       data: {
         isShow: false,
         title: "로그인 실패",
@@ -84,17 +88,40 @@ export default {
       },
     };
   },
-
+  computed: {
+    ...mapState("userStore", ["userId", "name", "districtId"]),
+  },
   methods: {
     regist() {
       this.$router.push({ name: "userRegist", path: "/profile/regist" });
     },
     login() {
-      //  로그인 api 호출
-      // response 에러일 때, 알림창
-      // (data.isShow = true)
-      // home 으로 이동
+      login(
+        this.user,
+        (response) => {
+          console.log(response.data);
+          this.SET_USERID(response.data.userId);
+          this.SET_NAME(response.data.name);
+          this.SET_DISTRICT_ID(response.data.districtId);
+          this.SET_ACCESS_TOKEN(response.data.accessToken);
+          this.SET_REFRESH_TOKEN(response.data.refreshToken);
+          this.$router.push({ name: "home", path: "/" });
+          console.log(this.userId);
+        },
+        (error) => {
+          console.log("계정 틀림");
+          console.log(error);
+          this.isShow = true;
+        }
+      );
     },
+    ...mapMutations("userStore", [
+      "SET_USERID",
+      "SET_NAME",
+      "SET_DISTRICT_ID",
+      "SET_ACCESS_TOKEN",
+      "SET_REFRESH_TOKEN",
+    ]),
   },
 };
 </script>

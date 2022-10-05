@@ -170,6 +170,34 @@
   max-width: 390px;
   margin: auto;
 }
+/* sunnyday */
+.bgd-sunnyday {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(../image/background/sunnyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* rainyday */
+.bgd-rainyday {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(../image/background/rainyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
 
 /* font */
 * {
@@ -191,7 +219,7 @@
   font-size: 8px;
 }
 .text-chat {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 /* text-align */
@@ -212,13 +240,6 @@
 }
 
 /* box-align */
-.box-content {
-  width: 320px;
-  margin: auto 20px;
-  border-radius: 5px;
-  border-width: 2px;
-  border-style: solid;
-}
 .box-column {
   display: flex;
   flex-wrap: wrap;
@@ -238,11 +259,6 @@
   align-items: center;
   justify-content: flex-start;
 }
-.box-row-center {
-  display: flex;
-  align-items: center;
-  /* justify-content: space-between; */
-}
 .box-btn-right {
   display: flex;
   margin: 10px 20px;
@@ -253,7 +269,13 @@
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+}
+.box-column-center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* button */
@@ -376,6 +398,16 @@
 .input-rectangle-long {
   width: 320px;
   height: 36px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px;
+}
+.input-rectangle-short {
+  width: 240px;
+  height: 30px;
   border-radius: 10px;
   border-style: solid;
   border-width: 2px;
@@ -538,6 +570,136 @@
   height: 25px;
 }
 
+/* vote detail - commentList 배치 */
+.box-content {
+  overflow: auto;
+  width: 320px;
+  margin: auto 20px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  height: 100%;
+  min-height: 270px;
+  max-height: 270px;
+}
+.box-comment-column {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.box-comment-row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.box-comment-row-right {
+  margin-left: 48px;
+}
+
+.box-comment-btn-row {
+  display: flex;
+  align-items: center;
+}
+.box-comment-btn-left {
+  display: flex;
+  text-align: center;
+  margin: 4px;
+}
+.box-comment-btn-right {
+  display: flex;
+  text-align: center;
+  justify-content: right;
+  margin: 4px;
+}
+/* 댓글 배경 이미지 */
+.comment-background-menu-author {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 10px;
+  background-image: url(../image/chat/chat-menu-author.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-menu-commenter {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 12px;
+  background-image: url(../image/chat/chat-menu-commenter.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-style-author {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 10px;
+  background-image: url(../image/chat/chat-style-author.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-style-commenter {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 12px;
+  background-image: url(../image/chat/chat-style-commenter.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-location-author {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 10px;
+  background-image: url(../image/chat/chat-location-author.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-location-commenter {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 12px;
+  background-image: url(../image/chat/chat-location-commenter.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+
+.box-comment-text {
+  display: flex;
+  text-align: left;
+  padding: 4px;
+}
+
+.comment-profile-box {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+}
+.comment-profile-image {
+  width: 30px;
+  height: 30px;
+}
+.comment-profile-name {
+  display: flex;
+  text-align: center;
+}
+
 /* profile 이미지 배치 */
 .profile-image-box {
   display: flex;
@@ -550,17 +712,90 @@
 }
 .profile-image-box-small {
   display: flex;
+  align-self: baseline;
 }
 .profile-image-small {
   width: 50px;
   height: 50px;
 }
 
-/* chat 이미지 배치 */
-.food-image {
+/* chat 배치 */
+/* 채팅 박스 */
+.box-chat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+.box-chat-btn {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin: 4px;
+}
+.box-chat-background-moleu {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 24px;
+  background-image: url(../image/chat/chat-common-border-light.png);
+  background-size: 100% 100%;
+  width: 270px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-background-moleu-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 25px;
+  background-image: url(../image/chat/box-common-border-light.png);
+  background-size: 100% 100%;
+  width: 270px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-text {
+  display: flex;
+  text-align: left;
+  padding: 4px;
+}
+
+/* food 이미지 배치 */
+.box-chat-image {
+  padding: 10px;
+}
+.menu-image {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  filter: opacity(0.7) drop-shadow(0 0 0 rgb(221, 162, 95));
+}
+.style-image {
+  width: 200px;
+  height: 80px;
+  margin: 10px;
+}
+.style-text {
+  display: flex;
+  text-align: center;
+  padding: 4px;
+  width: 200px;
+  height: 20px;
+}
+.location-image {
   width: 80px;
   height: 80px;
+  margin: 10px;
 }
+.location-text {
+  display: flex;
+  text-align: center;
+  padding: 4px;
+  width: 80px;
+  height: 50px;
+}
+
 /* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
 a {
   text-decoration: none;
@@ -599,6 +834,32 @@ a {
   /* location */
   .bgd-location {
     background-image: url(../image/background/green.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* sunnyday */
+  .bgd-sunnyday {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../image/background/sunnyday.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* rainyday */
+  .bgd-rainyday {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../image/background/rainyday.png);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;

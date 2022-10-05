@@ -19,12 +19,31 @@
           type="text"
           id="name"
           style="font-size: 16px; border-radius: 10px"
-          v-model="name"
+          v-model="user.name"
           placeholder="닉네임"
         />
       </div>
       <div class="box-btn-right">
-        <div id="checkNickname" class="btn-rectangle-short blue-2 text-h4">
+        <div
+          class="text-discription text-h5 blue-4-text"
+          v-if="!data.checkNameResult && data.nameCheckClicked"
+        >
+          사용 가능한 닉네임입니다.
+        </div>
+        <div
+          class="text-discription text-h5 red-text"
+          v-if="data.checkNameResult && data.nameCheckClicked"
+        >
+          사용 불가능한 닉네임입니다.
+        </div>
+        <div
+          id="checkNickname"
+          class="btn-rectangle-short blue-2 text-h4"
+          @click="
+            checkName();
+            data.nameCheckClicked = true;
+          "
+        >
           중복 체크
         </div>
       </div>
@@ -35,12 +54,39 @@
           type="email"
           id="email"
           style="font-size: 16px; border-radius: 10px"
-          v-model="email"
+          v-model="user.email"
           placeholder="이메일"
         />
       </div>
+      <div class="box-btn-right" v-if="valid.email">
+        <div class="text-h5 red-text">이메일 형식이 올바르지 않습니다.</div>
+      </div>
       <div class="box-btn-right">
-        <div id="checkEmail" class="btn-rectangle-short blue-2 text-h4">
+        <div
+          class="text-discription text-h5 blue-4-text"
+          v-if="
+            !valid.email && !data.checkEmailResult && data.emailCheckClicked
+          "
+        >
+          사용 가능한 이메일입니다.
+        </div>
+        <div
+          class="text-discription text-h5 red-text"
+          v-if="
+            (valid.email && data.emailCheckClicked) ||
+            (data.checkEmailResult && data.emailCheckClicked)
+          "
+        >
+          사용 불가능한 이메일입니다.
+        </div>
+        <div
+          id="checkEmail"
+          class="btn-rectangle-short blue-2 text-h4"
+          @click="
+            checkEmail();
+            data.emailCheckClicked = true;
+          "
+        >
           중복 체크
         </div>
       </div>
@@ -51,9 +97,14 @@
           type="password"
           id="password"
           style="font-size: 16px; border-radius: 10px"
-          v-model="password"
+          v-model="data.password"
           placeholder="비밀번호"
         />
+      </div>
+      <div class="box-btn-right" v-if="valid.password">
+        <div class="text-h5 red-text">
+          영문, 숫자, 특수문자를 조합하여 입력해주세요.(8~16자).
+        </div>
       </div>
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">Password</div>
@@ -62,25 +113,27 @@
           type="password"
           id="confirmPassword"
           style="font-size: 16px; border-radius: 10px"
-          v-model="confirmPassword"
+          v-model="data.confirmPassword"
           placeholder="비밀번호 확인"
         />
       </div>
-      <!-- TODO: v-if로 처리 필요 -->
-      <!-- <div class="box-btn-right">
-        <div class="text-h4 red-text">입력한 비밀번호가 다릅니다.</div>
-      </div> -->
+      <div
+        class="box-btn-right"
+        v-if="!valid.password && user.confirmPassword != 0 && !checkPassword()"
+      >
+        <div class="text-h5 red-text">입력한 비밀번호가 다릅니다.</div>
+      </div>
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">거주지</div>
         <div class="input-align-right">
-          <select class="sb-rectangle-short">
-            <option selected disabled value="">거주지</option>
+          <select class="sb-rectangle-short" v-model="user.districtId">
+            <option selected disabled value="0">거주지</option>
             <option
-              v-for="(location, index) in Location"
+              v-for="(value, index) in locations"
               :key="index"
-              :value="location.value"
+              :value="index + 1"
             >
-              {{ location.text }}
+              {{ locations[index] }}
             </option>
           </select>
         </div>
@@ -88,14 +141,10 @@
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">성별</div>
         <div class="input-align-right">
-          <select class="sb-rectangle-short">
+          <select class="sb-rectangle-short" v-model="user.gender">
             <option selected disabled value="">성별</option>
-            <option
-              v-for="(gender, index) in Gender"
-              :key="index"
-              :value="gender.value"
-            >
-              {{ gender.text }}
+            <option v-for="(value, key) in genders" :key="key" :value="value">
+              {{ key }}
             </option>
           </select>
         </div>
@@ -103,10 +152,10 @@
       <div class="box-row input-rectangle-long white blue-3-border">
         <div class="text-h3">연령대</div>
         <div class="input-align-right">
-          <select class="sb-rectangle-short">
-            <option selected disabled value="">연령대</option>
-            <option v-for="(age, index) in Age" :key="index" :value="age.value">
-              {{ age.text }}
+          <select class="sb-rectangle-short" v-model="user.age">
+            <option selected disabled value="0">연령대</option>
+            <option v-for="(value, key) in ages" :key="key" :value="value">
+              {{ key }}
             </option>
           </select>
         </div>
@@ -116,7 +165,7 @@
     <div class="box-btn-right">
       <div
         class="btn-rectangle-medium blue-2"
-        @click="regist(), (data.isShow = true)"
+        @click="confirm(), (data.isShow = true)"
       >
         회원가입
       </div>
@@ -127,6 +176,12 @@
 
 <script>
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+import { locations, ages, genders } from "@/const/const.js";
+import {
+  regist,
+  checkEmailDuplication,
+  checkNameDuplication,
+} from "@/api/user";
 export default {
   components: {
     VueConfirmDialog,
@@ -134,165 +189,141 @@ export default {
 
   data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-
+      user: {
+        name: "",
+        email: "",
+        password: "",
+        districtId: 0,
+        gender: "",
+        age: 0,
+      },
+      valid: {
+        email: false,
+        password: false,
+      },
+      ages: { ...ages },
+      locations: locations,
+      genders: { ...genders },
       data: {
+        password: "",
+        confirmPassword: "",
+        checkEmailResult: false,
+        checkNameResult: false,
+        emailCheckClicked: false,
+        nameCheckClicked: false,
         isShow: false,
         title: "회원가입이 완료되었습니다.",
         message:
           "사이트에 가입하신걸 축하드립니다! 메인페이지로 가셔서 로그인을 하고 사이트를 즐겨보세요!",
         yes: "확인",
       },
-      Gender: [
-        {
-          value: "M",
-          text: "남자",
-        },
-        {
-          value: "F",
-          text: "여자",
-        },
-      ],
-      Age: [
-        {
-          value: 1,
-          text: "10대",
-        },
-        {
-          value: 2,
-          text: "20대",
-        },
-        {
-          value: 3,
-          text: "30대",
-        },
-        {
-          value: 4,
-          text: "40대",
-        },
-        {
-          value: 5,
-          text: "50대",
-        },
-        {
-          value: 6,
-          text: "60대",
-        },
-      ],
-      Location: [
-        {
-          value: 1,
-          text: "서울시 강남구",
-        },
-        {
-          value: 2,
-          text: "서울시 강동구",
-        },
-        {
-          value: 3,
-          text: "서울시 강북구",
-        },
-        {
-          value: 4,
-          text: "서울시 강서구",
-        },
-        {
-          value: 5,
-          text: "서울시 관악구",
-        },
-        {
-          value: 6,
-          text: "서울시 광진구",
-        },
-        {
-          value: 7,
-          text: "서울시 구로구",
-        },
-        {
-          value: 8,
-          text: "서울시 금천구",
-        },
-        {
-          value: 9,
-          text: "서울시 노원구",
-        },
-        {
-          value: 10,
-          text: "서울시 도봉구",
-        },
-        {
-          value: 11,
-          text: "서울시 동대문구",
-        },
-        {
-          value: 12,
-          text: "서울시 동작구",
-        },
-        {
-          value: 13,
-          text: "서울시 마포구",
-        },
-        {
-          value: 14,
-          text: "서울시 서대문구",
-        },
-        {
-          value: 15,
-          text: "서울시 서초구",
-        },
-        {
-          value: 16,
-          text: "서울시 성동구",
-        },
-        {
-          value: 17,
-          text: "서울시 성북구",
-        },
-        {
-          value: 18,
-          text: "서울시 송파구",
-        },
-        {
-          value: 19,
-          text: "서울시 양천구",
-        },
-        {
-          value: 20,
-          text: "서울시 영등포구",
-        },
-        {
-          value: 21,
-          text: "서울시 용산구",
-        },
-        {
-          value: 22,
-          text: "서울시 은평구",
-        },
-        {
-          value: 23,
-          text: "서울시 종로구",
-        },
-        {
-          value: 24,
-          text: "서울시 중구",
-        },
-        {
-          value: 25,
-          text: "서울시 중랑구",
-        },
-      ],
     };
   },
   methods: {
-    regist() {
-      // TODO: 회원가입 api 호출
-      // userLogin으로 이동
+    confirm() {
+      if (
+        this.data.checkNameResult ||
+        this.data.checkEmailResult ||
+        !this.checkPassword() ||
+        this.user.name == "" ||
+        this.user.email == "" ||
+        this.user.password == ""
+      ) {
+        console.log("회원가입 안돼!!!");
+        return;
+      }
+      regist(
+        this.user,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    checkEmail() {
+      if (this.user.email == "") {
+        this.data.checkEmailResult = true;
+        return;
+      }
+      checkEmailDuplication(
+        this.user.email,
+        (response) => {
+          console.log(response.data);
+          this.data.checkEmailResult = response.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    checkName() {
+      if (this.user.name == "") {
+        this.data.checkNameResult = true;
+        return;
+      }
+      checkNameDuplication(
+        this.user.name,
+        (response) => {
+          console.log(response.data);
+          this.data.checkNameResult = response.data;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    checkPassword() {
+      if (this.data.password === this.data.confirmPassword) {
+        this.user.password = this.data.confirmPassword;
+        return true;
+      }
+      return false;
+    },
+    confirmEmail() {
+      const validateEmail =
+        /^[A-Za-z0-9_\\.\\-]+@[A-Za-z0-9\\-]+\.[A-Za-z0-9\\-]+/;
+      if (!validateEmail.test(this.user.email)) {
+        this.valid.email = true;
+        return;
+      }
+      this.valid.email = false;
+    },
+    confirmPassword() {
+      const validatePassword =
+        /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+      if (!validatePassword.test(this.data.password)) {
+        this.valid.password = true;
+        return;
+      }
+      this.valid.password = false;
+    },
+    movePage() {
+      this.$router.push({ name: "userLogin" });
+    },
+  },
+  computed: {
+    email() {
+      return this.user.email;
+    },
+    password() {
+      return this.data.password;
+    },
+  },
+  watch: {
+    email() {
+      this.confirmEmail();
+    },
+    password() {
+      this.confirmPassword();
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-discription {
+  margin: 7px;
+}
+</style>

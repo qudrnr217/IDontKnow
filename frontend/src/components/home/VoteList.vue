@@ -399,7 +399,7 @@ export default {
 
 <style scoped>
 .body {
-  /* height: 100vh; */
+  height: 105vh;
 }
 /* 트랜드 */
 
