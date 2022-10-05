@@ -317,6 +317,7 @@ export default {
 
 <style scoped>
 .body {
-  height: 110vh;
+  height: 103vh;
+  padding-bottom: 73px;
 }
 </style>

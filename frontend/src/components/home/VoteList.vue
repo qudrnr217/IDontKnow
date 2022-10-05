@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div>
     <div class="box-row-left">
       <div class="text-title text-h1">모두에게 물어봐</div>
       <select
@@ -94,9 +94,15 @@
       </div>
 
       <div>
-        <div class="vote-list" v-for="(vote, index) in vote_list" :key="index">
+        <div class="vote-list">
           <!-- v-for="vote in voteList" :key="vote.voteId"  -->
-          <div class="vote-card" @click="detailCard" :value="`${vote.voteId}`">
+          <div
+            class="vote-card"
+            v-for="(vote, index) in vote_list"
+            :key="index"
+            @click="detailCard"
+            :value="`${vote.voteId}`"
+          >
             <div
               class="vote-title-box"
               @click="detailCard"
@@ -398,9 +404,6 @@ export default {
 </script>
 
 <style scoped>
-.body {
-  height: 105vh;
-}
 /* 트랜드 */
 
 /* .slide {

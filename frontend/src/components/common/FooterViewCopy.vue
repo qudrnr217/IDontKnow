@@ -54,7 +54,7 @@ export default {
       activated: this.click,
     };
   },
-  created() {
+  mounted() {
     if (this.$store.state.started === 1) {
       const currPath = this.$route.path;
       if (currPath.includes("chat")) {
@@ -63,6 +63,8 @@ export default {
         this.activated = 3;
       } else if (currPath.includes("profile")) {
         this.activated = 4;
+      } else if (currPath.includes("home")) {
+        this.activated = 1;
       } else {
         this.activated = 1;
       }
@@ -103,7 +105,7 @@ export default {
           }
         } else {
           this.$router.push({
-            name: "record",
+            name: "recordList",
             path: "/record/user",
             params: { userId: this.$store.state.userStore.userId },
           });
