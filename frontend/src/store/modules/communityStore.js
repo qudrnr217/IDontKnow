@@ -4,7 +4,7 @@ const communityStore = {
   namespaced: true,
   state: {
     vote_list: [],
-    select: "",
+    select: 0,
     acount: 0,
     bcount: 0,
     vote_detail: [],
@@ -29,7 +29,7 @@ const communityStore = {
     },
     SET_SELECT: (state, select) => {
       state.select = select;
-      console.log(select);
+      console.log("여기는 셀렉트: " + select);
     },
     SET_COUNT: (state, acount, bcount) => {
       state.acount = acount;
@@ -53,9 +53,11 @@ const communityStore = {
         console.log(data);
       });
     },
-    SHOW_VOTE_LIST: ({ commit }, { params, token }) => {
-      return showVoteList(token, params, ({ data }) => {
+    SHOW_VOTE_LIST: ({ commit }, { params }) => {
+      console.log(params);
+      return showVoteList(params, ({ data }) => {
         // console.log(commit);
+        // console.log("안녕하세요");
         console.log(data);
         commit("SET_VOTE_LIST", data);
       });
