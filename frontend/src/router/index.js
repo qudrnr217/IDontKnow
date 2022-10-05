@@ -20,7 +20,7 @@ import UserRegist from "../components/profile/UserRegist.vue";
 import ChatView from "../views/ChatView.vue";
 // record
 import RecordView from "../views/RecordView.vue";
-
+import RecordList from "../components/record/RecordList.vue";
 Vue.use(VueRouter);
 
 const routes = [
@@ -107,13 +107,18 @@ const routes = [
     path: "/chat",
     name: "chat",
     component: ChatView,
-    // TODO : 컴포넌트로 변경 필요
   },
   {
     path: "/record",
     name: "record",
     component: RecordView,
-    // TODO : 컴포넌트로 변경 필요
+    children: [
+      {
+        path: "user/:userId",
+        name: "recordList",
+        component: RecordList,
+      },
+    ],
   },
 ];
 

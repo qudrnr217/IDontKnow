@@ -1,16 +1,21 @@
 <template>
-  <div class="background">
+  <div class="background bgd-common">
     <div class="body">
-      <router-view />
+      <record-list />
     </div>
   </div>
 </template>
 
 <script>
+import RecordList from "../components/record/RecordList.vue";
 export default {
-  props: ["userId"],
-  components: {},
+  name: "RecordView",
+  components: { RecordList },
 };
 </script>
 
-<style></style>
+<style scoped>
+.body {
+  height: 101vh;
+}
+</style>
