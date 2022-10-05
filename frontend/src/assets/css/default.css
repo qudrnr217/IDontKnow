@@ -416,6 +416,7 @@
   padding: 8px;
 }
 .input-align-right {
+  width: 150px;
   border: none;
   text-align: right;
 }
