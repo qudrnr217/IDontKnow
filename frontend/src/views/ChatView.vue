@@ -33,7 +33,7 @@
             <img class="profile-image-small" src="@/assets/image/김모르.png" />
           </div>
           <div class="box-chat-background-moleu-info">
-            <div class="box-chat-text text-chat">
+            <div class="box-chat-text text-chat" style="display: block">
               안녕 나는 김모르 ! <br />
               지금부터 너의 고민을 함께 할거야 ~ <br />
               메뉴는 36만 건의 배달 빅데이터를<br />
@@ -44,24 +44,7 @@
               마지막으로, 장소는<br />
               서울시 실시간 도시 데이터 api를 통해<br />
               현재 사람들이 많이 찾는 인기 장소를 추천해줄거야 ! <br />
-            </div>
-          </div>
-        </div>
-
-        <div class="box-row" v-if="isOpened">
-          <div class="profile-image-box-small">
-            <img class="profile-image-small" src="@/assets/image/김모르.png" />
-          </div>
-          <div class="box-chat-background-moleu-info">
-            <div class="box-chat-cc-text text-chat">
-              본 저작물은 '기상청'에서 '2022년'작성하여 공공누리 제1유형으로
-              개방한 '기상청_단기예보 ((구)_동네예보)
-              조회서비스(작성자:기상청)'을 이용하였으며, 해당 저작물은
-              <a
-                href="https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15084084"
-                >'공공데이터포털'</a
-              >
-              에서 무료로 다운받으실 수 있습니다.
+              <router-link to="/licenses">[저작자/출처 표시]</router-link>
             </div>
           </div>
         </div>

@@ -20,6 +20,8 @@ import UserRegist from "../components/profile/UserRegist.vue";
 import ChatView from "../views/ChatView.vue";
 // record
 import RecordView from "../views/RecordView.vue";
+// licence
+import LicenseView from "../views/LicenseView.vue";
 
 Vue.use(VueRouter);
 
@@ -114,6 +116,12 @@ const routes = [
     name: "record",
     component: RecordView,
     // TODO : 컴포넌트로 변경 필요
+  },
+
+  {
+    path: "/licenses",
+    name: "licenses",
+    component: LicenseView,
   },
 ];
 
