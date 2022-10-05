@@ -23,6 +23,9 @@ export default {
     age: Number,
     gender: String,
     location: Number,
+    category: String,
+    optionA: String,
+    optionB: String,
   },
   mounted() {
     var token =
@@ -68,15 +71,39 @@ export default {
     return {
       series: [50, 50],
       chartOptions: {
-        colors: ["#7B61FF", "#FF9500"],
+        colors: [
+          function ({ category }) {
+            if (category === "메뉴") {
+              return "#FD6F22";
+            } else if (category === "스타일") {
+              return "#692498";
+            } else {
+              return "#568A35";
+            }
+          },
+          function ({ category }) {
+            if (category === "메뉴") {
+              return "#FD9F28";
+            } else if (category === "스타일") {
+              return "#9A30AE";
+            } else {
+              return "#7DB249";
+            }
+          },
+        ],
         chart: {
           width: 300,
           type: "pie",
+          fontFamily: "ONEMobileTitle",
+          legend: {
+            horizontalAlign: "center",
+            floating: false,
+          },
         },
         labels: ["Team A", "Team B"],
         responsive: [
           {
-            breakpoint: 250,
+            breakpoint: 1500,
             options: {
               chart: {
                 width: 200,
