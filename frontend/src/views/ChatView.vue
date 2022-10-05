@@ -197,7 +197,10 @@
                   </div>
                 </div>
                 <div class="box-chat-row" style="margin-left: 26px">
-                  <div class="box-chat-row style-text text-h5">
+                  <div
+                    class="box-chat-row style-text text-h5"
+                    style="justify-content: center"
+                  >
                     메뉴를 클릭해봐 ! 근처 맛집을 찾아줄게 ~
                   </div>
                 </div>
@@ -246,7 +249,10 @@
             </div>
             <div class="box-chat-background-moleu-info">
               <div class="box-chat-row">
-                <div class="box-chat-image box-align-center">
+                <div
+                  class="box-chat-image box-align-center"
+                  @click="findRoute(bestHotspots.placeA)"
+                >
                   <div class="box-chat-row">
                     <img
                       :src="
@@ -261,7 +267,10 @@
                     {{ bestHotspots.placeA }}
                   </div>
                 </div>
-                <div class="box-chat-image box-align-center">
+                <div
+                  class="box-chat-image box-align-center"
+                  @click="findRoute(bestHotspots.placeB)"
+                >
                   <div class="box-chat-row">
                     <img
                       :src="
@@ -330,6 +339,7 @@
 </template>
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
+import { locationIds } from "@/const/const";
 import KakaoMap from "@/components/chat/KakaoMap.vue";
 export default {
   components: {
@@ -363,6 +373,10 @@ export default {
       } else {
         this.category = "";
       }
+    },
+    findRoute(placeName) {
+      console.log(placeName);
+      location.href = `https://map.kakao.com/link/to/${locationIds[placeName]}`;
     },
     clickMenu(menuName) {
       this.clickedMenu = menuName;
