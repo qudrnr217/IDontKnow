@@ -2,7 +2,6 @@
   <div id="chart">
     <apex-chart
       type="pie"
-      width="300"
       :options="chartOptions"
       :series="series"
       class="donut"
@@ -18,13 +17,19 @@ export default {
       series: [50, 50],
       chartOptions: {
         chart: {
-          width: 380,
+          width: 200,
           type: "pie",
+          fontFamily: "ONEMobileTitle",
+          legend: {
+            horizontalAlign: "center",
+            floating: false,
+          },
         },
         labels: ["맞춘 확률", "틀린 확률"],
+        colors: ["#58CCFF", "#B8E9FF"],
         responsive: [
           {
-            breakpoint: 480,
+            breakpoint: 1500,
             options: {
               chart: {
                 width: 200,
