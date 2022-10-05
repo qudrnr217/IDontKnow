@@ -322,7 +322,6 @@
         }"
       >
         <!-- 댓글 구현 필요 -->
-        <!-- <div class="vote-percent-bar">댓글이 나오도록 변경 필요 ! :value="`${comment.commentId}`"</div> -->
         <div class="box-comment-column">
           <div
             class="box-comment-row"
