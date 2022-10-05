@@ -242,4 +242,7 @@ export default {
 .btn-rectangle-small {
   margin-left: 10px;
 }
+.btn-rectangle-long {
+  float: right;
+}
 </style>
