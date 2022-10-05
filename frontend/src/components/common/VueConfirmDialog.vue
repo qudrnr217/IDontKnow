@@ -65,6 +65,7 @@ import {
   nonparticipateVote,
   changVoteStatus,
 } from "@/api/community.js";
+import { resetPassword } from "@/api/user.js";
 import { mapMutations } from "vuex";
 
 Vue.directive("focus", {
@@ -117,7 +118,7 @@ const Component = {
       //api사용
       console.log("안녕?:" + this.data.mode);
       var token =
-        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg2OTg2MH0.y9JdmDtUWCK51a_QlwZodeNwwAg7sa7IXQzVc_VgD1LSzP02FfTqs06LBvBdVrCc";
+        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU4NDQwfQ.zevo64PasEuPNiBQAaI0Fs-ZKZjlCb7catVf4AQnfTd-0vmJqbRU_rUQrJUxgGip";
 
       if (this.data.mode == "1") {
         //투표하기
@@ -148,13 +149,16 @@ const Component = {
           console.log("마감:" + data);
           this.$router.go();
         });
+      } else if (this.data.mode == "4") {
+        this.sendEmail();
       }
     },
     handleClickButton({ target }, confirm) {
+      this.data.isShow = false;
+      // this.data.dialog = false;
       if (target.id == "vueConfirm") return;
 
       if (confirm && this.dialog.auth && !this.password) return;
-      this.data.isShow = false;
 
       // this.$emit("change_show", (this.show1 = false), (this.show2 = false));
 
@@ -192,17 +196,28 @@ const Component = {
         }
       });
     },
-    // sendEmail() {
-    //   resetPassword(
-    //     this.info.email,
-    //     (response) => {
-    //       console.log(response.data);
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
+    sendEmail() {
+      console.log("이메일 전송!!");
+      resetPassword(
+        this.info,
+        (response) => {
+          console.log(response.data);
+        },
+        (error) => {
+          console.log(error);
+          console.log("비밀번호 재설정 못하빈다");
+          setTimeout(() => {
+            this.data.dialog = false;
+            this.data.isShow = true;
+            this.data.title = "ㅎㅇㅎㅇ";
+            this.data.message = "111";
+            this.data.no = "";
+            this.data.yes = "확인";
+            this.data.mode = "6";
+          }, 500);
+        }
+      );
+    },
   },
   mounted() {
     if (!document) return;

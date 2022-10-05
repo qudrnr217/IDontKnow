@@ -185,7 +185,7 @@ export default {
       this.REGIST_VOTE({
         info: this.info,
         token:
-          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg2OTg2MH0.y9JdmDtUWCK51a_QlwZodeNwwAg7sa7IXQzVc_VgD1LSzP02FfTqs06LBvBdVrCc",
+          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D",
       });
       console.log(this.info.category);
       this.$router.push({

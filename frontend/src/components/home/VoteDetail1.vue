@@ -220,9 +220,9 @@
         </div>
       </div>
 
-      <div class="box-align-center">
+      <div class="box-align-center1">
         <div
-          class="vote-percent-bar"
+          class="vote-percent-bar1"
           :class="{
             'yellow-2': vote.category === '메뉴',
             'purple-2': vote.category === '스타일',
@@ -230,9 +230,9 @@
           }"
         ></div>
       </div>
-      <div class="box-align-center">
+      <div class="box-align-center1">
         <div
-          class="vote-percent-bar"
+          class="vote-percent-bar2"
           :class="{
             'yellow-4': vote.category === '메뉴',
             'purple-4': vote.category === '스타일',
@@ -348,6 +348,7 @@
       </div>
     </div>
     <!-- 댓글 -->
+    <!-- 댓글 -->
     <div class="box-column">
       <div class="box-row">
         <div
@@ -371,34 +372,179 @@
         }"
       >
         <!-- 댓글 구현 필요 -->
-        <!-- <div class="vote-percent-bar">댓글이 나오도록 변경 필요 !</div> -->
+        <div class="box-comment-column">
+          <div
+            class="box-comment-row"
+            v-for="comment in vote.commentList"
+            :key="comment.commentId"
+          >
+            <div
+              v-if="comment.checkAuthor"
+              class="box-row box-comment-row-right"
+            >
+              <div class="box-comment-column">
+                <div class="box-comment-row text-h5">
+                  {{ comment.createdAt }}
+                </div>
+                <div
+                  class="box-comment-row text-align-left text-h4"
+                  :class="{
+                    'comment-background-menu-author': vote.category === '메뉴',
+                    'comment-background-style-author':
+                      vote.category === '스타일',
+                    'comment-background-location-author':
+                      vote.category === '장소',
+                  }"
+                >
+                  <div class="box-comment-text">{{ comment.content }}</div>
+                </div>
+                <div class="box-comment-btn-row box-comment-btn-left">
+                  <div
+                    class="btn-rectangle-tiny red-text text-h5"
+                    @click="updateComment(comment.commendId)"
+                    :value="`${comment.commentId}`"
+                  >
+                    수정
+                  </div>
+                  <div
+                    class="btn-rectangle-tiny text-h5"
+                    @click="deleteComment(comment.commentId)"
+                    :value="`${comment.commentId}`"
+                  >
+                    삭제
+                  </div>
+                </div>
+              </div>
+              <div class="box-comment-column comment-profile-box">
+                <div class="box-comment-row">
+                  <img
+                    class="comment-profile-image"
+                    src="../../assets/image/김게따.png"
+                    alt="작성자"
+                  />
+                </div>
+                <div
+                  class="box-comment-row comment-profile-name text-align-center text-h5"
+                >
+                  <router-link :to="`/record/user/${comment.userId}`">
+                    {{ comment.name }}
+                  </router-link>
+                </div>
+              </div>
+            </div>
+            <div v-else class="box-row">
+              <div
+                class="box-comment-column comment-profile-box"
+                style="margin: 5px"
+              >
+                <div class="box-comment-row">
+                  <img
+                    class="comment-profile-image"
+                    src="../../assets/image/김모르.png"
+                    alt="참여자"
+                  />
+                </div>
+                <div
+                  class="box-comment-row comment-profile-name text-align-center text-h5"
+                >
+                  <router-link :to="`/record/user/${comment.userId}`">
+                    {{ comment.name }}</router-link
+                  >
+                </div>
+              </div>
+              <div class="box-comment-column">
+                <div class="box-comment-row text-h5" style="margin-left: 90px">
+                  {{ comment.createdAt }}
+                </div>
+                <div
+                  class="box-comment-row text-align-left text-h4"
+                  :class="{
+                    'comment-background-menu-commenter':
+                      vote.category === '메뉴',
+                    'comment-background-style-commenter':
+                      vote.category === '스타일',
+                    'comment-background-location-commenter':
+                      vote.category === '장소',
+                  }"
+                >
+                  <!-- TODO: 수정 버튼 클릭 시 해당 댓글 바꾸는 처리 필요 -->
+                  <div v-if="isUpdated" class="box-comment-text">
+                    <input
+                      type="text"
+                      v-model="commentForUpdate"
+                      style="border: none"
+                    />
+                  </div>
+                  <div class="box-comment-text">
+                    {{ comment.content }}
+                  </div>
+                </div>
+                <div class="box-comment-btn-row box-comment-btn-right">
+                  <div
+                    class="btn-rectangle-tiny red-text text-h5"
+                    @click="updateComment(comment.commentId)"
+                    :value="`${comment.commentId}`"
+                  >
+                    수정
+                  </div>
+                  <div
+                    class="btn-rectangle-tiny text-h5"
+                    @click="deleteComment(comment.commentId)"
+                    :value="`${comment.commentId}`"
+                  >
+                    삭제
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="box-row">
+        <div style="margin: 5px">
+          <img
+            v-if="this.$store.state.userStore.userId === this.vote.userId"
+            class="comment-profile-image"
+            src="../../assets/image/김게따.png"
+            alt=""
+          />
+          <img
+            v-else
+            class="comment-profile-image"
+            src="../../assets/image/김모르.png"
+            alt=""
+          />
+        </div>
         <input
           type="text"
-          class="vote-percent-bar"
-          placeholder="댓글을 작성하세요"
           v-model="comment"
-          @keyup.enter="registComment"
+          class="input-rectangle-short text-h4"
+          :class="{
+            'yellow-2-border': vote.category === '메뉴',
+            'purple-2-border': vote.category === '스타일',
+            'green-2-border': vote.category === '장소',
+          }"
+          placeholder="댓글을 입력해주세요."
         />
-
-        <!-- <div class="comment-input">
-          <img src="../../assets/icon/avatar.png" alt="" />
-          <input type="text" class="comment-box" />
-          <img src="../../assets/icon/send.png" alt="" class="send-btn" />
-        </div> -->
+        <img
+          src="../../assets/icon/send.png"
+          alt="전송"
+          @click="sendComment()"
+        />
       </div>
-      <div class="comment"><vote-comment-list /></div>
     </div>
   </div>
 </template>
 <script>
 // import VoteBarChart from "./VoteBarChart.vue";
-import VoteCommentList from "./VoteCommentList.vue";
+// import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import { mapMutations } from "vuex";
 import PieChartView from "../community/PieChartVIew.vue";
-import { detailVote, commentCreate } from "@/api/community.js";
+import { detailVote, commentCreate, commentDelete } from "@/api/community.js";
+// import VoteChat from "./VoteChat.vue";
 var token =
-  "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTM0MTQ3fQ.qwUBEo_m9h_w5VWVtAtUtJdIH_uDa0h4ysMV5cxZZ-Nkrq2EPZYjAEhPhnSDhZ4i";
+  "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTc5NTQzfQ.BnfmhBww9dP30lelInJg5gt6E54nGpHLC1uzwcSzd3knsEIUJvRD2cmhJZ-uPB7E";
 export default {
   name: "VoteDetail",
   // props: {
@@ -408,7 +554,8 @@ export default {
     // VoteBarChart,
     VueConfirmDialog,
     PieChartView,
-    VoteCommentList,
+    // VoteChat,
+    // VoteCommentList,
   },
   computed: {
     checkStatus() {
@@ -417,14 +564,16 @@ export default {
   },
   mounted() {
     // console.log(this.$route.path);
-
+    console.log("안녕하세요");
     console.log(this.$route.params);
 
     detailVote(token, this.$route.params, ({ data }) => {
       console.log(data);
       this.vote = data;
+      this.$emit("pass", this.vote.category);
       console.log("vote: ", this.vote.category);
       console.log(this.$store.state.userStore.userId + ":" + this.vote.userId);
+
       if (this.vote.voted == "A") {
         this.clickedOption = 1;
       } else if (this.vote.voted == "B") {
@@ -433,6 +582,36 @@ export default {
         this.clickedOption = 0;
       }
       // this.set_vote_detail();
+
+      //프로그래스 바
+      const bar1 = document.querySelector(".vote-percent-bar1");
+      const bar2 = document.querySelector(".vote-percent-bar2");
+
+      let t1 = 0;
+      let t2 = 0;
+      let a = data.acount;
+      let b = data.bcount;
+      let totalMinwon = (a / (a + b)) * 100;
+      let resolveMinwon = (b / (a + b)) * 100;
+      if (a == 0 && b == 0) {
+        totalMinwon = 0;
+        resolveMinwon = 0;
+      } else if (a == 0) {
+        totalMinwon = 0;
+      } else if (b == 0) {
+        resolveMinwon = 0;
+      }
+      console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
+
+      const barAnimation1 = setInterval(() => {
+        bar1.style.width = t1 + "%";
+        t1++ >= totalMinwon && clearInterval(barAnimation1);
+      }, 10);
+
+      const barAnimation2 = setInterval(() => {
+        bar2.style.width = t2 + "%";
+        t2++ >= resolveMinwon && clearInterval(barAnimation2);
+      }, 10);
     });
   },
   data() {
@@ -447,6 +626,7 @@ export default {
       genderOption: "F",
       genderOptionList: ["F", "M"],
       comment: "",
+      isUpdated: false,
 
       vote: [],
       ballotId: 0,
@@ -545,9 +725,23 @@ export default {
       this.SET_VOTE_DETAIL(this.vote);
       console.log("인포: ", this.vote);
     },
-    registComment() {
+    sendComment() {
       var params = { voteId: this.vote.voteId, content: this.comment };
       commentCreate(token, params, ({ data }) => {
+        console.log("sendComment: " + data);
+        this.$router.go();
+      });
+    },
+    updateComment(commentId) {
+      console.log(commentId);
+      //   commentModify(token, commentId, ({ data }) => {
+      //     console.log(data);
+      //   });
+
+      this.isUpdated = true;
+    },
+    deleteComment(commentId) {
+      commentDelete(token, commentId, ({ data }) => {
         console.log(data);
         this.$router.go();
       });
@@ -555,7 +749,8 @@ export default {
   },
   created() {
     // vote 값을 this.$route.params.voteId로 api 호출
-    this.$emit("pass", this.vote.category);
+
+    console.log("배경 카테고리 : " + this.vote.category);
     if (this.vote.result === null) {
       if (this.vote.voted === "A") {
         this.clickedOption = 1;
@@ -607,9 +802,17 @@ export default {
   right: 26px;
 }
 
-.vote-percent-bar {
-  outline: none;
-  border: none;
-  background: transparent;
+.box-align-center1 {
+  width: 280px;
+  margin-left: 20px;
+}
+
+.vote-percent-bar1,
+.vote-percent-bar2 {
+  width: 280px;
+  height: 30px;
+  /* background-color: #dedede; */
+  font-weight: 600;
+  font-size: 0.8rem;
 }
 </style>
