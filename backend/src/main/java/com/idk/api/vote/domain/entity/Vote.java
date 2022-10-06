@@ -97,11 +97,11 @@ public class Vote extends BaseEntity {
         return null;
     }
 
-    public void changeStatus(VoteRequest.ChangeStatus request) {
+    public void changeStatus(VoteRequest.ChangeStatus request, int countA, int countB) {
         this.status = request.isStatus();
-        if(this.aCount == this.bCount){
+        if(countA == countB){
             this.result = "E";
-        }else if(this.aCount > this.bCount){
+        }else if(countA > countB){
             this.result = "A";
         }else {
             this.result = "B";
