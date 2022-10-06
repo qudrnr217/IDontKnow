@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modu">
     <div class="box-row-left">
       <div class="text-title text-h1 blue-4-text">회원가입</div>
     </div>
