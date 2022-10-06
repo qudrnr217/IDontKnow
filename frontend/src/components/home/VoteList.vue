@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modu">
     <div class="box-row-left">
       <div class="text-title text-h1">모두에게 물어봐</div>
       <select
@@ -45,7 +45,6 @@
 
       <div class="box-row">
         <slider-chart :category="category" :key="reload" />
-        <!-- <div class="vote-percent-bar">인기투표가 나오도록 변경 필요 !</div> -->
       </div>
     </div>
     <div class="box-column">
@@ -93,17 +92,15 @@
         </select>
       </div>
 
-      <div>
-        <div class="vote-list">
-          <!-- v-for="vote in voteList" :key="vote.voteId"  -->
-          <div
-            class="vote-card"
-            v-for="(vote, index) in vote_list"
-            :key="index"
-            @click="detailCard"
-            :value="`${vote.voteId}`"
-            :style="{
-              backgroundImage: `linear-gradient(
+      <div class="vote-list">
+        <div
+          class="vote-card"
+          v-for="(vote, index) in vote_list"
+          :key="index"
+          @click="detailCard"
+          :value="`${vote.voteId}`"
+          :style="{
+            backgroundImage: `linear-gradient(
                 rgba(255, 255, 255, 0.5),
                 rgba(255, 255, 255, 0.5)
                 ), url(${require('@/assets/image/category/' +
@@ -111,135 +108,134 @@
                   '/' +
                   vote.subCategory.replace('/', '_') +
                   '.jpg')})`,
-            }"
+          }"
+        >
+          <div
+            class="vote-title-box"
+            @click="detailCard"
+            :value="`${vote.voteId}`"
           >
             <div
-              class="vote-title-box"
+              class="vote-title-text text-h3"
+              @click="detailCard"
+              :value="`${vote.voteId}`"
+            >
+              {{ vote.title }}
+            </div>
+          </div>
+          <div
+            class="vote-writer-box"
+            @click="detailCard"
+            :value="`${vote.voteId}`"
+          >
+            <div
+              class="vote-writer-text text-h4"
+              @click="detailCard"
+              :value="`${vote.voteId}`"
+            >
+              작성자 : {{ vote.name }}
+            </div>
+          </div>
+          <div
+            class="vote-options-box"
+            @click="detailCard"
+            :value="`${vote.voteId}`"
+          >
+            <div
+              class="vote-option-box"
+              :class="{
+                'yellow-2-border': category === '메뉴',
+                'purple-2-border': category === '스타일',
+                'green-2-border': category === '장소',
+              }"
               @click="detailCard"
               :value="`${vote.voteId}`"
             >
               <div
-                class="vote-title-text text-h3"
+                class="vote-option-text text-h4"
                 @click="detailCard"
                 :value="`${vote.voteId}`"
               >
-                {{ vote.title }}
+                {{ vote.optionA }}
+              </div>
+            </div>
+            <div class="vote-option-vs">vs</div>
+            <div
+              class="vote-option-box"
+              :class="{
+                'yellow-2-border': category === '메뉴',
+                'purple-2-border': category === '스타일',
+                'green-2-border': category === '장소',
+              }"
+              @click="detailCard"
+              :value="`${vote.voteId}`"
+            >
+              <div
+                class="vote-option-text text-h4"
+                @click="detailCard"
+                :value="`${vote.voteId}`"
+              >
+                {{ vote.optionB }}
+              </div>
+            </div>
+          </div>
+          <div
+            class="vote-info-box"
+            @click="detailCard"
+            :value="`${vote.voteId}`"
+          >
+            <div
+              class="vote-category-box"
+              @click="detailCard"
+              :value="`${vote.voteId}`"
+            >
+              <div
+                class="vote-category-main text-h5"
+                @click="detailCard"
+                :value="`${vote.voteId}`"
+              >
+                # {{ vote.category }}
+              </div>
+              <div
+                class="vote-category-sub text-h5"
+                @click="detailCard"
+                :value="`${vote.voteId}`"
+                id="sub-category"
+              >
+                # {{ vote.subCategory }}
               </div>
             </div>
             <div
-              class="vote-writer-box"
+              class="vote-count-box"
               @click="detailCard"
               :value="`${vote.voteId}`"
             >
               <div
-                class="vote-writer-text text-h4"
+                class="vote-view-box"
                 @click="detailCard"
                 :value="`${vote.voteId}`"
               >
-                작성자 : {{ vote.name }}
-              </div>
-            </div>
-            <div
-              class="vote-options-box"
-              @click="detailCard"
-              :value="`${vote.voteId}`"
-            >
-              <div
-                class="vote-option-box"
-                :class="{
-                  'yellow-2-border': category === '메뉴',
-                  'purple-2-border': category === '스타일',
-                  'green-2-border': category === '장소',
-                }"
-                @click="detailCard"
-                :value="`${vote.voteId}`"
-              >
-                <div
-                  class="vote-option-text text-h4"
-                  @click="detailCard"
-                  :value="`${vote.voteId}`"
-                >
-                  {{ vote.optionA }}
-                </div>
-              </div>
-              <div class="vote-option-vs">vs</div>
-              <div
-                class="vote-option-box"
-                :class="{
-                  'yellow-2-border': category === '메뉴',
-                  'purple-2-border': category === '스타일',
-                  'green-2-border': category === '장소',
-                }"
-                @click="detailCard"
-                :value="`${vote.voteId}`"
-              >
-                <div
-                  class="vote-option-text text-h4"
-                  @click="detailCard"
-                  :value="`${vote.voteId}`"
-                >
-                  {{ vote.optionB }}
-                </div>
-              </div>
-            </div>
-            <div
-              class="vote-info-box"
-              @click="detailCard"
-              :value="`${vote.voteId}`"
-            >
-              <div
-                class="vote-category-box"
-                @click="detailCard"
-                :value="`${vote.voteId}`"
-              >
-                <div
-                  class="vote-category-main text-h5"
-                  @click="detailCard"
-                  :value="`${vote.voteId}`"
-                >
-                  # {{ vote.category }}
-                </div>
-                <div
-                  class="vote-category-sub text-h5"
-                  @click="detailCard"
-                  :value="`${vote.voteId}`"
-                  id="sub-category"
-                >
-                  # {{ vote.subCategory }}
+                <img
+                  src="../../assets/icon/views.png"
+                  alt="조회"
+                  class="vote-btn-view"
+                />
+                <div class="text-h5">
+                  {{ vote.hitCount }}
                 </div>
               </div>
               <div
-                class="vote-count-box"
+                class="vote-comment-box"
                 @click="detailCard"
                 :value="`${vote.voteId}`"
               >
-                <div
-                  class="vote-view-box"
-                  @click="detailCard"
-                  :value="`${vote.voteId}`"
-                >
-                  <img
-                    src="../../assets/icon/views.png"
-                    alt="조회"
-                    class="vote-btn-view"
-                  />
-                  <div class="text-h5">
-                    {{ vote.hitCount }}
-                  </div>
-                </div>
-                <div
-                  class="vote-comment-box"
-                  @click="detailCard"
-                  :value="`${vote.voteId}`"
-                >
-                  <img
-                    src="../../assets/icon/chat.png"
-                    alt="댓글"
-                    class="vote-btn-comment"
-                  />
-                  <div class="text-h5">
-                    {{ vote.commentCount }}
-                  </div>
+                <img
+                  src="../../assets/icon/chat.png"
+                  alt="댓글"
+                  class="vote-btn-comment"
+                />
+                <div class="text-h5">
+                  {{ vote.commentCount }}
                 </div>
               </div>
             </div>

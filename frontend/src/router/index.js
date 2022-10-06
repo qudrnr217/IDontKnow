@@ -20,10 +20,9 @@ import UserRegist from "../components/profile/UserRegist.vue";
 import ChatView from "../views/ChatView.vue";
 // record
 import RecordView from "../views/RecordView.vue";
+import RecordList from "../components/record/RecordList.vue";
 // licence
 import LicenseView from "../views/LicenseView.vue";
-
-import RecordList from "../components/record/RecordList.vue";
 
 Vue.use(VueRouter);
 

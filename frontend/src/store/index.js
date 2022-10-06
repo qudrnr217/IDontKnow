@@ -5,7 +5,7 @@ import createPersistedState from "vuex-persistedstate";
 import chatStore from "@/store/modules/chatStore.js";
 import userStore from "@/store/modules/userStore.js";
 import communityStore from "./modules/communityStore";
-import recordStore from "./modules/recordStore";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -28,7 +28,6 @@ export default new Vuex.Store({
     chatStore,
     userStore,
     communityStore,
-    recordStore,
   },
   plugins: [
     createPersistedState({

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modu">
     <div class="box-row-left">
       <div class="text-title text-h1 blue-4-text">로그아웃</div>
     </div>
@@ -12,7 +12,7 @@
       <img class="profile-image" src="@/assets/image/김모르.png" />
     </div>
     <div class="box-column">
-      <div class="box-row">
+      <div class="box-align-center">
         <div
           class="btn-rectangle-big blue-0 text-h2 blue-4-text"
           @click="backToHome()"
