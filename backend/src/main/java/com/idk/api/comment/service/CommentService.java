@@ -52,6 +52,8 @@ public class CommentService {
     @Transactional
     public CommentResponse.OnlyId delete(Long commentId, User user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
+        Vote vote = voteRepository.findById(comment.getVote().getId()).orElseThrow(VoteNotFoundException::new);
+        vote.deleteComment();
         if(!Objects.equals(user.getId(), comment.getUser().getId())) throw new PermissionException();
         if(comment.getDeletedAt() != null) throw new CommentDeletedException();
         comment.delete(user.getRole().equals(Role.ADMIN));
