@@ -28,6 +28,7 @@ public class CommentService {
     @Transactional
     public CommentResponse.OnlyId create(CommentRequest.Create request, User user) {
         Vote vote = voteRepository.findById(request.getVoteId()).orElseThrow(VoteNotFoundException::new);
+        vote.addComment();
         Comment comment = Comment.create(request, vote, user);
         Comment savedComment = commentRepository.save(comment);
         return CommentResponse.OnlyId.build(savedComment);
