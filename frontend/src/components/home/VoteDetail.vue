@@ -649,8 +649,20 @@ export default {
         // this.set_vote_detail();
 
         //프로그래스 바
-        // const bar1 = document.querySelector(".vote-percent-bar1");
-        // const bar2 = document.querySelector(".vote-percent-bar2");
+        const bar1 = document.querySelector(".vote-percent-bar1");
+        const bar2 = document.querySelector(".vote-percent-bar2");
+        let t1 = 0;
+        let t2 = 0;
+        let totalMinwon = (data.acount / (data.acount + data.bcount)) * 100;
+        let resolveMinwon = (data.bcount / (data.acount + data.bcount)) * 100;
+        if (totalMinwon == 0 && resolveMinwon == 0) {
+          totalMinwon = 0;
+          resolveMinwon = 0;
+        } else if (totalMinwon == 0) {
+          resolveMinwon = 100;
+        } else if (resolveMinwon == 0) {
+          totalMinwon = 100;
+        }
 
         const barAnimation1 = setInterval(() => {
           if (t1 >= 1) {
