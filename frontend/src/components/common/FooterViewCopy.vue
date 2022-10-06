@@ -108,6 +108,7 @@ export default {
             name: "recordList",
             path: "/record/user",
             params: { userId: this.$store.state.userStore.userId },
+            query: { name: this.$store.state.userStore.name },
           });
         }
       }

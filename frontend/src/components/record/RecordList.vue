@@ -1,29 +1,48 @@
 <template>
   <div>
     <div class="box-row-left">
-      <div class="text-title text-h1 blue-4-text">
-        {{ userInfo.name }}님의 투표
-      </div>
+      <div class="text-title text-h1 blue-4-text">{{ userName }}님의 투표</div>
     </div>
     <div class="box-row-left">
       <div class="text-title text-h4 blue-4-text">
-        {{ userInfo.name }}님의 기록을 살펴보세요 !
+        {{ userName }}님의 기록을 살펴보세요 !
       </div>
     </div>
     <div class="box-row-left">
       <div class="text-title text-h2 blue-4-text">
-        {{ userInfo.name }}님의 예측률
+        {{ userName }}님의 예측률
       </div>
     </div>
     <div class="box-row">
       <record-pie-chart :percentage="calcPercentage" />
       <div class="box-align-center">
-        <div class="text-h3" v-if="calcPercentage >= 80">
-          당신은 금손 입니다!
+        <div
+          class="text-h3"
+          v-if="calcPercentage >= 80 || calcPercentage <= 20"
+        >
+          {{ userName }}님은
         </div>
-        <div class="text-h3" v-else-if="calcPercentage <= 20">
-          당신은 똥손 입니다 !
+        <div
+          class="text-h3"
+          v-if="calcPercentage >= 80"
+          style="background-color: gold"
+        >
+          금손
         </div>
+        <div
+          class="text-h3"
+          v-else-if="calcPercentage <= 20"
+          style="background-color: darksalmon"
+        >
+          똥손
+        </div>
+        <div
+          class="text-h3"
+          v-if="calcPercentage >= 80 || calcPercentage <= 20"
+        >
+          입니다!
+        </div>
+
         <div class="text-h3" v-else>조금 더 많은 투표에 참여해보세요 ~</div>
         <div class="text-h2">{{ calcPercentage }} %</div>
         <div class="text-h4">
@@ -47,7 +66,7 @@
     <div class="box-btn-right">
       <select
         v-model="status"
-        class="sb-rectangle-small text-h3 blue-0"
+        class="sb-rectangle-small text-h4 blue-0"
         @change="changeStatus()"
       >
         <option v-for="(item, index) in statusList" :key="index">
@@ -189,7 +208,7 @@
 
 <script>
 import RecordPieChart from "../record/RecordPieChart.vue";
-// import { getRate } from "../../api/mypage";
+import { getRate } from "../../api/mypage";
 import { mapState } from "vuex";
 export default {
   components: {
@@ -199,19 +218,20 @@ export default {
   data() {
     return {
       userId: this.$route.params.userId,
+      userName: this.$route.query.name,
       clickedId: 0,
       status: "진행",
       statusType: false,
-      record: "내가 작성한 투표",
+      record: "작성한 투표",
       recordType: 0, // 0 : 내가 작성한 투표, 1 : 내가 참여한 투표
-      recordList: ["내가 작성한 투표", "내가 참여한 투표"],
+      recordList: ["작성한 투표", "참여한 투표"],
       statusList: ["진행", "종료"],
       userInfo: {
-        name: "aa",
-        email: "aaa",
-        districtName: "aaa",
-        gender: "M",
-        age: 10,
+        name: "",
+        email: "",
+        districtName: "",
+        gender: "",
+        age: 0,
       },
       voteCount: {
         ballotCount: 0,
@@ -241,17 +261,20 @@ export default {
   },
   methods: {
     getVotesCount() {
-      // getRate(
-      //   this.accessToken,
-      //   this.userId, // 내가 선택해서 들어온 유저Id로 검색
-      //   (response) => {
-      //     this.userCount.ballotCount = response.data.ballotCount;
-      //     this.userCount.correctCount = response.data.correctCount;
-      //   },
-      //   (error) => {
-      //     console.log(error);
-      //   }
-      // );
+      getRate(
+        this.accessToken,
+        this.userId, // 내가 선택해서 들어온 유저Id로 검색
+        (response) => {
+          this.voteCount.ballotCount = response.data.ballotCount;
+          this.voteCount.correctCount = response.data.correctCount;
+        },
+        (error) => {
+          if (error.response.status == 401) {
+            this.$router.push({ name: "userLogin", path: "/profile/login" });
+          }
+          console.log(error);
+        }
+      );
     },
     detailCard(e) {
       const clickedId = e.target.getAttribute("value");
@@ -266,12 +289,12 @@ export default {
       // 내가 작성한 -> 참여한
       if (this.recordType === 0) {
         this.recordType = 1;
-        this.record = "내가 참여한 투표";
+        this.record = "참여한 투표";
       }
       // 내가 참여한 -> 작성한
       else {
         this.recordType = 0;
-        this.record = "내가 작성한 투표";
+        this.record = "작성한 투표";
       }
     },
     changeStatus() {

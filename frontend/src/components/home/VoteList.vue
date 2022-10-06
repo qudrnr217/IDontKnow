@@ -76,7 +76,7 @@
         <!-- <control-view-2 :segments="status" class="toggle-btn" /> -->
         <select
           v-model="status"
-          class="sb-rectangle-small text-h3"
+          class="sb-rectangle-small text-h4"
           :class="{
             'yellow-1': category === '메뉴' && status === '진행',
             'purple-1': category === '스타일' && status === '진행',
@@ -102,6 +102,14 @@
             :key="index"
             @click="detailCard"
             :value="`${vote.voteId}`"
+            :style="{
+              backgroundImage: `linear-gradient(
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0.5)
+                ), url(${require('@/assets/image/category/menu/' +
+                  vote.subCategory.replace('/', '_') +
+                  '.jpg')})`,
+            }"
           >
             <div
               class="vote-title-box"
