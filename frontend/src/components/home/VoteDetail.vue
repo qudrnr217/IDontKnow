@@ -412,14 +412,31 @@
                       vote.category === '장소',
                   }"
                 >
-                  <div class="box-comment-text">{{ comment.content }}</div>
+                  <div
+                    v-if="isUpdated && comment.commentId == modifyCommentId"
+                    class="box-comment-text"
+                  >
+                    <input
+                      class="input-update"
+                      type="text"
+                      v-model="commentForUpdate1"
+                      :placeholder="comment.content"
+                      style="border: none"
+                    />
+                  </div>
+                  <!-- <div class="box-comment-text" v-else>
+                    {{ comment.content }}
+                  </div> -->
+                  <div class="box-comment-text" v-else>
+                    {{ comment.content }}
+                  </div>
                 </div>
                 <div class="box-comment-btn-row box-comment-btn-left">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
                     @click="updateComment(comment.commentId)"
                     :value="`${comment.commentId}`"
-                    v-if="vote.userId == comment.commentId"
+                    v-if="userId == comment.userId"
                   >
                     수정
                   </div>
@@ -427,7 +444,7 @@
                     class="btn-rectangle-tiny text-h5"
                     @click="deleteComment(comment.commentId)"
                     :value="`${comment.commentId}`"
-                    v-if="vote.userId == comment.commentId"
+                    v-if="userId == comment.userId"
                   >
                     삭제
                   </div>
@@ -450,6 +467,7 @@
                 </div>
               </div>
             </div>
+            <!-- 참여자 -->
             <div v-else class="box-row">
               <div
                 class="box-comment-column comment-profile-box"
@@ -486,13 +504,19 @@
                   }"
                 >
                   <!-- TODO: 수정 버튼 클릭 시 해당 댓글 바꾸는 처리 필요 -->
+
                   <div
-                    v-if="isUpdated && comment.commentId == modifyCommentId"
+                    v-if="
+                      isUpdated &&
+                      comment.commentId == modifyCommentId &&
+                      comment.checkAuthor == false
+                    "
                     class="box-comment-text"
                   >
                     <input
+                      class="input-update"
                       type="text"
-                      v-model="commentForUpdate"
+                      v-model="commentForUpdate2"
                       :placeholder="comment.content"
                       style="border: none"
                     />
@@ -501,11 +525,13 @@
                     {{ comment.content }}
                   </div>
                 </div>
+                <!-- 안녕 -->
                 <div class="box-comment-btn-row box-comment-btn-right">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
                     :value="`${comment.commentId}`"
                     @click="updateComment2(comment.commentId)"
+                    v-if="userId == comment.userId"
                   >
                     수정
                   </div>
@@ -513,6 +539,7 @@
                     class="btn-rectangle-tiny text-h5"
                     @click="deleteComment(comment.commentId)"
                     :value="`${comment.commentId}`"
+                    v-if="userId == comment.userId"
                   >
                     삭제
                   </div>
@@ -588,7 +615,7 @@ export default {
     checkStatus() {
       return this.vote.status ? "종료" : "진행";
     },
-    ...mapState("userStore", ["accessToken"]),
+    ...mapState("userStore", ["accessToken", "userId"]),
   },
   mounted() {
     // console.log(this.$route.path);
@@ -666,13 +693,15 @@ export default {
       genderOptionList: ["F", "M"],
       comment: "",
       isUpdated: false,
-      commentForUpdate: "",
+      commentForUpdate1: "",
+      commentForUpdate2: "",
       modifyCommentId: 0,
       isModify: false,
       token: "",
       vote: [],
       ballotId: 0,
       reload: 0,
+      flag: false,
       data: {
         isShow: false,
         title: "투표를 삭제하시겠습니까?",
@@ -775,19 +804,74 @@ export default {
       });
     },
     updateComment(commentId) {
-      this.isUpdated = true;
-      console.log(this.isUpdated);
-      this.modifyCommentId = commentId;
-      console.log(this.modifyCommentId + ":" + commentId);
-      this.isModify = true;
+      console.log("update comment1");
+      // console.log(commentId);
+      // console.log("modify:" + this.modifyCommentId);
+      // console.log(this.isUpdated);
+      if (!this.flag) {
+        this.isUpdated = true;
+        console.log(this.isUpdated);
+        this.modifyCommentId = commentId;
+        console.log(this.modifyCommentId + ":" + commentId);
+        // this.isModify = true;
+        this.flag = true;
+      } else {
+        console.log("들어왔다~~~");
+        let content = { content: this.commentForUpdate1 };
+        // console.log(this.commentForUpdate1);
+        commentModify(
+          this.accessToken,
+          commentId,
+          content,
+          ({ data }) => {
+            console.log(data);
+            this.flag = false;
+            this.isUpdated = false;
+            this.$router.go();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
+
       // this.isUpdated = false;
       // this.$router.go();
     },
     updateComment2(commentId) {
-      commentModify(this.accessToken, commentId, ({ data }) => {
-        console.log(data);
-      });
+      console.log("updatecomment2");
+      // console.log(commentId);
+      // console.log("modify:" + this.modifyCommentId);
+      // console.log(this.isUpdated);
+      if (!this.flag) {
+        //인풋창 뜰 때
+        this.isUpdated = true;
+        console.log(this.isUpdated);
+        this.modifyCommentId = commentId;
+        console.log(this.modifyCommentId + ":" + commentId);
+        // this.isModify = true;
+        this.flag = true;
+      } else {
+        // 실제로 수정작업
+        console.log("들어왔다~~~");
+        let content = { content: this.commentForUpdate2 };
+        commentModify(
+          this.accessToken,
+          commentId,
+          content,
+          ({ data }) => {
+            console.log(data);
+            this.flag = false;
+            this.isUpdated = false;
+            this.$router.go();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
+      }
     },
+
     deleteComment(commentId) {
       commentDelete(this.accessToken, commentId, ({ data }) => {
         console.log(data);
@@ -862,5 +946,9 @@ export default {
   /* background-color: #dedede; */
   font-weight: 600;
   font-size: 0.8rem;
+}
+
+.input-update {
+  width: 145px;
 }
 </style>
