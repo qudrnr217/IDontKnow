@@ -249,9 +249,7 @@ const Component = {
       );
     },
   },
-  computed: {
-    ...mapState("userStore", ["userId", "accessToken"]),
-  },
+
   mounted() {
     if (!document) return;
     events.$on("open", this.open);
