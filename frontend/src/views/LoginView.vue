@@ -10,8 +10,4 @@
 export default {};
 </script>
 
-<style scoped>
-.body {
-  height: 105vh;
-}
-</style>
+<style scoped></style>

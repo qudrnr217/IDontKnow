@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div>
     <div class="box-row-left">
       <div class="text-title text-h1 blue-4-text">투표 만들기</div>
     </div>
