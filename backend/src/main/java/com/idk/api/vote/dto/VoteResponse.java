@@ -52,7 +52,7 @@ public class VoteResponse {
         private String voted;
         private List<CommentResponse.GetOne> commentList;
 
-        public static VoteResponse.Info build(Vote vote, Ballot ballot, List<Comment> comments) {
+        public static VoteResponse.Info build(Vote vote, Ballot ballot, List<Comment> comments, int countA, int countB) {
             InfoBuilder builder = Info.builder()
                                             .voteId(vote.getId())
                                             .category(vote.getCategory().getName())
@@ -63,9 +63,9 @@ public class VoteResponse {
                                             .hitCount(vote.getHitCount())
                                             .commentCount(vote.getCommentCount())
                                             .optionA(vote.getOptionA())
-                                            .aCount(vote.getACount())
+                                            .aCount(countA)
                                             .optionB(vote.getOptionB())
-                                            .bCount(vote.getBCount())
+                                            .bCount(countB)
                                             .createdAt(vote.getCreatedAt())
                                             .status(vote.isStatus())
                                             .result(vote.getResult())

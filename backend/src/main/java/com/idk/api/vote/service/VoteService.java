@@ -9,6 +9,7 @@ import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.security.userdetails.CustomUserDetails;
 import com.idk.api.vote.domain.entity.Ballot;
 import com.idk.api.vote.domain.entity.Vote;
+import com.idk.api.vote.domain.repository.BallotRepository;
 import com.idk.api.vote.domain.repository.VoteRepository;
 import com.idk.api.vote.dto.VoteRequest;
 import com.idk.api.vote.dto.VoteResponse;
@@ -31,6 +32,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class VoteService {
     public final VoteRepository voteRepository;
+    public final BallotRepository ballotRepository;
     private final CommentRepository commentRepository;
     @Transactional
     public VoteResponse.OnlyId create(VoteRequest.Create request, User user) {
@@ -46,9 +48,11 @@ public class VoteService {
             throw new VoteDeletedException();
         }
         vote.hit();
+        int countA = ballotRepository.countAllByVoteAndChoice(vote, "A");
+        int countB = ballotRepository.countAllByVoteAndChoice(vote, "B");
         Ballot ballot = vote.getVoted(customUserDetails);
         List<Comment> comments = commentRepository.findAllByVoteOrderByAsc(vote);
-        return VoteResponse.Info.build(vote, ballot, comments);
+        return VoteResponse.Info.build(vote, ballot, comments, countA, countB);
     }
     @Transactional
     public VoteResponse.OnlyId changeStatus(Long voteId, VoteRequest.ChangeStatus request, User user) {
