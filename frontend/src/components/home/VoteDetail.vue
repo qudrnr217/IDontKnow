@@ -38,9 +38,13 @@
         <div class="vote-writer-box">
           <div class="vote-writer-text text-h3">
             작성자 :
-            <router-link :to="`/record/user/${vote.userId}`">{{
-              vote.name
-            }}</router-link>
+            <router-link
+              :to="{
+                path: `/record/user/${vote.userId}`,
+                query: { name: vote.name },
+              }"
+              >{{ vote.name }}</router-link
+            >
           </div>
         </div>
         <div class="vote-info-box">
@@ -579,52 +583,63 @@ export default {
     console.log("안녕하세요");
     console.log(this.$route.params);
 
-    detailVote(this.accessToken, this.$route.params, ({ data }) => {
-      console.log(data);
-      this.vote = data;
-      this.$emit("pass", this.vote.category);
-      console.log("vote: ", this.vote.category);
-      console.log(this.$store.state.userStore.userId + ":" + this.vote.userId);
+    detailVote(
+      this.accessToken,
+      this.$route.params,
+      ({ data }) => {
+        console.log(data);
+        this.vote = data;
+        this.$emit("pass", this.vote.category);
+        console.log("vote: ", this.vote.category);
+        console.log(
+          this.$store.state.userStore.userId + ":" + this.vote.userId
+        );
 
-      if (this.vote.voted == "A") {
-        this.clickedOption = 1;
-      } else if (this.vote.voted == "B") {
-        this.clickedOption = 2;
-      } else {
-        this.clickedOption = 0;
+        if (this.vote.voted == "A") {
+          this.clickedOption = 1;
+        } else if (this.vote.voted == "B") {
+          this.clickedOption = 2;
+        } else {
+          this.clickedOption = 0;
+        }
+        // this.set_vote_detail();
+
+        //프로그래스 바
+        const bar1 = document.querySelector(".vote-percent-bar1");
+        const bar2 = document.querySelector(".vote-percent-bar2");
+
+        let t1 = 0;
+        let t2 = 0;
+        let a = data.acount;
+        let b = data.bcount;
+        let totalMinwon = (a / (a + b)) * 100;
+        let resolveMinwon = (b / (a + b)) * 100;
+        if (a == 0 && b == 0) {
+          totalMinwon = 0;
+          resolveMinwon = 0;
+        } else if (a == 0) {
+          totalMinwon = 0;
+        } else if (b == 0) {
+          resolveMinwon = 0;
+        }
+        console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
+
+        const barAnimation1 = setInterval(() => {
+          bar1.style.width = t1 + "%";
+          t1++ >= totalMinwon && clearInterval(barAnimation1);
+        }, 10);
+
+        const barAnimation2 = setInterval(() => {
+          bar2.style.width = t2 + "%";
+          t2++ >= resolveMinwon && clearInterval(barAnimation2);
+        }, 10);
+      },
+      (error) => {
+        if (error.response.status == 401) {
+          this.$router.push({ name: "userLogin", path: "/profile/login" });
+        }
       }
-      // this.set_vote_detail();
-
-      //프로그래스 바
-      const bar1 = document.querySelector(".vote-percent-bar1");
-      const bar2 = document.querySelector(".vote-percent-bar2");
-
-      let t1 = 0;
-      let t2 = 0;
-      let a = data.acount;
-      let b = data.bcount;
-      let totalMinwon = (a / (a + b)) * 100;
-      let resolveMinwon = (b / (a + b)) * 100;
-      if (a == 0 && b == 0) {
-        totalMinwon = 0;
-        resolveMinwon = 0;
-      } else if (a == 0) {
-        totalMinwon = 0;
-      } else if (b == 0) {
-        resolveMinwon = 0;
-      }
-      console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
-
-      const barAnimation1 = setInterval(() => {
-        bar1.style.width = t1 + "%";
-        t1++ >= totalMinwon && clearInterval(barAnimation1);
-      }, 10);
-
-      const barAnimation2 = setInterval(() => {
-        bar2.style.width = t2 + "%";
-        t2++ >= resolveMinwon && clearInterval(barAnimation2);
-      }, 10);
-    });
+    );
   },
   data() {
     return {

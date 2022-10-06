@@ -134,7 +134,7 @@ export default {
           this.$router.push({ name: "userLogout", path: "/profile/logout" });
         },
         (error) => {
-          if (error == 401) {
+          if (error.response.status == 401) {
             this.$router.push({ name: "userLogin", path: "/profile/login" });
           }
           console.log(error);
@@ -163,6 +163,9 @@ export default {
           console.log(response.data);
         },
         (error) => {
+          if (error.response.status == 401) {
+            this.$router.push({ name: "userLogin", path: "/profile/login" });
+          }
           console.log(error);
         }
       );

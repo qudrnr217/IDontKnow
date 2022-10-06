@@ -243,7 +243,7 @@
                       "
                       alt
                       class="location-image"
-                      style=""
+                      style="cursor: pointer"
                     />
                   </div>
                   <div class="box-chat-row location-text text-h4">
@@ -261,6 +261,7 @@
                       "
                       alt
                       class="location-image"
+                      style="cursor: pointer"
                     />
                   </div>
                   <div class="box-chat-row location-text text-h4">
