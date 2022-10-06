@@ -114,6 +114,9 @@ public class Vote extends BaseEntity {
     public void addComment() {
         this.commentCount++;
     }
+    public void deleteComment() {
+        this.commentCount--;
+    }
     public void changeBallotCount(boolean isDelete, String voted) {
         if(isDelete){
             switch(voted) {

@@ -73,7 +73,7 @@ logging:
 jwt:
   access-token-props:
     secret: adsjkQWFRaeiasjodfiwAWeeifjaSDOFJaiewAEWgIREAjORaerjAOESJOgDASIKFJIAJqiojuerfiAE
-    expiration-time-milli-sec: '3600000'
+    expiration-time-milli-sec: '10800000'
   refresh-token-props:
     expiration-time-milli-sec: '864000000'
     secret: ZqefBscadfsGjaiADFSGaoGHdsjjsDFksjgDskdjgDjgHJmdSlzLfjbhikjaqWSogvjdsjzUEvlkvvhnDFGVnkfa==
