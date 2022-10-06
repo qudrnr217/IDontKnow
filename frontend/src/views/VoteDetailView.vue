@@ -33,8 +33,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.body {
-  padding-bottom: 73px;
-}
-</style>
+<style scoped></style>

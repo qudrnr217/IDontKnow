@@ -562,14 +562,14 @@
 
 /* vote detail - 투표율 */
 .vote-percent-bar {
-  width: 320px;
+  width: 350px;
   height: 25px;
 }
 
 /* vote detail - commentList 배치 */
 .box-content {
   overflow: auto;
-  width: 320px;
+  width: 350px;
   margin: auto 20px;
   border-radius: 5px;
   border-width: 2px;

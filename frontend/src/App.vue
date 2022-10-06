@@ -51,15 +51,16 @@ export default {
 .background {
   display: flex;
   justify-content: center;
-  height: calc(100vh-73px);
+  height: 100vh;
   min-height: 844px;
+  overflow: scroll;
+  width: 390px;
+  max-width: 390px;
+  margin-bottom: 73px;
 }
 
 .body {
-  overflow: auto;
-  max-width: 390px;
-  height: calc(100vh-73px);
-  min-height: 844px;
+  min-width: 390px;
 }
 
 .background-footer {
