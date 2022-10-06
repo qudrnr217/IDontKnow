@@ -7,6 +7,16 @@
           class="vote-card"
           @click="detailCard"
           :value="`${vote_list1.voteId}`"
+          :style="{
+            backgroundImage: `linear-gradient(
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0.5)
+                ), url(${require('@/assets/image/category/' +
+                  vote_list1.category +
+                  '/' +
+                  vote_list1.subCategory.replace('/', '_') +
+                  '.jpg')})`,
+          }"
         >
           <div
             class="vote-title-box"
@@ -147,6 +157,16 @@
           class="vote-card"
           @click="detailCard"
           :value="`${vote_list2.voteId}`"
+          :style="{
+            backgroundImage: `linear-gradient(
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0.5)
+                ), url(${require('@/assets/image/category/' +
+                  vote_list2.category +
+                  '/' +
+                  vote_list2.subCategory.replace('/', '_') +
+                  '.jpg')})`,
+          }"
         >
           <div
             class="vote-title-box"
@@ -287,6 +307,16 @@
           class="vote-card"
           @click="detailCard"
           :value="`${vote_list3.voteId}`"
+          :style="{
+            backgroundImage: `linear-gradient(
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0.5)
+                ), url(${require('@/assets/image/category/' +
+                  vote_list3.category +
+                  '/' +
+                  vote_list3.subCategory.replace('/', '_') +
+                  '.jpg')})`,
+          }"
         >
           <div
             class="vote-title-box"
@@ -465,9 +495,9 @@ export default {
   data() {
     return {
       vote_list: [],
-      vote_list1: [],
-      vote_list2: [],
-      vote_list3: [],
+      vote_list1: { category: "메뉴", subCategory: "분식" },
+      vote_list2: { category: "메뉴", subCategory: "분식" },
+      vote_list3: { category: "메뉴", subCategory: "분식" },
     };
   },
   methods: {
