@@ -107,6 +107,9 @@ const Component = {
       params: {},
     };
   },
+  computed: {
+    ...mapState("userStore", ["accessToken"]),
+  },
   methods: {
     ...mapMutations("communityStore", ["SET_SELECT"]),
     ...mapMutations("userStore", ["SET_INIT"]),
@@ -124,8 +127,8 @@ const Component = {
     select_vote() {
       //api사용
       console.log("안녕?:" + this.data.mode);
-      var token =
-        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg2OTg2MH0.y9JdmDtUWCK51a_QlwZodeNwwAg7sa7IXQzVc_VgD1LSzP02FfTqs06LBvBdVrCc";
+      // var token =
+      //   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU4NDQwfQ.zevo64PasEuPNiBQAaI0Fs-ZKZjlCb7catVf4AQnfTd-0vmJqbRU_rUQrJUxgGip";
 
       if (this.data.mode == "1") {
         //투표하기
@@ -135,7 +138,8 @@ const Component = {
           choice: this.select,
         };
 
-        participateVote(token, params, ({ data }) => {
+        participateVote(this.accessToken, params, ({ data }) => {
+          console.log(this.accessToken);
           console.log(data);
           this.info = data;
           // this.$router.go();
@@ -144,7 +148,7 @@ const Component = {
       } else if (this.data.mode == "2") {
         //투표취소
         console.log(this.ballotId);
-        nonparticipateVote(token, this.ballotId, ({ data }) => {
+        nonparticipateVote(this.accessToken, this.ballotId, ({ data }) => {
           console.log("취소:", data);
           this.info = data;
           this.$router.go();
@@ -161,17 +165,20 @@ const Component = {
       } else if (this.data.mode == "6") {
         //투표 마감
         let params = { status: true };
-        changVoteStatus(token, this.voteId, params, ({ data }) => {
+        changVoteStatus(this.accessToken, this.voteId, params, ({ data }) => {
           console.log("마감:" + data);
           this.$router.go();
         });
+      } else if (this.data.mode == "4") {
+        this.sendEmail();
       }
     },
     handleClickButton({ target }, confirm) {
+      this.data.isShow = false;
+      // this.data.dialog = false;
       if (target.id == "vueConfirm") return;
 
       if (confirm && this.dialog.auth && !this.password) return;
-      this.data.isShow = false;
 
       // this.$emit("change_show", (this.show1 = false), (this.show2 = false));
 

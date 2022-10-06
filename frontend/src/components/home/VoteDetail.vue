@@ -173,7 +173,7 @@
             'purple-3': vote.category === '스타일',
             'green-3': vote.category === '장소',
           }"
-          @click="cancelVote, (data3.isShow = true)"
+          @click="cancelVote(), (data3.isShow = true)"
           v-else
         >
           투표취소
@@ -182,11 +182,19 @@
         <!-- 투표 팝업 창 -->
         <vue-confirm-dialog
           :data="data2"
+          :voteId="vote.voteId"
+          :select="curClickedOption"
           v-if="data2.isShow"
         ></vue-confirm-dialog>
         <vue-confirm-dialog
           :data="data3"
+          :ballotId="ballotId"
           v-if="data3.isShow"
+        ></vue-confirm-dialog>
+        <vue-confirm-dialog
+          :data="data4"
+          :voteId="vote.voteId"
+          v-if="data4.isShow"
         ></vue-confirm-dialog>
       </div>
     </div>
@@ -212,9 +220,9 @@
         </div>
       </div>
 
-      <div class="box-align-center">
+      <div class="box-align-center1">
         <div
-          class="vote-percent-bar"
+          class="vote-percent-bar1"
           :class="{
             'yellow-2': vote.category === '메뉴',
             'purple-2': vote.category === '스타일',
@@ -222,9 +230,9 @@
           }"
         ></div>
       </div>
-      <div class="box-align-center">
+      <div class="box-align-center1">
         <div
-          class="vote-percent-bar"
+          class="vote-percent-bar2"
           :class="{
             'yellow-4': vote.category === '메뉴',
             'purple-4': vote.category === '스타일',
@@ -292,12 +300,54 @@
             </option>
           </select>
         </div>
+        <div class="box-btn-right" v-if="chartOption == '연령'">
+          <select
+            v-model="ageOption"
+            class="sb-rectangle-medium"
+            :class="{
+              'yellow-0': vote.category === '메뉴',
+              'purple-0': vote.category === '스타일',
+              'green-0': vote.category === '장소',
+            }"
+            @change="changeChart"
+          >
+            <option v-for="(item, index) in ageOptionList" :key="index">
+              {{ item }}
+            </option>
+          </select>
+        </div>
+        <div class="box-btn-right" v-if="chartOption == '성별'">
+          <select
+            v-model="genderOption"
+            class="sb-rectangle-medium"
+            :class="{
+              'yellow-0': vote.category === '메뉴',
+              'purple-0': vote.category === '스타일',
+              'green-0': vote.category === '장소',
+            }"
+            @change="changeChart"
+          >
+            <option v-for="(item, index) in genderOptionList" :key="index">
+              {{ item }}
+            </option>
+          </select>
+        </div>
         <div class="box-align-center">
           <!-- 차트를 넣으면 아래 div 삭제 -->
-          <div class="vote-percent-bar">통계가 나오도록 변경 필요 !</div>
+          <div class="pie-chart">
+            <pie-chart-view
+              :voteId="vote.voteId"
+              :age="ageOption"
+              :idx="chartOption"
+              :gender="genderOption"
+              :key="reload"
+            />
+          </div>
+          <!-- <div class="vote-percent-bar">통계가 나오도록 변경 필요 !</div> -->
         </div>
       </div>
     </div>
+    <!-- 댓글 -->
     <!-- 댓글 -->
     <div class="box-column">
       <div class="box-row">
@@ -351,15 +401,17 @@
                 <div class="box-comment-btn-row box-comment-btn-left">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
-                    @click="updateComment()"
+                    @click="updateComment(comment.commentId)"
                     :value="`${comment.commentId}`"
+                    v-if="vote.userId == comment.commentId"
                   >
                     수정
                   </div>
                   <div
                     class="btn-rectangle-tiny text-h5"
-                    @click="deleteComment()"
+                    @click="deleteComment(comment.commentId)"
                     :value="`${comment.commentId}`"
+                    v-if="vote.userId == comment.commentId"
                   >
                     삭제
                   </div>
@@ -418,28 +470,32 @@
                   }"
                 >
                   <!-- TODO: 수정 버튼 클릭 시 해당 댓글 바꾸는 처리 필요 -->
-                  <!-- <div v-if="isUpdated" class="box-comment-text">
+                  <div
+                    v-if="isUpdated && comment.commentId == modifyCommentId"
+                    class="box-comment-text"
+                  >
                     <input
                       type="text"
                       v-model="commentForUpdate"
+                      :placeholder="comment.content"
                       style="border: none"
                     />
-                  </div> -->
-                  <div class="box-comment-text">
+                  </div>
+                  <div class="box-comment-text" v-else>
                     {{ comment.content }}
                   </div>
                 </div>
                 <div class="box-comment-btn-row box-comment-btn-right">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
-                    @click="updateComment()"
                     :value="`${comment.commentId}`"
+                    @click="updateComment2(comment.commentId)"
                   >
                     수정
                   </div>
                   <div
                     class="btn-rectangle-tiny text-h5"
-                    @click="deleteComment()"
+                    @click="deleteComment(comment.commentId)"
                     :value="`${comment.commentId}`"
                   >
                     삭제
@@ -489,84 +545,107 @@
 // import VoteBarChart from "./VoteBarChart.vue";
 // import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
+import { mapMutations, mapState } from "vuex";
+import PieChartView from "../community/PieChartVIew.vue";
+import {
+  detailVote,
+  commentCreate,
+  commentDelete,
+  commentModify,
+} from "@/api/community.js";
+// import VoteChat from "./VoteChat.vue";
+// var token =
+//   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTg1MDk0fQ.oJIXeeV8whA5Q_IV1t3NH64-fq5LlUD0DP-V7Dvd5tRXbm7epQlvkZrnfag6yXmy";
 export default {
   name: "VoteDetail",
-  props: ["voteId"],
+  // props: {
+  //   voteId: String,
+  // },
   components: {
     // VoteBarChart,
     VueConfirmDialog,
+    PieChartView,
+    // VoteChat,
     // VoteCommentList,
   },
   computed: {
     checkStatus() {
       return this.vote.status ? "종료" : "진행";
     },
+    ...mapState("userStore", ["accessToken"]),
+  },
+  mounted() {
+    // console.log(this.$route.path);
+    console.log("안녕하세요");
+    console.log(this.$route.params);
+
+    detailVote(this.accessToken, this.$route.params, ({ data }) => {
+      console.log(data);
+      this.vote = data;
+      this.$emit("pass", this.vote.category);
+      console.log("vote: ", this.vote.category);
+      console.log(this.$store.state.userStore.userId + ":" + this.vote.userId);
+
+      if (this.vote.voted == "A") {
+        this.clickedOption = 1;
+      } else if (this.vote.voted == "B") {
+        this.clickedOption = 2;
+      } else {
+        this.clickedOption = 0;
+      }
+      // this.set_vote_detail();
+
+      //프로그래스 바
+      const bar1 = document.querySelector(".vote-percent-bar1");
+      const bar2 = document.querySelector(".vote-percent-bar2");
+
+      let t1 = 0;
+      let t2 = 0;
+      let a = data.acount;
+      let b = data.bcount;
+      let totalMinwon = (a / (a + b)) * 100;
+      let resolveMinwon = (b / (a + b)) * 100;
+      if (a == 0 && b == 0) {
+        totalMinwon = 0;
+        resolveMinwon = 0;
+      } else if (a == 0) {
+        totalMinwon = 0;
+      } else if (b == 0) {
+        resolveMinwon = 0;
+      }
+      console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
+
+      const barAnimation1 = setInterval(() => {
+        bar1.style.width = t1 + "%";
+        t1++ >= totalMinwon && clearInterval(barAnimation1);
+      }, 10);
+
+      const barAnimation2 = setInterval(() => {
+        bar2.style.width = t2 + "%";
+        t2++ >= resolveMinwon && clearInterval(barAnimation2);
+      }, 10);
+    });
   },
   data() {
     return {
       clickedOption: 0, // 0 이면 안눌린거, 1이면 A, 2면 B
+      curClickedOption: "",
       isOpened: false,
       chartOption: "연령",
       chartOptionList: ["연령", "성별", "거주지"],
+      ageOption: 10,
+      ageOptionList: [10, 20, 30, 40, 50, 60],
+      genderOption: "F",
+      genderOptionList: ["F", "M"],
       comment: "",
+      isUpdated: false,
       commentForUpdate: "",
-      vote: {
-        voteId: 1,
-        category: "메뉴",
-        subCategory: "치킨",
-        title:
-          "지금까지 이런 맛은 없었다.지금까지 이런 맛은 없었다.지금까지 이런 맛은 없었다.지금까지까지",
-        userId: 2,
-        name: "수원왕갈비",
-        hitCount: 12000,
-        commentCount: 2,
-        optionA: "교촌치킨교촌치킨교촌치킨",
-        optionB: "노랑통닭노랑통닭노랑통닭",
-        createdAt: "2022.09.27 06:46",
-        status: false,
-        result: null,
-        ballotId: null,
-        voted: null,
-        commentList: [
-          {
-            commentId: 1,
-            userId: 2,
-            name: "수원왕갈비수원왕갈비",
-            content: "당연히 교촌",
-            createdAt: "2022.09.30 06:16",
-            checkAuthor: true,
-          },
-          {
-            commentId: 2,
-            userId: 1,
-            name: "치킨마니아",
-            content: "당연히 노통",
-            createdAt: "2022.09.30 06:26",
-            checkAuthor: false,
-          },
-          {
-            commentId: 3,
-            userId: 2,
-            name: "수원왕갈비",
-            content:
-              "당연히 교촌당연히 교촌당연히 교촌당연히 교촌당연히 교촌당연히 교촌당연히 교촌",
-            createdAt: "2022.09.30 06:36",
-            checkAuthor: true,
-          },
-          {
-            commentId: 4,
-            userId: 1,
-            name: "치킨마니아",
-            content:
-              "당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통당연히 노통",
-            createdAt: "2022.09.30 06:46",
-            checkAuthor: false,
-          },
-        ],
-        acount: 1,
-        bcount: 1,
-      },
-
+      modifyCommentId: 0,
+      isModify: false,
+      token: "",
+      vote: [],
+      ballotId: 0,
+      reload: 0,
       data: {
         isShow: false,
         title: "투표를 삭제하시겠습니까?",
@@ -578,12 +657,14 @@ export default {
         title: "투표하시겠습니까?",
         no: "취소",
         yes: "투표",
+        mode: "1",
       },
       data3: {
         isShow: false,
         title: "투표를 취소하시겠습니까?",
         no: "취소",
         yes: "투표취소",
+        mode: "2",
       },
       data4: {
         isShow: false,
@@ -592,15 +673,25 @@ export default {
         yes: "완료",
         no: null,
       },
+      data5: {
+        mode: "6",
+        isShow: false,
+        title: "투표를 마감하시겠습니까?",
+        no: "취소",
+        yes: "마감",
+      },
     };
   },
   methods: {
+    ...mapMutations("communityStore", ["SET_SELECT", "SET_VOTE_DETAIL"]),
     changeClickedOptionA() {
       if (this.vote.voted === null && !this.vote.status) {
         if (this.clickedOption === 1) {
           this.clickedOption = 0;
+          this.curClickedOption = "";
         } else {
           this.clickedOption = 1;
+          this.curClickedOption = "A";
         }
       }
     },
@@ -608,8 +699,10 @@ export default {
       if (this.vote.voted === null && !this.vote.status) {
         if (this.clickedOption === 2) {
           this.clickedOption = 0;
+          this.curClickedOption = "";
         } else {
           this.clickedOption = 2;
+          this.curClickedOption = "B";
         }
       }
     },
@@ -617,7 +710,7 @@ export default {
       // 종료 관련 팝업창 띄우기
       // 작성자가 투표 종료하는 api 호출
       // 새로고침
-      location.reload();
+      this.reload += 1;
     },
     clickVote() {
       // 투표 참여하는 api 호출 (clickedOption 구분해서 choice 전달)
@@ -627,7 +720,9 @@ export default {
     cancelVote() {
       // 투표 취소하는 api 호출 (vote.ballotId 활용)
       // 새로고침
-      location.reload();
+      this.ballotId = this.vote.ballotId;
+      console.log(this.ballotId);
+      // location.reload();
     },
     deleteVote() {
       // 투표 삭제하는 api 호출 (vote.ballotId 활용)
@@ -639,25 +734,44 @@ export default {
     },
     changeChart() {
       // 값에 따라 차트 변경 !
+      this.reload += 1;
     },
-    updateComment() {
-      // 수정 관련 팝업창 띄우기
-      // 댓글 작성자와 현재 로그인한 회원이 동일한지 확인
-      // 권한 없음 표시 or 수정하기 위한 input으로 변경
-    },
-    deleteComment() {
-      // 새로고침
-      location.reload();
+    set_vote_detail() {
+      this.SET_VOTE_DETAIL(this.vote);
+      console.log("인포: ", this.vote);
     },
     sendComment() {
-      // this.comment 값을 활용하여 댓글 생성 api 호출
-      // 새로고침
-      location.reload();
+      var params = { voteId: this.vote.voteId, content: this.comment };
+      commentCreate(this.accessToken, params, ({ data }) => {
+        console.log("sendComment: " + data);
+        this.$router.go();
+      });
+    },
+    updateComment(commentId) {
+      this.isUpdated = true;
+      console.log(this.isUpdated);
+      this.modifyCommentId = commentId;
+      console.log(this.modifyCommentId + ":" + commentId);
+      this.isModify = true;
+      // this.isUpdated = false;
+      // this.$router.go();
+    },
+    updateComment2(commentId) {
+      commentModify(this.accessToken, commentId, ({ data }) => {
+        console.log(data);
+      });
+    },
+    deleteComment(commentId) {
+      commentDelete(this.accessToken, commentId, ({ data }) => {
+        console.log(data);
+        this.$router.go();
+      });
     },
   },
   created() {
     // vote 값을 this.$route.params.voteId로 api 호출
-    this.$emit("pass", this.vote.category);
+
+    console.log("배경 카테고리 : " + this.vote.category);
     if (this.vote.result === null) {
       if (this.vote.voted === "A") {
         this.clickedOption = 1;
@@ -676,4 +790,50 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+/* 여기에만 적용이 안되어서 추가 */
+.body {
+  max-width: 390px;
+  height: 110vh;
+  min-height: 844px;
+  padding-bottom: 73px;
+}
+
+.comment-title {
+  font-size: 17px;
+  line-height: 22px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+.comment-input {
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+}
+.comment-input > .comment-box {
+  background: #ffffff;
+  border: 1px solid #007aff;
+  border-radius: 10px;
+
+  width: 304px;
+  height: 24px;
+}
+.send-btn {
+  position: relative;
+  right: 26px;
+}
+
+.box-align-center1 {
+  width: 280px;
+  margin-left: 20px;
+}
+
+.vote-percent-bar1,
+.vote-percent-bar2 {
+  width: 280px;
+  height: 30px;
+  /* background-color: #dedede; */
+  font-weight: 600;
+  font-size: 0.8rem;
+}
+</style>
