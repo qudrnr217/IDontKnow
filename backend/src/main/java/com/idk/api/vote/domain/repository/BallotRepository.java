@@ -11,5 +11,6 @@ public interface BallotRepository extends JpaRepository<Ballot, Long>, BallotRep
     boolean existsByUserAndVote(User user, Vote vote);
 
     List<Ballot> findBallotsByUser(User user);
+    int countAllByVoteAndChoice(Vote vote, String choice);
 
 }
