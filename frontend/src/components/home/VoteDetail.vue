@@ -38,7 +38,7 @@
                 ), url(${require('@/assets/image/category/' +
                   vote.category +
                   '/' +
-                  vote.subCategory.replace('/', '_') +
+                  vote.subCategory +
                   '.jpg')})`,
         }"
       >
@@ -581,6 +581,7 @@
         <input
           type="text"
           v-model="comment"
+          @keyup.enter="sendComment()"
           class="input-rectangle-short text-h4"
           :class="{
             'yellow-2-border': vote.category === '메뉴',
@@ -631,6 +632,8 @@ export default {
       ({ data }) => {
         console.log(data);
         this.vote = data;
+        this.acount = data.acount;
+        this.bcount = data.bcount;
         this.$emit("pass", this.vote.category);
         console.log("vote: ", this.vote.category);
         console.log(
@@ -645,36 +648,35 @@ export default {
           this.clickedOption = 0;
         }
         // this.set_vote_detail();
-
         //프로그래스 바
-        // const bar1 = document.querySelector(".vote-percent-bar1");
-        // const bar2 = document.querySelector(".vote-percent-bar2");
+        const bar1 = document.querySelector(".vote-percent-bar1");
+        const bar2 = document.querySelector(".vote-percent-bar2");
+        console.log(bar1 + ":" + bar2);
+        let t1 = 0;
+        let t2 = 0;
+        let a = data.acount;
+        let b = data.bcount;
+        let totalMinwon = (a / (a + b)) * 100;
+        let resolveMinwon = (b / (a + b)) * 100;
+        if (a == 0 && b == 0) {
+          totalMinwon = 0;
+          resolveMinwon = 0;
+        } else if (a == 0) {
+          totalMinwon = 0;
+        } else if (b == 0) {
+          resolveMinwon = 0;
+        }
+        console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
 
-        // let t1 = 0;
-        // let t2 = 0;
-        // let a = data.acount;
-        // let b = data.bcount;
-        // let totalMinwon = (a / (a + b)) * 100;
-        // let resolveMinwon = (b / (a + b)) * 100;
-        // if (a == 0 && b == 0) {
-        //   totalMinwon = 0;
-        //   resolveMinwon = 0;
-        // } else if (a == 0) {
-        //   totalMinwon = 0;
-        // } else if (b == 0) {
-        //   resolveMinwon = 0;
-        // }
-        // console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
+        const barAnimation1 = setInterval(() => {
+          bar1.style.width = t1 + "%";
+          t1++ >= totalMinwon && clearInterval(barAnimation1);
+        }, 10);
 
-        // const barAnimation1 = setInterval(() => {
-        //   bar1.style.width = t1 + "%";
-        //   t1++ >= totalMinwon && clearInterval(barAnimation1);
-        // }, 10);
-
-        // const barAnimation2 = setInterval(() => {
-        //   bar2.style.width = t2 + "%";
-        //   t2++ >= resolveMinwon && clearInterval(barAnimation2);
-        // }, 10);
+        const barAnimation2 = setInterval(() => {
+          bar2.style.width = t2 + "%";
+          t2++ >= resolveMinwon && clearInterval(barAnimation2);
+        }, 10);
       },
       (error) => {
         if (error.response.status == 401) {
@@ -682,6 +684,15 @@ export default {
         }
       }
     );
+
+    // var bar = document.querySelector(".vote-percent-bar1");
+    // let t = 0;
+    // bar.style.width = 0;
+    // let totalMinwon = 70;
+    // const barAnimation = setInterval(() => {
+    //   bar.style.width = t + "%";
+    //   t++ >= totalMinwon && clearInterval(barAnimation);
+    // }, 10);
   },
   data() {
     return {
@@ -700,7 +711,8 @@ export default {
       modifyCommentId: 0,
       isModify: false,
       token: "",
-      vote: [],
+      vote: { category: "메뉴", subCategory: "분식" },
+
       ballotId: 0,
       reload: 0,
       flag: false,
@@ -806,11 +818,13 @@ export default {
       console.log("인포: ", this.vote);
     },
     sendComment() {
-      var params = { voteId: this.vote.voteId, content: this.comment };
-      commentCreate(this.accessToken, params, ({ data }) => {
-        console.log("sendComment: " + data);
-        this.$router.go();
-      });
+      if (this.comment !== "") {
+        var params = { voteId: this.vote.voteId, content: this.comment };
+        commentCreate(this.accessToken, params, ({ data }) => {
+          console.log("sendComment: " + data);
+          this.$router.go();
+        });
+      }
     },
     updateComment(commentId, preContent) {
       if (!this.flag) {
@@ -843,25 +857,24 @@ export default {
       });
     },
   },
-  created() {
-    // vote 값을 this.$route.params.voteId로 api 호출
-
-    console.log("배경 카테고리 : " + this.vote.category);
-    if (this.vote.result === null) {
-      if (this.vote.voted === "A") {
-        this.clickedOption = 1;
-      }
-      if (this.vote.voted === "B") {
-        this.clickedOption = 2;
-      }
-    } else {
-      if (this.vote.result === "A") {
-        this.clickedOption = 1;
-      } else if (this.vote.result === "B") {
-        this.clickedOption = 2;
-      }
-    }
-  },
+  // created() {
+  //   // vote 값을 this.$route.params.voteId로 api 호출
+  //   console.log("배경 카테고리 : " + this.vote.category);
+  //   if (this.vote.result === null) {
+  //     if (this.vote.voted === "A") {
+  //       this.clickedOption = 1;
+  //     }
+  //     if (this.vote.voted === "B") {
+  //       this.clickedOption = 2;
+  //     }
+  //   } else {
+  //     if (this.vote.result === "A") {
+  //       this.clickedOption = 1;
+  //     } else if (this.vote.result === "B") {
+  //       this.clickedOption = 2;
+  //     }
+  //   }
+  // },
 };
 </script>
 
@@ -906,5 +919,54 @@ export default {
 
 .input-update {
   width: 145px;
+}
+
+/* 프로그래스 바 */
+.progressbar-container {
+  width: 500px;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.progress-value {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  padding-bottom: 0.25rem;
+}
+
+progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  color: #273238;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 8px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #273238;
+  border-radius: 8px;
+}
+
+progress::-moz-progress-bar {
+  background-color: #eee;
+  border-radius: 8px;
 }
 </style>

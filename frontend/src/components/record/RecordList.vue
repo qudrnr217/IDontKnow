@@ -15,38 +15,40 @@
     </div>
     <div class="box-row">
       <record-pie-chart :percentage="calcPercentage" />
-      <div class="box-align-center">
-        <div
-          class="text-h3"
-          v-if="calcPercentage >= 80 || calcPercentage <= 20"
-        >
-          {{ userName }}님은
-        </div>
-        <div
-          class="text-h3"
-          v-if="calcPercentage >= 80"
-          style="background-color: gold"
-        >
-          금손
-        </div>
-        <div
-          class="text-h3"
-          v-else-if="calcPercentage <= 20"
-          style="background-color: darksalmon"
-        >
-          똥손
-        </div>
-        <div
-          class="text-h3"
-          v-if="calcPercentage >= 80 || calcPercentage <= 20"
-        >
-          입니다!
-        </div>
+      <div class="box-row">
+        <div class="box-align-center">
+          <div
+            class="text-h3"
+            v-if="calcPercentage >= 80 || calcPercentage <= 20"
+          >
+            {{ userName }}님은
+          </div>
+          <div
+            class="text-h3"
+            v-if="calcPercentage >= 80"
+            style="background-color: gold"
+          >
+            금손
+          </div>
+          <div
+            class="text-h3"
+            v-else-if="calcPercentage <= 20"
+            style="background-color: darksalmon"
+          >
+            똥손
+          </div>
+          <div
+            class="text-h3"
+            v-if="calcPercentage >= 80 || calcPercentage <= 20"
+          >
+            입니다!
+          </div>
 
-        <div class="text-h3" v-else>조금 더 많은 투표에 참여해보세요 ~</div>
-        <div class="text-h2">{{ calcPercentage }} %</div>
-        <div class="text-h4">
-          {{ voteCount.ballotCount }}개 중 {{ voteCount.correctCount }}개 정답
+          <div class="text-h3" v-else>조금 더 많은 투표에 참여해보세요 ~</div>
+          <div class="text-h2">{{ calcPercentage }} %</div>
+          <div class="text-h4">
+            {{ voteCount.ballotCount }}개 중 {{ voteCount.correctCount }}개 정답
+          </div>
         </div>
       </div>
     </div>
@@ -76,8 +78,8 @@
     </div>
     <div class="vote-list">
       <div
-        v-for="vote in voteList"
-        :key="vote.voteId"
+        v-for="(vote, index) in voteList"
+        :key="index"
         class="vote-card"
         @click="detailCard"
         :value="`${vote.voteId}`"
@@ -87,8 +89,8 @@
                 rgba(255, 255, 255, 0.5)
                 ), url(${require('@/assets/image/category/' +
                   vote.category +
-                  '/' +
-                  vote.subCategory.replace('/', '_') +
+                  '_' +
+                  vote.subCategory +
                   '.jpg')})`,
         }"
       >
@@ -213,16 +215,27 @@
         </div>
       </div>
     </div>
+    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+      <div
+        slot="no-more"
+        style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px"
+      >
+        목록의 끝입니다 :)
+      </div>
+    </infinite-loading>
   </div>
 </template>
 
 <script>
 import RecordPieChart from "../record/RecordPieChart.vue";
-import { getRate, getVoteList, getBallotList } from "../../api/mypage";
+// import { getRate, getVoteList, getBallotList } from "../../api/mypage";
+import { getRate } from "../../api/mypage";
 import { mapMutations, mapActions, mapState } from "vuex";
+import InfiniteLoading from "vue-infinite-loading";
 export default {
   components: {
     RecordPieChart,
+    InfiniteLoading,
   },
   name: "RecordList",
   data() {
@@ -232,7 +245,7 @@ export default {
       clickedId: 0,
       status: "진행",
       statusType: false,
-      lastVoteId: 0,
+
       record: "작성한 투표",
       recordType: 0, // 0 : 내가 작성한 투표, 1 : 내가 참여한 투표
       recordList: ["작성한 투표", "참여한 투표"],
@@ -248,36 +261,29 @@ export default {
         ballotCount: 0,
         correctCount: 0,
       },
-      voteList: [
-        {
-          voteId: 1,
-          title: "어떤 치킨 좋아하세요?",
-          userId: 1,
-          name: "치킨러버",
-          optionA: "교촌치킨",
-          optionB: "노랑통닭",
-          hitCount: 12000,
-          commentCount: 20000,
-          category: "메뉴",
-          subCategory: "치킨",
-        },
-      ],
     };
   },
   mounted() {
     // 유저 예측률 조회 api 호출해서 userCount 채우기
-    this.getVotesCount();
+    // this.getVotesCount();
     // 유저의 (내가 작성한 투표-진행) api 호출해서 voteList 채우기
-    var params = {
-      status: this.statusType,
-      lastVoteId: 0,
-    };
-    this.SET_INIT();
-    this.SHOW_MY_VOTE_LIST(params);
-    this.SHOW_MY_BALLOT_LIST(params);
+    // if (this.status == "진행") {
+    //   this.statusType = false;
+    // } else {
+    //   this.statusType = true;
+    // }
+    // var params = {
+    //   token: this.accessToken,
+    //   status: this.statusType,
+    //   userId: this.userId,
+    //   lastVoteId: 0,
+    // };
+    // this.set_init();
+    // this.show_ballot_list(params);
+    this.getVotesCount();
   },
   methods: {
-    ...mapActions("recordStore", ["SHOW_MY_VOTE_LIST, SHOW_MY_BALLOT_LIST"]),
+    ...mapActions("recordStore", ["SHOW_MY_VOTE_LIST", "SHOW_MY_BALLOT_LIST"]),
     ...mapMutations("recordStore", ["SET_INIT"]),
     getVotesCount() {
       getRate(
@@ -295,6 +301,7 @@ export default {
         }
       );
     },
+
     detailCard(e) {
       const clickedId = e.target.getAttribute("value");
       this.$router.push({
@@ -304,67 +311,127 @@ export default {
         },
       });
     },
+    set_init() {
+      this.SET_INIT();
+    },
     changeRecord() {
       // 내가 작성한 -> 참여한
       if (this.recordType === 0) {
         this.recordType = 1;
         this.record = "참여한 투표";
-        this.voteList = this.getBallots();
+        let params = {
+          token: this.accessToken,
+          status: this.statusType,
+          userId: this.userId,
+          lastVoteId: 0,
+        };
+        this.set_init();
+        this.show_vote_list(params);
+        // this.voteList = this.getBallots();
       }
       // 내가 참여한 -> 작성한
       else {
         this.recordType = 0;
         this.record = "작성한 투표";
-        this.voteList = this.getVotes();
+        let params = {
+          token: this.accessToken,
+          status: this.statusType,
+          userId: this.userId,
+          lastVoteId: 0,
+        };
+        this.set_init();
+        this.show_ballot_list(params);
+        // this.voteList = this.getVotes();
       }
     },
     changeStatus() {
-      if (!this.statusType) {
-        this.statusType = true;
-        this.status = "종료";
-      } else {
+      this.set_init();
+      console.log(this.status);
+      //초기화
+      if (this.status == "진행") {
         this.statusType = false;
-        this.status = "진행";
-      }
-      if (this.recordType === 0) {
-        // 내가 작성한 투표 목록 조회 api 호출
-        // this.userId, this.statusType 포함
-        // this.voteList에 담기
-        this.voteList = this.getVotes();
       } else {
-        // 내가 참여한 투표 목록 조회 api 호출
-        // this.userId, this.statusType 포함
-        // this.voteList에 담기
-        this.voteList = this.getBallots();
+        this.statusType = true;
+      }
+
+      var params = {
+        token: this.accessToken,
+        status: this.statusType,
+        userId: this.userId,
+        lastVoteId: 0,
+      };
+      if (this.recordType === 0) {
+        this.show_ballot_list(params);
+      } else {
+        this.show_vote_list(params);
       }
     },
-    getVotes() {
-      getVoteList(
-        this.accessToken,
-        this.userId,
-        { status: this.statusType, lastVoteId: this.lastVoteId },
-        (response) => {
-          console.log(response.data);
-          this.voteList = response.data.content;
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+    show_ballot_list(params) {
+      this.SET_INIT();
+      this.SHOW_MY_BALLOT_LIST({ params });
     },
-    getBallots() {
-      getBallotList(
-        this.accessToken,
-        this.userId,
-        { status: this.statusType, lastVoteId: this.lastVoteId },
-        (response) => {
-          console.log(response.data);
-          this.voteList = response.data.content;
-        },
-        (error) => {
-          console.log(error);
+    show_vote_list(params) {
+      this.SET_INIT();
+      this.SHOW_MY_VOTE_LIST({ params });
+    },
+    // getVotes() {
+    //   getVoteList(
+    //     this.accessToken,
+    //     this.userId,
+    //     { status: this.statusType, lastVoteId: this.lastVoteId },
+    //     (response) => {
+    //       console.log(response.data);
+    //       this.voteList = response.data.content;
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // },
+    // getBallots() {
+    //   getBallotList(
+    //     this.accessToken,
+    //     this.userId,
+    //     { status: this.statusType, lastVoteId: this.lastVoteId },
+    //     (response) => {
+    //       console.log(response.data);
+    //       this.voteList = response.data.content;
+    //     },
+    //     (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // },
+
+    infiniteHandler($state) {
+      if (this.status == "진행") {
+        this.statusType = false;
+      } else {
+        this.statusType = true;
+      }
+      var params = {
+        token: this.accessToken,
+        status: this.statusType,
+        userId: this.userId,
+        lastVoteId: 0,
+      };
+      this.set_init();
+      this.show_ballot_list(params);
+
+      console.log("hi");
+      setTimeout(() => {
+        if (!this.last) {
+          $state.loaded();
+          // this.lastVoteId += 1;
+          // 끝 지정(No more data) - 데이터가 EACH_LEN개 미만이면
+          if (this.last) {
+            $state.complete();
+          }
+        } else {
+          // 끝 지정(No more data)
+          $state.complete();
         }
-      );
+      }, 3000);
     },
   },
   computed: {
@@ -379,7 +446,7 @@ export default {
       }
     },
     ...mapState("userStore", ["accessToken"]),
-    ...mapState("recordStore", ["SHOW_MY_VOTE_LIST, SHOW_MY_BALLOT_LIST"]),
+    ...mapState("recordStore", ["lastVoteId", "last", "voteList"]),
   },
 };
 </script>
