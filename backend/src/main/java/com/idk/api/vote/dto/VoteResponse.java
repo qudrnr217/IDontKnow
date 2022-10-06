@@ -99,17 +99,31 @@ public class VoteResponse {
         private boolean status;
 
         public static VoteResponse.GetOne build(Vote vote) {
+            String changeTitle = vote.getTitle();
+            String changeOptionA = vote.getOptionA();
+            String changeOptionB = vote.getOptionB();
+            if (changeTitle.length() > 25) {
+                changeTitle = changeTitle.substring(0, 25);
+            }
+            if (changeOptionA.length() > 10) {
+                changeOptionA = changeOptionA.substring(0, 10);
+                changeOptionA += "...";
+            }
+            if (changeOptionB.length() > 10) {
+                changeOptionB = changeOptionB.substring(0, 10);
+                changeOptionB += "...";
+            }
             return GetOne.builder()
                     .voteId(vote.getId())
                     .category(vote.getCategory().getName())
                     .subCategory(vote.getSubCategory().getName())
-                    .title(vote.getTitle())
+                    .title(changeTitle)
                     .userId(vote.getUser().getId())
                     .name(vote.getUser().getName())
                     .hitCount(vote.getHitCount())
                     .commentCount(vote.getCommentCount())
-                    .optionA(vote.getOptionA())
-                    .optionB(vote.getOptionB())
+                    .optionA(changeOptionA)
+                    .optionB(changeOptionB)
                     .createdAt(vote.getCreatedAt())
                     .status(vote.isStatus())
                     .build();
