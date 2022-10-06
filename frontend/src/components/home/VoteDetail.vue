@@ -434,6 +434,7 @@
                 </div>
               </div>
             </div>
+            <!-- 참여자 -->
             <div v-else class="box-row">
               <div
                 class="box-comment-column comment-profile-box"
@@ -485,11 +486,12 @@
                     {{ comment.content }}
                   </div>
                 </div>
+                <!-- 안녕 -->
                 <div class="box-comment-btn-row box-comment-btn-right">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
                     :value="`${comment.commentId}`"
-                    @click="updateComment2(comment.commentId)"
+                    @click="updateComment(comment.commentId)"
                   >
                     수정
                   </div>
@@ -646,6 +648,7 @@ export default {
       vote: [],
       ballotId: 0,
       reload: 0,
+      flag: false,
       data: {
         isShow: false,
         title: "투표를 삭제하시겠습니까?",
@@ -748,19 +751,27 @@ export default {
       });
     },
     updateComment(commentId) {
-      this.isUpdated = true;
-      console.log(this.isUpdated);
-      this.modifyCommentId = commentId;
-      console.log(this.modifyCommentId + ":" + commentId);
-      this.isModify = true;
+      if (!this.flag) {
+        this.isUpdated = true;
+        console.log(this.isUpdated);
+        this.modifyCommentId = commentId;
+        console.log(this.modifyCommentId + ":" + commentId);
+        this.isModify = true;
+        this.flag = true;
+      } else {
+        console.log("들어왔다~~~");
+        let content = { content: this.commentForUpdate };
+        commentModify(this.accessToken, commentId, content, ({ data }) => {
+          console.log(data);
+          this.flag = false;
+          this.$router.go();
+        });
+      }
+
       // this.isUpdated = false;
       // this.$router.go();
     },
-    updateComment2(commentId) {
-      commentModify(this.accessToken, commentId, ({ data }) => {
-        console.log(data);
-      });
-    },
+
     deleteComment(commentId) {
       commentDelete(this.accessToken, commentId, ({ data }) => {
         console.log(data);

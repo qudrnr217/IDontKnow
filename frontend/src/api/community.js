@@ -1,3 +1,4 @@
+// import { param } from "jquery";
 import {
   apiInstanceWithAuthorization,
   apiInstanceWithoutAuthorization,
@@ -80,9 +81,10 @@ function commentDelete(token, params, success, fail) {
   api.delete(`/comments/${params}`).then(success).catch(fail);
 }
 
-function commentModify(token, params, success, fail) {
+function commentModify(token, commentId, params, success, fail) {
+  console.log("모디파이인가?");
   const api = apiInstanceWithAuthorization(token);
-  api.patch(`/comments/${params}`).then(success).catch(fail);
+  api.patch(`/comments/${commentId}`, params).then(success).catch(fail);
 }
 
 export {
