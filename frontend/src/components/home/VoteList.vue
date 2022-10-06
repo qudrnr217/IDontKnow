@@ -244,7 +244,11 @@
       </div>
       <!-- 여기였어 -->
     </div>
-    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+    <infinite-loading
+      @infinite="infiniteHandler"
+      spinner="waveDots"
+      :key="reload"
+    >
       <div
         slot="no-more"
         style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px"
@@ -258,8 +262,6 @@
 <script></script>
 
 <script>
-// import { Carousel3d, Slide } from "vue-carousel-3d";
-// import { Flicking } from "@egjs/vue-flicking";
 import { mapState, mapActions, mapMutations } from "vuex";
 import InfiniteLoading from "vue-infinite-loading";
 import SliderChart from "./SliderChart";
@@ -268,9 +270,6 @@ export default {
   components: {
     InfiniteLoading,
     SliderChart,
-    // Carousel3d,
-    // Slide,
-    // Flicking: Flicking,
   },
   data() {
     return {
@@ -295,7 +294,6 @@ export default {
       } else this.$router.push({ name: "voteCreate" });
     },
     detailCard(e) {
-      // console.log("여기는 유저아이디: " + this.$store.state.userStore.userId);
       if (this.$store.state.userStore.userId === 0) {
         this.$router.push({ name: "userLogin" });
       } else {
@@ -314,20 +312,11 @@ export default {
       this.SET_INIT();
     },
     votes_list(params) {
-      // this.SET_INIT();
-
       this.SHOW_VOTE_LIST({
         params: params,
       });
-      console.log("last:" + this.lastVoteId);
     },
     changeCategory() {
-      // if (this.status == "진행") {
-      //   this.status = false;
-      // } else {
-      //   this.status = true;
-      // }
-      // console.log(this.category);
       this.reload += 1;
       let params = {
         category: this.category,
@@ -346,6 +335,7 @@ export default {
     },
 
     changeStatus() {
+      reload += 1;
       // 여기서 진행 종료 바꾸는 목록 함수 호출
       this.set_init();
       console.log(this.status);
@@ -376,7 +366,6 @@ export default {
         lastVoteId: this.lastVoteId,
       };
       this.votes_list(params);
-      console.log("hi");
       setTimeout(() => {
         if (!this.last) {
           $state.loaded();
@@ -395,9 +384,6 @@ export default {
 
   mounted() {
     // voteList api 호출
-    console.log("category: " + this.category);
-    // console.log(this.status);
-    // console.log(this.status);
     if (this.status == "진행") {
       this.booleanStatus = false;
     } else {
@@ -410,65 +396,8 @@ export default {
     };
     this.set_init();
     this.votes_list(params);
-
-    // let abc = document.getElementById("sub-category").textContent();
-    // console.log("abc: " + abc);
   },
 };
 </script>
 
-<style scoped>
-/* 트랜드 */
-
-/* .slide {
-  width: 320px;
-  height: 10px;
-}
-
-.carousel-3d-slide.current {
-  width: 320px;
-  height: 170px;
-}
-
-.flicking-viewport:not(.vertical) {
-  width: 100%;
-  height: 180px;
-}
-
-.panel > .vote-card {
-  margin: 10px;
-} */
-
-/* 진행,종료,만들기 버튼 */
-/* .body-mid {
-  display: flex;
-}
-.toggle-btn {
-  margin-left: 35px;
-} */
-
-/* .body-mid > .create-btn {
-  width: 60px;
-  height: 30px;
-  background: rgba(0, 122, 255, 0.15);
-  border-radius: 8.91px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 25px;
-  margin-left: 160px;
-
-  font-family: "GmarketSansTTFLight";
-  font-weight: 300;
-  font-size: 13px;
-  line-height: 20px;
-  cursor: pointer;
-} */
-
-/* .card {
-  margin-top: 20px;
-  cursor: pointer;
-} */
-</style>
+<style scoped></style>

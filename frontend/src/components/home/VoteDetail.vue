@@ -623,10 +623,6 @@ export default {
     ...mapState("userStore", ["accessToken", "userId"]),
   },
   mounted() {
-    // console.log(this.$route.path);
-    console.log("안녕하세요");
-    console.log(this.$route.params);
-
     detailVote(
       this.accessToken,
       this.$route.params,
@@ -634,10 +630,6 @@ export default {
         console.log(data);
         this.vote = data;
         this.$emit("pass", this.vote.category);
-        console.log("vote: ", this.vote.category);
-        console.log(
-          this.$store.state.userStore.userId + ":" + this.vote.userId
-        );
 
         if (this.vote.voted == "A") {
           this.clickedOption = 1;
@@ -651,11 +643,11 @@ export default {
         //프로그래스 바
         const bar1 = document.querySelector(".vote-percent-bar1");
         const bar2 = document.querySelector(".vote-percent-bar2");
-        console.log(bar1 + ":" + bar2);
         let t1 = 0;
         let t2 = 0;
         let a = data.acount;
         let b = data.bcount;
+        console.log(a + ":" + b);
         let totalMinwon = (a / (a + b)) * 100;
         let resolveMinwon = (b / (a + b)) * 100;
         if (a == 0 && b == 0) {

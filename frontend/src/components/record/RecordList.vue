@@ -214,15 +214,19 @@
           </div>
         </div>
       </div>
-    </div>
-    <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
-      <div
-        slot="no-more"
-        style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px"
+      <infinite-loading
+        @infinite="infiniteHandler"
+        spinner="waveDots"
+        :key="reload"
       >
-        목록의 끝입니다 :)
-      </div>
-    </infinite-loading>
+        <div
+          slot="no-more"
+          style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px"
+        >
+          목록의 끝입니다 :)
+        </div>
+      </infinite-loading>
+    </div>
   </div>
 </template>
 
@@ -245,6 +249,7 @@ export default {
       clickedId: 0,
       status: "진행",
       statusType: false,
+      reload: 0,
 
       record: "작성한 투표",
       recordType: 0, // 0 : 내가 작성한 투표, 1 : 내가 참여한 투표
@@ -263,7 +268,7 @@ export default {
       },
     };
   },
-  mounted() {
+  created() {
     // 유저 예측률 조회 api 호출해서 userCount 채우기
     // this.getVotesCount();
     // 유저의 (내가 작성한 투표-진행) api 호출해서 voteList 채우기
@@ -272,14 +277,14 @@ export default {
     // } else {
     //   this.statusType = true;
     // }
-    // var params = {
-    //   token: this.accessToken,
-    //   status: this.statusType,
-    //   userId: this.userId,
-    //   lastVoteId: 0,
-    // };
-    // this.set_init();
-    // this.show_ballot_list(params);
+    var params = {
+      token: this.accessToken,
+      status: false,
+      userId: this.userId,
+      lastVoteId: 0,
+    };
+    this.set_init();
+    this.show_vote_list(params);
     this.getVotesCount();
   },
   methods: {
@@ -315,6 +320,7 @@ export default {
       this.SET_INIT();
     },
     changeRecord() {
+      this.reload += 1;
       // 내가 작성한 -> 참여한
       if (this.recordType === 0) {
         this.recordType = 1;
@@ -326,7 +332,7 @@ export default {
           lastVoteId: 0,
         };
         this.set_init();
-        this.show_vote_list(params);
+        this.show_ballot_list(params);
         // this.voteList = this.getBallots();
       }
       // 내가 참여한 -> 작성한
@@ -340,11 +346,12 @@ export default {
           lastVoteId: 0,
         };
         this.set_init();
-        this.show_ballot_list(params);
+        this.show_vote_list(params);
         // this.voteList = this.getVotes();
       }
     },
     changeStatus() {
+      // this.reload += 1;
       this.set_init();
       console.log(this.status);
       //초기화
@@ -374,36 +381,9 @@ export default {
       this.SET_INIT();
       this.SHOW_MY_VOTE_LIST({ params });
     },
-    // getVotes() {
-    //   getVoteList(
-    //     this.accessToken,
-    //     this.userId,
-    //     { status: this.statusType, lastVoteId: this.lastVoteId },
-    //     (response) => {
-    //       console.log(response.data);
-    //       this.voteList = response.data.content;
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
-    // getBallots() {
-    //   getBallotList(
-    //     this.accessToken,
-    //     this.userId,
-    //     { status: this.statusType, lastVoteId: this.lastVoteId },
-    //     (response) => {
-    //       console.log(response.data);
-    //       this.voteList = response.data.content;
-    //     },
-    //     (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // },
 
     infiniteHandler($state) {
+      this.set_init();
       if (this.status == "진행") {
         this.statusType = false;
       } else {
@@ -413,10 +393,15 @@ export default {
         token: this.accessToken,
         status: this.statusType,
         userId: this.userId,
-        lastVoteId: 0,
+        lastVoteId: this.lastVoteId,
       };
-      this.set_init();
-      this.show_ballot_list(params);
+      if (this.recordType === 0) {
+        this.set_init();
+        this.show_vote_list(params);
+      } else {
+        this.set_init();
+        this.show_ballot_list(params);
+      }
 
       console.log("hi");
       setTimeout(() => {
