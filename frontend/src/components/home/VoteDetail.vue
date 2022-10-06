@@ -72,11 +72,15 @@
         </div>
         <div
           class="box-btn-right"
-          @click="deleteVote"
+          @click="deleteVote()"
           v-if="this.$store.state.userStore.userId === this.vote.userId"
         >
           <div class="btn-rectangle-tiny text-h4 red">삭제</div>
         </div>
+        <vue-confirm-dialog
+          :data="data"
+          v-if="data.isShow"
+        ></vue-confirm-dialog>
       </div>
       <!-- 투표 선택지 -->
       <div class="vote-options-box-big">
@@ -644,34 +648,34 @@ export default {
         // this.set_vote_detail();
 
         //프로그래스 바
-        const bar1 = document.querySelector(".vote-percent-bar1");
-        const bar2 = document.querySelector(".vote-percent-bar2");
+        // const bar1 = document.querySelector(".vote-percent-bar1");
+        // const bar2 = document.querySelector(".vote-percent-bar2");
 
-        let t1 = 0;
-        let t2 = 0;
-        let a = data.acount;
-        let b = data.bcount;
-        let totalMinwon = (a / (a + b)) * 100;
-        let resolveMinwon = (b / (a + b)) * 100;
-        if (a == 0 && b == 0) {
-          totalMinwon = 0;
-          resolveMinwon = 0;
-        } else if (a == 0) {
-          totalMinwon = 0;
-        } else if (b == 0) {
-          resolveMinwon = 0;
-        }
-        console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
+        // let t1 = 0;
+        // let t2 = 0;
+        // let a = data.acount;
+        // let b = data.bcount;
+        // let totalMinwon = (a / (a + b)) * 100;
+        // let resolveMinwon = (b / (a + b)) * 100;
+        // if (a == 0 && b == 0) {
+        //   totalMinwon = 0;
+        //   resolveMinwon = 0;
+        // } else if (a == 0) {
+        //   totalMinwon = 0;
+        // } else if (b == 0) {
+        //   resolveMinwon = 0;
+        // }
+        // console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
 
-        const barAnimation1 = setInterval(() => {
-          bar1.style.width = t1 + "%";
-          t1++ >= totalMinwon && clearInterval(barAnimation1);
-        }, 10);
+        // const barAnimation1 = setInterval(() => {
+        //   bar1.style.width = t1 + "%";
+        //   t1++ >= totalMinwon && clearInterval(barAnimation1);
+        // }, 10);
 
-        const barAnimation2 = setInterval(() => {
-          bar2.style.width = t2 + "%";
-          t2++ >= resolveMinwon && clearInterval(barAnimation2);
-        }, 10);
+        // const barAnimation2 = setInterval(() => {
+        //   bar2.style.width = t2 + "%";
+        //   t2++ >= resolveMinwon && clearInterval(barAnimation2);
+        // }, 10);
       },
       (error) => {
         if (error.response.status == 401) {
@@ -704,9 +708,11 @@ export default {
       flag: false,
       data: {
         isShow: false,
+        voteId: 0,
         title: "투표를 삭제하시겠습니까?",
         no: "취소",
         yes: "삭제",
+        mode: "7",
       },
       data2: {
         isShow: false,
@@ -764,6 +770,7 @@ export default {
     },
     changeStatus() {
       // 종료 관련 팝업창 띄우기
+
       // 작성자가 투표 종료하는 api 호출
       // 새로고침
       this.reload += 1;
@@ -782,8 +789,8 @@ export default {
     },
     deleteVote() {
       // 투표 삭제하는 api 호출 (vote.ballotId 활용)
-      // 새로고침
-      location.reload();
+      this.data.isShow = true;
+      this.data.voteId = this.vote.voteId;
     },
     openChart() {
       // 투표 현황 가져오는 api 호출 (vote.voteId 활용)

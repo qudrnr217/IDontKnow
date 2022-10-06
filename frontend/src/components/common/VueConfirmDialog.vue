@@ -68,6 +68,7 @@ import {
   participateVote,
   nonparticipateVote,
   changVoteStatus,
+  voteDelete,
 } from "@/api/community.js";
 import { resetPassword } from "@/api/user";
 import { deleteUserInfo } from "@/api/mypage";
@@ -169,8 +170,8 @@ const Component = {
           console.log("마감:" + data);
           this.$router.go();
         });
-      } else if (this.data.mode == "4") {
-        this.sendEmail();
+      } else if (this.data.mode === "7") {
+        this.deleteVote();
       }
     },
     handleClickButton({ target }, confirm) {
@@ -241,6 +242,19 @@ const Component = {
           this.data.isShow = false;
           this.SET_INIT();
           this.$store.state.started = 0;
+          this.$router.push({ name: "home", path: "/" });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    deleteVote() {
+      voteDelete(
+        this.accessToken,
+        this.data.voteId,
+        (response) => {
+          console.log(response.data);
           this.$router.push({ name: "home", path: "/" });
         },
         (error) => {
