@@ -771,7 +771,7 @@ export default {
       this.data5.isShow = true;
       // 작성자가 투표 종료하는 api 호출
       // 새로고침
-      // this.reload += 1;
+      this.reload += 1;
     },
     clickVote() {
       // 투표 참여하는 api 호출 (clickedOption 구분해서 choice 전달)
