@@ -106,7 +106,9 @@
               backgroundImage: `linear-gradient(
                 rgba(255, 255, 255, 0.5),
                 rgba(255, 255, 255, 0.5)
-                ), url(${require('@/assets/image/category/menu/' +
+                ), url(${require('@/assets/image/category/' +
+                  vote.category +
+                  '/' +
                   vote.subCategory.replace('/', '_') +
                   '.jpg')})`,
             }"
