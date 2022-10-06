@@ -34,9 +34,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.body {
-  height: 105vh;
-  padding-bottom: 73px;
-}
-</style>
+<style scoped></style>

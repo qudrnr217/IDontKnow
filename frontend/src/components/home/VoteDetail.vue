@@ -1,5 +1,5 @@
 <template>
-  <div class="body">
+  <div>
     <!-- 화면 제목 -->
     <div class="box-row-left">
       <div
@@ -364,6 +364,7 @@
           <!-- 차트를 넣으면 아래 div 삭제 -->
           <div class="pie-chart">
             <pie-chart-view
+              :category="vote.category"
               :voteId="vote.voteId"
               :age="ageOption"
               :idx="chartOption"
@@ -371,11 +372,9 @@
               :key="reload"
             />
           </div>
-          <!-- <div class="vote-percent-bar">통계가 나오도록 변경 필요 !</div> -->
         </div>
       </div>
     </div>
-    <!-- 댓글 -->
     <!-- 댓글 -->
     <div class="box-column">
       <div class="box-row">
@@ -429,10 +428,11 @@
                     class="box-comment-text"
                   >
                     <input
+                      id="clickedComment"
                       class="input-update"
                       type="text"
-                      v-model="commentForUpdate1"
-                      :placeholder="comment.content"
+                      v-model="commentForUpdate"
+                      @input="getUpdateComment()"
                       style="border: none"
                     />
                   </div>
@@ -446,7 +446,7 @@
                 <div class="box-comment-btn-row box-comment-btn-left">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
-                    @click="updateComment(comment.commentId)"
+                    @click="updateComment(comment.commentId, comment.content)"
                     :value="`${comment.commentId}`"
                     v-if="userId == comment.userId"
                   >
@@ -515,8 +515,6 @@
                       vote.category === '장소',
                   }"
                 >
-                  <!-- TODO: 수정 버튼 클릭 시 해당 댓글 바꾸는 처리 필요 -->
-
                   <div
                     v-if="
                       isUpdated &&
@@ -526,23 +524,23 @@
                     class="box-comment-text"
                   >
                     <input
+                      id="clickedComment"
                       class="input-update"
                       type="text"
-                      v-model="commentForUpdate2"
-                      :placeholder="comment.content"
+                      v-model="commentForUpdate"
                       style="border: none"
+                      @input="getUpdateComment()"
                     />
                   </div>
                   <div class="box-comment-text" v-else>
                     {{ comment.content }}
                   </div>
                 </div>
-                <!-- 안녕 -->
                 <div class="box-comment-btn-row box-comment-btn-right">
                   <div
                     class="btn-rectangle-tiny red-text text-h5"
                     :value="`${comment.commentId}`"
-                    @click="updateComment2(comment.commentId)"
+                    @click="updateComment(comment.commentId, comment.content)"
                     v-if="userId == comment.userId"
                   >
                     수정
@@ -601,7 +599,7 @@
 // import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import { mapMutations, mapState } from "vuex";
-import PieChartView from "../community/PieChartVIew.vue";
+import PieChartView from "../home/VotePieChart.vue";
 import {
   detailVote,
   commentCreate,
@@ -705,8 +703,7 @@ export default {
       genderOptionList: ["F", "M"],
       comment: "",
       isUpdated: false,
-      commentForUpdate1: "",
-      commentForUpdate2: "",
+      commentForUpdate: "",
       modifyCommentId: 0,
       isModify: false,
       token: "",
@@ -765,6 +762,10 @@ export default {
         }
       }
     },
+    getUpdateComment() {
+      const updateContent = document.getElementById("clickedComment").value;
+      this.commentForUpdate = updateContent;
+    },
     changeClickedOptionB() {
       if (this.vote.voted === null && !this.vote.status) {
         if (this.clickedOption === 2) {
@@ -818,58 +819,14 @@ export default {
         this.$router.go();
       });
     },
-    updateComment(commentId) {
-      console.log("update comment1");
-      // console.log(commentId);
-      // console.log("modify:" + this.modifyCommentId);
-      // console.log(this.isUpdated);
+    updateComment(commentId, preContent) {
       if (!this.flag) {
         this.isUpdated = true;
-        console.log(this.isUpdated);
         this.modifyCommentId = commentId;
-        console.log(this.modifyCommentId + ":" + commentId);
-        // this.isModify = true;
+        this.commentForUpdate = preContent;
         this.flag = true;
       } else {
-        console.log("들어왔다~~~");
-        let content = { content: this.commentForUpdate1 };
-        // console.log(this.commentForUpdate1);
-        commentModify(
-          this.accessToken,
-          commentId,
-          content,
-          ({ data }) => {
-            console.log(data);
-            this.flag = false;
-            this.isUpdated = false;
-            this.$router.go();
-          },
-          (error) => {
-            console.log(error);
-          }
-        );
-      }
-
-      // this.isUpdated = false;
-      // this.$router.go();
-    },
-    updateComment2(commentId) {
-      console.log("updatecomment2");
-      // console.log(commentId);
-      // console.log("modify:" + this.modifyCommentId);
-      // console.log(this.isUpdated);
-      if (!this.flag) {
-        //인풋창 뜰 때
-        this.isUpdated = true;
-        console.log(this.isUpdated);
-        this.modifyCommentId = commentId;
-        console.log(this.modifyCommentId + ":" + commentId);
-        // this.isModify = true;
-        this.flag = true;
-      } else {
-        // 실제로 수정작업
-        console.log("들어왔다~~~");
-        let content = { content: this.commentForUpdate2 };
+        let content = { content: this.commentForUpdate };
         commentModify(
           this.accessToken,
           commentId,
@@ -886,7 +843,6 @@ export default {
         );
       }
     },
-
     deleteComment(commentId) {
       commentDelete(this.accessToken, commentId, ({ data }) => {
         console.log(data);
@@ -917,14 +873,6 @@ export default {
 </script>
 
 <style scoped>
-/* 여기에만 적용이 안되어서 추가 */
-.body {
-  max-width: 390px;
-  height: 110vh;
-  min-height: 844px;
-  padding-bottom: 73px;
-}
-
 .comment-title {
   font-size: 17px;
   line-height: 22px;
