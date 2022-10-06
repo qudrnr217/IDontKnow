@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import FooterView from "../src/components/common/FooterViewCopy.vue";
+import FooterView from "./components/common/FooterView.vue";
 import { mapState, mapActions } from "vuex";
 export default {
   components: {

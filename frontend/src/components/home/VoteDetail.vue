@@ -363,7 +363,7 @@
         <div class="box-align-center">
           <!-- 차트를 넣으면 아래 div 삭제 -->
           <div class="pie-chart">
-            <pie-chart-view
+            <vote-pie-chart
               :category="vote.category"
               :voteId="vote.voteId"
               :age="ageOption"
@@ -595,31 +595,20 @@
   </div>
 </template>
 <script>
-// import VoteBarChart from "./VoteBarChart.vue";
-// import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import { mapMutations, mapState } from "vuex";
-import PieChartView from "../home/VotePieChart.vue";
+import VotePieChart from "../home/VotePieChart.vue";
 import {
   detailVote,
   commentCreate,
   commentDelete,
   commentModify,
 } from "@/api/community.js";
-// import VoteChat from "./VoteChat.vue";
-// var token =
-//   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTg1MDk0fQ.oJIXeeV8whA5Q_IV1t3NH64-fq5LlUD0DP-V7Dvd5tRXbm7epQlvkZrnfag6yXmy";
 export default {
   name: "VoteDetail",
-  // props: {
-  //   voteId: String,
-  // },
   components: {
-    // VoteBarChart,
     VueConfirmDialog,
-    PieChartView,
-    // VoteChat,
-    // VoteCommentList,
+    VotePieChart,
   },
   computed: {
     checkStatus() {
@@ -696,7 +685,7 @@ export default {
       curClickedOption: "",
       isOpened: false,
       chartOption: "연령",
-      chartOptionList: ["연령", "성별", "거주지"],
+      chartOptionList: ["연령", "성별"],
       ageOption: 10,
       ageOptionList: [10, 20, 30, 40, 50, 60],
       genderOption: "F",
