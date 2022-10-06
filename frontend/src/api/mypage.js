@@ -35,6 +35,25 @@ function getRate(token, userId, success, fail) {
   api.get(`/mypage/users/${userId}/rate`).then(success).catch(fail);
 }
 
+function getVoteList(token, userId, params, success, fail) {
+  const api = apiInstanceWithAuthorization(token);
+  api
+    .get(
+      `/mypage/users/${userId}/votes?status=${params.status}&lastVoteId=${params.lastVoteId}`
+    )
+    .then(success)
+    .catch(fail);
+}
+
+function getBallotList(token, userId, params, success, fail) {
+  const api = apiInstanceWithAuthorization(token);
+  api
+    .get(
+      `/mypage/users/${userId}/ballots?status=${params.status}&lastVoteId=${params.lastVoteId}`
+    )
+    .then(success)
+    .catch(fail);
+}
 export {
   getUserInfo,
   updateUserInfo,
@@ -42,4 +61,6 @@ export {
   deleteUserInfo,
   changePassword,
   getRate,
+  getVoteList,
+  getBallotList,
 };

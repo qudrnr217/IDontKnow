@@ -208,8 +208,8 @@
 
 <script>
 import RecordPieChart from "../record/RecordPieChart.vue";
-import { getRate } from "../../api/mypage";
-import { mapState } from "vuex";
+import { getRate, getVoteList, getBallotList } from "../../api/mypage";
+import { mapMutations, mapActions, mapState } from "vuex";
 export default {
   components: {
     RecordPieChart,
@@ -222,6 +222,7 @@ export default {
       clickedId: 0,
       status: "진행",
       statusType: false,
+      lastVoteId: 0,
       record: "작성한 투표",
       recordType: 0, // 0 : 내가 작성한 투표, 1 : 내가 참여한 투표
       recordList: ["작성한 투표", "참여한 투표"],
@@ -254,12 +255,20 @@ export default {
     };
   },
   mounted() {
-    // 유저 정보 조회 api 호출해서 userInfo 채우기
     // 유저 예측률 조회 api 호출해서 userCount 채우기
     this.getVotesCount();
     // 유저의 (내가 작성한 투표-진행) api 호출해서 voteList 채우기
+    var params = {
+      status: this.statusType,
+      lastVoteId: 0,
+    };
+    this.SET_INIT();
+    this.SHOW_MY_VOTE_LIST(params);
+    this.SHOW_MY_BALLOT_LIST(params);
   },
   methods: {
+    ...mapActions("recordStore", ["SHOW_MY_VOTE_LIST, SHOW_MY_BALLOT_LIST"]),
+    ...mapMutations("recordStore", ["SET_INIT"]),
     getVotesCount() {
       getRate(
         this.accessToken,
@@ -290,11 +299,13 @@ export default {
       if (this.recordType === 0) {
         this.recordType = 1;
         this.record = "참여한 투표";
+        this.voteList = this.getBallots();
       }
       // 내가 참여한 -> 작성한
       else {
         this.recordType = 0;
         this.record = "작성한 투표";
+        this.voteList = this.getVotes();
       }
     },
     changeStatus() {
@@ -309,11 +320,41 @@ export default {
         // 내가 작성한 투표 목록 조회 api 호출
         // this.userId, this.statusType 포함
         // this.voteList에 담기
+        this.voteList = this.getVotes();
       } else {
         // 내가 참여한 투표 목록 조회 api 호출
         // this.userId, this.statusType 포함
         // this.voteList에 담기
+        this.voteList = this.getBallots();
       }
+    },
+    getVotes() {
+      getVoteList(
+        this.accessToken,
+        this.userId,
+        { status: this.statusType, lastVoteId: this.lastVoteId },
+        (response) => {
+          console.log(response.data);
+          this.voteList = response.data.content;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    },
+    getBallots() {
+      getBallotList(
+        this.accessToken,
+        this.userId,
+        { status: this.statusType, lastVoteId: this.lastVoteId },
+        (response) => {
+          console.log(response.data);
+          this.voteList = response.data.content;
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     },
   },
   computed: {
@@ -328,6 +369,7 @@ export default {
       }
     },
     ...mapState("userStore", ["accessToken"]),
+    ...mapState("recordStore", ["SHOW_MY_VOTE_LIST, SHOW_MY_BALLOT_LIST"]),
   },
 };
 </script>
@@ -336,5 +378,8 @@ export default {
 .prediction-rate {
   width: 100%;
   display: flex;
+}
+.box-align-center {
+  width: 100px;
 }
 </style>
