@@ -92,6 +92,7 @@
           </option>
         </select>
       </div>
+
       <div>
         <div class="vote-list">
           <!-- v-for="vote in voteList" :key="vote.voteId"  -->
@@ -101,14 +102,6 @@
             :key="index"
             @click="detailCard"
             :value="`${vote.voteId}`"
-            :style="{
-              backgroundImage: `linear-gradient(
-                rgba(255, 255, 255, 0.5),
-                rgba(255, 255, 255, 0.5)
-                ), url(${require('@/assets/image/category/menu/' +
-                  vote.subCategory.replace('/', '_') +
-                  '.jpg')})`,
-            }"
           >
             <div
               class="vote-title-box"
