@@ -416,6 +416,7 @@
   padding: 8px;
 }
 .input-align-right {
+  width: 212px;
   border: none;
   text-align: right;
 }
@@ -760,6 +761,10 @@
   text-align: left;
   padding: 4px;
 }
+.box-chat-source-text {
+  text-align: left;
+  padding: 4px;
+}
 
 /* food 이미지 배치 */
 .box-chat-image {
@@ -773,27 +778,27 @@
 }
 .style-image {
   width: 200px;
-  height: 80px;
+  height: 100px;
   margin: 10px;
 }
 .style-text {
-  display: flex;
   text-align: center;
   padding: 4px;
   width: 200px;
   height: 20px;
 }
+.style-text-strong {
+  background: linear-gradient(to top, #ffe400 50%, transparent 50%);
+  font-size: 10.5px;
+}
 .location-image {
-  width: 80px;
+  width: 100px;
   height: 80px;
-  margin: 10px;
 }
 .location-text {
   display: flex;
-  text-align: center;
-  padding: 4px;
-  width: 80px;
-  height: 50px;
+  width: 100px;
+  height: 40px;
 }
 
 /* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/

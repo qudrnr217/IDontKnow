@@ -1,19 +1,27 @@
 <template>
   <div id="map_wrap">
-    <div id="map" style="width: 350px; height: 300px"></div>
+    <div
+      id="map"
+      style="width: 235px; height: 150px; margin-top: 0.5rem; z-index: 0"
+    ></div>
     <div id="menu_wrap" class="bg_white">
-      <ul id="placesList"></ul>
-      <div id="pagination"></div>
+      <ul id="placesList" style="padding-left: 0rem"></ul>
     </div>
+    <div id="pagination"></div>
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
+import { locations } from "@/const/const";
 export default {
   name: "KakaoMap",
   props: {
     menuName: String,
   },
   components: {},
+  computed: {
+    ...mapState("userStore", ["districtId"]),
+  },
   data() {
     return {
       map: {},
@@ -32,7 +40,7 @@ export default {
   },
   mounted() {
     const script = document.createElement("script");
-    script.src = `http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${process.env.VUE_APP_KAKAO_MAP_API_KEY}&libraries=services`;
     document.head.appendChild(script);
     script.onload = () => {
       window.kakao.maps.load(this.initMap);
@@ -58,12 +66,10 @@ export default {
     },
     // 키워드 검색을 요청하는 함수입니다
     searchPlaces() {
-      // TODO: userStore.districtName에서 가져오기
-      let keyword = "서초구" + " " + this.$route.query.menu_name;
-      if (!keyword.replace(/^\s+|\s+$/g, "")) {
-        alert("키워드를 입력해주세요!");
-        return false;
-      }
+      let keyword =
+        (this.districtId > 0 ? locations[this.districtId - 1] : "강남구") +
+        " " +
+        this.menuName;
       // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
       this.ps.keywordSearch(keyword, this.placesSearchCB);
     },
@@ -116,21 +122,23 @@ export default {
         // mouseout 했을 때는 인포윈도우를 닫습니다
         let vueComponent = this;
         (function (marker, title) {
-          window.kakao.maps.event.addListener(marker, "mouseover", function () {
+          window.kakao.maps.event.addListener(marker, "click", function () {
+            vueComponent.infowindow.close();
             vueComponent.displayInfowindow(marker, title);
           });
 
-          window.kakao.maps.event.addListener(marker, "mouseout", function () {
-            vueComponent.infowindow.close();
-          });
+          // window.kakao.maps.event.addListener(marker, "mouseout", function () {
+          //   vueComponent.infowindow.close();
+          // });
 
-          itemEl.onmouseover = function () {
+          itemEl.onclick = function () {
+            vueComponent.infowindow.close();
             vueComponent.displayInfowindow(marker, title);
           };
 
-          itemEl.onmouseout = function () {
-            vueComponent.infowindow.close();
-          };
+          // itemEl.onmouseout = function () {
+          //   vueComponent.infowindow.close();
+          // };
         })(marker, places[i].place_name);
 
         fragment.appendChild(itemEl);
@@ -225,7 +233,6 @@ export default {
 
       for (i = 1; i <= pagination.last; i++) {
         var el = document.createElement("a");
-        el.href = "#";
         el.innerHTML = i;
 
         if (i === pagination.current) {
@@ -247,9 +254,10 @@ export default {
     // 인포윈도우에 장소명을 표시합니다
     displayInfowindow(marker, title) {
       var content = '<div style="padding:5px;z-index:1;">' + title + "</div>";
-
       this.infowindow.setContent(content);
       this.infowindow.open(this.map, marker);
+      this.map.setCenter(marker.getPosition());
+      this.map.setLevel(5);
     },
 
     // 검색결과 목록의 자식 Element를 제거하는 함수입니다
@@ -281,8 +289,8 @@ export default {
   height: 100%;
 }
 #menu_wrap {
-  width: 350px;
-  height: 300px;
+  width: 240px;
+  height: 400px;
   overflow-y: auto;
   background: rgba(255, 255, 255, 0.7);
   z-index: 1;
@@ -329,7 +337,7 @@ export default {
   white-space: nowrap;
 }
 #placesList .item .info {
-  padding: 10px 0 10px 55px;
+  padding: 10px 0 10px 2rem;
 }
 #placesList .info .gray {
   color: #8a8a8a;
@@ -347,7 +355,7 @@ export default {
   position: absolute;
   width: 36px;
   height: 37px;
-  margin: 10px 0 0 10px;
+  margin: 10px 0 0 0px;
   background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png)
     no-repeat;
 }
@@ -397,7 +405,7 @@ export default {
   background-position: 0 -654px;
 }
 #pagination {
-  margin: 10px auto;
+  margin: 5px auto;
   text-align: center;
 }
 #pagination a {

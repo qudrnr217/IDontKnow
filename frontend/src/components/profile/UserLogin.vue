@@ -83,6 +83,7 @@ export default {
         isShow: false,
         title: "비밀번호를 재설정 하시겠습니까?",
         message: "입력한 이메일로 메일이 발송됩니다.",
+        mode: "4",
         yes: "보내기",
         no: "취소",
       },
@@ -111,7 +112,9 @@ export default {
         (error) => {
           console.log("계정 틀림");
           console.log(error);
-          this.isShow = true;
+          this.data.isShow = true;
+          this.user.email = "";
+          this.user.password = "";
         }
       );
     },
