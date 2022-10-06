@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modu">
     <!-- 화면 제목 -->
     <div class="box-row-left">
       <div

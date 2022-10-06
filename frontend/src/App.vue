@@ -47,20 +47,19 @@ export default {
 
 <style>
 @import "./assets/css/default.css";
-
 .background {
   display: flex;
   justify-content: center;
   height: 100vh;
   min-height: 844px;
-  overflow: scroll;
+  overflow-y: hidden;
   width: 390px;
   max-width: 390px;
-  margin-bottom: 73px;
 }
 
 .body {
-  min-width: 390px;
+  width: 390px;
+  overflow-y: scroll;
 }
 
 .background-footer {
@@ -90,33 +89,9 @@ export default {
 .v-application {
   font-family: "ONEMobileTitle";
 }
-
 @font-face {
   font-family: "ONEMobileTitle";
   src: url("./assets/fonts/ONEMobileTitle.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ONEMobileTitle";
-  src: url("./assets/fonts/ONEMobileTitle.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "GmarketSansTTFLight";
-  src: url("./assets/fonts/GmarketSansTTFLight.ttf") format("truetype");
-  /* font-weight: 400; */
-}
-@font-face {
-  font-family: "GmarketSansTTFMedium";
-  src: url("assets/fonts/GmarketSansTTFMedium.ttf") format("truetype");
-  /* font-weight: 300; */
-}
-
-@font-face {
-  font-family: "GmarketSansTTFBold";
-  src: url("assets/fonts/GmarketSansTTFBold.ttf") format("truetype");
-  /* font-weight: 300; */
 }
 </style>
 <style scoped>

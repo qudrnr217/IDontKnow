@@ -281,7 +281,7 @@
 /* button */
 .btn-rectangle-big {
   display: flex;
-  width: 320px;
+  width: 335px;
   height: 60px;
   border-radius: 10px;
   align-items: center;
@@ -353,7 +353,7 @@
 
 /* select box */
 .sb-rectangle-long {
-  width: 320px;
+  width: 335px;
   height: 36px;
   border-radius: 10px;
   border-style: solid;
@@ -396,7 +396,7 @@
 
 /* 입력창 */
 .input-rectangle-long {
-  width: 320px;
+  width: 335px;
   height: 36px;
   border-radius: 10px;
   border-style: solid;
@@ -431,7 +431,7 @@
   justify-content: space-around;
 }
 .vote-card {
-  width: 320px;
+  width: 335px;
   height: 180px;
   border-radius: 10px;
   margin: 10px;
@@ -525,7 +525,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  width: 150px;
+  width: 160px;
   height: 170px;
   max-height: 250px;
   border-width: 2px;
@@ -562,14 +562,14 @@
 
 /* vote detail - 투표율 */
 .vote-percent-bar {
-  width: 350px;
+  width: 360px;
   height: 25px;
 }
 
 /* vote detail - commentList 배치 */
 .box-content {
   overflow: auto;
-  width: 350px;
+  width: 360px;
   margin: auto 20px;
   border-radius: 5px;
   border-width: 2px;
@@ -802,6 +802,11 @@ a {
   cursor: pointer;
 }
 
+/* 푸터로 인해 안보이는 부분 보이도록 처리 */
+.modu {
+  padding-bottom: 73px;
+}
+
 /* 작은 화면 최적화 */
 @media (hover: none) and (max-width: 389px) {
   /* common */
@@ -865,5 +870,19 @@ a {
     background-position: center;
     background-size: cover;
     margin: auto;
+  }
+}
+@media (hover: none) {
+  .btn-rectangle-big {
+    width: 350px;
+  }
+  .sb-rectangle-long {
+    width: 350px;
+  }
+  .input-rectangle-long {
+    width: 350px;
+  }
+  .vote-card {
+    width: 350px;
   }
 }
