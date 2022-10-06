@@ -89,8 +89,8 @@
                 rgba(255, 255, 255, 0.5)
                 ), url(${require('@/assets/image/category/' +
                   vote.category +
-                  '_' +
-                  vote.subCategory +
+                  '/' +
+                  vote.subCategory.replace('/', '_') +
                   '.jpg')})`,
         }"
       >

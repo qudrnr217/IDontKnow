@@ -415,8 +415,8 @@ export default {
     this.set_init();
     this.votes_list(params);
 
-    let abc = document.getElementById("sub-category").textContent();
-    console.log("abc: " + abc);
+    // let abc = document.getElementById("sub-category").textContent();
+    // console.log("abc: " + abc);
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="modu">
     <!-- 화면 제목 -->
     <div class="box-row-left">
       <div
@@ -38,7 +38,7 @@
                 ), url(${require('@/assets/image/category/' +
                   vote.category +
                   '/' +
-                  vote.subCategory +
+                  vote.subCategory.replace('/', '_') +
                   '.jpg')})`,
         }"
       >
@@ -249,6 +249,7 @@
       </div>
 
       <div class="box-align-center1">
+        <div class="vote-percent-title1">{{ vote.optionA }}</div>
         <div
           class="vote-percent-bar1"
           :class="{
@@ -259,6 +260,7 @@
         ></div>
       </div>
       <div class="box-align-center1">
+        <div class="vote-percent-title1">{{ vote.optionB }}</div>
         <div
           class="vote-percent-bar2"
           :class="{
@@ -669,12 +671,24 @@ export default {
         console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
 
         const barAnimation1 = setInterval(() => {
-          bar1.style.width = t1 + "%";
+          if (t1 >= 1) {
+            bar1.style.width = t1 + "%";
+            bar1.innerHTML = t1 + "%";
+          } else if (t1 == 0) {
+            bar1.style.width = t1 + "%";
+          }
+
           t1++ >= totalMinwon && clearInterval(barAnimation1);
         }, 10);
 
         const barAnimation2 = setInterval(() => {
-          bar2.style.width = t2 + "%";
+          if (t2 >= 1) {
+            bar2.style.width = t2 + "%";
+            bar2.innerHTML = t2 + "%";
+          } else if (t2 == 0) {
+            bar2.style.width = t2 + "%";
+          }
+
           t2++ >= resolveMinwon && clearInterval(barAnimation2);
         }, 10);
       },
@@ -915,58 +929,12 @@ export default {
   /* background-color: #dedede; */
   font-weight: 600;
   font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-update {
   width: 145px;
-}
-
-/* 프로그래스 바 */
-.progressbar-container {
-  width: 500px;
-  padding: 1rem;
-  border-radius: 5px;
-  background-color: #fff;
-}
-
-.progress-value {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-box-pack: justify;
-  -moz-box-pack: justify;
-  -ms-flex-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-  font-size: 0.875rem;
-  padding-bottom: 0.25rem;
-}
-
-progress {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  display: block;
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
-  color: #273238;
-}
-
-progress::-webkit-progress-bar {
-  background-color: #eee;
-  border-radius: 8px;
-}
-
-progress::-webkit-progress-value {
-  background-color: #273238;
-  border-radius: 8px;
-}
-
-progress::-moz-progress-bar {
-  background-color: #eee;
-  border-radius: 8px;
 }
 </style>
