@@ -82,6 +82,7 @@ function commentDelete(token, params, success, fail) {
 }
 
 function commentModify(token, commentId, params, success, fail) {
+  console.log("params: ", params);
   console.log("모디파이인가?");
   const api = apiInstanceWithAuthorization(token);
   api.patch(`/comments/${commentId}`, params).then(success).catch(fail);

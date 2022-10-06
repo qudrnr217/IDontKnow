@@ -403,7 +403,7 @@
                     class="btn-rectangle-tiny red-text text-h5"
                     @click="updateComment(comment.commentId)"
                     :value="`${comment.commentId}`"
-                    v-if="vote.userId == comment.commentId"
+                    v-if="userId == comment.userId"
                   >
                     수정
                   </div>
@@ -411,7 +411,7 @@
                     class="btn-rectangle-tiny text-h5"
                     @click="deleteComment(comment.commentId)"
                     :value="`${comment.commentId}`"
-                    v-if="vote.userId == comment.commentId"
+                    v-if="userId == comment.userId"
                   >
                     삭제
                   </div>
@@ -492,6 +492,7 @@
                     class="btn-rectangle-tiny red-text text-h5"
                     :value="`${comment.commentId}`"
                     @click="updateComment(comment.commentId)"
+                    v-if="userId == comment.userId"
                   >
                     수정
                   </div>
@@ -499,6 +500,7 @@
                     class="btn-rectangle-tiny text-h5"
                     @click="deleteComment(comment.commentId)"
                     :value="`${comment.commentId}`"
+                    v-if="userId == comment.userId"
                   >
                     삭제
                   </div>
@@ -574,7 +576,7 @@ export default {
     checkStatus() {
       return this.vote.status ? "종료" : "진행";
     },
-    ...mapState("userStore", ["accessToken"]),
+    ...mapState("userStore", ["accessToken", "userId"]),
   },
   mounted() {
     // console.log(this.$route.path);
@@ -751,6 +753,9 @@ export default {
       });
     },
     updateComment(commentId) {
+      // console.log(commentId);
+      // console.log("modify:" + this.modifyCommentId);
+      // console.log(this.isUpdated);
       if (!this.flag) {
         this.isUpdated = true;
         console.log(this.isUpdated);
@@ -761,11 +766,20 @@ export default {
       } else {
         console.log("들어왔다~~~");
         let content = { content: this.commentForUpdate };
-        commentModify(this.accessToken, commentId, content, ({ data }) => {
-          console.log(data);
-          this.flag = false;
-          this.$router.go();
-        });
+        commentModify(
+          this.accessToken,
+          commentId,
+          content,
+          ({ data }) => {
+            console.log(data);
+            this.flag = false;
+            this.isUpdated = false;
+            this.$router.go();
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       }
 
       // this.isUpdated = false;
