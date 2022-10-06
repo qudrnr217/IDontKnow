@@ -340,6 +340,7 @@
           <!-- 차트를 넣으면 아래 div 삭제 -->
           <div class="pie-chart">
             <pie-chart-view
+              :category="vote.category"
               :voteId="vote.voteId"
               :age="ageOption"
               :idx="chartOption"
@@ -550,7 +551,7 @@
 // import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import { mapMutations, mapState } from "vuex";
-import PieChartView from "../community/PieChartVIew.vue";
+import PieChartView from "../home/VotePieChart.vue";
 import {
   detailVote,
   commentCreate,
