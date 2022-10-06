@@ -649,8 +649,24 @@ export default {
         // this.set_vote_detail();
 
         //프로그래스 바
-        // const bar1 = document.querySelector(".vote-percent-bar1");
-        // const bar2 = document.querySelector(".vote-percent-bar2");
+        const bar1 = document.querySelector(".vote-percent-bar1");
+        const bar2 = document.querySelector(".vote-percent-bar2");
+        console.log(bar1 + ":" + bar2);
+        let t1 = 0;
+        let t2 = 0;
+        let a = data.acount;
+        let b = data.bcount;
+        let totalMinwon = (a / (a + b)) * 100;
+        let resolveMinwon = (b / (a + b)) * 100;
+        if (a == 0 && b == 0) {
+          totalMinwon = 0;
+          resolveMinwon = 0;
+        } else if (a == 0) {
+          totalMinwon = 0;
+        } else if (b == 0) {
+          resolveMinwon = 0;
+        }
+        console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
 
         const barAnimation1 = setInterval(() => {
           if (t1 >= 1) {
@@ -698,7 +714,7 @@ export default {
       modifyCommentId: 0,
       isModify: false,
       token: "",
-      vote: [],
+      vote: { category: "메뉴", subCategory: "분식" },
       ballotId: 0,
       reload: 0,
       flag: false,
