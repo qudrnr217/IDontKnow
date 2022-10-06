@@ -57,10 +57,12 @@ public class VoteService {
     @Transactional
     public VoteResponse.OnlyId changeStatus(Long voteId, VoteRequest.ChangeStatus request, User user) {
         Vote vote = voteRepository.findById(voteId).orElseThrow(VoteNotFoundException::new);
+        int countA = ballotRepository.countAllByVoteAndChoice(vote, "A");
+        int countB = ballotRepository.countAllByVoteAndChoice(vote, "B");
         if(checkPermission(user, vote.getUser())) {
             throw new PermissionException();
         }else if(!vote.isStatus()) {
-            vote.changeStatus(request);
+            vote.changeStatus(request, countA, countB);
         }else if(vote.getDeletedAt() == null) {
             throw new VoteDeletedException();
         }else {
