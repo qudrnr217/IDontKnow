@@ -147,8 +147,11 @@
             'purple-4': vote.category === '스타일',
             'green-4': vote.category === '장소',
           }"
-          @click="changeStatus"
-          v-else-if="this.$store.state.userStore.userId === this.vote.userId"
+          @click="changeStatus()"
+          v-else-if="
+            !this.vote.status &&
+            this.$store.state.userStore.userId === this.vote.userId
+          "
         >
           <div class="text-h2">투표마감</div>
         </div>
@@ -215,6 +218,11 @@
           :data="data4"
           :voteId="vote.voteId"
           v-if="data4.isShow"
+        ></vue-confirm-dialog>
+        <vue-confirm-dialog
+          :data="data5"
+          :voteId="vote.voteId"
+          v-if="data5.isShow"
         ></vue-confirm-dialog>
       </div>
     </div>
@@ -770,10 +778,10 @@ export default {
     },
     changeStatus() {
       // 종료 관련 팝업창 띄우기
-
+      this.data5.isShow = true;
       // 작성자가 투표 종료하는 api 호출
       // 새로고침
-      this.reload += 1;
+      // this.reload += 1;
     },
     clickVote() {
       // 투표 참여하는 api 호출 (clickedOption 구분해서 choice 전달)
