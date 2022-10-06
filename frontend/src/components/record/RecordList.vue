@@ -47,7 +47,7 @@
     <div class="box-btn-right">
       <select
         v-model="status"
-        class="sb-rectangle-small text-h3 blue-0"
+        class="sb-rectangle-small text-h4 blue-0"
         @change="changeStatus()"
       >
         <option v-for="(item, index) in statusList" :key="index">

@@ -76,7 +76,7 @@
         <!-- <control-view-2 :segments="status" class="toggle-btn" /> -->
         <select
           v-model="status"
-          class="sb-rectangle-small text-h3"
+          class="sb-rectangle-small text-h4"
           :class="{
             'yellow-1': category === '메뉴' && status === '진행',
             'purple-1': category === '스타일' && status === '진행',
