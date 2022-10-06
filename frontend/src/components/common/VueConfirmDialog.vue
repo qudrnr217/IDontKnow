@@ -66,7 +66,7 @@ import {
   changVoteStatus,
 } from "@/api/community.js";
 import { resetPassword } from "@/api/user.js";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 Vue.directive("focus", {
   inserted: function (el) {
@@ -101,8 +101,12 @@ const Component = {
       params: {},
     };
   },
+  computed: {
+    ...mapState("userStore", ["accessToken"]),
+  },
   methods: {
     ...mapMutations("communityStore", ["SET_SELECT"]),
+
     resetState() {
       this.password = null;
       this.dialog = {
@@ -117,8 +121,8 @@ const Component = {
     select_vote() {
       //api사용
       console.log("안녕?:" + this.data.mode);
-      var token =
-        "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU4NDQwfQ.zevo64PasEuPNiBQAaI0Fs-ZKZjlCb7catVf4AQnfTd-0vmJqbRU_rUQrJUxgGip";
+      // var token =
+      //   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU4NDQwfQ.zevo64PasEuPNiBQAaI0Fs-ZKZjlCb7catVf4AQnfTd-0vmJqbRU_rUQrJUxgGip";
 
       if (this.data.mode == "1") {
         //투표하기
@@ -128,7 +132,8 @@ const Component = {
           choice: this.select,
         };
 
-        participateVote(token, params, ({ data }) => {
+        participateVote(this.accessToken, params, ({ data }) => {
+          console.log(this.accessToken);
           console.log(data);
           this.info = data;
           // this.$router.go();
@@ -137,7 +142,7 @@ const Component = {
       } else if (this.data.mode == "2") {
         //투표취소
         console.log(this.ballotId);
-        nonparticipateVote(token, this.ballotId, ({ data }) => {
+        nonparticipateVote(this.accessToken, this.ballotId, ({ data }) => {
           console.log("취소:", data);
           this.info = data;
           this.$router.go();
@@ -145,7 +150,7 @@ const Component = {
       } else if (this.data.mode == "3") {
         //투표 마감
         let params = { status: true };
-        changVoteStatus(token, this.voteId, params, ({ data }) => {
+        changVoteStatus(this.accessToken, this.voteId, params, ({ data }) => {
           console.log("마감:" + data);
           this.$router.go();
         });

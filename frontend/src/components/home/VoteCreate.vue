@@ -142,7 +142,8 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+
 export default {
   name: "VoteCreate",
   components: {},
@@ -177,6 +178,10 @@ export default {
       Category_Style: ["머리", "옷", "신발", "악세서리"],
     };
   },
+
+  computed: {
+    ...mapState("userStore", ["accessToken"]),
+  },
   methods: {
     ...mapActions("communityStore", ["REGIST_VOTE"]),
     createVote() {
@@ -185,7 +190,8 @@ export default {
       this.REGIST_VOTE({
         info: this.info,
         token:
-          "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D",
+          // "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D",
+          this.accessToken,
       });
       console.log(this.info.category);
       this.$router.push({

@@ -545,7 +545,7 @@
 // import VoteBarChart from "./VoteBarChart.vue";
 // import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 import PieChartView from "../community/PieChartVIew.vue";
 import {
   detailVote,
@@ -554,8 +554,8 @@ import {
   commentModify,
 } from "@/api/community.js";
 // import VoteChat from "./VoteChat.vue";
-var token =
-  "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTg1MDk0fQ.oJIXeeV8whA5Q_IV1t3NH64-fq5LlUD0DP-V7Dvd5tRXbm7epQlvkZrnfag6yXmy";
+// var token =
+//   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTg1MDk0fQ.oJIXeeV8whA5Q_IV1t3NH64-fq5LlUD0DP-V7Dvd5tRXbm7epQlvkZrnfag6yXmy";
 export default {
   name: "VoteDetail",
   // props: {
@@ -572,13 +572,14 @@ export default {
     checkStatus() {
       return this.vote.status ? "종료" : "진행";
     },
+    ...mapState("userStore", ["accessToken"]),
   },
   mounted() {
     // console.log(this.$route.path);
     console.log("안녕하세요");
     console.log(this.$route.params);
 
-    detailVote(token, this.$route.params, ({ data }) => {
+    detailVote(this.accessToken, this.$route.params, ({ data }) => {
       console.log(data);
       this.vote = data;
       this.$emit("pass", this.vote.category);
@@ -641,7 +642,7 @@ export default {
       commentForUpdate: "",
       modifyCommentId: 0,
       isModify: false,
-
+      token: "",
       vote: [],
       ballotId: 0,
       reload: 0,
@@ -741,7 +742,7 @@ export default {
     },
     sendComment() {
       var params = { voteId: this.vote.voteId, content: this.comment };
-      commentCreate(token, params, ({ data }) => {
+      commentCreate(this.accessToken, params, ({ data }) => {
         console.log("sendComment: " + data);
         this.$router.go();
       });
@@ -756,12 +757,12 @@ export default {
       // this.$router.go();
     },
     updateComment2(commentId) {
-      commentModify(token, commentId, ({ data }) => {
+      commentModify(this.accessToken, commentId, ({ data }) => {
         console.log(data);
       });
     },
     deleteComment(commentId) {
-      commentDelete(token, commentId, ({ data }) => {
+      commentDelete(this.accessToken, commentId, ({ data }) => {
         console.log(data);
         this.$router.go();
       });

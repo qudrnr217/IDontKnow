@@ -15,6 +15,7 @@ import {
   participateVoteGender,
   participateVoteLocation,
 } from "@/api/community.js";
+import { mapState } from "vuex";
 export default {
   name: "DonutExample",
   props: {
@@ -27,10 +28,13 @@ export default {
     optionA: String,
     optionB: String,
   },
+  computed: {
+    ...mapState("userStore", ["accessToken"]),
+  },
   mounted() {
-    var token =
-      "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D";
-    participateVoteAge(token, this.voteId, ({ data }) => {
+    // var token =
+    //   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D";
+    participateVoteAge(this.accessToken, this.voteId, ({ data }) => {
       console.log("연령: ", data);
       if (this.idx == "연령") {
         //연령
@@ -45,7 +49,7 @@ export default {
       }
     });
 
-    participateVoteGender(token, this.voteId, ({ data }) => {
+    participateVoteGender(this.accessToken, this.voteId, ({ data }) => {
       console.log(data);
       if (this.idx == "성별") {
         for (var i = 0; i < data.length; i++) {
@@ -58,7 +62,7 @@ export default {
       }
     });
 
-    participateVoteLocation(token, this.voteId, ({ data }) => {
+    participateVoteLocation(this.accessToken, this.voteId, ({ data }) => {
       console.log(data);
       for (var i = 0; i < data.length; i++) {
         if (data[i].districtId == this.districtId) {
