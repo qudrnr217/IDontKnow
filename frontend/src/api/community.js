@@ -13,9 +13,16 @@ function createVote(token, params, success, fail) {
 // 카테고리별 방목록 조회
 function showVoteList(params, success, fail) {
   const api = apiInstanceWithoutAuthorization();
+  console.log(
+    decodeURI(
+      `/votes?category=${params.category}&status=${params.status}&lastVoteId=${params.lastVoteId}`
+    )
+  );
   api
     .get(
-      `/votes?category=${params.category}&status=${params.status}&lastVoteId=${params.lastVoteId}`
+      decodeURI(
+        `/votes?category=${params.category}&status=${params.status}&lastVoteId=${params.lastVoteId}`
+      )
     )
     .then(success)
     .catch(fail);
@@ -29,7 +36,10 @@ function detailVote(token, params, success, fail) {
 // 조회수 Top3
 function trendVote(params, success, fail) {
   const api = apiInstanceWithoutAuthorization();
-  api.get(`/votes/top3?category=${params}`).then(success).catch(fail);
+  api
+    .get(decodeURI(`/votes/top3?category=${params}`))
+    .then(success)
+    .catch(fail);
 }
 
 // 투표 api
