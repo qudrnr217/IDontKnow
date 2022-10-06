@@ -10,6 +10,7 @@ import com.idk.api.user.domain.entity.User;
 import com.idk.api.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
+@Profile("local")
 public class DataLoader implements CommandLineRunner {
     private final UserRepository userRepository;
     private final DistrictCodeRepository districtCodeRepository;
