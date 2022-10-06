@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // home
-import HomeView from "../views/HomeViewCopy.vue";
+import HomeView from "../views/HomeView.vue";
 import VoteList from "../components/home/VoteList.vue";
 // voteCreate
 import VoteCreateView from "../views/VoteCreateView.vue";

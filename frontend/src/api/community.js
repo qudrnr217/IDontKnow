@@ -88,6 +88,16 @@ function commentModify(token, commentId, params, success, fail) {
   api.patch(`/comments/${commentId}`, params).then(success).catch(fail);
 }
 
+function statusChange(token, voteId, params, success, fail) {
+  const api = apiInstanceWithAuthorization(token);
+  api.patch(`/votes/${voteId}`, params).then(success).catch(fail);
+}
+
+function voteDelete(token, voteId, success, fail) {
+  const api = apiInstanceWithAuthorization(token);
+  api.delete(`/votes/${voteId}`).then(success).catch(fail);
+}
+
 export {
   trendVote,
   createVote,
@@ -103,4 +113,6 @@ export {
   commentCreate,
   commentDelete,
   commentModify,
+  statusChange,
+  voteDelete,
 };

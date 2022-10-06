@@ -72,11 +72,15 @@
         </div>
         <div
           class="box-btn-right"
-          @click="deleteVote"
+          @click="deleteVote()"
           v-if="this.$store.state.userStore.userId === this.vote.userId"
         >
           <div class="btn-rectangle-tiny text-h4 red">삭제</div>
         </div>
+        <vue-confirm-dialog
+          :data="data"
+          v-if="data.isShow"
+        ></vue-confirm-dialog>
       </div>
       <!-- 투표 선택지 -->
       <div class="vote-options-box-big">
@@ -143,8 +147,11 @@
             'purple-4': vote.category === '스타일',
             'green-4': vote.category === '장소',
           }"
-          @click="changeStatus"
-          v-else-if="this.$store.state.userStore.userId === this.vote.userId"
+          @click="changeStatus()"
+          v-else-if="
+            !this.vote.status &&
+            this.$store.state.userStore.userId === this.vote.userId
+          "
         >
           <div class="text-h2">투표마감</div>
         </div>
@@ -211,6 +218,11 @@
           :data="data4"
           :voteId="vote.voteId"
           v-if="data4.isShow"
+        ></vue-confirm-dialog>
+        <vue-confirm-dialog
+          :data="data5"
+          :voteId="vote.voteId"
+          v-if="data5.isShow"
         ></vue-confirm-dialog>
       </div>
     </div>
@@ -351,7 +363,7 @@
         <div class="box-align-center">
           <!-- 차트를 넣으면 아래 div 삭제 -->
           <div class="pie-chart">
-            <pie-chart-view
+            <vote-pie-chart
               :category="vote.category"
               :voteId="vote.voteId"
               :age="ageOption"
@@ -461,7 +473,9 @@
                 <div
                   class="box-comment-row comment-profile-name text-align-center text-h5"
                 >
-                  <router-link :to="`/record/user/${comment.userId}`">
+                  <router-link
+                    :to="`/record/user/${comment.userId}?name=${comment.name}`"
+                  >
                     {{ comment.name }}
                   </router-link>
                 </div>
@@ -483,7 +497,9 @@
                 <div
                   class="box-comment-row comment-profile-name text-align-center text-h5"
                 >
-                  <router-link :to="`/record/user/${comment.userId}`">
+                  <router-link
+                    :to="`/record/user/${comment.userId}?name=${comment.name}`"
+                  >
                     {{ comment.name }}</router-link
                   >
                 </div>
@@ -583,31 +599,20 @@
   </div>
 </template>
 <script>
-// import VoteBarChart from "./VoteBarChart.vue";
-// import VoteCommentList from "./VoteCommentList.vue";
 import VueConfirmDialog from "../common/VueConfirmDialog.vue";
 import { mapMutations, mapState } from "vuex";
-import PieChartView from "../home/VotePieChart.vue";
+import VotePieChart from "../home/VotePieChart.vue";
 import {
   detailVote,
   commentCreate,
   commentDelete,
   commentModify,
 } from "@/api/community.js";
-// import VoteChat from "./VoteChat.vue";
-// var token =
-//   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTg1MDk0fQ.oJIXeeV8whA5Q_IV1t3NH64-fq5LlUD0DP-V7Dvd5tRXbm7epQlvkZrnfag6yXmy";
 export default {
   name: "VoteDetail",
-  // props: {
-  //   voteId: String,
-  // },
   components: {
-    // VoteBarChart,
     VueConfirmDialog,
-    PieChartView,
-    // VoteChat,
-    // VoteCommentList,
+    VotePieChart,
   },
   computed: {
     checkStatus() {
@@ -684,7 +689,7 @@ export default {
       curClickedOption: "",
       isOpened: false,
       chartOption: "연령",
-      chartOptionList: ["연령", "성별", "거주지"],
+      chartOptionList: ["연령", "성별"],
       ageOption: 10,
       ageOptionList: [10, 20, 30, 40, 50, 60],
       genderOption: "F",
@@ -701,9 +706,11 @@ export default {
       flag: false,
       data: {
         isShow: false,
+        voteId: 0,
         title: "투표를 삭제하시겠습니까?",
         no: "취소",
         yes: "삭제",
+        mode: "7",
       },
       data2: {
         isShow: false,
@@ -765,6 +772,7 @@ export default {
     },
     changeStatus() {
       // 종료 관련 팝업창 띄우기
+      this.data5.isShow = true;
       // 작성자가 투표 종료하는 api 호출
       // 새로고침
       this.reload += 1;
@@ -783,8 +791,8 @@ export default {
     },
     deleteVote() {
       // 투표 삭제하는 api 호출 (vote.ballotId 활용)
-      // 새로고침
-      location.reload();
+      this.data.isShow = true;
+      this.data.voteId = this.vote.voteId;
     },
     openChart() {
       // 투표 현황 가져오는 api 호출 (vote.voteId 활용)

@@ -10,15 +10,52 @@
 </template>
 
 <script>
+import { participateVoteAge, participateVoteGender } from "@/api/community.js";
+import { mapState } from "vuex";
 export default {
   name: "VotePieChart",
   props: {
+    voteId: Number,
+    idx: String,
+    age: String,
+    gender: String,
+    location: Number,
     category: String,
+    optionA: String,
+    optionB: String,
+  },
+  computed: {
+    ...mapState("userStore", ["accessToken"]),
   },
   mounted() {
-    console.log(this.category);
-  },
+    participateVoteAge(this.accessToken, this.voteId, ({ data }) => {
+      console.log("연령: ", data);
+      if (this.idx == "연령") {
+        //연령
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].age == this.age) {
+            if (data[i].choice == "A") this.age_A = data[i].count;
+            else if (data[i].choice == "B") this.age_B = data[i].count;
+          }
+        }
+        console.log(this.age_A + ":" + this.age_B);
+        this.series = [this.age_A, this.age_B];
+      }
+    });
 
+    participateVoteGender(this.accessToken, this.voteId, ({ data }) => {
+      console.log(data);
+      if (this.idx == "성별") {
+        for (var i = 0; i < data.length; i++) {
+          if (data[i].gender == this.gender) {
+            if (data[i].choice == "A") this.gender_A = data[i].count;
+            else if (data[i].choice == "B") this.gender_B = data[i].count;
+          }
+        }
+        this.series = [this.gender_A, this.gender_B];
+      }
+    });
+  },
   data() {
     return {
       series: [50, 50],
@@ -46,6 +83,7 @@ export default {
         chart: {
           width: 300,
           type: "pie",
+          fontFamily: "ONEMobileTitle",
         },
         labels: ["선택지 A", "선택지 B"],
         responsive: [
@@ -62,6 +100,10 @@ export default {
           },
         ],
       },
+      age_A: 0,
+      age_B: 0,
+      gender_A: 0,
+      gender_B: 0,
     };
   },
 };

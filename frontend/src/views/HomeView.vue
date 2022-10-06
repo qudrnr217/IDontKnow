@@ -1,19 +1,35 @@
 <template>
-  <div>
-    <div class="background">
-      <div class="body">
-        <router-view></router-view>
-        <footer-view class="footer" />
-      </div>
+  <div
+    class="background"
+    :class="{
+      'bgd-menu': category === '메뉴',
+      'bgd-style': category === '스타일',
+      'bgd-location': category === '장소',
+    }"
+  >
+    <div class="body">
+      <vote-list v-on:pass="updateCategory"></vote-list>
     </div>
   </div>
 </template>
 
 <script>
-import FooterView from "../components/common/FooterView.vue";
+import VoteList from "../components/home/VoteList.vue";
+
 export default {
+  // name: "HomeView",
   components: {
-    FooterView,
+    VoteList,
+  },
+  data() {
+    return {
+      category: "메뉴",
+    };
+  },
+  methods: {
+    updateCategory(param) {
+      this.category = param;
+    },
   },
 };
 </script>
