@@ -218,7 +218,7 @@ public class VoteControllerTest extends MvcTest {
     @Test
     @DisplayName("투표 상세 조회")
     public void getOne() throws Exception {
-        VoteResponse.Info response = VoteResponse.Info.build(vote1, ballot1, commentList);
+        VoteResponse.Info response = VoteResponse.Info.build(vote1, ballot1, commentList, vote1.getACount(), vote1.getBCount());
         given(voteService.getOne(any(), any())).willReturn(response);
 
         ResultActions results = mvc.perform(get("/api/votes/{voteId}", 1L).characterEncoding("UTF-8"));
