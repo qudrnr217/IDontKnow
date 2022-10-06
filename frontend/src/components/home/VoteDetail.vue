@@ -249,6 +249,7 @@
       </div>
 
       <div class="box-align-center1">
+        <div class="vote-percent-title1">{{ vote.optionA }}</div>
         <div
           class="vote-percent-bar1"
           :class="{
@@ -259,6 +260,7 @@
         ></div>
       </div>
       <div class="box-align-center1">
+        <div class="vote-percent-title1">{{ vote.optionB }}</div>
         <div
           class="vote-percent-bar2"
           :class="{
@@ -650,31 +652,27 @@ export default {
         // const bar1 = document.querySelector(".vote-percent-bar1");
         // const bar2 = document.querySelector(".vote-percent-bar2");
 
-        // let t1 = 0;
-        // let t2 = 0;
-        // let a = data.acount;
-        // let b = data.bcount;
-        // let totalMinwon = (a / (a + b)) * 100;
-        // let resolveMinwon = (b / (a + b)) * 100;
-        // if (a == 0 && b == 0) {
-        //   totalMinwon = 0;
-        //   resolveMinwon = 0;
-        // } else if (a == 0) {
-        //   totalMinwon = 0;
-        // } else if (b == 0) {
-        //   resolveMinwon = 0;
-        // }
-        // console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
+        const barAnimation1 = setInterval(() => {
+          if (t1 >= 1) {
+            bar1.style.width = t1 + "%";
+            bar1.innerHTML = t1 + "%";
+          } else if (t1 == 0) {
+            bar1.style.width = t1 + "%";
+          }
 
-        // const barAnimation1 = setInterval(() => {
-        //   bar1.style.width = t1 + "%";
-        //   t1++ >= totalMinwon && clearInterval(barAnimation1);
-        // }, 10);
+          t1++ >= totalMinwon && clearInterval(barAnimation1);
+        }, 10);
 
-        // const barAnimation2 = setInterval(() => {
-        //   bar2.style.width = t2 + "%";
-        //   t2++ >= resolveMinwon && clearInterval(barAnimation2);
-        // }, 10);
+        const barAnimation2 = setInterval(() => {
+          if (t2 >= 1) {
+            bar2.style.width = t2 + "%";
+            bar2.innerHTML = t2 + "%";
+          } else if (t2 == 0) {
+            bar2.style.width = t2 + "%";
+          }
+
+          t2++ >= resolveMinwon && clearInterval(barAnimation2);
+        }, 10);
       },
       (error) => {
         if (error.response.status == 401) {
@@ -902,6 +900,9 @@ export default {
   /* background-color: #dedede; */
   font-weight: 600;
   font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .input-update {
