@@ -193,6 +193,7 @@
                   class="vote-category-sub text-h5"
                   @click="detailCard"
                   :value="`${vote.voteId}`"
+                  id="sub-category"
                 >
                   # {{ vote.subCategory }}
                 </div>
@@ -403,6 +404,9 @@ export default {
     };
     this.set_init();
     this.votes_list(params);
+
+    let abc = document.getElementById("sub-category").textContent();
+    console.log("abc: " + abc);
   },
 };
 </script>

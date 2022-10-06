@@ -15,6 +15,7 @@ import {
   participateVoteGender,
   participateVoteLocation,
 } from "@/api/community.js";
+import { mapState } from "vuex";
 export default {
   name: "DonutExample",
   props: {
@@ -27,17 +28,20 @@ export default {
     optionA: String,
     optionB: String,
   },
+  computed: {
+    ...mapState("userStore", ["accessToken"]),
+  },
   mounted() {
-    var token =
-      "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg2MjI0N30.Y9Olw4mSf2cGBFNCuoxAnXFrgSDq7qkbEp7RWnK4iGjscAOrqw09HT_0UMw_fcsG";
-    participateVoteAge(token, this.voteId, ({ data }) => {
+    // var token =
+    //   "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D";
+    participateVoteAge(this.accessToken, this.voteId, ({ data }) => {
       console.log("연령: ", data);
       if (this.idx == "연령") {
         //연령
         for (var i = 0; i < data.length; i++) {
           if (data[i].age == this.age) {
-            if (data[i].choice == "1") this.age_A = data[i].count;
-            else if (data[i].choice == "2") this.age_B = data[i].count;
+            if (data[i].choice == "A") this.age_A = data[i].count;
+            else if (data[i].choice == "B") this.age_B = data[i].count;
           }
         }
         console.log(this.age_A + ":" + this.age_B);
@@ -45,20 +49,20 @@ export default {
       }
     });
 
-    participateVoteGender(token, this.voteId, ({ data }) => {
+    participateVoteGender(this.accessToken, this.voteId, ({ data }) => {
       console.log(data);
       if (this.idx == "성별") {
         for (var i = 0; i < data.length; i++) {
           if (data[i].gender == this.gender) {
-            if (data[i].choice == "1") this.gender_A = data[i].count;
-            else if (data[i].choice == "2") this.gender_B = data[i].count;
+            if (data[i].choice == "A") this.gender_A = data[i].count;
+            else if (data[i].choice == "B") this.gender_B = data[i].count;
           }
         }
         this.series = [this.gender_A, this.gender_B];
       }
     });
 
-    participateVoteLocation(token, this.voteId, ({ data }) => {
+    participateVoteLocation(this.accessToken, this.voteId, ({ data }) => {
       console.log(data);
       for (var i = 0; i < data.length; i++) {
         if (data[i].districtId == this.districtId) {

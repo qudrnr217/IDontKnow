@@ -37,6 +37,7 @@ const communityStore = {
     },
     SET_VOTE_DETAIL: (state, vote_detail) => {
       state.vote_detail = vote_detail;
+      console.log("보트디테일: " + state.vote_detail);
     },
     SET_INIT(state) {
       state.vote_list = [];
