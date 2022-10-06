@@ -110,6 +110,7 @@ export default {
             params: { userId: this.$store.state.userStore.userId },
             query: { name: this.$store.state.userStore.name },
           });
+          location.reload();
         }
       }
     },

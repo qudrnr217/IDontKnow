@@ -473,7 +473,9 @@
                 <div
                   class="box-comment-row comment-profile-name text-align-center text-h5"
                 >
-                  <router-link :to="`/record/user/${comment.userId}`">
+                  <router-link
+                    :to="`/record/user/${comment.userId}?name=${comment.name}`"
+                  >
                     {{ comment.name }}
                   </router-link>
                 </div>
@@ -495,7 +497,9 @@
                 <div
                   class="box-comment-row comment-profile-name text-align-center text-h5"
                 >
-                  <router-link :to="`/record/user/${comment.userId}`">
+                  <router-link
+                    :to="`/record/user/${comment.userId}?name=${comment.name}`"
+                  >
                     {{ comment.name }}</router-link
                   >
                 </div>
