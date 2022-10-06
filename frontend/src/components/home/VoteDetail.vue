@@ -29,7 +29,19 @@
 
     <div class="box-align-center">
       <!-- 투표 카드 -->
-      <div class="vote-card">
+      <div
+        class="vote-card"
+        :style="{
+          backgroundImage: `linear-gradient(
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0.5)
+                ), url(${require('@/assets/image/category/' +
+                  vote.category +
+                  '/' +
+                  vote.subCategory.replace('/', '_') +
+                  '.jpg')})`,
+        }"
+      >
         <div class="vote-title-box">
           <div class="vote-title-text text-h2">
             {{ vote.title }}
