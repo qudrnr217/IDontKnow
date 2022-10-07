@@ -14,38 +14,32 @@
       </div>
     </div>
     <div class="box-row">
-      <record-pie-chart :percentage="calcPercentage" />
+      <record-pie-chart :percentage="percentage" />
       <div class="box-row">
         <div class="box-align-center">
-          <div
-            class="text-h3"
-            v-if="calcPercentage >= 80 || calcPercentage <= 20"
-          >
+          <div class="text-h3" v-if="percentage >= 80 || percentage <= 20">
             {{ userName }}님은
           </div>
           <div
             class="text-h3"
-            v-if="calcPercentage >= 80"
+            v-if="percentage >= 80"
             style="background-color: gold"
           >
             금손
           </div>
           <div
             class="text-h3"
-            v-else-if="calcPercentage <= 20"
+            v-else-if="percentage <= 20"
             style="background-color: darksalmon"
           >
             똥손
           </div>
-          <div
-            class="text-h3"
-            v-if="calcPercentage >= 80 || calcPercentage <= 20"
-          >
+          <div class="text-h3" v-if="percentage >= 80 || percentage <= 20">
             입니다!
           </div>
 
           <div class="text-h3" v-else>조금 더 많은 투표에 참여해보세요 ~</div>
-          <div class="text-h2">{{ calcPercentage }} %</div>
+          <div class="text-h2">{{ percentage }} %</div>
           <div class="text-h4">
             {{ voteCount.ballotCount }}개 중 {{ voteCount.correctCount }}개 정답
           </div>
@@ -249,7 +243,7 @@ export default {
       status: "진행",
       statusType: false,
       reload: 0,
-
+      percentage: 0,
       record: "작성한 투표",
       recordType: 0, // 0 : 내가 작성한 투표, 1 : 내가 참여한 투표
       recordList: ["작성한 투표", "참여한 투표"],
@@ -288,6 +282,9 @@ export default {
         (response) => {
           this.voteCount.ballotCount = response.data.ballotCount;
           this.voteCount.correctCount = response.data.correctCount;
+          if (this.voteCount.ballotCount !== 0)
+            this.percentage =
+              (this.voteCount.correctCount / this.voteCount.ballotCount) * 100;
         },
         (error) => {
           if (error.response.status == 401) {
@@ -297,7 +294,6 @@ export default {
         }
       );
     },
-
     detailCard(e) {
       const clickedId = e.target.getAttribute("value");
       this.$router.push({
@@ -391,8 +387,6 @@ export default {
         this.set_init();
         this.show_ballot_list(params);
       }
-
-      console.log("hi");
       setTimeout(() => {
         if (!this.last) {
           $state.loaded();
@@ -406,16 +400,6 @@ export default {
     },
   },
   computed: {
-    calcPercentage() {
-      if (this.voteCount.ballotCount !== 0) {
-        return (
-          Math.round(this.voteCount.correctCount / this.voteCount.ballotCount) *
-          100
-        );
-      } else {
-        return 0;
-      }
-    },
     ...mapState("userStore", ["accessToken"]),
     ...mapState("recordStore", ["lastVoteId", "last", "voteList"]),
   },

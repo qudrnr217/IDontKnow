@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      series: [this.percentage, 100 - this.percentage],
+      series: [this.$props.percentage, 100 - this.$props.percentage],
       chartOptions: {
         chart: {
           width: 200,
