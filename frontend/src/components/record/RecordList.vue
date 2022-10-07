@@ -60,7 +60,7 @@
         @change="changeRecord()"
         style="border-style: none; width: 150px"
       >
-        <option v-for="(item, index) in recordList" :key="index">
+        <option v-for="(item, index) in recordList" :key="index + 'r'">
           {{ item }}
         </option>
       </select>
@@ -71,7 +71,7 @@
         class="sb-rectangle-small text-h4 blue-0"
         @change="changeStatus()"
       >
-        <option v-for="(item, index) in statusList" :key="index">
+        <option v-for="(item, index) in statusList" :key="index + 's'">
           {{ item }}
         </option>
       </select>
@@ -232,7 +232,6 @@
 
 <script>
 import RecordPieChart from "../record/RecordPieChart.vue";
-// import { getRate, getVoteList, getBallotList } from "../../api/mypage";
 import { getRate } from "../../api/mypage";
 import { mapMutations, mapActions, mapState } from "vuex";
 import InfiniteLoading from "vue-infinite-loading";
@@ -269,14 +268,6 @@ export default {
     };
   },
   created() {
-    // 유저 예측률 조회 api 호출해서 userCount 채우기
-    // this.getVotesCount();
-    // 유저의 (내가 작성한 투표-진행) api 호출해서 voteList 채우기
-    // if (this.status == "진행") {
-    //   this.statusType = false;
-    // } else {
-    //   this.statusType = true;
-    // }
     var params = {
       token: this.accessToken,
       status: false,
@@ -333,7 +324,6 @@ export default {
         };
         this.set_init();
         this.show_ballot_list(params);
-        // this.voteList = this.getBallots();
       }
       // 내가 참여한 -> 작성한
       else {
@@ -347,18 +337,17 @@ export default {
         };
         this.set_init();
         this.show_vote_list(params);
-        // this.voteList = this.getVotes();
       }
     },
     changeStatus() {
-      // this.reload += 1;
       this.set_init();
-      console.log(this.status);
       //초기화
-      if (this.status == "진행") {
-        this.statusType = false;
-      } else {
+      if (this.statusType === false) {
         this.statusType = true;
+        this.status = "종료";
+      } else {
+        this.statusType = false;
+        this.status = "진행";
       }
 
       var params = {
@@ -368,9 +357,9 @@ export default {
         lastVoteId: 0,
       };
       if (this.recordType === 0) {
-        this.show_ballot_list(params);
-      } else {
         this.show_vote_list(params);
+      } else {
+        this.show_ballot_list(params);
       }
     },
     show_ballot_list(params) {
@@ -407,13 +396,10 @@ export default {
       setTimeout(() => {
         if (!this.last) {
           $state.loaded();
-          // this.lastVoteId += 1;
-          // 끝 지정(No more data) - 데이터가 EACH_LEN개 미만이면
           if (this.last) {
             $state.complete();
           }
         } else {
-          // 끝 지정(No more data)
           $state.complete();
         }
       }, 3000);

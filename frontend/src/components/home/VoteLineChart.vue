@@ -118,17 +118,7 @@ export default {
             "중구",
             "중랑구",
           ],
-          //   title: {
-          //     text: "Month",
-          //   },
         },
-        // yaxis: {
-        //   title: {
-        //     text: "Temperature",
-        //   },
-        //   min: 5,
-        //   max: 40,
-        // },
         legend: {
           position: "top",
           horizontalAlign: "right",
@@ -143,7 +133,6 @@ export default {
     var token =
       "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0NzE2ODExfQ.TUtMYZuidjffk5TO8oEkmhSNkm6LAUU-hJOKg--MjqfCQCknCJj9-dHuDAEeyFNA";
     participateVoteLocation(token, this.voteId, ({ data }) => {
-      console.log(data);
       if (this.idx == "거주지") {
         for (var i = 0; i < data.length; i++) {
           if (data[i].districtId == this.districtId) {

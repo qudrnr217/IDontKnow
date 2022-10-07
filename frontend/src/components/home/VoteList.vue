@@ -301,7 +301,6 @@ export default {
         // 파라미터 같이 보내기 !
         this.$router.push({
           name: "voteDetail",
-          // path: "/vote",
           params: {
             voteId: clickedId,
           },
@@ -338,7 +337,6 @@ export default {
       reload += 1;
       // 여기서 진행 종료 바꾸는 목록 함수 호출
       this.set_init();
-      console.log(this.status);
       //초기화
       if (this.status == "진행") {
         this.booleanStatus = false;
@@ -369,13 +367,10 @@ export default {
       setTimeout(() => {
         if (!this.last) {
           $state.loaded();
-          // this.lastVoteId += 1;
-          // 끝 지정(No more data) - 데이터가 EACH_LEN개 미만이면
           if (this.last) {
             $state.complete();
           }
         } else {
-          // 끝 지정(No more data)
           $state.complete();
         }
       }, 3000);

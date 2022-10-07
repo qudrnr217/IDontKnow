@@ -263,7 +263,7 @@ export default {
       checkNameDuplication(
         this.user.name,
         (response) => {
-          console.log(response.data);
+          response.data;
           this.data.checkNameResult = response.data;
         },
         (error) => {

@@ -29,7 +29,6 @@ export default {
   },
   mounted() {
     participateVoteAge(this.accessToken, this.voteId, ({ data }) => {
-      console.log("연령: ", data);
       if (this.idx == "연령") {
         //연령
         for (var i = 0; i < data.length; i++) {
@@ -38,13 +37,11 @@ export default {
             else if (data[i].choice == "B") this.age_B = data[i].count;
           }
         }
-        console.log(this.age_A + ":" + this.age_B);
         this.series = [this.age_A, this.age_B];
       }
     });
 
     participateVoteGender(this.accessToken, this.voteId, ({ data }) => {
-      console.log(data);
       if (this.idx == "성별") {
         for (var i = 0; i < data.length; i++) {
           if (data[i].gender == this.gender) {

@@ -189,9 +189,7 @@ export default {
       // 투표 목록으로 돌아가기
       this.REGIST_VOTE({
         info: this.info,
-        token:
-          // "Bearer eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIyIiwiYXVkIjoi7LmY7YKo65-s67KEIiwiZXhwIjoxNjY0OTU0NzQ3fQ.BVaQ9ohkpvxgUeAvM1Z6pl6ywg5bsDw7HwUjagTkwEIuWdmbc2oTRqbpKekbRO1D",
-          this.accessToken,
+        token: this.accessToken,
       });
       console.log(this.info.category);
       this.$router.push({

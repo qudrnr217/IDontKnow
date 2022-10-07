@@ -1,4 +1,3 @@
-// import { param } from "jquery";
 import {
   apiInstanceWithAuthorization,
   apiInstanceWithoutAuthorization,
@@ -13,11 +12,6 @@ function createVote(token, params, success, fail) {
 // 카테고리별 방목록 조회
 function showVoteList(params, success, fail) {
   const api = apiInstanceWithoutAuthorization();
-  console.log(
-    decodeURI(
-      `/votes?category=${params.category}&status=${params.status}&lastVoteId=${params.lastVoteId}`
-    )
-  );
   api
     .get(
       decodeURI(
@@ -92,8 +86,6 @@ function commentDelete(token, params, success, fail) {
 }
 
 function commentModify(token, commentId, params, success, fail) {
-  console.log("params: ", params);
-  console.log("모디파이인가?");
   const api = apiInstanceWithAuthorization(token);
   api.patch(`/comments/${commentId}`, params).then(success).catch(fail);
 }

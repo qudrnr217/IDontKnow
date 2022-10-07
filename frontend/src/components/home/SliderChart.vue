@@ -458,8 +458,6 @@ import "keen-slider/keen-slider.min.css";
 import KeenSlider from "keen-slider";
 import { trendVote } from "@/api/community.js";
 const animation = { duration: 50000, easing: (t) => t };
-// var token =
-//   "eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiIxOCIsImF1ZCI6IuuvvO2VmOydgCIsImV4cCI6MTY2NDg5Nzk1Mn0.OuwHaksv6Ws9-mqijohxmnPmnpixSxEByza4jCxMdXRRDSPHpI8GMpB2D-uMmPjJ";
 export default {
   name: "SliderChart",
   props: {
@@ -467,7 +465,6 @@ export default {
   },
   mounted() {
     trendVote(this.category, ({ data }) => {
-      console.log("트랜드: ", data);
       this.vote_list = data;
       this.vote_list1 = data[0];
       this.vote_list2 = data[1];
@@ -502,7 +499,6 @@ export default {
   },
   methods: {
     detailCard(e) {
-      // console.log("여기는 유저아이디: " + this.$store.state.userStore.userId);
       if (this.$store.state.userStore.userId === 0) {
         this.$router.push({ name: "userLogin" });
       } else {
@@ -510,7 +506,6 @@ export default {
         // 파라미터 같이 보내기 !
         this.$router.push({
           name: "voteDetail",
-          // path: "/vote",
           params: {
             voteId: clickedId,
           },
@@ -524,7 +519,6 @@ export default {
 <style scoped>
 [class^="number-slide"],
 [class*=" number-slide"] {
-  /* background: grey; */
   display: flex;
   align-items: flex-start;
   justify-content: center;
