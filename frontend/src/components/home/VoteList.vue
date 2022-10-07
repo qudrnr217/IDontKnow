@@ -334,11 +334,12 @@ export default {
     },
 
     changeStatus() {
-      reload += 1;
+      this.reload += 1;
       // 여기서 진행 종료 바꾸는 목록 함수 호출
       this.set_init();
       //초기화
       if (this.status == "진행") {
+        console.log("안녕");
         this.booleanStatus = false;
       } else {
         this.booleanStatus = true;
