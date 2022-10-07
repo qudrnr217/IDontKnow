@@ -5,11 +5,4 @@ function createVotes(token, success, fail) {
   api.post(`/api/votes`, {}).then(success).catch(fail);
 }
 
-// function getBestMenus(districtId, success, fail) {
-//   api
-//     .get(`/data/menu`, { params: { districtId: districtId } })
-//     .then(success)
-//     .catch(fail);
-// }
-
 export { createVotes };

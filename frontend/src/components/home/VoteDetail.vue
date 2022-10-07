@@ -627,7 +627,6 @@ export default {
       this.accessToken,
       this.$route.params,
       ({ data }) => {
-        console.log(data);
         this.vote = data;
         this.$emit("pass", this.vote.category);
 
@@ -638,7 +637,6 @@ export default {
         } else {
           this.clickedOption = 0;
         }
-        // this.set_vote_detail();
 
         //프로그래스 바
         const bar1 = document.querySelector(".vote-percent-bar1");
@@ -647,7 +645,6 @@ export default {
         let t2 = 0;
         let a = data.acount;
         let b = data.bcount;
-        console.log(a + ":" + b);
         let totalMinwon = (a / (a + b)) * 100;
         let resolveMinwon = (b / (a + b)) * 100;
         if (a == 0 && b == 0) {
@@ -658,7 +655,6 @@ export default {
         } else if (b == 0) {
           resolveMinwon = 0;
         }
-        console.log("민원:" + this.totalMinwon + ":" + this.resolveMinwon);
 
         const barAnimation1 = setInterval(() => {
           if (t1 >= 1) {
@@ -792,7 +788,6 @@ export default {
       // 투표 취소하는 api 호출 (vote.ballotId 활용)
       // 새로고침
       this.ballotId = this.vote.ballotId;
-      console.log(this.ballotId);
       // location.reload();
     },
     deleteVote() {
@@ -809,12 +804,11 @@ export default {
     },
     set_vote_detail() {
       this.SET_VOTE_DETAIL(this.vote);
-      console.log("인포: ", this.vote);
     },
     sendComment() {
       var params = { voteId: this.vote.voteId, content: this.comment };
       commentCreate(this.accessToken, params, ({ data }) => {
-        console.log("sendComment: " + data);
+        data;
         this.$router.go();
       });
     },
@@ -831,7 +825,7 @@ export default {
           commentId,
           content,
           ({ data }) => {
-            console.log(data);
+            data;
             this.flag = false;
             this.isUpdated = false;
             this.$router.go();
@@ -844,15 +838,13 @@ export default {
     },
     deleteComment(commentId) {
       commentDelete(this.accessToken, commentId, ({ data }) => {
-        console.log(data);
+        data;
         this.$router.go();
       });
     },
   },
   created() {
     // vote 값을 this.$route.params.voteId로 api 호출
-
-    console.log("배경 카테고리 : " + this.vote.category);
     if (this.vote.result === null) {
       if (this.vote.voted === "A") {
         this.clickedOption = 1;
@@ -903,9 +895,8 @@ export default {
 
 .vote-percent-bar1,
 .vote-percent-bar2 {
-  width: 280px;
+  width: 335px;
   height: 30px;
-  /* background-color: #dedede; */
   font-weight: 600;
   font-size: 0.8rem;
   display: flex;

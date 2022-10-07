@@ -29,7 +29,6 @@ const recordStore = {
       }
       state.lastVoteId = voteList.content[voteList.numberOfElements - 1].voteId;
       state.last = voteList.last;
-      console.log(state.lastVoteId);
     },
     SET_INIT(state) {
       state.voteList = [];
@@ -42,9 +41,7 @@ const recordStore = {
       });
     },
     SHOW_MY_BALLOT_LIST: ({ commit }, { params }) => {
-      console.log("");
       return getBallotList(params, ({ data }) => {
-        console.log("data: ", data);
         commit("SET_MY_BALLOT_LIST", data);
       });
     },

@@ -100,14 +100,12 @@ export default {
       login(
         this.user,
         (response) => {
-          console.log(response.data);
           this.SET_USERID(response.data.userId);
           this.SET_NAME(response.data.name);
           this.SET_DISTRICT_ID(response.data.districtId);
           this.SET_ACCESS_TOKEN(response.data.accessToken);
           this.SET_REFRESH_TOKEN(response.data.refreshToken);
           this.$router.push({ name: "home", path: "/" });
-          console.log(this.userId);
         },
         (error) => {
           console.log("계정 틀림");

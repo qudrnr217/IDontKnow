@@ -128,7 +128,7 @@ export default {
         this.accessToken,
         this.userId,
         (response) => {
-          console.log(response.data);
+          response;
           this.SET_INIT();
           console.log("로그아웃 완료");
           this.$router.push({ name: "userLogout", path: "/profile/logout" });
@@ -177,7 +177,6 @@ export default {
       return this.user.districtId;
     },
     gender() {
-      console.log(this.user.gender);
       return this.user.gender;
     },
     age() {
@@ -186,7 +185,6 @@ export default {
   },
   watch: {
     districtId() {
-      console.log(this.user.districtId);
       if (this.user.districtId == 0) return;
       updateUserInfo(
         this.accessToken,
@@ -195,7 +193,6 @@ export default {
         this.user.gender,
         this.user.age,
         (response) => {
-          console.log(response.data);
           this.SET_DISTRICT_ID(response.data.districtId);
         },
         (error) => {
@@ -204,7 +201,6 @@ export default {
       );
     },
     age() {
-      console.log(this.user.age);
       if (this.user.age == 0) return;
       updateUserInfo(
         this.accessToken,
@@ -213,7 +209,7 @@ export default {
         this.user.gender,
         this.user.age,
         (response) => {
-          console.log(response.data);
+          response.data;
         },
         (error) => {
           console.log(error);
@@ -221,7 +217,6 @@ export default {
       );
     },
     gender() {
-      console.log(this.user.gender);
       if (this.user.gender == "") return;
       updateUserInfo(
         this.accessToken,
@@ -230,7 +225,7 @@ export default {
         this.user.gender,
         this.user.age,
         (response) => {
-          console.log(response.data);
+          response.data;
         },
         (error) => {
           console.log(error);
