@@ -191,12 +191,14 @@ export default {
         info: this.info,
         token: this.accessToken,
       });
-      console.log(this.info.category);
-      this.$router.push({
-        name: "voteList",
-        path: "/",
-        params: { status: false, category: this.info.category },
-      });
+
+      setTimeout(() => {
+        this.$router.push({
+          name: "voteList",
+          path: "/",
+          params: { status: false, category: this.info.category },
+        });
+      }, 300);
     },
   },
 };
