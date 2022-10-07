@@ -1,0 +1,42 @@
+= 메인 페이지 API 문서
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+== *인기 메뉴 조회*
+
+`GET /api/data/menu`
+
+요청 HTTP Request
+include::{snippets}/get-menus/http-request.adoc[]
+include::{snippets}/get-menus/request-parameters.adoc[]
+
+응답 HTTP Response
+include::{snippets}/get-menus/http-response.adoc[]
+include::{snippets}/get-menus/response-fields.adoc[]
+
+== *인기 장소 조회*
+
+`GET /api/data/hotspot`
+
+요청 HTTP Request
+include::{snippets}/get-hotspots/http-request.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/get-hotspots/http-response.adoc[]
+include::{snippets}/get-hotspots/response-fields.adoc[]
+
+== *오늘 서울 지역구 날씨 예보 조회*
+
+`GET /api/data/weather`
+
+요청 HTTP Request
+include::{snippets}/get-weather/http-request.adoc[]
+include::{snippets}/get-menus/request-parameters.adoc[]
+
+성공 응답 HTTP Response
+include::{snippets}/get-weather/http-response.adoc[]
+include::{snippets}/get-weather/response-fields.adoc[]

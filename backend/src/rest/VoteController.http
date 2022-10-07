@@ -1,0 +1,35 @@
+### 투표 생성
+POST {{apiUrl}}/votes
+Authorization: {{authorizationToken}}
+Content-Type: application/json;charset=UTF-8
+
+{
+  "title": "무슨 치킨 먹을까요?",
+  "category": "메뉴",
+  "subCategory": "치킨",
+  "optionA": "교촌치킨",
+  "optionB": "노랑통닭"
+}
+
+### 투표 상세조회
+GET {{apiUrl}}/votes/1
+Authorization: {{authorizationToken}}
+
+### 투표 상태 변경
+PATCH {{apiUrl}}/votes/1
+Authorization: {{authorizationToken}}
+Content-Type: application/json;charset=UTF-8
+
+{
+  "status": true
+}
+
+### 투표 삭제
+DELETE {{apiUrl}}/votes/1
+Authorization: {{authorizationToken}}
+
+### 투표 목록 조회
+GET {{apiUrl}}/votes?lastVoteId=0&category=메뉴&status=false
+
+### 투표 인기 목록 조회
+GET {{apiUrl}}/votes/top3?category=메뉴

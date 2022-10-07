@@ -1,0 +1,25 @@
+### 투표 참여
+POST {{apiUrl}}/ballots
+Authorization: {{authorizationToken}}
+Content-Type: application/json;charset=UTF-8
+
+{
+  "voteId": 2,
+  "choice": "A"
+}
+
+### 투표 참여 취소
+DELETE {{apiUrl}}/ballots/1
+Authorization: {{authorizationToken}}
+
+### 지역구에 따른 투표 참여 결과
+GET {{apiUrl}}/ballots/votes/1/district
+Authorization: {{authorizationToken}}
+
+### 성별에 따른 투표 참여 결과
+GET {{apiUrl}}/ballots/votes/1/gender
+Authorization: {{authorizationToken}}
+
+### 연령대에 따른 투표 참여 결과
+GET {{apiUrl}}/ballots/votes/1/age
+Authorization: {{authorizationToken}}

@@ -1,0 +1,12 @@
+### 현재 시각 및 사용자가 설정한 지역구ID에 대해 가장 주문건수가 많은 2개의 메뉴 카테고리를 가져옴
+GET {{apiUrl}}/data/menu?districtId=1
+Content-Type: application/json;charset=UTF-8
+
+### 현재 시각 서울의 35개 인기 장소 중 가장 혼잡한 2곳을 가져옴
+GET {{apiUrl}}/data/hotspot
+Content-Type: application/json;charset=UTF-8
+
+### 오늘 사용자의 지역구 날씨 예보 가져옴
+GET {{apiUrl}}/data/weather
+Content-Type: application/json;charset=UTF-8
+#Authorization: {{authorizationToken}}

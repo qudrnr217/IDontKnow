@@ -1,0 +1,14 @@
+= '결정왕 김모르' API 문서
+
+== *USER*
+- link:/docs/user.html[유저 API]
+- link:/docs/mypage.html[마이 페이지 API]
+
+== *HOME*
+- link:/docs/home.html[메인 페이지 API]
+
+== *COMMUNITY*
+- link:/docs/vote.html[투표 API]
+- link:/docs/ballot.html[투표 참여 API]
+- link:/docs/comment.html[댓글 API]
+
