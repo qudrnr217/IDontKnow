@@ -262,6 +262,7 @@ export default {
     };
   },
   created() {
+    this.getVotesCount();
     var params = {
       token: this.accessToken,
       status: false,
@@ -270,7 +271,6 @@ export default {
     };
     this.set_init();
     this.show_vote_list(params);
-    this.getVotesCount();
   },
   methods: {
     ...mapActions("recordStore", ["SHOW_MY_VOTE_LIST", "SHOW_MY_BALLOT_LIST"]),

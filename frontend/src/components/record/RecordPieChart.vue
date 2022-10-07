@@ -17,7 +17,7 @@ export default {
   },
   data() {
     return {
-      series: [this.$props.percentage, 100 - this.$props.percentage],
+      series: [50, 50],
       chartOptions: {
         chart: {
           width: 200,
@@ -45,6 +45,11 @@ export default {
         ],
       },
     };
+  },
+  created() {
+    setTimeout(() => {
+      this.series = [this.$props.percentage, 100 - this.$props.percentage];
+    }, 300);
   },
 };
 </script>
