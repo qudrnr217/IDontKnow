@@ -283,8 +283,9 @@ export default {
           this.voteCount.ballotCount = response.data.ballotCount;
           this.voteCount.correctCount = response.data.correctCount;
           if (this.voteCount.ballotCount !== 0)
-            this.percentage =
-              (this.voteCount.correctCount / this.voteCount.ballotCount) * 100;
+            this.percentage = Math.round(
+              (this.voteCount.correctCount / this.voteCount.ballotCount) * 100
+            );
         },
         (error) => {
           if (error.response.status == 401) {
