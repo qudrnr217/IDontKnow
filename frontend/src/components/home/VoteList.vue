@@ -339,7 +339,6 @@ export default {
       this.set_init();
       //초기화
       if (this.status == "진행") {
-        console.log("안녕");
         this.booleanStatus = false;
       } else {
         this.booleanStatus = true;
