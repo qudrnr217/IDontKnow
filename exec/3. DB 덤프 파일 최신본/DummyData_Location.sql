@@ -1,0 +1,22 @@
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1024, '스벅 성남 위례점 VS 송파 위례점', 'LOCATION', 'INDOOR', 0 , '성남 위례점', '송파 위례점', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1025, '생애 첫 놀이공원… 어디로 갈까요', 'LOCATION', 'OUTDOOR', 0 , '에버랜드', '롯데월드', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1026, '여친이랑 100일 인데 서울 강남구 맛집 추천 좀', 'LOCATION', 'INDOOR', 0 , '땀땀', '두찜', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1027, '한강공원 어디가 좋아여?', 'LOCATION', 'OUTDOOR', 0 , '뚝섬한강공원', '여의도한강공원', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1014, '제주도 혼자 여행 추천', 'LOCATION', 'OUTDOOR', 0 , '제주시', '서귀포시', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1015, '강남역 신세계 VS 판교역 현대백화점', 'LOCATION', 'INDOOR', 0 , '강남 신세계', '판교 현백', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1016, '분당사는데 키즈카페 어디가 좋아여?', 'LOCATION', 'INDOOR', 0 , '챔피언 키즈카페 판교점', '도담도담키즈카페', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1017, '오늘 건대 홍대', 'LOCATION', 'OUTDOOR', 0 , '홍대간다', '건대간다', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1018, '데이트 장소 추천 좀', 'LOCATION', 'INDOOR', 0 , '맥날', '김밥천국', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1001, '포장마차 거리', 'LOCATION', 'OUTDOOR', 0 , '종로3가 포장마차', '을지로 포장마차', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1002, '술집 맥주 맛집 어디죠 ', 'LOCATION', 'INDOOR', 0 , '금별맥주', '백스비어', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1003, '농구 실외경기장 어디가 좋아요?', 'LOCATION', 'OUTDOOR', 0 , '역삼 농구장', '역삼 농구장', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1004, '호캉스 가고싶은데 둘 중에 골라주세요', 'LOCATION', 'INDOOR', 0 , '인천 파라다이스시티호텔', '반얀트리호텔', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1005, '서울 아이스링크장 추천 좀', 'LOCATION', 'OUTDOOR', 0 , '잠실', '강남', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1006, '아메리카노 맛있는 카페가 둘중에 뭐가 좋을까요??', 'LOCATION', 'INDOOR', 0 , '스타벅스', '투썸플레이스', 0);
+
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1001, '아메리카노 어디서 먹을까요? 추천 좀 해주세요 ㅠㅠ ', 'LOCATION', 'INDOOR', 0 , '커피빈', '메가커피', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1002, '풋살하고싶은데 어디 풋살장이 더 좋나요 ?', 'LOCATION', 'OUTDOOR', 0 , '인천 문학경기장', '인천 문학경기장', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1027, '에버랜드갈까요 롯데월드갈까요???', 'LOCATION', 'OUTDOOR', 0 , '에버랜드', '롯데월드', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1025, '인천 구월동 피씨방 추천 좀 해주세요', 'LOCATION', 'INDOOR', 0 , '철구PC방', '블루PC방', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1026, '서울 한강공원 vs 인천 센트럴파크', 'LOCATION', 'OUTDOOR', 0 , '한강갱', '센트럴팤', 0);
+insert into vote (user_id, title, category, sub_category, `status`, option_a, option_b, admin_deleted) values (1024, '제가 강남에 스터디 카페가 처음인데', 'LOCATION', 'INDOOR', 0 , '우리스터디룸', '판타스틱스터디룸', 0);
