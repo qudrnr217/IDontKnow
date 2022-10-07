@@ -535,6 +535,7 @@ export default {
 
 .keen-slider__slide.number-slide1 {
   height: 250px;
-  margin-left: 10px;
+  /* margin-left: 5px; */
+  padding-left: 5px;
 }
 </style>
