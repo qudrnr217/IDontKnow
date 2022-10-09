@@ -1,13 +1,13 @@
-# <img src="./frontend/src/assets/image/김모르.png" width="50" height="50"> 결정왕 김모르!
+# <img src="https://user-images.githubusercontent.com/73813690/194765853-bc20b2df-80a3-4411-8660-6e4084187f46.png" width="50" height="50"> 결정왕 김모르!
 결정하기 어렵다면? 모르에게 물어봐!
 <br>
 
 ## 팀원 소개
-#### <img src="./frontend/src/assets/image/김게따.png" width="25" height="25"> <strong>이지연</strong> - BE, 팀장
-#### <img src="./frontend/src/assets/image/김게따.png" width="25" height="25"> <strong>황재완</strong> - BE
-#### <img src="./frontend/src/assets/image/김게따.png" width="25" height="25"> <strong>민하은</strong> - BE
-#### <img src="./frontend/src/assets/image/김게따.png" width="25" height="25"> <strong>강병국</strong> - FE
-#### <img src="./frontend/src/assets/image/김게따.png" width="25" height="25"> <strong>최지원</strong> - FE
+#### <img src="https://user-images.githubusercontent.com/73813690/194765880-7043b20c-5618-4ba8-9733-7dbecc0692c7.png" width="25" height="25"> <strong>이지연</strong> - BE, 팀장
+#### <img src="https://user-images.githubusercontent.com/73813690/194765880-7043b20c-5618-4ba8-9733-7dbecc0692c7.png" width="25" height="25"> <strong>황재완</strong> - BE
+#### <img src="https://user-images.githubusercontent.com/73813690/194765880-7043b20c-5618-4ba8-9733-7dbecc0692c7.png" width="25" height="25"> <strong>민하은</strong> - BE
+#### <img src="https://user-images.githubusercontent.com/73813690/194765880-7043b20c-5618-4ba8-9733-7dbecc0692c7.png" width="25" height="25"> <strong>강병국</strong> - FE
+#### <img src="https://user-images.githubusercontent.com/73813690/194765880-7043b20c-5618-4ba8-9733-7dbecc0692c7.png" width="25" height="25"> <strong>최지원</strong> - FE
 
 <br>
 
@@ -63,7 +63,7 @@
 ![00_랜딩페이지-min](https://user-images.githubusercontent.com/73813690/194762608-65a071ca-e0b1-4f89-8077-da6b150504e2.gif)
 * 시작하기를 누르면 커뮤니티 페이지를 보여줍니다.
 
->로그인 페이지
+>로그인 페이지<br>
 ![02_로그인페이지-min](https://user-images.githubusercontent.com/73813690/194764822-74846cd9-8b98-4f3b-b06c-99303c2ed91d.gif)
 * 로그인을 통해 결정왕 김모르를 즐길 수 있습니다.
 
@@ -102,7 +102,7 @@
 
 ## ⚙️ 기술 스택
 
-<img src="./exec/발표자료/기술스택.png" width="640">
+<img src="https://user-images.githubusercontent.com/73813690/194765974-9f0847a1-3ec3-471a-8ec3-397919e49f76.png" width="640">
 
 
 - frontend
