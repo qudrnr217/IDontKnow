@@ -1,0 +1,888 @@
+/* color */
+/* default */
+.white {
+  background-color: white;
+}
+.grey {
+  background-color: grey;
+}
+.grey-text {
+  color: grey;
+}
+.red {
+  background-color: #feccbe;
+}
+.red-text {
+  color: red;
+}
+
+/* common */
+.blue-0 {
+  background-color: #e3f6ff;
+}
+.blue-1 {
+  background-color: #b8e9ff;
+}
+.blue-2 {
+  background-color: #58ccff;
+}
+.blue-3 {
+  background-color: #18a8f1;
+}
+.blue-4 {
+  background-color: #1187cf;
+}
+.blue-2-border {
+  border-color: #58ccff;
+}
+.blue-3-border {
+  border-color: #18a8f1;
+}
+.blue-3-text {
+  color: #18a8f1;
+}
+.blue-4-text {
+  color: #1187cf;
+}
+/* menu */
+.yellow-0 {
+  background-color: #fff7e2;
+}
+.yellow-1 {
+  background-color: #feebb6;
+}
+.yellow-2 {
+  background-color: #ffcd4a;
+}
+.yellow-3 {
+  background-color: #fd9f28;
+}
+.yellow-4 {
+  background-color: #fd6f22;
+}
+.yellow-2-border {
+  border-color: #ffcd4a;
+}
+.yellow-3-text {
+  color: #fd9f28;
+}
+.yellow-4-text {
+  color: #fd6f22;
+}
+/* style */
+.purple-0 {
+  background-color: #f3e5f5;
+}
+.purple-1 {
+  background-color: #e0bfe6;
+}
+.purple-2 {
+  background-color: #b96bc6;
+}
+.purple-3 {
+  background-color: #9a30ae;
+}
+.purple-4 {
+  background-color: #692498;
+}
+.purple-2-border {
+  border-color: #b96bc6;
+}
+.purple-3-text {
+  color: #9a30ae;
+}
+.purple-4-text {
+  color: #692498;
+}
+/* location */
+.green-0 {
+  background-color: #f1f7ea;
+}
+.green-1 {
+  background-color: #ddecca;
+}
+.green-2 {
+  background-color: #afd485;
+}
+.green-3 {
+  background-color: #7db249;
+}
+.green-4 {
+  background-color: #568a35;
+}
+.green-2-border {
+  border-color: #afd485;
+}
+.green-3-text {
+  color: #7db249;
+}
+.green-4-text {
+  color: #568a35;
+}
+
+/* background */
+.bgd-start {
+  background-image: url(../image/background/start.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* common */
+.bgd-common {
+  background-image: url(../image/background/blue.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* menu */
+.bgd-menu {
+  background-image: url(../image/background/yellow.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* style */
+.bgd-style {
+  background-image: url(../image/background/purple.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* location */
+.bgd-location {
+  background-image: url(../image/background/green.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* sunnyday */
+.bgd-sunnyday {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(../image/background/sunnyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+/* rainyday */
+.bgd-rainyday {
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url(../image/background/rainyday.png);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: contain;
+  max-width: 390px;
+  margin: auto;
+}
+
+/* font */
+* {
+  font-family: "ONEMobileTitle";
+}
+.text-h1 {
+  font-size: 24px;
+}
+.text-h2 {
+  font-size: 20px;
+}
+.text-h3 {
+  font-size: 16px;
+}
+.text-h4 {
+  font-size: 12px;
+}
+.text-h5 {
+  font-size: 8px;
+}
+.text-chat {
+  font-size: 13px;
+}
+
+/* text-align */
+.text-align-left {
+  vertical-align: middle;
+  text-align: left;
+}
+.text-align-center {
+  vertical-align: middle;
+  text-align: center;
+}
+.text-align-justify {
+  vertical-align: middle;
+  text-align: justify;
+}
+.text-title {
+  margin-right: 20px;
+}
+
+/* box-align */
+.box-column {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+.box-row {
+  display: flex;
+  margin: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.box-row-left {
+  display: flex;
+  margin: 10px 20px;
+  align-items: center;
+  justify-content: flex-start;
+}
+.box-btn-right {
+  display: flex;
+  margin: 10px 20px;
+  justify-content: flex-end;
+}
+.box-align-center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+.box-column-center {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* button */
+.btn-rectangle-big {
+  display: flex;
+  width: 335px;
+  height: 60px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-rectangle-medium {
+  display: flex;
+  width: 120px;
+  height: 50px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-rectangle-small {
+  display: flex;
+  width: 70px;
+  height: 40px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-rectangle-tiny {
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  line-height: 20px;
+  cursor: pointer;
+}
+.btn-rectangle-long {
+  display: flex;
+  width: 120px;
+  height: 30px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-rectangle-short {
+  display: flex;
+  width: 70px;
+  height: 30px;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.btn-status {
+  width: 50px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  line-height: 30px;
+}
+.btn-toggle {
+  width: 60px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+/* select box */
+.sb-rectangle-long {
+  width: 335px;
+  height: 36px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  text-align: left;
+  cursor: pointer;
+  padding: 4px;
+}
+.sb-rectangle-short {
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: right;
+}
+.sb-rectangle-big {
+  width: 85px;
+  height: 40px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: center;
+  cursor: pointer;
+}
+.sb-rectangle-medium {
+  width: 65px;
+  height: 35px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: center;
+  cursor: pointer;
+}
+.sb-rectangle-small {
+  width: 50px;
+  height: 30px;
+  border-radius: 10px;
+  border-style: none;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* 입력창 */
+.input-rectangle-long {
+  width: 335px;
+  height: 36px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px;
+}
+.input-rectangle-short {
+  width: 240px;
+  height: 30px;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 2px;
+  text-align: left;
+  cursor: pointer;
+  padding: 8px;
+}
+.input-align-right {
+  width: 220px;
+  border: none;
+  text-align: right;
+}
+
+/* vote 배치 */
+/* 배경이미지는 각 card의 id 값으로 변경하도록 함수 실행 */
+.vote-list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.vote-card {
+  width: 335px;
+  height: 180px;
+  border-radius: 10px;
+  margin: 10px;
+  background-position: center center;
+  background-size: 100% 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+}
+
+/* vote card 내부 */
+.vote-title-box {
+  margin: 5px 20px;
+}
+
+.vote-writer-box {
+  margin: 5px 20px;
+}
+
+.vote-options-box {
+  display: flex;
+  margin: 5px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.vote-option-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 45%;
+  height: 50px;
+  background: #ffffff;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 10px;
+}
+.vote-option-text {
+  padding: 4px;
+  text-align: center;
+}
+
+.vote-info-box {
+  display: flex;
+  margin: 5px 20px;
+  align-items: center;
+  justify-content: space-between;
+}
+.vote-category-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.vote-category-main,
+.vote-category-sub {
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 5px;
+}
+.vote-count-box {
+  display: flex;
+  justify-content: center;
+  margin: 0px 15px;
+}
+.vote-view-box,
+.vote-comment-box {
+  display: flex;
+  align-items: center;
+  margin: 0px 5px;
+}
+.vote-btn-view {
+  width: 14px;
+  margin: 0px 5px;
+}
+.vote-btn-comment {
+  width: 12px;
+  margin: 0px 5px;
+}
+
+/* vote detail 선택지 */
+.vote-options-box-big {
+  display: flex;
+  margin: 5px 20px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.vote-option-box-big {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 160px;
+  height: 170px;
+  max-height: 250px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#vote-option-a {
+  margin-right: 10px;
+}
+#vote-option-b {
+  margin-left: 10px;
+}
+.vote-option-box-big-menu:hover {
+  background-color: #feebb6;
+}
+.vote-option-box-big-style:hover {
+  background-color: #e0bfe6;
+}
+.vote-option-box-big-location:hover {
+  background-color: #ddecca;
+}
+.vote-option-input {
+  width: 146px;
+  height: 166px;
+  max-height: 250px;
+  display: inline-block;
+  padding: 4px;
+  text-align: center;
+  border-style: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* vote detail - 투표율 */
+.vote-percent-bar {
+  width: 335px;
+  height: 25px;
+}
+
+/* vote detail - commentList 배치 */
+.box-content {
+  overflow: auto;
+  width: 335px;
+  margin: auto 20px;
+  border-radius: 5px;
+  border-width: 2px;
+  border-style: solid;
+  height: 100%;
+  min-height: 270px;
+  max-height: 270px;
+}
+.box-comment-column {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.box-comment-row {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+.box-comment-row-right {
+  margin-left: 48px;
+}
+
+.box-comment-btn-row {
+  display: flex;
+  align-items: center;
+}
+.box-comment-btn-left {
+  display: flex;
+  text-align: center;
+  margin: 4px;
+}
+.box-comment-btn-right {
+  display: flex;
+  text-align: center;
+  justify-content: right;
+  margin: 4px;
+}
+/* 댓글 배경 이미지 */
+.comment-background-menu-author {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 10px;
+  background-image: url(../image/chat/chat-menu-author.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-menu-commenter {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 12px;
+  background-image: url(../image/chat/chat-menu-commenter.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-style-author {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 10px;
+  background-image: url(../image/chat/chat-style-author.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-style-commenter {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 12px;
+  background-image: url(../image/chat/chat-style-commenter.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-location-author {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 10px;
+  background-image: url(../image/chat/chat-location-author.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+.comment-background-location-commenter {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 12px;
+  background-image: url(../image/chat/chat-location-commenter.png);
+  background-size: 100% 100%;
+  width: 180px;
+  min-height: 20px;
+  height: 100%;
+}
+
+.box-comment-text {
+  display: flex;
+  text-align: left;
+  padding: 4px;
+}
+
+.comment-profile-box {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+}
+.comment-profile-image {
+  width: 30px;
+  height: 30px;
+}
+.comment-profile-name {
+  display: flex;
+  text-align: center;
+}
+
+/* profile 이미지 배치 */
+.profile-image-box {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+.profile-image {
+  width: 70px;
+  height: 70px;
+}
+.profile-image-box-small {
+  display: flex;
+  align-self: baseline;
+}
+.profile-image-small {
+  width: 50px;
+  height: 50px;
+}
+
+/* chat 배치 */
+/* 채팅 박스 */
+.box-chat-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+}
+.box-chat-btn {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin: 4px;
+}
+.box-chat-background-moleu {
+  display: flex;
+  align-items: center;
+  justify-content: baseline;
+  padding: 4px 24px;
+  background-image: url(../image/chat/chat-common-border-light.png);
+  background-size: 100% 100%;
+  width: 270px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-background-moleu-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 25px;
+  background-image: url(../image/chat/box-common-border-light.png);
+  background-size: 100% 100%;
+  width: 270px;
+  min-height: 60px;
+  height: 100%;
+}
+.box-chat-text {
+  display: flex;
+  text-align: left;
+  padding: 4px;
+}
+.box-chat-source-text {
+  text-align: left;
+  padding: 4px;
+}
+
+/* food 이미지 배치 */
+.box-chat-image {
+  padding: 10px;
+}
+.menu-image {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  filter: opacity(0.7) drop-shadow(0 0 0 rgb(221, 162, 95));
+}
+.style-image {
+  width: 200px;
+  height: 100px;
+  margin: 10px;
+}
+.style-text {
+  text-align: center;
+  padding: 4px;
+  width: 200px;
+  height: 20px;
+}
+.style-text-strong {
+  background: linear-gradient(to top, #ffe400 50%, transparent 50%);
+  font-size: 10.5px;
+}
+.location-image {
+  width: 100px;
+  height: 80px;
+}
+.location-text {
+  display: flex;
+  width: 100px;
+  height: 40px;
+}
+
+/* router-link css 변경 - 기존 css로 인해 적용이 안됨..*/
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 푸터로 인해 안보이는 부분 보이도록 처리 */
+.modu {
+  padding-bottom: 73px;
+}
+
+/* 작은 화면 최적화 */
+@media (hover: none) and (max-width: 389px) {
+  /* common */
+  .bgd-common {
+    background-image: url(../image/background/blue.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* menu */
+  .bgd-menu {
+    background-image: url(../image/background/yellow.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* style */
+  .bgd-style {
+    background-image: url(../image/background/purple.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* location */
+  .bgd-location {
+    background-image: url(../image/background/green.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* sunnyday */
+  .bgd-sunnyday {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../image/background/sunnyday.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+  /* rainyday */
+  .bgd-rainyday {
+    background-image: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url(../image/background/rainyday.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    margin: auto;
+  }
+}
+@media (hover: none) {
+  .btn-rectangle-big {
+    width: 350px;
+  }
+  .sb-rectangle-long {
+    width: 350px;
+  }
+  .input-rectangle-long {
+    width: 350px;
+  }
+  .vote-card {
+    width: 350px;
+  }
+}
