@@ -132,7 +132,7 @@
 
 <br>
 
-## 🏑 conventionss
+## 🏑 conventions
 ### commit message convention
 ### 브랜치 구분
 - 출시용 master
